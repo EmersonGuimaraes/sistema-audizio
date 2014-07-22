@@ -8,7 +8,7 @@ package sistema.audizio.gui;
 
 /**
  *
- * @author ZipNet
+ * @author Emerson
  */
 public class CadastroCliente extends javax.swing.JFrame {
 

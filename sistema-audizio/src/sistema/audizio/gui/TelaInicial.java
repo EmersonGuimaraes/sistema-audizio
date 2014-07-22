@@ -8,7 +8,7 @@ package sistema.audizio.gui;
 
 /**
  *
- * @author ZipNet
+ * @author ZipNetEmerson
  */
 public class TelaInicial extends javax.swing.JFrame {
 
