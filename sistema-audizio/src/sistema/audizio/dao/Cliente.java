@@ -10,7 +10,7 @@ package sistema.audizio.dao;
  *
  * @author ZipNet
  */
-public class SistemaAudizio {
+public class Cliente {
 
     /**
      * @param args the command line arguments
