@@ -13,4 +13,20 @@ package sistema.audizio.bean;
 public class Advogado extends Pessoa {
     String oab;
     String area_atuacao;
+
+    public String getOab() {
+        return oab;
+    }
+
+    public void setOab(String oab) {
+        this.oab = oab;
+    }
+
+    public String getArea_atuacao() {
+        return area_atuacao;
+    }
+
+    public void setArea_atuacao(String area_atuacao) {
+        this.area_atuacao = area_atuacao;
+    }
 }

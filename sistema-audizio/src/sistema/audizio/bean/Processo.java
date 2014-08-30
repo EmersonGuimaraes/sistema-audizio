@@ -16,23 +16,25 @@ public class Processo {
     String reboqueiro;
     String data_estacionamento;
     double valor;
-    String advogado;
     String fone_advogado;
-    
-    public String getData_apreensao() {
-        return data_apreensao;
+    Cliente cliente;
+    Advogado advogado; 
+    String acao;
+
+    public String getData_inicio() {
+        return data_inicio;
     }
 
-    public void setData_apreensao(String data_apreensao) {
-        this.data_apreensao = data_apreensao;
+    public void setData_inicio(String data_inicio) {
+        this.data_inicio = data_inicio;
     }
 
-    public String getData_remocao() {
-        return data_remocao;
+    public String getData_termino() {
+        return data_termino;
     }
 
-    public void setData_remocao(String data_remocao) {
-        this.data_remocao = data_remocao;
+    public void setData_termino(String data_termino) {
+        this.data_termino = data_termino;
     }
 
     public String getReboqueiro() {
@@ -51,14 +53,6 @@ public class Processo {
         this.data_estacionamento = data_estacionamento;
     }
 
-    public double getValor_diaria() {
-        return valor_diaria;
-    }
-
-    public void setValor_diaria(double valor_diaria) {
-        this.valor_diaria = valor_diaria;
-    }
-
     public double getValor() {
         return valor;
     }
@@ -67,20 +61,37 @@ public class Processo {
         this.valor = valor;
     }
 
-    public String getOficial_justica() {
-        return oficial_justica;
+    public String getFone_advogado() {
+        return fone_advogado;
     }
 
-    public void setOficial_justica(String oficial_justica) {
-        this.oficial_justica = oficial_justica;
+    public void setFone_advogado(String fone_advogado) {
+        this.fone_advogado = fone_advogado;
     }
 
-    public String getFone_oficial_justica() {
-        return fone_oficial_justica;
+    public Cliente getCliente() {
+        return cliente;
     }
 
-    public void setFone_oficial_justica(String fone_oficial_justica) {
-        this.fone_oficial_justica = fone_oficial_justica;
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
+
+    public Advogado getAdvogado() {
+        return advogado;
+    }
+
+    public void setAdvogado(Advogado advogado) {
+        this.advogado = advogado;
+    }
+
+    public String getAcao() {
+        return acao;
+    }
+
+    public void setAcao(String acao) {
+        this.acao = acao;
+    }
+    
     
 }

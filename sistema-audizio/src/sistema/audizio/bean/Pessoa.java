@@ -165,9 +165,4 @@ public class Pessoa {
     public void setEstado(String estado) {
         this.estado = estado;
     }
-     
-        
-        
-        
-   
 }
