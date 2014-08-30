@@ -10,15 +10,14 @@ package sistema.audizio.bean;
  *
  * @author ZipNet
  */
-public class Apreensao {
-    String data_apreensao;
-    String data_remocao;
+public class Processo {
+    String data_inicio;
+    String data_termino;
     String reboqueiro;
     String data_estacionamento;
-    double valor_diaria;
     double valor;
-    String oficial_justica;
-    String fone_oficial_justica;
+    String advogado;
+    String fone_advogado;
     
     public String getData_apreensao() {
         return data_apreensao;
