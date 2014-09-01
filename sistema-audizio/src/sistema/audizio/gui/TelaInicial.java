@@ -6,6 +6,9 @@
 
 package sistema.audizio.gui;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author ZipNetEmerson
@@ -40,6 +43,7 @@ public class TelaInicial extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         jMenu5 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem13 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenu7 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
@@ -48,6 +52,7 @@ public class TelaInicial extends javax.swing.JFrame {
         jMenuItem9 = new javax.swing.JMenuItem();
         jMenuItem10 = new javax.swing.JMenuItem();
         jMenuItem11 = new javax.swing.JMenuItem();
+        jMenuItem14 = new javax.swing.JMenuItem();
         jMenu8 = new javax.swing.JMenu();
         jMenuItem8 = new javax.swing.JMenuItem();
         jMenu10 = new javax.swing.JMenu();
@@ -63,14 +68,35 @@ public class TelaInicial extends javax.swing.JFrame {
         jMenu6.setText("jMenu6");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Bem-vindo !");
 
-        btClientes.setText("CLIENTE");
+        btClientes.setText("CLIENTES");
+        btClientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btClientesActionPerformed(evt);
+            }
+        });
 
-        btOcorrencias.setText("OCORRÊNCIA");
+        btOcorrencias.setText("PROCESSOS");
+        btOcorrencias.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btOcorrenciasActionPerformed(evt);
+            }
+        });
 
-        btListar.setText("LISTAR");
+        btListar.setText("ADVOGADOS");
+        btListar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btListarActionPerformed(evt);
+            }
+        });
 
         btSair.setText("SAIR");
+        btSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSairActionPerformed(evt);
+            }
+        });
 
         lbFotoLogo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbFotoLogo.setText("FOTO");
@@ -81,9 +107,27 @@ public class TelaInicial extends javax.swing.JFrame {
         jMenu5.setText("CADASTRO");
 
         jMenuItem1.setText("CLIENTE");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
         jMenu5.add(jMenuItem1);
 
-        jMenuItem2.setText("OCORRÊNCIA");
+        jMenuItem13.setText("ADVOGADO");
+        jMenuItem13.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem13ActionPerformed(evt);
+            }
+        });
+        jMenu5.add(jMenuItem13);
+
+        jMenuItem2.setText("PREOCESSO");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
         jMenu5.add(jMenuItem2);
 
         jMenu1.add(jMenu5);
@@ -108,6 +152,9 @@ public class TelaInicial extends javax.swing.JFrame {
         jMenu9.add(jMenuItem11);
 
         jMenu7.add(jMenu9);
+
+        jMenuItem14.setText("ADVOGADO");
+        jMenu7.add(jMenuItem14);
 
         jMenu1.add(jMenu7);
 
@@ -201,6 +248,34 @@ public class TelaInicial extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem12ActionPerformed
 
+    private void btClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btClientesActionPerformed
+        new ListarClientes().show();
+    }//GEN-LAST:event_btClientesActionPerformed
+
+    private void btOcorrenciasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btOcorrenciasActionPerformed
+        new ListarProcessos().show();
+    }//GEN-LAST:event_btOcorrenciasActionPerformed
+
+    private void btListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btListarActionPerformed
+        new ListarAdvogados().show();
+    }//GEN-LAST:event_btListarActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+       new CadastroCliente().show();
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        new CadastroProcesso().show();
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem13ActionPerformed
+        new CadastroAdvogado().show();
+    }//GEN-LAST:event_jMenuItem13ActionPerformed
+
+    private void btSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSairActionPerformed
+       
+    }//GEN-LAST:event_btSairActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -256,6 +331,8 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem12;
+    private javax.swing.JMenuItem jMenuItem13;
+    private javax.swing.JMenuItem jMenuItem14;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
