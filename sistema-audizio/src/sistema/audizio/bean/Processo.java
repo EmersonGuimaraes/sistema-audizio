@@ -11,6 +11,7 @@ package sistema.audizio.bean;
  * @author ZipNet
  */
 public class Processo {
+    String processo;
     String data_inicio;
     String data_termino;
     String reboqueiro;
@@ -20,7 +21,13 @@ public class Processo {
     Cliente cliente;
     Advogado advogado; 
     String acao;
-
+    
+    public String getProcesso(){
+        return processo;
+    }
+    public void setProcesso(String processo){
+        this.processo = processo;
+    }
     public String getData_inicio() {
         return data_inicio;
     }
