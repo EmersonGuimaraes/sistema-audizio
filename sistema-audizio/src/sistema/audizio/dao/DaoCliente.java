@@ -23,7 +23,11 @@ public class DaoCliente extends Conexao{
     
     public void Editar(Cliente cliente){
         EstabelecerConexao();
-        sql = "";
+        sql = "UPDATE FROM tb_cliente SET nome = '"+cliente.getNome()+"',nascimento = '"+cliente.getNascimento()+"',rg = '"+cliente.getRg()+"',"
+                + "orgao_exp = '"+cliente.getOrgao_exp()+"',data_exp = '"+cliente.getData_exp()+"',cpf = '"+cliente.getCpf()+"',nacionalidade = '"+cliente.getNascimento()+"',"
+                + "profissao = '"+cliente.getProfisao()+"',estado_civil = '"+cliente.getEstado_civil()+"',cep = '"+cliente.getCep()+"',endereco = '"+cliente.getEndereco()+"',"
+                + "estado = '"+cliente.getEstado()+"',cidade = '"+cliente.getCidade()+"',bairro = '"+cliente.getBairro()+"',telefone = '"+cliente.getFone()+"',"
+                + "email = '"+cliente.getEmail()+"' WHERE nome = '"+cliente.getNome()+"'";
     }
     public void Deletar(Cliente cliente){
         EstabelecerConexao();
