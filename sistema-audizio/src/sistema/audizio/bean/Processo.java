@@ -18,8 +18,8 @@ public class Processo {
     String data_estacionamento;
     double valor;
     String fone_advogado;
-    Cliente cliente;
-    Advogado advogado; 
+    int cliente;
+    int advogado; 
     String acao;
     
     public String getProcesso(){
@@ -76,19 +76,19 @@ public class Processo {
         this.fone_advogado = fone_advogado;
     }
 
-    public Cliente getCliente() {
+    public int getCliente() {
         return cliente;
     }
 
-    public void setCliente(Cliente cliente) {
+    public void setCliente(int idCliente) {
         this.cliente = cliente;
     }
 
-    public Advogado getAdvogado() {
+    public int getAdvogado() {
         return advogado;
     }
 
-    public void setAdvogado(Advogado advogado) {
+    public void setAdvogado(int idAdvogado) {
         this.advogado = advogado;
     }
 
