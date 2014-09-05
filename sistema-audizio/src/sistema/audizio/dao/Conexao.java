@@ -1,47 +1,60 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package sistema.audizio.dao;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.text.ParseException;
+import javax.swing.ImageIcon;
+import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.text.MaskFormatter;
 
-/**
- *
- * @author ZipNet
- */
 public class Conexao {
-     public Connection con = null;
-	String serverName = "127.0.0.1";
-	String usuario ="admin"; //usuario
-	String senha = "admin";      //senha de acesso ao DB
-	String db ="sis_audisio"; //nome Banco de Dados
-    String driver = "com.mysql.jdbc.Driver"; //Conector jdbc
-    String url = "jdbc:mysql://" + serverName + "/" + db; //url de acesso ao banco
-    public java.sql.PreparedStatement stmt;
-	public ResultSet rs;
- 
-	public void EstabelecerConexao(){ 
-	        try {  
-	            // Carregando o Driver JDBC
-	            Class.forName(driver);  
-	            // Configurando a conexão com o banco de dados//  
-	            con = DriverManager.getConnection(url, usuario, senha);  
-	            System.out.println("Conexão realizada com sucesso");
-	        }  catch (ClassNotFoundException e) {
-	        	//Driver não encontrado  
-	            System.out.println("O driver expecificado nao foi encontrado."); 
-	        } catch (SQLException e) {  
-	            //Não conseguindo se conectar ao banco de dados
-	            JOptionPane.showMessageDialog(null,"Nao foi possivel conectar ao Banco de Dados"+ e.toString());  
-	        } 
-
-	}
-
+  
+    
+    public Connection con;
+    public Statement stmt;
+    public ResultSet rs;
+    //String url = "jdbc:mysql://localhost/sis_audisio";
+    String url = "jdbc:mysql://localhost/audizio";
+    String driver = "com.mysql.jdbc.Driver";
+    String usuario = "root";
+    String senha = "";
+    
+    public void estabelecerConexao(){
+        //IP();
+        try {
+            try {
+                Class.forName(driver);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null,"Sistema não pode \"Encontrar"
+                        + " o Banco de dados\".\nVer o Driver-Mysql");
+            }
+            con = DriverManager.getConnection(url, usuario,senha);
+            stmt = con.createStatement();
+            System.out.println("Conectado ao Banco!");
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null,"Não Conectado ao Banco de dados.\n [IP: 127.0.0.1]");
+        }
+    }
+    
+    public boolean ConsultarSQL(String sql,boolean tipo){
+        try {
+            estabelecerConexao();
+            stmt = con.createStatement();
+            if(tipo == false){
+                //Inserir, Editar ou Excluir.
+                stmt.executeUpdate(sql);
+            }else{
+                //Consultar
+                rs = stmt.executeQuery(sql);
+            }
+            return true;
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null,"Erro na Consulta ao Banco.\n"+e);
+        }
+        return false;
+    }
+    
+    
+   
 }

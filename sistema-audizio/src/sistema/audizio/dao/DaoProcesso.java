@@ -6,6 +6,7 @@
 
 package sistema.audizio.dao;
 
+import javax.swing.JOptionPane;
 import sistema.audizio.bean.Processo;
 
 /**
@@ -18,18 +19,20 @@ public class DaoProcesso extends Conexao{
     }
     
     public void Cadastrar(Processo processo){
-        EstabelecerConexao();
-        sql="INSERT INTO tb_processo VALUES('"+processo.getProcesso()+"','"+processo.getData_inicio()+"','"+processo.getData_termino()+"',"
+        
+        sql="INSERT INTO tb_processo VALUES(null,'"+processo.getProcesso()+"','"+processo.getData_inicio()+"','"+processo.getData_termino()+"',"
                 + "'"+processo.getCliente()+"','"+processo.getAdvogado()+"','"+processo.getValor()+"','"+processo.getAcao()+"','"+processo.getReboqueiro()+"')";
+        ConsultarSQL(sql, false);
+        JOptionPane.showMessageDialog(null, "Cadastro Realizado com Sucesso!");
     }
     public void Editar(Processo processo){
-        EstabelecerConexao();
+   
         sql="UPDATE tb_processo SET processo = '"+processo.getProcesso()+"',data_inicio = '"+processo.getData_inicio()+"',data_termino = '"+processo.getData_termino()+"',"
                 + "cliente = '"+processo.getCliente()+"',advogado = '"+processo.getAdvogado()+"',valor = '"+processo.getValor()+"',"
                 + "acao = '"+processo.getAcao()+"',reboqueiro = '"+processo.getReboqueiro()+"' WHERE processo = '"+processo.getProcesso()+"'";
     }
     public void Deletar(Processo processo){
-        EstabelecerConexao();
+        
         sql="DELETE FROM tb_processo WHERE processo = '"+processo.getProcesso()+"'";
     }
     
