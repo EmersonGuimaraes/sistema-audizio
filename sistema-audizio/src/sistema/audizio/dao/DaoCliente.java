@@ -1,6 +1,10 @@
 
 package sistema.audizio.dao;
 
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import sistema.audizio.bean.Cliente;
 
@@ -32,6 +36,24 @@ public class DaoCliente extends Conexao{
     public void Deletar(Cliente cliente){
         sql = "DELETE FROM tb_cliente WHERE nome = '"+cliente.getNome()+"'";
         ConsultarSQL(sql, false);
+    }
+    public ArrayList<String> Consultar(){
+        ArrayList<String> dados = new ArrayList();
+        try {
+            ConsultarSQL("SELECT id,nome,email,telefone FROM tb_cliente",true);
+            rs.first();
+            while (rs.next()) {
+                dados.add(rs.getString("id"));
+                dados.add(rs.getString("nome"));
+                dados.add(rs.getString("telefone"));
+                dados.add(rs.getString("email"));
+                
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DaoCliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return dados;
+    
     }
   }
 
