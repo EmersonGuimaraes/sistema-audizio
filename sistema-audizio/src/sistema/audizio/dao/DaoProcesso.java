@@ -31,6 +31,7 @@ public class DaoProcesso extends Conexao{
                 + "cliente = '"+processo.getCliente()+"',advogado = '"+processo.getAdvogado()+"',valor = '"+processo.getValor()+"',"
                 + "acao = '"+processo.getAcao()+"',reboqueiro = '"+processo.getReboqueiro()+"' WHERE processo = '"+processo.getProcesso()+"'";
     }
+    
     public void Deletar(Processo processo){
         
         sql="DELETE FROM tb_processo WHERE processo = '"+processo.getProcesso()+"'";
