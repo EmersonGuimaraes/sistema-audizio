@@ -21,6 +21,7 @@ public class Processo {
     int cliente;
     int advogado; 
     String acao;
+    String idVeiculo;
     
     public String getProcesso(){
         return processo;
@@ -98,6 +99,14 @@ public class Processo {
 
     public void setAcao(String acao) {
         this.acao = acao;
+    }
+    
+    public String getIdVeiculo(){
+        return idVeiculo;
+    }
+    
+    public void setIdVeiculo(String id){
+        this.idVeiculo = id;
     }
     
     

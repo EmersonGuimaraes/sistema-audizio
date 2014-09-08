@@ -12,18 +12,34 @@ package sistema.audizio.bean;
  */
 public class Veiculo {
     
-    String ano;
+    String ano_fabricacao;
+    String ano_modelo;
+    String cor;
     String modelo;
     int chassi;
     String placa;
     String marca;
     
-    public String getAno() {
-        return ano;
+    public String getAnoFabricacao() {
+        return ano_fabricacao;
     }
 
-    public void setAno(String ano) {
-        this.ano = ano;
+    public void setAnoFabricacao(String ano) {
+        this.ano_fabricacao = ano;
+    }
+    public String getAnoModelo() {
+        return ano_modelo;
+    }
+
+    public void setAnoModelo(String ano) {
+        this.ano_modelo = ano;
+    }
+    
+    public String getCor(){
+        return cor;
+    }
+    public void setCor(String cor){
+        this.cor = cor;
     }
 
     public String getModelo() {
