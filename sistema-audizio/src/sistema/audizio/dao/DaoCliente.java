@@ -21,6 +21,7 @@ public class DaoCliente extends Conexao{
                 + "'"+cliente.getProfisao()+"','"+cliente.getEstado_civil()+"','"+cliente.getCep()+"','"+cliente.getEndereco()+"',"
                 + "'"+cliente.getEstado()+"','"+cliente.getCidade()+"','"+cliente.getBairro()+"','"+cliente.getFone()+"','"+cliente.getEmail()+"')";
         ConsultarSQL(sql, false);
+        System.out.println("cpf:"+cliente.getCpf());
         JOptionPane.showMessageDialog(null, "Cadastro Realizado com Sucesso!");
     }
     
@@ -37,22 +38,30 @@ public class DaoCliente extends Conexao{
         sql = "DELETE FROM tb_cliente WHERE nome = '"+cliente.getNome()+"'";
         ConsultarSQL(sql, false);
     }
-    public ArrayList<String> Consultar(){
-        ArrayList<String> dados = new ArrayList();
+    public ArrayList<Cliente> Consultar(){
+        ArrayList<Cliente> clientes = new ArrayList();
         try {
             ConsultarSQL("SELECT id,nome,email,telefone FROM tb_cliente",true);
             rs.first();
             while (rs.next()) {
-                dados.add(rs.getString("id"));
-                dados.add(rs.getString("nome"));
-                dados.add(rs.getString("telefone"));
-                dados.add(rs.getString("email"));
+              Cliente cliente = new Cliente();
+              cliente.setNome(rs.getString("nome"));
+              cliente.setFone(rs.getString("telefone"));
+              cliente.setEmail(rs.getString("email"));
+              
+              clientes.add(cliente);
                 
+            }
+            for(Cliente cli:clientes){
+                System.out.println(cli.getNome());
+                System.out.println(cli.getFone());
+                System.out.println(cli.getEmail());
+                               
             }
         } catch (SQLException ex) {
             Logger.getLogger(DaoCliente.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return dados;
+        return clientes;
     
     }
   }
