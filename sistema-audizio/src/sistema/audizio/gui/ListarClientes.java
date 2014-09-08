@@ -20,17 +20,22 @@ public class ListarClientes extends javax.swing.JFrame {
     /**
      * Creates new form ListarClientes
      */
+    private DefaultTableModel modeloTabela;
     DaoCliente daoCliente = new DaoCliente();
     public ListarClientes() {
         initComponents();
         daoCliente.Consultar();
+        //carregarTabela();
     }
     public void carregarTabela(){
-        DaoCliente dao = new DaoCliente();
-        DefaultTableModel modelo = (DefaultTableModel)tbListarCliente.getModel();   
-         
+       DaoCliente dao = new DaoCliente();
        ArrayList<Cliente> clientes = new ArrayList();  
        clientes = dao.Consultar();
+       
+       modeloTabela = (DefaultTableModel) tbListarCliente.getModel();
+       for(Cliente cli:clientes){
+           modeloTabela.addRow(new Object[] {cli.getIdCliente(), cli.getNome(),cli.getFone(), cli.getEmail()});
+        }
         
     }
     /**

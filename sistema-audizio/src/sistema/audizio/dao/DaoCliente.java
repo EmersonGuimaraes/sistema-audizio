@@ -42,9 +42,10 @@ public class DaoCliente extends Conexao{
         ArrayList<Cliente> clientes = new ArrayList();
         try {
             ConsultarSQL("SELECT id,nome,email,telefone FROM tb_cliente",true);
-            rs.first();
+            rs.last();
             while (rs.next()) {
               Cliente cliente = new Cliente();
+              cliente.setIdCliente(rs.getString("id"));
               cliente.setNome(rs.getString("nome"));
               cliente.setFone(rs.getString("telefone"));
               cliente.setEmail(rs.getString("email"));
@@ -56,8 +57,9 @@ public class DaoCliente extends Conexao{
                 System.out.println(cli.getNome());
                 System.out.println(cli.getFone());
                 System.out.println(cli.getEmail());
-                               
             }
+        
+            
         } catch (SQLException ex) {
             Logger.getLogger(DaoCliente.class.getName()).log(Level.SEVERE, null, ex);
         }

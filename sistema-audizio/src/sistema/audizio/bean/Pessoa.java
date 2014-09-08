@@ -11,9 +11,9 @@ package sistema.audizio.bean;
  * @author ZipNet
  */
 public class Pessoa {
-	
+	String idCliente;
         String nome; 
-           String fone;
+        String fone;
         String nascimento;
         String endereco;
         String bairro;
@@ -29,7 +29,10 @@ public class Pessoa {
         String estado_civil;
         String cep;
         String estado;
-        
+    
+    public String getIdCliente(){return idCliente;}
+    public void setIdCliente(String id){this.idCliente = id;}
+    
     public String getNome() {
         return nome;
     }
