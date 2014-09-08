@@ -8,6 +8,7 @@ package sistema.audizio.gui;
 
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
+import sistema.audizio.bean.Cliente;
 import sistema.audizio.dao.DaoCliente;
 
 /**
@@ -19,15 +20,17 @@ public class ListarClientes extends javax.swing.JFrame {
     /**
      * Creates new form ListarClientes
      */
+    DaoCliente daoCliente = new DaoCliente();
     public ListarClientes() {
         initComponents();
+        daoCliente.Consultar();
     }
     public void carregarTabela(){
         DaoCliente dao = new DaoCliente();
         DefaultTableModel modelo = (DefaultTableModel)tbListarCliente.getModel();   
          
-       ArrayList<String> dados = new ArrayList();  
-       dados = dao.Consultar();
+       ArrayList<Cliente> clientes = new ArrayList();  
+       clientes = dao.Consultar();
         
     }
     /**
