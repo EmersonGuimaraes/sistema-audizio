@@ -26,43 +26,67 @@ public class DaoCliente extends Conexao{
     }
     
     public void Editar(Cliente cliente){
-       
-        sql = "UPDATE FROM tb_cliente SET nome = '"+cliente.getNome()+"',nascimento = '"+cliente.getNascimento()+"',rg = '"+cliente.getRg()+"',"
+       System.out.println("ID DA EDIÇÃO"+cliente.getIdCliente());
+        sql = "UPDATE tb_cliente SET nome = '"+cliente.getNome()+"',nascimento = '"+cliente.getNascimento()+"',rg = '"+cliente.getRg()+"',"
                 + "orgao_exp = '"+cliente.getOrgao_exp()+"',data_exp = '"+cliente.getData_exp()+"',cpf = '"+cliente.getCpf()+"',nacionalidade = '"+cliente.getNascimento()+"',"
                 + "profissao = '"+cliente.getProfisao()+"',estado_civil = '"+cliente.getEstado_civil()+"',cep = '"+cliente.getCep()+"',endereco = '"+cliente.getEndereco()+"',"
                 + "estado = '"+cliente.getEstado()+"',cidade = '"+cliente.getCidade()+"',bairro = '"+cliente.getBairro()+"',telefone = '"+cliente.getFone()+"',"
-                + "email = '"+cliente.getEmail()+"' WHERE nome = '"+cliente.getNome()+"'";
+                + "email = '"+cliente.getEmail()+"' WHERE id = '"+cliente.getIdCliente()+"'";
         ConsultarSQL(sql, false);
     }
     public void Deletar(Cliente cliente){
-        sql = "DELETE FROM tb_cliente WHERE nome = '"+cliente.getNome()+"'";
+        sql = "DELETE FROM tb_cliente WHERE id = '"+cliente.getIdCliente()+"'";
         ConsultarSQL(sql, false);
     }
-    public ArrayList<Cliente> Consultar(){
+    
+    public ArrayList<Cliente> Consultar(String id){
+        //("") - Pesquisa sem precisar de id.
         ArrayList<Cliente> clientes = new ArrayList();
         try {
-            ConsultarSQL("SELECT id,nome,email,telefone FROM tb_cliente",true);
-            rs.last();
-            while (rs.next()) {
-              Cliente cliente = new Cliente();
-              cliente.setIdCliente(rs.getString("id"));
-              cliente.setNome(rs.getString("nome"));
-              cliente.setFone(rs.getString("telefone"));
-              cliente.setEmail(rs.getString("email"));
-              
-              clientes.add(cliente);
-                
-            }
-            for(Cliente cli:clientes){
-                System.out.println(cli.getNome());
-                System.out.println(cli.getFone());
-                System.out.println(cli.getEmail());
-            }
-        
             
+            if(id.equals("")){
+                String sql = "SELECT id,nome,email,telefone FROM tb_cliente";
+                ConsultarSQL(sql,true);
+                while (rs.next()) {
+                    Cliente cliente = new Cliente();
+                    cliente.setIdCliente(rs.getString("id"));
+                    cliente.setNome(rs.getString("nome"));
+                    cliente.setFone(rs.getString("telefone"));
+                    cliente.setEmail(rs.getString("email"));
+
+                    clientes.add(cliente);
+                }
+            }else{
+                String sql = "SELECT * FROM tb_cliente WHERE id = '"+id+"'";
+                ConsultarSQL(sql,true);
+                while (rs.next()) {
+                    Cliente cliente = new Cliente();
+                    System.out.println(rs.getString("nome"));
+                    cliente.setIdCliente(rs.getString("id"));
+                    cliente.setNome(rs.getString("nome"));
+                    cliente.setNascimento(rs.getString("nascimento"));
+                    cliente.setRg(rs.getString("rg"));
+                    cliente.setOrgao_exp(rs.getString("orgao_exp"));
+                    cliente.setData_exp(rs.getString("data_exp"));
+                    cliente.setCpf(rs.getString("cpf"));
+                    cliente.setNacionalidade(rs.getString("nacionalidade"));
+                    cliente.setProfisao(rs.getString("profissao"));
+                    cliente.setEstado_civil(rs.getString("estado_civil"));
+                    cliente.setCep(rs.getString("cep"));
+                    cliente.setEndereco(rs.getString("endereco"));
+                    cliente.setCidade(rs.getString("cidade"));
+                    cliente.setBairro(rs.getString("bairro"));
+                    cliente.setFone(rs.getString("telefone"));
+                    cliente.setEmail(rs.getString("email"));
+
+                    clientes.add(cliente);
+             }
+            }
+          
         } catch (SQLException ex) {
             Logger.getLogger(DaoCliente.class.getName()).log(Level.SEVERE, null, ex);
         }
+       
         return clientes;
     
     }

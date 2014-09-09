@@ -47,6 +47,8 @@ public class Conexao {
             }else{
                 //Consultar
                 rs = stmt.executeQuery(sql);
+                
+                
             }
             return true;
         } catch (SQLException e) {
