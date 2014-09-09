@@ -7,6 +7,7 @@
 package sistema.audizio.gui;
 
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import sistema.audizio.bean.Cliente;
 import sistema.audizio.dao.DaoCliente;
@@ -24,14 +25,13 @@ public class ListarClientes extends javax.swing.JFrame {
     DaoCliente daoCliente = new DaoCliente();
     public ListarClientes() {
         initComponents();
-        daoCliente.Consultar();
-        //carregarTabela();
+        carregarTabela();
     }
     public void carregarTabela(){
        DaoCliente dao = new DaoCliente();
        ArrayList<Cliente> clientes = new ArrayList();  
-       clientes = dao.Consultar();
-       
+       clientes = dao.Consultar("");
+      // System.out.println("Tamanho do array "+clientes.size());
        modeloTabela = (DefaultTableModel) tbListarCliente.getModel();
        for(Cliente cli:clientes){
            modeloTabela.addRow(new Object[] {cli.getIdCliente(), cli.getNome(),cli.getFone(), cli.getEmail()});
@@ -50,6 +50,8 @@ public class ListarClientes extends javax.swing.JFrame {
         btNovoCliente = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbListarCliente = new javax.swing.JTable();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -62,10 +64,7 @@ public class ListarClientes extends javax.swing.JFrame {
 
         tbListarCliente.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "ID", "NOME", "TELEFONE", "E-MAIL"
@@ -87,6 +86,20 @@ public class ListarClientes extends javax.swing.JFrame {
             tbListarCliente.getColumnModel().getColumn(3).setPreferredWidth(100);
         }
 
+        jButton1.setText("VER/EDITAR");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("EXCLUIR");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -94,9 +107,14 @@ public class ListarClientes extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 549, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btNovoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(21, Short.MAX_VALUE))
+                    .addComponent(btNovoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addComponent(jButton1)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 549, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -104,8 +122,12 @@ public class ListarClientes extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(btNovoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(33, 33, 33)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButton2))
+                .addContainerGap())
         );
 
         pack();
@@ -117,6 +139,34 @@ public class ListarClientes extends javax.swing.JFrame {
         new CadastroCliente().show();
     }//GEN-LAST:event_btNovoClienteActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+       String idCliente;
+       idCliente = tbListarCliente.getValueAt(tbListarCliente.getSelectedRow(),0).toString();
+       System.out.println(idCliente);
+       
+       new EditarCliente(idCliente).show();
+       this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+       DaoCliente dao = new DaoCliente();
+       Cliente cliente = new Cliente();
+       String idCliente;
+       
+       String message = "Deseja realmente excluir este Cliente?";
+       String title = "Confirmação";
+
+       int reply = JOptionPane.showConfirmDialog(null, message, title, JOptionPane.YES_NO_OPTION);
+       if (reply == JOptionPane.YES_OPTION){
+            System.out.println("Confirmado!");
+            idCliente = tbListarCliente.getValueAt(tbListarCliente.getSelectedRow(),0).toString();
+       
+            cliente.setIdCliente(idCliente);
+            dao.Deletar(cliente);
+            modeloTabela.removeRow(tbListarCliente.getSelectedRow());
+       
+    }//GEN-LAST:event_jButton2ActionPerformed
+    }
     /**
      * @param args the command line arguments
      */
@@ -154,6 +204,8 @@ public class ListarClientes extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btNovoCliente;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tbListarCliente;
     // End of variables declaration//GEN-END:variables
