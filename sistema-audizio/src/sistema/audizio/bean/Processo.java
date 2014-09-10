@@ -22,7 +22,22 @@ public class Processo {
     int advogado; 
     String acao;
     String idVeiculo;
+    String idProcesso;
+    String situacao;
     
+    public String getIdProcesso(){
+        return idProcesso;
+    }
+    public void setIdProcesso(String id){
+        this.idProcesso = id;
+    }
+    
+    public String getSituacao(){
+        return situacao;
+    }
+    public void setSituacao(String situcao){
+        this.situacao = situcao;
+    }
     public String getProcesso(){
         return processo;
     }
