@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import sistema.audizio.bean.Cliente;
 import sistema.audizio.bean.Processo;
 
 /**

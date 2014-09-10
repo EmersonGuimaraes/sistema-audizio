@@ -6,9 +6,6 @@
 
 package sistema.audizio.gui;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 /**
  *
  * @author ZipNetEmerson
@@ -134,7 +131,7 @@ public class TelaInicial extends javax.swing.JFrame {
         });
         jMenu5.add(jMenuItem13);
 
-        jMenuItem2.setText("PREOCESSO");
+        jMenuItem2.setText("PROCESSO");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem2ActionPerformed(evt);
@@ -149,7 +146,7 @@ public class TelaInicial extends javax.swing.JFrame {
         jMenuItem3.setText("CLIENTES");
         jMenu7.add(jMenuItem3);
 
-        jMenu9.setText("OCORRÊNCIAS");
+        jMenu9.setText("PROCESSOS");
 
         jMenuItem7.setText("TODAS");
         jMenu9.add(jMenuItem7);
@@ -243,7 +240,7 @@ public class TelaInicial extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel4)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 399, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(

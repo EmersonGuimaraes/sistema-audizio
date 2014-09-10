@@ -518,6 +518,7 @@ public class EditarCliente extends javax.swing.JFrame {
         tfEmail.setEnabled(true);
         btEditar.setEnabled(false);
         btSalvar.setEnabled(true);
+        
     }//GEN-LAST:event_btEditarActionPerformed
 
     /**

@@ -50,7 +50,7 @@
                 </MenuItem>
                 <MenuItem class="javax.swing.JMenuItem" name="jMenuItem2">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="PREOCESSO"/>
+                    <Property name="text" type="java.lang.String" value="PROCESSO"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem2ActionPerformed"/>
@@ -70,7 +70,7 @@
                 </MenuItem>
                 <Menu class="javax.swing.JMenu" name="jMenu9">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="OCORR&#xca;NCIAS"/>
+                    <Property name="text" type="java.lang.String" value="PROCESSOS"/>
                   </Properties>
                   <SubComponents>
                     <MenuItem class="javax.swing.JMenuItem" name="jMenuItem7">
@@ -218,7 +218,7 @@
               <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
               <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
+              <Component id="jLabel4" min="-2" pref="399" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
