@@ -13,7 +13,15 @@ package sistema.audizio.bean;
 public class Advogado extends Pessoa {
     String oab;
     String area_atuacao;
-
+    String idAdvogado;
+    
+    public String getIdAdvogado(){
+        return idAdvogado;
+    }
+    
+    public void setIdAdvogado(String id){
+        this.idAdvogado = id;
+    }
     public String getOab() {
         return oab;
     }

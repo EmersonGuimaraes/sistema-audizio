@@ -6,6 +6,12 @@
 
 package sistema.audizio.gui;
 
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
+import sistema.audizio.bean.Advogado;
+import sistema.audizio.bean.Cliente;
+import sistema.audizio.dao.DaoAdvogado;
+
 /**
  *
  * @author emerson
@@ -15,8 +21,20 @@ public class ListarAdvogados extends javax.swing.JFrame {
     /**
      * Creates new form ListarClientes
      */
+    DefaultTableModel modeloTabela;
     public ListarAdvogados() {
         initComponents();
+        preencheTabela("");
+    }
+    public void preencheTabela(String id){
+        ArrayList<Advogado> advogados = new ArrayList<>();
+        DaoAdvogado dao = new DaoAdvogado();
+        advogados = dao.Consultar("");
+        modeloTabela = (DefaultTableModel) tbListarAdvogado.getModel();
+       for(Advogado advo:advogados){
+           modeloTabela.addRow(new Object[] {advo.getIdAdvogado(),advo.getIdAdvogado(), advo.getOab(),advo.getArea_atuacao()});
+        }
+ 
     }
 
     /**
@@ -30,7 +48,9 @@ public class ListarAdvogados extends javax.swing.JFrame {
 
         jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tbListarAdvogado = new javax.swing.JTable();
+        btEditar = new javax.swing.JButton();
+        btExcluir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -41,26 +61,38 @@ public class ListarAdvogados extends javax.swing.JFrame {
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tbListarAdvogado.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "ID", "NOME", "TELEFONE", "E-MAIL"
+                "ID", "ADVOGADO", "OAB", "AREA DE ATUAÇAO"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                true, false, false, false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tbListarAdvogado);
+        if (tbListarAdvogado.getColumnModel().getColumnCount() > 0) {
+            tbListarAdvogado.getColumnModel().getColumn(0).setPreferredWidth(5);
+            tbListarAdvogado.getColumnModel().getColumn(1).setPreferredWidth(80);
+            tbListarAdvogado.getColumnModel().getColumn(2).setPreferredWidth(50);
+            tbListarAdvogado.getColumnModel().getColumn(3).setPreferredWidth(80);
+        }
+
+        btEditar.setText("VER/EDITAR");
+        btEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btEditarActionPerformed(evt);
+            }
+        });
+
+        btExcluir.setText("EXCLUIR");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -69,6 +101,10 @@ public class ListarAdvogados extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btEditar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btExcluir))
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 546, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(24, Short.MAX_VALUE))
@@ -79,8 +115,12 @@ public class ListarAdvogados extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(33, 33, 33)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btEditar)
+                    .addComponent(btExcluir))
+                .addContainerGap())
         );
 
         pack();
@@ -91,6 +131,15 @@ public class ListarAdvogados extends javax.swing.JFrame {
         this.dispose();
         new CadastroAdvogado().show();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void btEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditarActionPerformed
+       String idAdvogado;
+       idAdvogado = tbListarAdvogado.getValueAt(tbListarAdvogado.getSelectedRow(),0).toString();
+       System.out.println(idAdvogado);
+       
+       new EditarAdvogado(idAdvogado).show();
+       this.dispose();
+    }//GEN-LAST:event_btEditarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -128,8 +177,10 @@ public class ListarAdvogados extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btEditar;
+    private javax.swing.JButton btExcluir;
     private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tbListarAdvogado;
     // End of variables declaration//GEN-END:variables
 }

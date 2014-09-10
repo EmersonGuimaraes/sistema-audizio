@@ -426,11 +426,15 @@ public class EditarProcesso extends javax.swing.JFrame {
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
          Processo processo = new Processo();
          Veiculo veiculo = new Veiculo();
+         
          DaoProcesso daoProcesso = new DaoProcesso();
          DaoVeiculo daoVeiculo = new DaoVeiculo();
+         
          RemoveMascara mask = new RemoveMascara();
          
          //Seta os valores do processo
+         System.out.println("id processo::"+idProcesso);
+         processo.setIdProcesso(idProcesso);
          processo.setProcesso(tfProcesso.getText());
          processo.setCliente(comboCliente.getSelectedIndex()+1);
          processo.setData_inicio(mask.removeMascara(tfDataInicio.getText()));
@@ -440,7 +444,7 @@ public class EditarProcesso extends javax.swing.JFrame {
          processo.setValor(valor);
          processo.setAcao(tfAcao.getText());
          processo.setReboqueiro(tfReboqueiro.getText());
-        
+         daoProcesso.Editar(processo);
          
         //Seta os valores do veiculo
          veiculo.setMarca(tfMarca.getText());
@@ -454,7 +458,7 @@ public class EditarProcesso extends javax.swing.JFrame {
          
          
          
-        daoProcesso.Editar(processo);
+        
         daoVeiculo.Editar(veiculo);
     }//GEN-LAST:event_btSalvarActionPerformed
 

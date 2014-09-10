@@ -30,10 +30,11 @@ public class DaoProcesso extends Conexao{
         JOptionPane.showMessageDialog(null, "Cadastro Realizado com Sucesso!");
     }
     public void Editar(Processo processo){
-   
+        System.out.println("Id processo no dao:"+processo.getIdProcesso());
         sql="UPDATE tb_processo SET processo = '"+processo.getProcesso()+"',data_inicio = '"+processo.getData_inicio()+"',data_termino = '"+processo.getData_termino()+"',"
                 + "cliente = '"+processo.getCliente()+"',advogado = '"+processo.getAdvogado()+"',valor = '"+processo.getValor()+"',"
                 + "acao = '"+processo.getAcao()+"',reboqueiro = '"+processo.getReboqueiro()+"' WHERE id = '"+processo.getIdProcesso()+"'";
+        ConsultarSQL(sql, false);
     }
     
     public void Deletar(Processo processo){
@@ -115,6 +116,12 @@ public class DaoProcesso extends Conexao{
        
         return processos;
     
+    }
+    
+    public void arquivarProcesso(String id){
+        sql = "UPDATE tb_processo SET situacao = 'ARQUIVADO' WHERE id = '"+id+"'";
+        ConsultarSQL(sql, false);
+        
     }
     
     

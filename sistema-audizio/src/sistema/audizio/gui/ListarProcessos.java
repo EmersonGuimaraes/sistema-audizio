@@ -157,6 +157,11 @@ public class ListarProcessos extends javax.swing.JFrame {
 
         btArquivar.setText("ARQUIVAR");
         btArquivar.setEnabled(false);
+        btArquivar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btArquivarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -223,13 +228,23 @@ public class ListarProcessos extends javax.swing.JFrame {
     }//GEN-LAST:event_rbArquivadosActionPerformed
 
     private void btEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditarActionPerformed
-         String idProcesso;
+       String idProcesso;
        idProcesso = tbListarProcessos.getValueAt(tbListarProcessos.getSelectedRow(),0).toString();
-       System.out.println(idProcesso);
+       System.out.println("ID DO PROCESSO:"+idProcesso);
        
        new EditarProcesso(idProcesso).show();
        this.dispose();
     }//GEN-LAST:event_btEditarActionPerformed
+
+    private void btArquivarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btArquivarActionPerformed
+       String idProcesso;
+       idProcesso = tbListarProcessos.getValueAt(tbListarProcessos.getSelectedRow(),0).toString();
+       System.out.println("ID DO PROCESSO:"+idProcesso);
+       
+       DaoProcesso dao = new DaoProcesso();
+       dao.arquivarProcesso(idProcesso);
+       modeloTabela.removeRow(tbListarProcessos.getSelectedRow());
+    }//GEN-LAST:event_btArquivarActionPerformed
 
     /**
      * @param args the command line arguments
