@@ -1,12 +1,7 @@
 package sistema.audizio.dao;
 
 import java.sql.*;
-import java.text.ParseException;
-import javax.swing.ImageIcon;
-import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.text.MaskFormatter;
 
 public class Conexao {
   
@@ -25,7 +20,7 @@ public class Conexao {
         try {
             try {
                 Class.forName(driver);
-            } catch (Exception e) {
+            } catch (ClassNotFoundException e) {
                 JOptionPane.showMessageDialog(null,"Sistema não pode \"Encontrar"
                         + " o Banco de dados\".\nVer o Driver-Mysql");
             }
