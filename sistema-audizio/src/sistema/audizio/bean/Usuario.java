@@ -10,34 +10,17 @@ package sistema.audizio.bean;
  *
  * @author Raylan Alves
  */
-public class Usuario extends Pessoa{
-    String fone1;
-    String fone2;
-    String username;
+public class Usuario{
+    
+    String usuario;
     String senha;
 
-    public String getFone1() {
-        return fone1;
+    public String getUsuario() {
+        return usuario;
     }
 
-    public void setFone1(String fone1) {
-        this.fone1 = fone1;
-    }
-
-    public String getFone2() {
-        return fone2;
-    }
-
-    public void setFone2(String fone2) {
-        this.fone2 = fone2;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
     }
 
     public String getSenha() {

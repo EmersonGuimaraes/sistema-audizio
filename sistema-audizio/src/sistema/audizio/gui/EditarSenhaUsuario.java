@@ -6,6 +6,9 @@
 
 package sistema.audizio.gui;
 
+import sistema.audizio.bean.Usuario;
+import sistema.audizio.dao.DaoUsuario;
+
 /**
  *
  * @author emerson
@@ -41,6 +44,11 @@ public class EditarSenhaUsuario extends javax.swing.JFrame {
         btCancelar.setText("CANCELAR");
 
         btSalvar.setText("SALVAR");
+        btSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSalvarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -74,6 +82,15 @@ public class EditarSenhaUsuario extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
+        Usuario user = new Usuario();
+        DaoUsuario dao = new DaoUsuario();
+        
+        user.setSenha(tfNovaSenha.getPassword().toString());
+        dao.editarSenha(user);
+        
+    }//GEN-LAST:event_btSalvarActionPerformed
 
     /**
      * @param args the command line arguments

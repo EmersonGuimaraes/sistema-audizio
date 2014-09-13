@@ -6,6 +6,10 @@
 
 package sistema.audizio.gui;
 
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+import sistema.audizio.dao.Conexao;
+
 /**
  *
  * @author Emerson
@@ -46,6 +50,11 @@ public class Login extends javax.swing.JFrame {
         comboUsuario.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecionar . . .", "Audizio" }));
 
         jButton1.setText("ENTRAR");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("CANCELAR");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -101,6 +110,33 @@ public class Login extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        String usuario,senha,usuario1 = null,senha1 = null;
+        Conexao con = new Conexao();
+        usuario = comboUsuario.getSelectedItem().toString();
+        senha = tfSenha.getPassword().toString();
+        
+        usuario.trim();
+        senha.trim();
+        
+        try {
+            con.ConsultarSQL("SELECT * FROM tb_admin WHERE usuario = '"+usuario+"' & senha = '"+senha+"' ", true);
+            while (con.rs.next()){            
+                usuario1 = con.rs.getString("usuario");
+                senha1 = con.rs.getString("senha");
+            }
+            if (senha.equals(senha1) & usuario.equals(usuario1)) {
+                new TelaInicial().show();
+            }else{
+                JOptionPane.showMessageDialog(null, "USUÁRIO OU SENHA INVÁLIDOS!");
+            }
+        } catch (SQLException e) {
+        }
+        
+        
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments

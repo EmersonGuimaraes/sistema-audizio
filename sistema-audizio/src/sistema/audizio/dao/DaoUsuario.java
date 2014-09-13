@@ -19,65 +19,16 @@ import sistema.audizio.bean.Usuario;
 public class DaoUsuario extends Conexao{
     String sql;
     Usuario usuario;
-    public DaoUsuario(){
-        
-    }
-    
-  
-           public ArrayList<Usuario> Consultar(String user){
-        ArrayList<Usuario> usuarios = new ArrayList<>();
-        
-        
-            if(user.equals("")){
-            try {
-                ConsultarSQL("SELECT * FROM tb_admin", true);
-                while (rs.next()) {
-                    
-                    usuario = new Usuario();
-                  
-                    usuario.setNome(rs.getString("nome"));
-                    usuario.setEndereco(rs.getString("rua"));
-                    usuario.setBairro(rs.getString("bairro"));
-                    usuario.setCidade(rs.getString("cidade"));
-                    usuario.setFone1(rs.getString("fone1"));
-                    usuario.setFone2(rs.getString("fone2"));
-                    usuario.setUsername(rs.getString("usuario"));
-                    usuario.setSenha(rs.getString("senha"));
-                    
-                    usuarios.add(usuario);
-                    
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(DaoUsuario.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            }else{
-            try {
-                ConsultarSQL("SELECT * FROM tb_usuario WHERE usuario = '"+user+"'", true);
-                while (rs.next()) {
-                    
-                    usuario = new Usuario();
-                    usuario.setNome(rs.getString("nome"));
-                    usuario.setEndereco(rs.getString("rua"));
-                    usuario.setBairro(rs.getString("bairro"));
-                    usuario.setCidade(rs.getString("cidade"));
-                    usuario.setFone1(rs.getString("fone1"));
-                    usuario.setFone2(rs.getString("fone2"));
-                    usuario.setUsername(rs.getString("usuario"));
-                    usuario.setSenha(rs.getString("senha"));
-                    
-                    
-                    usuarios.add(usuario);
-                    
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(DaoUsuario.class.getName()).log(Level.SEVERE, null, ex);
-            }
-               
-           }
+   
+       public void editarUsuario(Usuario usuario){
+           sql = "UPDATE tb_admin SET usuario = '"+usuario.getUsuario()+"'";
+           ConsultarSQL(sql, false);
+       }
        
-         return usuarios;
-        
-    }
-        
+        public void editarSenha(Usuario usuario){
+           sql = "UPDATE tb_admin SET senha = '"+usuario.getSenha()+"'";
+           ConsultarSQL(sql, false);
+       }
+       
     
 }
