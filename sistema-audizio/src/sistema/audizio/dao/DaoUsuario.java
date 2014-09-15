@@ -12,6 +12,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import sistema.audizio.bean.Usuario;
+import sistema.audizio.gui.TelaInicial;
 
 /**
  *
@@ -35,9 +36,9 @@ public class DaoUsuario extends Conexao{
         
        public String consultarUsuario(){
            String usuario = null;
-           String senha = null;
            
-           ConsultarSQL("SELECT * FROM tb_admin", true);
+           
+           ConsultarSQL("SELECT usuario FROM tb_admin", true);
         try {
             while (rs.next()) {
                 usuario = rs.getString("usuario");
@@ -52,7 +53,7 @@ public class DaoUsuario extends Conexao{
          
            String senha = null;
            
-           ConsultarSQL("SELECT * FROM tb_admin", true);
+           ConsultarSQL("SELECT senha FROM tb_admin", true);
         try {
             while (rs.next()) {
                 senha = rs.getString("senha");
@@ -61,6 +62,21 @@ public class DaoUsuario extends Conexao{
             Logger.getLogger(DaoUsuario.class.getName()).log(Level.SEVERE, null, ex);
         }
            return senha;
+       }
+       
+       public boolean login(String usuario,String senha){
+           boolean retorno = false;
+           String sql = "SELECT * FROM tb_admin WHERE usuario = '"+usuario+"' and senha ='"+senha+"'";
+           
+        try {
+            ConsultarSQL(sql, true);
+            while(rs.next()){
+                retorno = true;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DaoUsuario.class.getName()).log(Level.SEVERE, null, ex);
+        }
+           return retorno;
        }
      
     

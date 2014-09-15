@@ -6,9 +6,11 @@
 
 package sistema.audizio.gui;
 
+import java.awt.event.KeyEvent;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import sistema.audizio.dao.Conexao;
+import sistema.audizio.dao.DaoUsuario;
 
 /**
  *
@@ -21,8 +23,15 @@ public class Login extends javax.swing.JFrame {
      */
     public Login() {
         initComponents();
+        preecheCombo();
     }
-
+    
+    public void preecheCombo(){
+        DaoUsuario dao = new DaoUsuario();
+        String usuario = dao.consultarUsuario();
+        System.out.println("user: "+usuario);
+        comboUsuario.addItem(usuario);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -36,7 +45,7 @@ public class Login extends javax.swing.JFrame {
         lbSenha = new javax.swing.JLabel();
         comboUsuario = new javax.swing.JComboBox();
         tfSenha = new javax.swing.JPasswordField();
-        jButton1 = new javax.swing.JButton();
+        btEntrar = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -47,16 +56,29 @@ public class Login extends javax.swing.JFrame {
 
         lbSenha.setText("SENHA");
 
-        comboUsuario.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecionar . . .", "Audizio" }));
+        comboUsuario.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecionar . . ." }));
+        comboUsuario.setFocusable(false);
 
-        jButton1.setText("ENTRAR");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        tfSenha.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tfSenhaKeyPressed(evt);
+            }
+        });
+
+        btEntrar.setText("ENTRAR");
+        btEntrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btEntrarActionPerformed(evt);
+            }
+        });
+        btEntrar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btEntrarKeyPressed(evt);
             }
         });
 
         jButton2.setText("CANCELAR");
+        jButton2.setFocusable(false);
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -71,7 +93,7 @@ public class Login extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btEntrar, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(78, 78, 78)
                         .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
@@ -99,7 +121,7 @@ public class Login extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btEntrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -108,35 +130,64 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+        System.exit(0);
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        String usuario,senha,usuario1 = null,senha1 = null;
-        Conexao con = new Conexao();
-        usuario = comboUsuario.getSelectedItem().toString();
-        senha = tfSenha.getPassword().toString();
-        
-        usuario.trim();
-        senha.trim();
-        
-        try {
-            con.ConsultarSQL("SELECT * FROM tb_admin WHERE usuario = '"+usuario+"' & senha = '"+senha+"' ", true);
-            while (con.rs.next()){            
-                usuario1 = con.rs.getString("usuario");
-                senha1 = con.rs.getString("senha");
-            }
-            if (senha.equals(senha1) & usuario.equals(usuario1)) {
+    private void btEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEntrarActionPerformed
+      String usuario,senha;
+      boolean retorno = false;
+      usuario = comboUsuario.getSelectedItem().toString();
+      senha = String.valueOf(tfSenha.getPassword());
+      
+      DaoUsuario dao = new DaoUsuario();
+      retorno = dao.login(usuario, senha);
+      
+      if(retorno == true){
+          new TelaInicial().show();
+      }else{
+          JOptionPane.showMessageDialog(null, "USUÁRIO OU SENHA INVÁLIDOS!");
+      }
+     
+       
+    }//GEN-LAST:event_btEntrarActionPerformed
+
+    private void btEntrarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btEntrarKeyPressed
+       if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            String usuario,senha;
+            boolean retorno = false;
+            usuario = comboUsuario.getSelectedItem().toString();
+            senha = String.valueOf(tfSenha.getPassword());
+      
+            DaoUsuario dao = new DaoUsuario();
+            retorno = dao.login(usuario, senha);
+      
+            if(retorno == true){
                 new TelaInicial().show();
             }else{
                 JOptionPane.showMessageDialog(null, "USUÁRIO OU SENHA INVÁLIDOS!");
             }
-        } catch (SQLException e) {
-        }
-        
-        
-        
-    }//GEN-LAST:event_jButton1ActionPerformed
+     
+       }
+    }//GEN-LAST:event_btEntrarKeyPressed
+
+    private void tfSenhaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfSenhaKeyPressed
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            String usuario,senha;
+            boolean retorno = false;
+            usuario = comboUsuario.getSelectedItem().toString();
+            senha = String.valueOf(tfSenha.getPassword());
+      
+            DaoUsuario dao = new DaoUsuario();
+            retorno = dao.login(usuario, senha);
+      
+            if(retorno == true){
+                new TelaInicial().show();
+            }else{
+                JOptionPane.showMessageDialog(null, "USUÁRIO OU SENHA INVÁLIDOS!");
+            }
+     
+       }
+    }//GEN-LAST:event_tfSenhaKeyPressed
 
     /**
      * @param args the command line arguments
@@ -174,8 +225,8 @@ public class Login extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btEntrar;
     private javax.swing.JComboBox comboUsuario;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel lbSenha;
     private javax.swing.JLabel lbUsuario;
