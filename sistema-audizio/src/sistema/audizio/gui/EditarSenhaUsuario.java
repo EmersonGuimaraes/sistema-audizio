@@ -6,6 +6,7 @@
 
 package sistema.audizio.gui;
 
+import javax.swing.JOptionPane;
 import sistema.audizio.bean.Usuario;
 import sistema.audizio.dao.DaoUsuario;
 
@@ -18,6 +19,8 @@ public class EditarSenhaUsuario extends javax.swing.JFrame {
     /**
      * Creates new form EditarNomeUsuario
      */
+    DaoUsuario daoUsuario = new DaoUsuario();
+   
     public EditarSenhaUsuario() {
         initComponents();
     }
@@ -35,6 +38,8 @@ public class EditarSenhaUsuario extends javax.swing.JFrame {
         btCancelar = new javax.swing.JButton();
         btSalvar = new javax.swing.JButton();
         tfNovaSenha = new javax.swing.JPasswordField();
+        jLabel2 = new javax.swing.JLabel();
+        tfSenhaAtual = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -50,33 +55,41 @@ public class EditarSenhaUsuario extends javax.swing.JFrame {
             }
         });
 
+        jLabel2.setText(" SENHA ATUAL");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(32, 32, 32)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGap(30, 30, 30)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
+                    .addComponent(tfSenhaAtual, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(72, 72, 72)
-                        .addComponent(btSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(tfNovaSenha))
-                .addContainerGap(31, Short.MAX_VALUE))
+                        .addComponent(btCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfNovaSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(24, 24, 24)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(26, 26, 26)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tfSenhaAtual, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tfNovaSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btSalvar)
                     .addComponent(btCancelar))
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
 
         pack();
@@ -86,9 +99,18 @@ public class EditarSenhaUsuario extends javax.swing.JFrame {
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
         Usuario user = new Usuario();
         DaoUsuario dao = new DaoUsuario();
+        String senhaAntiga,senhaAtual;
         
-        user.setSenha(tfNovaSenha.getPassword().toString());
-        dao.editarSenha(user);
+        senhaAntiga = dao.consultarSenha();
+        senhaAtual = String.valueOf(tfSenhaAtual.getPassword());
+        
+        if(senhaAntiga.equals(senhaAtual)){
+            user.setSenha(String.valueOf(tfNovaSenha.getPassword()));
+            dao.editarSenha(user);
+        }else{
+            JOptionPane.showMessageDialog(null, "Senha atual incorreta!\nTente novamente!");
+            tfSenhaAtual.setText(null);
+        }
         
     }//GEN-LAST:event_btSalvarActionPerformed
 
@@ -131,6 +153,8 @@ public class EditarSenhaUsuario extends javax.swing.JFrame {
     private javax.swing.JButton btCancelar;
     private javax.swing.JButton btSalvar;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPasswordField tfNovaSenha;
+    private javax.swing.JPasswordField tfSenhaAtual;
     // End of variables declaration//GEN-END:variables
 }

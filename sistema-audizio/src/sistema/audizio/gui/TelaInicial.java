@@ -6,6 +6,7 @@
 
 package sistema.audizio.gui;
 
+import sistema.audizio.dao.DaoUsuario;
 import sun.swing.BakedArrayList;
 
 /**
@@ -17,9 +18,11 @@ public class TelaInicial extends javax.swing.JFrame {
     /**
      * Creates new form TelaInicial
      */
+    DaoUsuario daoUsuario = new DaoUsuario();
     public TelaInicial() {
         initComponents();
         this.setExtendedState(this.MAXIMIZED_BOTH);
+        lbNomeUsuario.setText(daoUsuario.consultarUsuario().toUpperCase());
     }
 
     /**
@@ -39,6 +42,7 @@ public class TelaInicial extends javax.swing.JFrame {
         btSair = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         lbNomeUsuario = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu5 = new javax.swing.JMenu();
@@ -102,6 +106,10 @@ public class TelaInicial extends javax.swing.JFrame {
 
         lbNomeUsuario.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbNomeUsuario.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("BEM-VINDO!");
+        jLabel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jMenu1.setText("Menu");
 
@@ -259,7 +267,7 @@ public class TelaInicial extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addContainerGap(608, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(lbNomeUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
@@ -269,7 +277,8 @@ public class TelaInicial extends javax.swing.JFrame {
                                 .addGap(27, 27, 27)
                                 .addComponent(btListar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btSair, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(btSair, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(20, 20, 20))))
         );
         layout.setVerticalGroup(
@@ -281,11 +290,13 @@ public class TelaInicial extends javax.swing.JFrame {
                     .addComponent(btClientes, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
                     .addComponent(btProcessos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btListar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 262, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 273, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lbNomeUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(37, 37, 37))
+                .addContainerGap())
         );
 
         pack();
@@ -406,6 +417,7 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JButton btProcessos;
     private javax.swing.JButton btSair;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu10;
     private javax.swing.JMenu jMenu2;
