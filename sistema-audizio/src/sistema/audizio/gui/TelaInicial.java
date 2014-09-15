@@ -11,7 +11,7 @@ import sun.swing.BakedArrayList;
 
 /**
  *
- * @author ZipNetEmerson
+ * @author emerson
  */
 public class TelaInicial extends javax.swing.JFrame {
 

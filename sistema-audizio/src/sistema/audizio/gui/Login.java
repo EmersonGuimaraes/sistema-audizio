@@ -14,7 +14,7 @@ import sistema.audizio.dao.DaoUsuario;
 
 /**
  *
- * @author Emerson
+ * @author emerson
  */
 public class Login extends javax.swing.JFrame {
 

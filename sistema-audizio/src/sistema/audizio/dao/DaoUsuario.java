@@ -16,7 +16,7 @@ import sistema.audizio.gui.TelaInicial;
 
 /**
  *
- * @author zipnet
+ * @author emerson
  */
 public class DaoUsuario extends Conexao{
     String sql;
