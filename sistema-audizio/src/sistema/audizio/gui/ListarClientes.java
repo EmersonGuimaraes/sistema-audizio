@@ -140,12 +140,18 @@ public class ListarClientes extends javax.swing.JFrame {
     }//GEN-LAST:event_btNovoClienteActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       String idCliente;
-       idCliente = tbListarCliente.getValueAt(tbListarCliente.getSelectedRow(),0).toString();
-       System.out.println(idCliente);
+        try {
+            String idCliente;
+            idCliente = tbListarCliente.getValueAt(tbListarCliente.getSelectedRow(),0).toString();
+            System.out.println(idCliente);
        
-       new EditarCliente(idCliente).show();
-       this.dispose();
+            new EditarCliente(idCliente).show();
+            this.dispose();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "SELECIONE UM CLIENTE PARA VER E/OU EDITAR.");
+        }
+       
+       
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed

@@ -136,6 +136,10 @@ public class CadastroAdvogado extends javax.swing.JFrame {
             advogado.setArea_atuacao(tfAreaAtuacao.getText());
             
             daoAdvogado.Cadastrar(advogado);
+            
+            tfNome.setText(null);
+            tfOab.setText(null);
+            tfAreaAtuacao.setText(null);
         }
     }//GEN-LAST:event_btSalvarActionPerformed
 

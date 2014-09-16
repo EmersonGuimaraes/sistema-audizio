@@ -416,6 +416,24 @@ public class CadastroCliente extends javax.swing.JFrame {
 
          
             daoCliente.Cadastrar(cliente);
+            
+            tfNome.setText(null);
+            tfNumero.setText(null);
+            tfRg.setText(null);
+            tfOrgaoExp.setText(null);
+            tfDataExp.setText(null);
+            tfCpf.setText(null);
+            tfCep.setText(null);
+            tfDataNasci.setText(null);
+            tfEmail.setText(null);
+            tfEndereco.setText(null);
+            tfEstado.setText(null);
+            tfEstadoCivil.setText(null);
+            tfNacionalidade.setText(null);
+            tfProfissao.setText(null);
+            tfTelefone.setText(null);
+            tfCelular.setText(null);
+            
          }
          
     }//GEN-LAST:event_btSalvarActionPerformed

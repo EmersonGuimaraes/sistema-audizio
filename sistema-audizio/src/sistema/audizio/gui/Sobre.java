@@ -55,7 +55,7 @@ public class Sobre extends javax.swing.JFrame {
 
         jLabel6.setText("(85) 8859-4838");
 
-        jLabel7.setText("(85) 8859-4838");
+        jLabel7.setText("(85) 8580-0279");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);

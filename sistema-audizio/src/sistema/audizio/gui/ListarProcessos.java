@@ -7,6 +7,7 @@
 package sistema.audizio.gui;
 
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import sistema.audizio.bean.Cliente;
 import sistema.audizio.bean.Processo;
@@ -235,12 +236,18 @@ public class ListarProcessos extends javax.swing.JFrame {
     }//GEN-LAST:event_rbArquivadosActionPerformed
 
     private void btEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditarActionPerformed
-       String idProcesso;
-       idProcesso = tbListarProcessos.getValueAt(tbListarProcessos.getSelectedRow(),0).toString();
-       System.out.println("ID DO PROCESSO:"+idProcesso);
+        try {
+            String idProcesso;
+            idProcesso = tbListarProcessos.getValueAt(tbListarProcessos.getSelectedRow(),0).toString();
+            System.out.println("ID DO PROCESSO:"+idProcesso);
        
-       new EditarProcesso(idProcesso).show();
-       this.dispose();
+            new EditarProcesso(idProcesso).show();
+            this.dispose();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "SELECIONE UM PROCESSO PARA VER E/OU EDITAR.");
+        }
+        
+       
     }//GEN-LAST:event_btEditarActionPerformed
 
     private void btArquivarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btArquivarActionPerformed

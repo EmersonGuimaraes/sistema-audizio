@@ -460,11 +460,30 @@ public class EditarProcesso extends javax.swing.JFrame {
          
         
         daoVeiculo.Editar(veiculo);
+        
+        tfAcao.setEnabled(false);
+        tfAnoFabricacao.setEnabled(false);
+        tfAnoModelo.setEnabled(false);
+        tfChassi.setEnabled(false);
+        tfCor.setEnabled(false);
+        tfDataFim.setEnabled(false);
+        tfDataInicio.setEnabled(false);
+        tfMarca.setEnabled(false);
+        tfModelo.setEnabled(false);
+        tfPlaca.setEnabled(false);
+        tfProcesso.setEnabled(false);
+        tfReboqueiro.setEnabled(false);
+        tfValor.setEnabled(false);
+        comboAdvogado.setEnabled(false);
+        comboCliente.setEnabled(false);
+        btSalvar.setEnabled(false);
+        btEditar.setEnabled(true);
+        btCancelar.setEnabled(false);
     }//GEN-LAST:event_btSalvarActionPerformed
 
     private void btEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditarActionPerformed
         // TODO add your handling code here:
-               tfAcao.setEnabled(true);
+        tfAcao.setEnabled(true);
         tfAnoFabricacao.setEnabled(true);
         tfAnoModelo.setEnabled(true);
         tfChassi.setEnabled(true);

@@ -42,6 +42,11 @@ public class EditarNomeUsuario extends javax.swing.JFrame {
         jLabel1.setText("NOVO NOME");
 
         btCancelar.setText("CANCELAR");
+        btCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btCancelarActionPerformed(evt);
+            }
+        });
 
         btSalvar.setText("SALVAR");
         btSalvar.addActionListener(new java.awt.event.ActionListener() {
@@ -92,6 +97,10 @@ public class EditarNomeUsuario extends javax.swing.JFrame {
         dao.editarUsuario(user);
         
     }//GEN-LAST:event_btSalvarActionPerformed
+
+    private void btCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelarActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btCancelarActionPerformed
 
     /**
      * @param args the command line arguments

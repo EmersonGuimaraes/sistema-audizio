@@ -136,8 +136,8 @@ public class EditarAdvogado extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tfAreaAtuacao, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(tfAreaAtuacao, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tfOab, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -174,6 +174,13 @@ public class EditarAdvogado extends javax.swing.JFrame {
             advogado.setArea_atuacao(tfAreaAtuacao.getText());
             
             daoAdvogado.Editar(advogado);
+            
+            btSalvar.setEnabled(false);
+            tfNome.setEnabled(false);
+            tfOab.setEnabled(false);
+            tfAreaAtuacao.setEnabled(false);
+            btCancelar.setEnabled(false);
+            btEditar.setEnabled(true);
         }
     }//GEN-LAST:event_btSalvarActionPerformed
 

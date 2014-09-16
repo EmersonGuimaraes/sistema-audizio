@@ -342,6 +342,20 @@ public class CadastroProcesso extends javax.swing.JFrame {
          
         daoProcesso.Cadastrar(processo);
         daoVeiculo.Cadastrar(veiculo);
+        
+        tfAcao.setText(null);
+        tfAnoFabricacao.setText(null);
+        tfAnoModelo.setText(null);
+        tfChassi.setText(null);
+        tfCor.setText(null);
+        tfDataFim.setText(null);
+        tfDataInicio.setText(null);
+        tfMarca.setText(null);
+        tfModelo.setText(null);
+        tfPlaca.setText(null);
+        tfProcesso.setText(null);
+        tfReboqueiro.setText(null);
+        tfValor.setText(null);
     }//GEN-LAST:event_btSalvarActionPerformed
 
     /**

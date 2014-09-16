@@ -493,6 +493,26 @@ public class EditarCliente extends javax.swing.JFrame {
 
          
             daoCliente.Editar(cliente);
+            
+            tfNome.setEnabled(false);
+            tfDataNasci.setEnabled(false);
+            tfRg.setEnabled(false);
+            tfOrgaoExp.setEnabled(false);
+            tfDataExp.setEnabled(false);
+            tfCpf.setEnabled(false);
+            tfNacionalidade.setEnabled(false);
+            tfProfissao.setEnabled(false);
+            tfEstadoCivil.setEnabled(false);
+            tfCep.setEnabled(false);
+            comboCidade.setEnabled(false);
+            comboBairro.setEnabled(false);
+            tfEstado.setEnabled(false);
+            tfEndereco.setEnabled(false);
+            tfNumero.setEnabled(false);
+            tfTelefone.setEnabled(false);
+            tfCelular.setEnabled(false);
+            tfEmail.setEnabled(false);
+            btEditar.setEnabled(true);
          }
          
     }//GEN-LAST:event_btSalvarActionPerformed

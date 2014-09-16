@@ -7,6 +7,7 @@
 package sistema.audizio.gui;
 
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import sistema.audizio.bean.Advogado;
 import sistema.audizio.bean.Cliente;
@@ -133,12 +134,17 @@ public class ListarAdvogados extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditarActionPerformed
-       String idAdvogado;
-       idAdvogado = tbListarAdvogado.getValueAt(tbListarAdvogado.getSelectedRow(),0).toString();
-       System.out.println(idAdvogado);
+        try {
+            String idAdvogado;
+            idAdvogado = tbListarAdvogado.getValueAt(tbListarAdvogado.getSelectedRow(),0).toString();
+            System.out.println(idAdvogado);
        
-       new EditarAdvogado(idAdvogado).show();
-       this.dispose();
+            new EditarAdvogado(idAdvogado).show();
+            this.dispose();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "SELECIONE UM ADVOGADO PARA VER E/OU EDITAR.");
+        }
+       
     }//GEN-LAST:event_btEditarActionPerformed
 
     /**
