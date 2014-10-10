@@ -158,6 +158,8 @@
                               </Group>
                               <Group type="102" attributes="0">
                                   <Component id="btEditar" min="-2" pref="135" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="jButton1" min="-2" pref="128" max="-2" attributes="0"/>
                                   <EmptySpace max="32767" attributes="0"/>
                                   <Component id="btCancelar" min="-2" pref="186" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
@@ -254,7 +256,10 @@
                       <Component id="btSalvar" alignment="3" pref="37" max="32767" attributes="0"/>
                       <Component id="btCancelar" alignment="3" pref="37" max="32767" attributes="0"/>
                   </Group>
-                  <Component id="btEditar" alignment="0" max="32767" attributes="0"/>
+                  <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                      <Component id="btEditar" alignment="3" max="32767" attributes="0"/>
+                      <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -515,6 +520,11 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btEditarActionPerformed"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="jButton1">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="IMPRIMIR"/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>

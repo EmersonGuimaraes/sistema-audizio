@@ -49,6 +49,7 @@ public class TelaInicial extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem13 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem8 = new javax.swing.JMenuItem();
         jMenu7 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenu9 = new javax.swing.JMenu();
@@ -59,6 +60,8 @@ public class TelaInicial extends javax.swing.JFrame {
         jMenu10 = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem12 = new javax.swing.JMenuItem();
+        jMenu8 = new javax.swing.JMenu();
+        jMenuItem15 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
@@ -137,6 +140,9 @@ public class TelaInicial extends javax.swing.JFrame {
         });
         jMenu5.add(jMenuItem2);
 
+        jMenuItem8.setText("BANCOS");
+        jMenu5.add(jMenuItem8);
+
         jMenu1.add(jMenu5);
 
         jMenu7.setText("LISTAR");
@@ -208,6 +214,13 @@ public class TelaInicial extends javax.swing.JFrame {
         jMenu1.add(jMenu10);
 
         jMenuBar1.add(jMenu1);
+
+        jMenu8.setText("Financeiro");
+
+        jMenuItem15.setText("jMenuItem15");
+        jMenu8.add(jMenuItem15);
+
+        jMenuBar1.add(jMenu8);
 
         jMenu2.setText("Backup");
 
@@ -418,6 +431,7 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu6;
     private javax.swing.JMenu jMenu7;
+    private javax.swing.JMenu jMenu8;
     private javax.swing.JMenu jMenu9;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
@@ -426,12 +440,14 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem13;
     private javax.swing.JMenuItem jMenuItem14;
+    private javax.swing.JMenuItem jMenuItem15;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
+    private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JLabel lbNomeUsuario;
     // End of variables declaration//GEN-END:variables
