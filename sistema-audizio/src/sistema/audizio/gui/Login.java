@@ -144,6 +144,7 @@ public class Login extends javax.swing.JFrame {
       
       if(retorno == true){
           new TelaInicial().show();
+          this.dispose();
       }else{
           JOptionPane.showMessageDialog(null, "USUÁRIO OU SENHA INVÁLIDOS!");
       }
