@@ -15,7 +15,9 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import sistema.audizio.bean.Bairro;
 import sistema.audizio.bean.Cidade;
+import sistema.audizio.dao.DaoBairro;
 import sistema.audizio.dao.DaoCidade;
 
 /**
@@ -35,14 +37,14 @@ public class CadastroBairroCidade extends JDialog implements ActionListener{
     String titulo;
     String botao;
     String nomeCidade;
-    int codCidade;
+    String codCidade;
     
     public CadastroBairroCidade(String botao,String titulo,String cidade,int codCid) {
        
                 this.botao = botao;
 		this.titulo = titulo;
 		this.nomeCidade = cidade;
-		this.codCidade = codCid+1;
+		this.codCidade = String.valueOf(codCid);
 		inicializa();
 		tfBairro.setEnabled(false);
 		tfCidade.setEnabled(false);
@@ -108,7 +110,11 @@ public class CadastroBairroCidade extends JDialog implements ActionListener{
 					this.dispose();
 				}
 				if (botao.equals("B")) {
-					
+					DaoBairro daoBairro = new DaoBairro();
+                                        Bairro bairro = new Bairro();
+                                        bairro.setNome(tfBairro.getText());
+                                        bairro.setCod_cidade(codCidade);
+                                        daoBairro.cadastrar(bairro);
 					JOptionPane.showMessageDialog(null, "BAIRRO CADASTRADO COM SUCESSO!");
 					this.dispose();
 				}

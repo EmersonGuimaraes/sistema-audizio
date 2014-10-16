@@ -23,7 +23,7 @@ public class DaoBairro extends Conexao{
     public void cadastrar(Bairro bairro){
        sql = "INSERT INTO tb_bairro VALUES(null,'"+bairro.getNome()+"','"+bairro.getCod_cidade()+"')";
         ConsultarSQL(sql, false);
-        JOptionPane.showMessageDialog(null, "CIDADE CADASTRADA COM SUCESSO!");
+        JOptionPane.showMessageDialog(null, "BAIRRO CADASTRADA COM SUCESSO!");
     }
     public void editar(Bairro bairro){
         sql = "UPDATE tb_bairro SET bairro = '"+bairro.getNome()+"' WHERE cod='"+bairro.getCod()+"'";

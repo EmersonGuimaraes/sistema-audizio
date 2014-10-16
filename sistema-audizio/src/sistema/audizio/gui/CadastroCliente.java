@@ -21,6 +21,7 @@ import sistema.audizio.dao.DaoCliente;
  * @author Emerson
  */
 public class CadastroCliente extends javax.swing.JFrame {
+    boolean listaCheia = false;
     DefaultComboBoxModel comboModelCidade,comboModelBairro;
     /**
      * Creates new form CadastroCliente
@@ -32,13 +33,14 @@ public class CadastroCliente extends javax.swing.JFrame {
     }
 
      private void carregaCidades(){
-        
+        ArrayList<Cidade> cidades = new ArrayList<>();
+        DaoCidade daoCid = new DaoCidade();
         comboModelCidade = (DefaultComboBoxModel) comboCidade.getModel();
        
-            comboModelCidade.removeAllElements();
+        comboModelCidade.removeAllElements();
         
-        ArrayList<Cidade> cidades = new ArrayList<>();
-         DaoCidade daoCid = new DaoCidade();
+        
+         
         cidades = daoCid.consultar("");
         
         comboModelCidade.addElement("Selecionar ...");
@@ -54,8 +56,9 @@ public class CadastroCliente extends javax.swing.JFrame {
     }
      private void carregaBairros(){
          if(comboCidade.getSelectedItem().toString().equals("Selecionar ...")){
-             System.out.println("Selecionar ...");
+             System.out.println("Cocô");
          }else{
+             System.out.println("Carregando bairros...");
                 String cod = String.valueOf(comboCidade.getSelectedIndex());
                 
                comboModelBairro = (DefaultComboBoxModel) comboBairro.getModel();
@@ -71,11 +74,13 @@ public class CadastroCliente extends javax.swing.JFrame {
                if (bairros.isEmpty()) {
                    JOptionPane.showMessageDialog(null, "ESSA CIDADE NÃO TEM BAIRROS CADASTRADOS!");
                 }else{
+                        System.out.println("Carregando bairros...");
                         //percorrendo a lista para inserir os valores no combo
                         for (int linha = 0; linha < bairros.size(); linha++){
                             //pegando a categoria da lista
                             Bairro bairro = bairros.get(linha);
                             //adicionando a categoria no combo
+                            System.out.println("Bairros: "+bairro.getNome());
                             comboModelBairro.addElement(bairro.getNome());
                         }
                 }
@@ -545,23 +550,34 @@ public class CadastroCliente extends javax.swing.JFrame {
            JOptionPane.showMessageDialog(null, "SELECIONE UMA CIDADE!");
         } else {
              String b = "B";
-             new CadastroBairroCidade(b, "BAIRRO", null, 0).setVisible(true);
+             int cod = comboCidade.getSelectedIndex();
+             System.out.println("codigo: "+cod);
+             new CadastroBairroCidade(b, "BAIRRO", item, cod).show();
+             carregaBairros();
+           
         }
        
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void comboCidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboCidadeActionPerformed
        String item = String.valueOf(comboModelCidade.getSelectedItem());
-        if(item == "Selecionar ..."){
-            System.out.println("Igual");
-        } else {
-            System.out.println("diferente");
-            //carregaBairros();
-        }
+       
+       if(item.equals("Selecionar ...") || item == "null"){
+           System.out.println("Olá");
+           if(listaCheia == true){
+               comboModelBairro.removeAllElements();
+               comboModelBairro.addElement("Selecionar ...");
+           }
+           comboBairro.setSelectedIndex(0);
+       }else{
+           System.out.println("Carregando bairros!");
+           carregaBairros();
+           listaCheia = true;
+       }
     }//GEN-LAST:event_comboCidadeActionPerformed
 
     private void comboBairroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_comboBairroMouseClicked
-       
+        listaCheia = true;
     }//GEN-LAST:event_comboBairroMouseClicked
 
     private void comboCidadeMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_comboCidadeMouseExited
