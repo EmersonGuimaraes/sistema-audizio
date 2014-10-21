@@ -1,4 +1,4 @@
 sistema-audizio
 ===============
 
-Sistema Desktop de Cadstros, Consultas etc..
+Sistema de controle de processos judiciários.
