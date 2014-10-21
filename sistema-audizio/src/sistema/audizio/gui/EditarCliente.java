@@ -33,12 +33,14 @@ public class EditarCliente extends javax.swing.JFrame {
         this.idCliente = id;
         initComponents();
         preencheCampos();
-       // carregaCidades();
+       
     }
     
     public void preencheCampos(){
         DaoCliente dao = new DaoCliente();
         clientes = dao.Consultar(idCliente);
+        int idCid = 0, idBarr = 0;
+        
         
         for(Cliente cli:clientes){
             tfNome.setText(cli.getNome());
@@ -55,11 +57,17 @@ public class EditarCliente extends javax.swing.JFrame {
             tfTelefone.setText(cli.getFone());
             tfCelular.setText(cli.getCelular());
             tfEmail.setText(cli.getEmail());
-            idCidade = cli.getFone();
-            idBairro = cli.getCelular();
-            System.out.println("Celular: "+cli.getCelular());
+            tfEstado.setText(cli.getEstado());
+            
+            
+            idCid = Integer.parseInt(cli.getCidade());
+            idBarr = Integer.parseInt(cli.getBairro());
         }
         
+            carregaCidades();
+            comboCidade.setSelectedIndex(idCid);
+            carregaBairros(String.valueOf(idCid));
+            comboBairro.setSelectedIndex(idBarr);
     }
     
     private void carregaCidades(){
@@ -83,13 +91,41 @@ public class EditarCliente extends javax.swing.JFrame {
             comboModelCidade.addElement(cidade.getNome());
         }
        
-        int codCidade = Integer.parseInt(idCidade);
+       
         
     }
     
-    private void carregaBairros(){
-          
+    public void carregaBairros(String codCid){
+                if(comboCidade.getSelectedItem().toString().equals("Selecionar ...")){
+             System.out.println("Nenhuma cidade selecionada");
+         }else{
+                    System.out.println("Carregando bairros...");
+                    
+                    comboModelBairro = (DefaultComboBoxModel) comboBairro.getModel();
+                    comboModelBairro.removeAllElements();
+
+                    ArrayList<Bairro> bairros = new ArrayList<>();
+                    DaoBairro daoBairro = new DaoBairro();
+                    bairros = daoBairro.consultar(codCid);
+
+                    comboModelBairro.addElement("Selecionar ...");
+
+                    if (bairros.isEmpty()) {
+                          JOptionPane.showMessageDialog(null, "ESSA CIDADE NÃO TEM BAIRROS CADASTRADOS!");
+                    }else{
+                        System.out.println("Carregando bairros...");
+                        //percorrendo a lista para inserir os valores no combo
+                        for (int linha = 0; linha < bairros.size(); linha++){
+                            //pegando a categoria da lista
+                            Bairro bairro = bairros.get(linha);
+                            //adicionando a categoria no combo
+                            System.out.println("Bairros: "+bairro.getNome());
+                            comboModelBairro.addElement(bairro.getNome());
+                        }
+                    }
+                }
     }
+   
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -133,7 +169,7 @@ public class EditarCliente extends javax.swing.JFrame {
         tfEmail = new javax.swing.JTextField();
         tfCpf = new javax.swing.JFormattedTextField();
         btEditar = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btImprimir = new javax.swing.JButton();
         tfDataExp = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -160,6 +196,11 @@ public class EditarCliente extends javax.swing.JFrame {
 
         comboBairro.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecionar..." }));
         comboBairro.setEnabled(false);
+        comboBairro.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                comboBairroMouseClicked(evt);
+            }
+        });
 
         lbEndereco.setText("ENDEREÇO");
         lbEndereco.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -288,7 +329,12 @@ public class EditarCliente extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("IMPRIMIR");
+        btImprimir.setText("GERAR PDF");
+        btImprimir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btImprimirActionPerformed(evt);
+            }
+        });
 
         try {
             tfDataExp.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
@@ -395,7 +441,7 @@ public class EditarCliente extends javax.swing.JFrame {
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(btEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(btCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -473,7 +519,7 @@ public class EditarCliente extends javax.swing.JFrame {
                         .addComponent(btCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1)))
+                        .addComponent(btImprimir)))
                 .addContainerGap())
         );
 
@@ -517,6 +563,9 @@ public class EditarCliente extends javax.swing.JFrame {
         tfCelular.setEnabled(false);
         tfEmail.setEnabled(false);
         btEditar.setEnabled(true);
+        btSalvar.setEnabled(false);
+        btImprimir.setEnabled(true);
+        preencheCampos();
     }//GEN-LAST:event_btCancelarActionPerformed
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
@@ -592,11 +641,12 @@ public class EditarCliente extends javax.swing.JFrame {
         tfEmail.setEnabled(true);
         btEditar.setEnabled(false);
         btSalvar.setEnabled(true);
+        btImprimir.setEnabled(false);
         
     }//GEN-LAST:event_btEditarActionPerformed
 
     private void comboCidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboCidadeActionPerformed
-        String item = String.valueOf(comboModelCidade.getSelectedItem());
+       String item = String.valueOf(comboModelCidade.getSelectedItem());
        
        if(item.equals("Selecionar ...") || item == "null"){
            System.out.println("Olá");
@@ -607,10 +657,21 @@ public class EditarCliente extends javax.swing.JFrame {
            comboBairro.setSelectedIndex(0);
        }else{
            System.out.println("Carregando bairros!");
-         //  carregaBairros();
-           //listaCheia = true;
+           String idCid = null;
+           idCid = String.valueOf(comboCidade.getSelectedIndex());
+           carregaBairros(idCid);
+           listaCheia = true;
        }
+       
     }//GEN-LAST:event_comboCidadeActionPerformed
+
+    private void btImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btImprimirActionPerformed
+       JOptionPane.showMessageDialog(null, "Função Indisponível!");
+    }//GEN-LAST:event_btImprimirActionPerformed
+
+    private void comboBairroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_comboBairroMouseClicked
+         listaCheia = true;
+    }//GEN-LAST:event_comboBairroMouseClicked
 
     /**
      * @param args the command line arguments
@@ -620,10 +681,10 @@ public class EditarCliente extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btCancelar;
     private javax.swing.JButton btEditar;
+    private javax.swing.JButton btImprimir;
     private javax.swing.JButton btSalvar;
     private javax.swing.JComboBox comboBairro;
     private javax.swing.JComboBox comboCidade;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

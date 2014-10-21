@@ -56,7 +56,7 @@ public class CadastroCliente extends javax.swing.JFrame {
     }
      private void carregaBairros(){
          if(comboCidade.getSelectedItem().toString().equals("Selecionar ...")){
-             System.out.println("Cocô");
+             System.out.println("Nenhuma cidade selecionada");
          }else{
              System.out.println("Carregando bairros...");
                 String cod = String.valueOf(comboCidade.getSelectedIndex());
