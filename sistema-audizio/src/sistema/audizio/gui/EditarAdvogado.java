@@ -34,8 +34,6 @@ public class EditarAdvogado extends javax.swing.JFrame {
         
         for(Advogado ad:advogados){
             tfNome.setText(ad.getNome());
-            tfOab.setText(ad.getOab());
-            tfAreaAtuacao.setText(ad.getArea_atuacao());
             System.out.println("Teste = "+ad.getNome());
         }
         
@@ -170,8 +168,6 @@ public class EditarAdvogado extends javax.swing.JFrame {
             
             advogado.setIdAdvogado(idAdvogado);
             advogado.setNome(tfNome.getText());
-            advogado.setOab(tfOab.getText());
-            advogado.setArea_atuacao(tfAreaAtuacao.getText());
             
             daoAdvogado.Editar(advogado);
             

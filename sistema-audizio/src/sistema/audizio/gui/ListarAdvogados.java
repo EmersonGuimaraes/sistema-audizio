@@ -33,7 +33,7 @@ public class ListarAdvogados extends javax.swing.JFrame {
         advogados = dao.Consultar("");
         modeloTabela = (DefaultTableModel) tbListarAdvogado.getModel();
        for(Advogado advo:advogados){
-           modeloTabela.addRow(new Object[] {advo.getIdAdvogado(),advo.getIdAdvogado(), advo.getOab(),advo.getArea_atuacao()});
+           modeloTabela.addRow(new Object[] {advo.getIdAdvogado(),advo.getNome()});
         }
  
     }

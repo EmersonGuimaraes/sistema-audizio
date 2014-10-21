@@ -21,18 +21,18 @@ public class DaoAdvogado extends Conexao{
     
     public void Cadastrar(Advogado advogado){
      
-        sql = "INSERT INTO tb_advogado VALUES(null,'"+advogado.getNome()+"','"+advogado.getOab()+"','"+advogado.getArea_atuacao()+"')";
+        sql = "INSERT INTO tb_advogado VALUES(null,'"+advogado.getNome()+"')";
         ConsultarSQL(sql, false);
         JOptionPane.showMessageDialog(null, "Cadastro Realizado com Sucesso!");
     }
     
     public void Editar(Advogado advogado){
       
-        sql = "UPDATE tb_advogado SET nome = '"+advogado.getNome()+"', oab = '"+advogado.getOab()+"','"+advogado.getArea_atuacao()+"' WHERE id = '"+advogado.getIdAdvogado()+"'";
+        sql = "UPDATE tb_advogado SET nome = '"+advogado.getNome()+"' WHERE id = '"+advogado.getIdAdvogado()+"'";
     }
     public void Deletar(Advogado advogado){
         
-        sql = "DELETE FROM tb_advogado WHERE oab = '"+advogado.getOab()+"'";
+        sql = "DELETE FROM tb_advogado WHERE id = '"+advogado.getIdAdvogado()+"'";
     } 
     
     public ArrayList<Advogado> Consultar(String id){
@@ -47,8 +47,6 @@ public class DaoAdvogado extends Conexao{
                     Advogado advogado = new Advogado();
                     advogado.setIdAdvogado(rs.getString("id"));
                     advogado.setNome(rs.getString("nome"));
-                    advogado.setOab(rs.getString("oab"));
-                    advogado.setArea_atuacao(rs.getString("area_atuacao"));
                     
                     advogados.add(advogado);
                     
@@ -64,9 +62,7 @@ public class DaoAdvogado extends Conexao{
                     Advogado advogado = new Advogado();
                     advogado.setIdAdvogado(rs.getString("id"));
                     advogado.setNome(rs.getString("nome"));
-                    advogado.setOab(rs.getString("oab"));
-                    advogado.setArea_atuacao(rs.getString("area_atuacao"));
-                    
+                  
                     advogados.add(advogado);
                     
                 }
