@@ -140,10 +140,11 @@ public class ListarClientes extends javax.swing.JFrame {
     }//GEN-LAST:event_btNovoClienteActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        System.out.println("Clicando");
         try {
             String idCliente;
             idCliente = tbListarCliente.getValueAt(tbListarCliente.getSelectedRow(),0).toString();
-            System.out.println(idCliente);
+            System.out.println("Id Cliente: "+idCliente);
        
             new EditarCliente(idCliente).show();
             this.dispose();

@@ -14,6 +14,7 @@ public class Pessoa {
 	String idCliente;
         String nome; 
         String fone;
+        String celular;
         String nascimento;
         String endereco;
         String bairro;
@@ -168,4 +169,15 @@ public class Pessoa {
     public void setEstado(String estado) {
         this.estado = estado;
     }
+
+    public void setCelular(String celular) {
+        this.celular = celular;
+    }
+
+    public String getCelular() {
+        return celular;
+    }
+    
+    
+    
 }

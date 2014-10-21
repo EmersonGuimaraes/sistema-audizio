@@ -7,8 +7,13 @@
 package sistema.audizio.gui;
 
 import java.util.ArrayList;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+import sistema.audizio.bean.Bairro;
+import sistema.audizio.bean.Cidade;
 import sistema.audizio.bean.Cliente;
+import sistema.audizio.dao.DaoBairro;
+import sistema.audizio.dao.DaoCidade;
 import sistema.audizio.dao.DaoCliente;
 
 /**
@@ -16,7 +21,9 @@ import sistema.audizio.dao.DaoCliente;
  * @author Emerson
  */
 public class EditarCliente extends javax.swing.JFrame {
-
+    boolean listaCheia = false;
+    DefaultComboBoxModel comboModelCidade,comboModelBairro;
+    String idCidade, idBairro;
     /**
      * Creates new form CadastroCliente
      */
@@ -26,6 +33,7 @@ public class EditarCliente extends javax.swing.JFrame {
         this.idCliente = id;
         initComponents();
         preencheCampos();
+       // carregaCidades();
     }
     
     public void preencheCampos(){
@@ -45,10 +53,42 @@ public class EditarCliente extends javax.swing.JFrame {
             tfCep.setText(cli.getCep());
             tfEndereco.setText(cli.getEndereco());
             tfTelefone.setText(cli.getFone());
+            tfCelular.setText(cli.getCelular());
             tfEmail.setText(cli.getEmail());
-            System.out.println("Editar: "+cli.getNascimento());
+            idCidade = cli.getFone();
+            idBairro = cli.getCelular();
+            System.out.println("Celular: "+cli.getCelular());
         }
         
+    }
+    
+    private void carregaCidades(){
+        ArrayList<Cidade> cidades = new ArrayList<>();
+        DaoCidade daoCid = new DaoCidade();
+        comboModelCidade = (DefaultComboBoxModel) comboCidade.getModel();
+       
+        comboModelCidade.removeAllElements();
+        
+        
+         
+        cidades = daoCid.consultar("");
+        
+        comboModelCidade.addElement("Selecionar ...");
+        
+       
+        for (int linha = 0; linha < cidades.size(); linha++){
+           
+            Cidade cidade = cidades.get(linha);
+            
+            comboModelCidade.addElement(cidade.getNome());
+        }
+       
+        int codCidade = Integer.parseInt(idCidade);
+        
+    }
+    
+    private void carregaBairros(){
+          
     }
     
     @SuppressWarnings("unchecked")
@@ -87,7 +127,6 @@ public class EditarCliente extends javax.swing.JFrame {
         tfNacionalidade = new javax.swing.JTextField();
         tfProfissao = new javax.swing.JTextField();
         tfEstadoCivil = new javax.swing.JTextField();
-        tfDataExp = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         tfEstado = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
@@ -95,6 +134,7 @@ public class EditarCliente extends javax.swing.JFrame {
         tfCpf = new javax.swing.JFormattedTextField();
         btEditar = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        tfDataExp = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -112,6 +152,11 @@ public class EditarCliente extends javax.swing.JFrame {
 
         comboCidade.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecionar...." }));
         comboCidade.setEnabled(false);
+        comboCidade.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboCidadeActionPerformed(evt);
+            }
+        });
 
         comboBairro.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecionar..." }));
         comboBairro.setEnabled(false);
@@ -221,8 +266,6 @@ public class EditarCliente extends javax.swing.JFrame {
 
         tfEstadoCivil.setEnabled(false);
 
-        tfDataExp.setEnabled(false);
-
         jLabel10.setText("ESTADO");
 
         tfEstado.setEnabled(false);
@@ -247,6 +290,13 @@ public class EditarCliente extends javax.swing.JFrame {
 
         jButton1.setText("IMPRIMIR");
 
+        try {
+            tfDataExp.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        tfDataExp.setEnabled(false);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -254,36 +304,6 @@ public class EditarCliente extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2)
-                                    .addComponent(tfRg, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(13, 13, 13)
-                                        .addComponent(jLabel3))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(18, 18, 18)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel7)
-                                            .addComponent(tfOrgaoExp, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                            .addComponent(lbNome)
-                            .addComponent(jLabel6))
-                        .addGap(24, 24, 24)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel8)
-                                .addContainerGap(287, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(tfDataExp, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(tfCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
@@ -316,6 +336,27 @@ public class EditarCliente extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel2)
+                                            .addComponent(tfRg, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addGap(13, 13, 13)
+                                                .addComponent(jLabel3))
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addGap(18, 18, 18)
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(jLabel7)
+                                                    .addComponent(tfOrgaoExp, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                    .addComponent(lbNome)
+                                    .addComponent(jLabel6))
+                                .addGap(24, 24, 24)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel8)
+                                    .addComponent(jLabel4)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(lbEndereco)
                                     .addComponent(tfEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, 512, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(45, 45, 45)
@@ -324,12 +365,17 @@ public class EditarCliente extends javax.swing.JFrame {
                                     .addComponent(tfNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(comboCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, 522, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, 522, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(349, 349, 349)
+                                        .addComponent(tfDataExp, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel9)
                                     .addComponent(jLabel5)
-                                    .addComponent(tfDataNasci, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(tfDataNasci, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(tfCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addGroup(layout.createSequentialGroup()
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -377,8 +423,8 @@ public class EditarCliente extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tfRg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tfOrgaoExp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfDataExp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfDataExp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
@@ -485,7 +531,7 @@ public class EditarCliente extends javax.swing.JFrame {
             cliente.setNascimento(mask.removeMascara(tfDataNasci.getText()));
             cliente.setRg(tfRg.getText());
             cliente.setOrgao_exp(tfOrgaoExp.getText());
-            cliente.setData_exp(tfDataExp.getText());
+            cliente.setData_exp(mask.removeMascara(tfDataExp.getText()));
             cliente.setCpf(mask.removeMascara(tfCpf.getText()));
             cliente.setNacionalidade(tfNacionalidade.getText());
             cliente.setProfisao(tfProfissao.getText());
@@ -493,9 +539,10 @@ public class EditarCliente extends javax.swing.JFrame {
             cliente.setCep(mask.removeMascara(tfCep.getText()));
             cliente.setEndereco(tfEndereco.getText());
             cliente.setEstado(tfEstado.getText());
-            cliente.setCidade(comboCidade.getSelectedItem().toString());
-            cliente.setBairro(comboBairro.getSelectedItem().toString());
+            cliente.setCidade(String.valueOf(comboCidade.getSelectedIndex()));
+            cliente.setBairro(String.valueOf(comboBairro.getSelectedIndex()));
             cliente.setFone(mask.removeMascara(tfTelefone.getText()));
+            cliente.setCelular(mask.removeMascara(tfCelular.getText()));
             cliente.setEmail(tfEmail.getText());
 
          
@@ -548,6 +595,23 @@ public class EditarCliente extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btEditarActionPerformed
 
+    private void comboCidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboCidadeActionPerformed
+        String item = String.valueOf(comboModelCidade.getSelectedItem());
+       
+       if(item.equals("Selecionar ...") || item == "null"){
+           System.out.println("Olá");
+           if(listaCheia == true){
+               comboModelBairro.removeAllElements();
+               comboModelBairro.addElement("Selecionar ...");
+           }
+           comboBairro.setSelectedIndex(0);
+       }else{
+           System.out.println("Carregando bairros!");
+         //  carregaBairros();
+           //listaCheia = true;
+       }
+    }//GEN-LAST:event_comboCidadeActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -581,7 +645,7 @@ public class EditarCliente extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField tfCelular;
     private javax.swing.JFormattedTextField tfCep;
     private javax.swing.JFormattedTextField tfCpf;
-    private javax.swing.JTextField tfDataExp;
+    private javax.swing.JFormattedTextField tfDataExp;
     private javax.swing.JFormattedTextField tfDataNasci;
     private javax.swing.JTextField tfEmail;
     private javax.swing.JTextField tfEndereco;

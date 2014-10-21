@@ -19,7 +19,7 @@ public class DaoCliente extends Conexao{
         sql = "INSERT INTO tb_cliente VALUES(null,'"+cliente.getNome()+"','"+cliente.getNascimento()+"','"+cliente.getRg()+"',"
                 + "'"+cliente.getOrgao_exp()+"','"+cliente.getData_exp()+"','"+cliente.getCpf()+"','"+cliente.getNacionalidade()+"',"
                 + "'"+cliente.getProfisao()+"','"+cliente.getEstado_civil()+"','"+cliente.getCep()+"','"+cliente.getEndereco()+"',"
-                + "'"+cliente.getEstado()+"','"+cliente.getCidade()+"','"+cliente.getBairro()+"','"+cliente.getFone()+"','"+cliente.getEmail()+"')";
+                + "'"+cliente.getEstado()+"','"+cliente.getCidade()+"','"+cliente.getBairro()+"','"+cliente.getFone()+"','"+cliente.getCelular()+"','"+cliente.getEmail()+"')";
         ConsultarSQL(sql, false);
         System.out.println("cpf:"+cliente.getCpf());
         JOptionPane.showMessageDialog(null, "Cadastro Realizado com Sucesso!");
@@ -30,7 +30,7 @@ public class DaoCliente extends Conexao{
         sql = "UPDATE tb_cliente SET nome = '"+cliente.getNome()+"',nascimento = '"+cliente.getNascimento()+"',rg = '"+cliente.getRg()+"',"
                 + "orgao_exp = '"+cliente.getOrgao_exp()+"',data_exp = '"+cliente.getData_exp()+"',cpf = '"+cliente.getCpf()+"',nacionalidade = '"+cliente.getNascimento()+"',"
                 + "profissao = '"+cliente.getProfisao()+"',estado_civil = '"+cliente.getEstado_civil()+"',cep = '"+cliente.getCep()+"',endereco = '"+cliente.getEndereco()+"',"
-                + "estado = '"+cliente.getEstado()+"',cidade = '"+cliente.getCidade()+"',bairro = '"+cliente.getBairro()+"',telefone = '"+cliente.getFone()+"',"
+                + "estado = '"+cliente.getEstado()+"',cidade = '"+cliente.getCidade()+"',bairro = '"+cliente.getBairro()+"',telefone = '"+cliente.getFone()+"',celular = '"+cliente.getCelular()+"',"
                 + "email = '"+cliente.getEmail()+"' WHERE id = '"+cliente.getIdCliente()+"'";
         ConsultarSQL(sql, false);
     }
@@ -77,6 +77,7 @@ public class DaoCliente extends Conexao{
                     cliente.setCidade(rs.getString("cidade"));
                     cliente.setBairro(rs.getString("bairro"));
                     cliente.setFone(rs.getString("telefone"));
+                    cliente.setCelular(rs.getString("celular"));
                     cliente.setEmail(rs.getString("email"));
 
                     clientes.add(cliente);
