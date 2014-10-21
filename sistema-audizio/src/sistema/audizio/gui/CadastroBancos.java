@@ -11,7 +11,7 @@ import sistema.audizio.dao.DaoBanco;
 
 /**
  *
- * @author zipnet
+ * @author Emerson
  */
 public class CadastroBancos extends javax.swing.JFrame {
 

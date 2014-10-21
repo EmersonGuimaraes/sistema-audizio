@@ -18,7 +18,7 @@ import sistema.audizio.dao.DaoCliente;
 
 /**
  *
- * @author Emerson
+ * @author Emerson Guimarães
  */
 public class EditarCliente extends javax.swing.JFrame {
     boolean listaCheia = false;

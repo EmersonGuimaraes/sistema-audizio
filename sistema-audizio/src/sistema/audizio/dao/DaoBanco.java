@@ -10,7 +10,7 @@ import sistema.audizio.bean.Banco;
 
 /**
  *
- * @author zipnet
+ * @author Emerson Guimarães
  */
 public class DaoBanco extends Conexao{
     public void cadastrar(Banco banco){

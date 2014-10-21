@@ -8,7 +8,7 @@ package sistema.audizio.bean;
 
 /**
  *
- * @author emerson
+ * @author emerson guimarães
  */
 public class Banco {
     String id, nome;
