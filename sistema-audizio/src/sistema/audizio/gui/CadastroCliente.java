@@ -566,7 +566,7 @@ public class CadastroCliente extends javax.swing.JFrame {
             cliente.setFone(mask.removeMascara(tfTelefone.getText()));
             cliente.setCelular(mask.removeMascara(tfCelular.getText()));
             cliente.setEmail(tfEmail.getText());
-            
+            cliente.setWhatsapp(mask.removeMascara(tfWhats.getText()));
          
             daoCliente.Cadastrar(cliente);
             

@@ -20,7 +20,7 @@ public class Pessoa {
         String bairro;
         String cidade;
         String email;
-        int num;
+        String num;
         String rg;
         String orgao_exp;
         String data_exp;
@@ -91,13 +91,15 @@ public class Pessoa {
         this.email = email;
     }
 
-    public int getNum() {
+    public String getNum() {
         return num;
     }
 
-    public void setNum(int num) {
+    public void setNum(String num) {
         this.num = num;
     }
+
+
 
     public String getRg() {
         return rg;
