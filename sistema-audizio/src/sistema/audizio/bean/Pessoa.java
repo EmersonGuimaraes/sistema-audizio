@@ -30,7 +30,8 @@ public class Pessoa {
         String estado_civil;
         String cep;
         String estado;
-    
+        String whatsapp;
+        
     public String getIdCliente(){return idCliente;}
     public void setIdCliente(String id){this.idCliente = id;}
     
@@ -178,6 +179,13 @@ public class Pessoa {
         return celular;
     }
     
+    public String getWhatsapp() {
+        return whatsapp;
+    }
+
+    public void setWhatsapp(String whatsapp) {
+        this.whatsapp = whatsapp;
+    }
     
     
 }

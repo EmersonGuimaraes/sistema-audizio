@@ -33,21 +33,13 @@ public class CadastroAdvogado extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         tfNome = new javax.swing.JTextField();
-        tfOab = new javax.swing.JTextField();
-        tfAreaAtuacao = new javax.swing.JTextField();
         btCancelar = new javax.swing.JButton();
         btSalvar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setText("NOME");
-
-        jLabel2.setText("OAB");
-
-        jLabel3.setText("ÁREA DE ATUAÇÃO");
 
         btCancelar.setText("CANCELAR");
         btCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -71,48 +63,29 @@ public class CadastroAdvogado extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tfNome)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addComponent(tfNome)
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(btCancelar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 187, Short.MAX_VALUE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tfOab, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addComponent(btCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addContainerGap(46, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(btSalvar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(tfAreaAtuacao))
-                                .addGap(12, 12, 12))))))
+                        .addComponent(btSalvar, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE)
+                        .addGap(12, 12, 12))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(23, 23, 23)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tfAreaAtuacao, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfOab, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btCancelar)
                     .addComponent(btSalvar))
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -125,22 +98,17 @@ public class CadastroAdvogado extends javax.swing.JFrame {
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
         JOptionPane.showMessageDialog(null, "Em Construção !");
-        if(tfNome.getText().equals("") || tfOab.getText().equals("") || tfAreaAtuacao.getText().equals("")){
-            JOptionPane.showMessageDialog(null, "Preencha os campos corretamente!");
-        }else{
+        
             Advogado advogado = new Advogado();
             DaoAdvogado daoAdvogado = new DaoAdvogado();
             
             advogado.setNome(tfNome.getText());
-            advogado.setOab(tfOab.getText());
-            advogado.setArea_atuacao(tfAreaAtuacao.getText());
             
             daoAdvogado.Cadastrar(advogado);
             
             tfNome.setText(null);
-            tfOab.setText(null);
-            tfAreaAtuacao.setText(null);
-        }
+        
+        
     }//GEN-LAST:event_btSalvarActionPerformed
 
     /**
@@ -182,10 +150,6 @@ public class CadastroAdvogado extends javax.swing.JFrame {
     private javax.swing.JButton btCancelar;
     private javax.swing.JButton btSalvar;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JTextField tfAreaAtuacao;
     private javax.swing.JTextField tfNome;
-    private javax.swing.JTextField tfOab;
     // End of variables declaration//GEN-END:variables
 }

@@ -10,15 +10,6 @@ package sistema.audizio.bean;
  *
  * @author Raylan Alves
  */
-public class Advogado extends Pessoa {
-    String idAdvogado;
+public class financeiro {
     
-    public String getIdAdvogado(){
-        return idAdvogado;
-    }
-    
-    public void setIdAdvogado(String id){
-        this.idAdvogado = id;
-    }
-
 }

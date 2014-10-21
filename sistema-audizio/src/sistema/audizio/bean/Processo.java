@@ -24,6 +24,9 @@ public class Processo {
     String idVeiculo;
     String idProcesso;
     String situacao;
+    String comarca;
+
+   
     
     public String getIdProcesso(){
         return idProcesso;
@@ -124,5 +127,12 @@ public class Processo {
         this.idVeiculo = id;
     }
     
+     public String getComarca() {
+        return comarca;
+    }
+
+    public void setComarca(String comarca) {
+        this.comarca = comarca;
+    }
     
 }
