@@ -11,5 +11,21 @@ package sistema.audizio.bean;
  * @author emerson
  */
 public class Banco {
-    
+    String id, nome;
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getId() {
+        return id;
+    }
 }

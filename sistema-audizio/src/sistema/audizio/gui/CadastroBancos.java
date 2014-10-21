@@ -5,6 +5,10 @@
  */
 package sistema.audizio.gui;
 
+import javax.swing.JOptionPane;
+import sistema.audizio.bean.Banco;
+import sistema.audizio.dao.DaoBanco;
+
 /**
  *
  * @author zipnet
@@ -92,7 +96,15 @@ public class CadastroBancos extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
+            if(tfBanco.getText().equals(null) || tfBanco.getText().equals("")){
+                JOptionPane.showMessageDialog(null, "PREENCHA O CAMPO CORRETAMENTE!");
+            }else{
+                Banco banco = new Banco();
+                banco.setNome(tfBanco.getText());
+                DaoBanco dao = new DaoBanco();
+                dao.cadastrar(banco);
+                tfBanco.setText(null);
+            }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
