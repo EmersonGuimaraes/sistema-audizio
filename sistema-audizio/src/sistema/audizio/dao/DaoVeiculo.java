@@ -20,7 +20,7 @@ public class DaoVeiculo extends Conexao{
     String sql;
     public void Cadastrar(Veiculo veiculo){
         sql = "INSERT INTO tb_veiculo VALUES(null,'"+veiculo.getMarca()+"','"+veiculo.getModelo()+"',"
-                + "'"+veiculo.getCor()+"','"+veiculo.getAnoFabricacao()+"','"+veiculo.getAnoModelo()+"','"+veiculo.getPlaca()+"','"+veiculo.getChassi()+"')";
+                + "'"+veiculo.getCor()+"','"+veiculo.getAnoFabricacao()+"','"+veiculo.getAnoModelo()+"','"+veiculo.getPlaca()+"','"+veiculo.getChassi()+"','"+veiculo.getRenavam()+"','0')";
         
         ConsultarSQL(sql, false);
     }

@@ -19,6 +19,15 @@ public class Veiculo {
     int chassi;
     String placa;
     String marca;
+    String renavam;
+
+    public String getRenavam() {
+        return renavam;
+    }
+
+    public void setRenavam(String renavam) {
+        this.renavam = renavam;
+    }
     
     public String getAnoFabricacao() {
         return ano_fabricacao;

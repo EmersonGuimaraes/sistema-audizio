@@ -14,13 +14,14 @@ import sistema.audizio.dao.DaoAdvogado;
  *
  * @author emerson
  */
-public class CadastroAdvogado extends javax.swing.JFrame {
+public class CadastroAdvogado extends javax.swing.JDialog {
 
     /**
      * Creates new form CadastroAdvogado
      */
     public CadastroAdvogado() {
         initComponents();
+        setModal(true);
     }
 
     /**
@@ -97,7 +98,7 @@ public class CadastroAdvogado extends javax.swing.JFrame {
     }//GEN-LAST:event_btCancelarActionPerformed
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
-        JOptionPane.showMessageDialog(null, "Em Construção !");
+        //JOptionPane.showMessageDialog(null, "Em Construção !");
         
             Advogado advogado = new Advogado();
             DaoAdvogado daoAdvogado = new DaoAdvogado();

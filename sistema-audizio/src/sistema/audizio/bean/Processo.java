@@ -24,8 +24,9 @@ public class Processo {
     String idVeiculo;
     String idProcesso;
     String situacao;
+    String situacao_atual;
     String comarca;
-
+    String vara;
    
     
     public String getIdProcesso(){
@@ -41,6 +42,15 @@ public class Processo {
     public void setSituacao(String situcao){
         this.situacao = situcao;
     }
+
+    public String getSituacao_atual() {
+        return situacao_atual;
+    }
+
+    public void setSituacao_atual(String situacao_atual) {
+        this.situacao_atual = situacao_atual;
+    }
+    
     public String getProcesso(){
         return processo;
     }
@@ -134,5 +144,14 @@ public class Processo {
     public void setComarca(String comarca) {
         this.comarca = comarca;
     }
+
+    public String getVara() {
+        return vara;
+    }
+
+    public void setVara(String vara) {
+        this.vara = vara;
+    }
+    
     
 }

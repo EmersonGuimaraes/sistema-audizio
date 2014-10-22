@@ -40,35 +40,35 @@ public class DaoAdvogado extends Conexao{
         
         
             if(id.equals("")){
-            try {
-                ConsultarSQL("SELECT * FROM tb_advogado", true);
-                while (rs.next()) {
-                    
-                    Advogado advogado = new Advogado();
-                    advogado.setIdAdvogado(rs.getString("id"));
-                    advogado.setNome(rs.getString("nome"));
-                    
-                    advogados.add(advogado);
-                    
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(DaoAdvogado.class.getName()).log(Level.SEVERE, null, ex);
-            }
+                    try {
+                        ConsultarSQL("SELECT * FROM tb_advogado", true);
+                        while (rs.next()) {
+
+                            Advogado advogado = new Advogado();
+                            advogado.setIdAdvogado(rs.getString("id"));
+                            advogado.setNome(rs.getString("nome"));
+
+                            advogados.add(advogado);
+
+                        }
+                    } catch (SQLException ex) {
+                        Logger.getLogger(DaoAdvogado.class.getName()).log(Level.SEVERE, null, ex);
+                    }
             }else{
-            try {
-                ConsultarSQL("SELECT * FROM tb_advogado WHERE id = '"+id+"'", true);
-                while (rs.next()) {
-                    
-                    Advogado advogado = new Advogado();
-                    advogado.setIdAdvogado(rs.getString("id"));
-                    advogado.setNome(rs.getString("nome"));
-                  
-                    advogados.add(advogado);
-                    
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(DaoAdvogado.class.getName()).log(Level.SEVERE, null, ex);
-            }
+                    try {
+                        ConsultarSQL("SELECT * FROM tb_advogado WHERE id = '"+id+"'", true);
+                        while (rs.next()) {
+
+                            Advogado advogado = new Advogado();
+                            advogado.setIdAdvogado(rs.getString("id"));
+                            advogado.setNome(rs.getString("nome"));
+
+                            advogados.add(advogado);
+
+                        }
+                    } catch (SQLException ex) {
+                        Logger.getLogger(DaoAdvogado.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                
            }
        

@@ -25,7 +25,8 @@ public class DaoProcesso extends Conexao{
     public void Cadastrar(Processo processo){
         
         sql="INSERT INTO tb_processo VALUES(null,'"+processo.getProcesso()+"','"+processo.getData_inicio()+"','"+processo.getData_termino()+"',"
-                + "'"+processo.getCliente()+"','"+processo.getAdvogado()+"','"+processo.getValor()+"','"+processo.getAcao()+"','"+processo.getReboqueiro()+"','ABERTO')";
+                + "'"+processo.getCliente()+"','"+processo.getAdvogado()+"','"+processo.getValor()+"','"+processo.getAcao()+"','"+processo.getReboqueiro()+"','ABERTO',"
+                + "'"+processo.getSituacao_atual()+"','"+processo.getVara()+"','"+processo.getComarca()+"')";
         ConsultarSQL(sql, false);
         JOptionPane.showMessageDialog(null, "Cadastro Realizado com Sucesso!");
     }
