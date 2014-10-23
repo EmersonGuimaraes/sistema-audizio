@@ -20,7 +20,8 @@ public class Veiculo {
     String placa;
     String marca;
     String renavam;
-
+    String estado;
+    
     public String getRenavam() {
         return renavam;
     }
@@ -83,4 +84,11 @@ public class Veiculo {
         this.marca = marca;
     }
    
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
 }

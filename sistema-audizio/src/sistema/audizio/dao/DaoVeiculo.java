@@ -20,7 +20,7 @@ public class DaoVeiculo extends Conexao{
     String sql;
     public void Cadastrar(Veiculo veiculo){
         sql = "INSERT INTO tb_veiculo VALUES(null,'"+veiculo.getMarca()+"','"+veiculo.getModelo()+"',"
-                + "'"+veiculo.getCor()+"','"+veiculo.getAnoFabricacao()+"','"+veiculo.getAnoModelo()+"','"+veiculo.getPlaca()+"','"+veiculo.getChassi()+"','"+veiculo.getRenavam()+"','0')";
+                + "'"+veiculo.getCor()+"','"+veiculo.getAnoFabricacao()+"','"+veiculo.getAnoModelo()+"','"+veiculo.getPlaca()+"','"+veiculo.getChassi()+"','"+veiculo.getRenavam()+"','"+veiculo.getEstado()+"','0')";
         
         ConsultarSQL(sql, false);
     }
@@ -28,7 +28,7 @@ public class DaoVeiculo extends Conexao{
     public void Editar(Veiculo veiculo){
         sql = "UPDATE tb_veiculo SET marca='"+veiculo.getMarca()+"',modelo='"+veiculo.getModelo()+"',"
                 + "cor='"+veiculo.getCor()+"',ano_fabricacao='"+veiculo.getAnoFabricacao()+"',ano_modelo='"+veiculo.getAnoModelo()+"',"
-                + "placa='"+veiculo.getPlaca()+"',chassi='"+veiculo.getChassi()+"' WHERE placa = '"+veiculo.getPlaca()+"'";
+                + "placa='"+veiculo.getPlaca()+"',chassi='"+veiculo.getChassi()+"',renavam='"+veiculo.getRenavam()+"',estado='"+veiculo.getEstado()+"' WHERE placa = '"+veiculo.getPlaca()+"'";
         
         ConsultarSQL(sql, false);
     }
@@ -55,7 +55,8 @@ public class DaoVeiculo extends Conexao{
                     veiculo.setAnoModelo(rs.getString("ano_modelo"));
                     veiculo.setPlaca(rs.getString("placa"));
                     veiculo.setChassi(rs.getInt("chassi"));
-                    
+                    veiculo.setRenavam(rs.getString("renavam"));
+                    veiculo.setEstado(rs.getString("estado"));
                     veiculos.add(veiculo);
                 }
             } catch (SQLException ex) {

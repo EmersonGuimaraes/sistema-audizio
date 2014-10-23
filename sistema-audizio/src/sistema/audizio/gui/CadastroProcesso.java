@@ -436,8 +436,6 @@ public class CadastroProcesso extends javax.swing.JFrame {
          processo.setData_inicio(mask.removeMascara(tfDataInicio.getText()));
          processo.setData_termino(mask.removeMascara(tfDataFim.getText()));
          processo.setAdvogado(comboAdvogado.getSelectedIndex()+1);
-         double valor =Double.parseDouble(tfValor.getText());
-         processo.setValor(valor);
          processo.setAcao(tfAcao.getText());
          processo.setReboqueiro(tfReboqueiro.getText());
         

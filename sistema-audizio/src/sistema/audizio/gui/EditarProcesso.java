@@ -60,7 +60,6 @@ public class EditarProcesso extends javax.swing.JFrame {
             comboAdvogado.setSelectedIndex(pro.getAdvogado());
             tfAcao.setText(pro.getAcao());
             //tfCor.setText(pro.getCor());
-            tfValor.setText(String.valueOf(pro.getValor()));
             tfReboqueiro.setText(pro.getReboqueiro());
            
             
@@ -101,9 +100,7 @@ public class EditarProcesso extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         comboAdvogado = new javax.swing.JComboBox();
         jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        tfValor = new javax.swing.JTextField();
         tfAcao = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         tfReboqueiro = new javax.swing.JTextField();
@@ -148,11 +145,7 @@ public class EditarProcesso extends javax.swing.JFrame {
 
         jLabel5.setText("ADVOGADO");
 
-        jLabel6.setText("VALOR");
-
         jLabel7.setText("AÇÃO");
-
-        tfValor.setEnabled(false);
 
         tfAcao.setEnabled(false);
 
@@ -330,10 +323,7 @@ public class EditarProcesso extends javax.swing.JFrame {
                             .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel6)
-                                    .addComponent(tfValor, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(35, 35, 35)
+                                .addGap(177, 177, 177)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel7)
                                     .addComponent(tfAcao, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -375,13 +365,9 @@ public class EditarProcesso extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(comboAdvogado, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel7))
+                .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tfValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfAcao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(tfAcao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -416,7 +402,6 @@ public class EditarProcesso extends javax.swing.JFrame {
         tfPlaca.setEnabled(false);
         tfProcesso.setEnabled(false);
         tfReboqueiro.setEnabled(false);
-        tfValor.setEnabled(false);
         btSalvar.setEnabled(false);
         btEditar.setEnabled(true);
         btCancelar.setEnabled(false);
@@ -440,8 +425,6 @@ public class EditarProcesso extends javax.swing.JFrame {
          processo.setData_inicio(mask.removeMascara(tfDataInicio.getText()));
          processo.setData_termino(mask.removeMascara(tfDataFim.getText()));
          processo.setAdvogado(comboAdvogado.getSelectedIndex()+1);
-         double valor =Double.parseDouble(tfValor.getText());
-         processo.setValor(valor);
          processo.setAcao(tfAcao.getText());
          processo.setReboqueiro(tfReboqueiro.getText());
          daoProcesso.Editar(processo);
@@ -473,7 +456,6 @@ public class EditarProcesso extends javax.swing.JFrame {
         tfPlaca.setEnabled(false);
         tfProcesso.setEnabled(false);
         tfReboqueiro.setEnabled(false);
-        tfValor.setEnabled(false);
         comboAdvogado.setEnabled(false);
         comboCliente.setEnabled(false);
         btSalvar.setEnabled(false);
@@ -495,7 +477,6 @@ public class EditarProcesso extends javax.swing.JFrame {
         tfPlaca.setEnabled(true);
         tfProcesso.setEnabled(true);
         tfReboqueiro.setEnabled(true);
-        tfValor.setEnabled(true);
         comboAdvogado.setEnabled(true);
         comboCliente.setEnabled(true);
         btSalvar.setEnabled(true);
@@ -525,7 +506,6 @@ public class EditarProcesso extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
@@ -542,7 +522,6 @@ public class EditarProcesso extends javax.swing.JFrame {
     private javax.swing.JTextField tfPlaca;
     private javax.swing.JTextField tfProcesso;
     private javax.swing.JTextField tfReboqueiro;
-    private javax.swing.JTextField tfValor;
     // End of variables declaration//GEN-END:variables
 
 }

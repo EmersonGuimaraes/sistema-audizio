@@ -81,6 +81,7 @@ public class DaoCliente extends Conexao{
                     cliente.setEmail(rs.getString("email"));
                     cliente.setEstado(rs.getString("estado"));
                     cliente.setNum(rs.getString("numero"));
+                    cliente.setWhatsapp(rs.getString("whatsapp"));
                     clientes.add(cliente);
              }
             }

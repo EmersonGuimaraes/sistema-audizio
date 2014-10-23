@@ -16,7 +16,6 @@ public class Processo {
     String data_termino;
     String reboqueiro;
     String data_estacionamento;
-    double valor;
     String fone_advogado;
     int cliente;
     int advogado; 
@@ -87,14 +86,6 @@ public class Processo {
 
     public void setData_estacionamento(String data_estacionamento) {
         this.data_estacionamento = data_estacionamento;
-    }
-
-    public double getValor() {
-        return valor;
-    }
-
-    public void setValor(double valor) {
-        this.valor = valor;
     }
 
     public String getFone_advogado() {

@@ -25,7 +25,7 @@ public class DaoProcesso extends Conexao{
     public void Cadastrar(Processo processo){
         
         sql="INSERT INTO tb_processo VALUES(null,'"+processo.getProcesso()+"','"+processo.getData_inicio()+"','"+processo.getData_termino()+"',"
-                + "'"+processo.getCliente()+"','"+processo.getAdvogado()+"','"+processo.getValor()+"','"+processo.getAcao()+"','"+processo.getReboqueiro()+"','ABERTO',"
+                + "'"+processo.getCliente()+"','"+processo.getAdvogado()+"','"+processo.getAcao()+"','"+processo.getReboqueiro()+"','ABERTO',"
                 + "'"+processo.getSituacao_atual()+"','"+processo.getVara()+"','"+processo.getComarca()+"')";
         ConsultarSQL(sql, false);
         JOptionPane.showMessageDialog(null, "Cadastro Realizado com Sucesso!");
@@ -33,8 +33,8 @@ public class DaoProcesso extends Conexao{
     public void Editar(Processo processo){
         System.out.println("Id processo no dao:"+processo.getIdProcesso());
         sql="UPDATE tb_processo SET processo = '"+processo.getProcesso()+"',data_inicio = '"+processo.getData_inicio()+"',data_termino = '"+processo.getData_termino()+"',"
-                + "cliente = '"+processo.getCliente()+"',advogado = '"+processo.getAdvogado()+"',valor = '"+processo.getValor()+"',"
-                + "acao = '"+processo.getAcao()+"',reboqueiro = '"+processo.getReboqueiro()+"' WHERE id = '"+processo.getIdProcesso()+"'";
+                + "cliente = '"+processo.getCliente()+"',advogado = '"+processo.getAdvogado()+"',valor = '"+
+                "acao = '"+processo.getAcao()+"',reboqueiro = '"+processo.getReboqueiro()+"',situacao = '"+processo.getSituacao()+"',situacao_atual = '"+processo.getSituacao_atual()+"',vara = '"+processo.getVara()+"',comarca = '"+processo.getComarca()+"' WHERE id = '"+processo.getIdProcesso()+"'";
         ConsultarSQL(sql, false);
     }
     
@@ -104,9 +104,11 @@ public class DaoProcesso extends Conexao{
                     processo.setCliente(rs.getInt("cliente"));
                     processo.setAdvogado(rs.getInt("advogado"));
                     processo.setAcao(rs.getString("acao"));
-                    processo.setValor(rs.getInt("valor"));
                     processo.setReboqueiro(rs.getString("reboqueiro"));
-                    
+                    processo.setSituacao(rs.getString("situacao"));
+                    processo.setSituacao_atual(rs.getString("situacao_atual"));
+                    processo.setVara(rs.getString("vara"));
+                    processo.setComarca(rs.getString("comarca"));
                     processos.add(processo);
                 }
             }
