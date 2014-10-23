@@ -31,6 +31,7 @@ public class Login extends javax.swing.JFrame {
         String usuario = dao.consultarUsuario();
         System.out.println("user: "+usuario);
         comboUsuario.addItem(usuario);
+        
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -143,8 +144,8 @@ public class Login extends javax.swing.JFrame {
       retorno = dao.login(usuario, senha);
       
       if(retorno == true){
-          new TelaInicial().show();
           this.dispose();
+          new TelaInicial().show();       
       }else{
           JOptionPane.showMessageDialog(null, "USUÁRIO OU SENHA INVÁLIDOS!");
       }
@@ -163,7 +164,8 @@ public class Login extends javax.swing.JFrame {
             retorno = dao.login(usuario, senha);
       
             if(retorno == true){
-                new TelaInicial().show();
+                this.dispose();
+                new TelaInicial().show();  
             }else{
                 JOptionPane.showMessageDialog(null, "USUÁRIO OU SENHA INVÁLIDOS!");
             }
@@ -182,7 +184,8 @@ public class Login extends javax.swing.JFrame {
             retorno = dao.login(usuario, senha);
       
             if(retorno == true){
-                new TelaInicial().show();
+                this.dispose();
+                new TelaInicial().show();  
             }else{
                 JOptionPane.showMessageDialog(null, "USUÁRIO OU SENHA INVÁLIDOS!");
             }

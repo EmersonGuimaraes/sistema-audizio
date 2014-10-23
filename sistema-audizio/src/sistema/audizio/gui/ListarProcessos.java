@@ -252,13 +252,21 @@ public class ListarProcessos extends javax.swing.JDialog {
     }//GEN-LAST:event_btEditarActionPerformed
 
     private void btArquivarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btArquivarActionPerformed
-       String idProcesso;
-       idProcesso = tbListarProcessos.getValueAt(tbListarProcessos.getSelectedRow(),0).toString();
-       System.out.println("ID DO PROCESSO:"+idProcesso);
+       String message = "Deseja realmente arquivar este processo?";
+       String title = "Confirmação";
+       int reply = JOptionPane.showConfirmDialog(null, message, title, JOptionPane.YES_NO_OPTION);
+      
+       if (reply == JOptionPane.YES_OPTION){
+            String idProcesso;
+            idProcesso = tbListarProcessos.getValueAt(tbListarProcessos.getSelectedRow(),0).toString();
+            System.out.println("ID DO PROCESSO:"+idProcesso);
+            DaoProcesso dao = new DaoProcesso();
+            dao.arquivarProcesso(idProcesso);
+            modeloTabela.removeRow(tbListarProcessos.getSelectedRow());
        
-       DaoProcesso dao = new DaoProcesso();
-       dao.arquivarProcesso(idProcesso);
-       modeloTabela.removeRow(tbListarProcessos.getSelectedRow());
+        } 
+       
+      
     }//GEN-LAST:event_btArquivarActionPerformed
 
     /**
