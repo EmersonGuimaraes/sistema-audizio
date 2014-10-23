@@ -23,7 +23,7 @@ import sistema.audizio.dao.DaoVeiculo;
  *
  * @author emerson
  */
-public class CadastroProcesso extends javax.swing.JFrame { 
+public class CadastroProcesso extends javax.swing.JDialog { 
     DefaultComboBoxModel comboModel, comboModelAdv;
     DaoCliente daoCli = new DaoCliente();
     DaoAdvogado daoAdv = new DaoAdvogado();
@@ -34,6 +34,7 @@ public class CadastroProcesso extends javax.swing.JFrame {
         initComponents();
         carregaComboCliente();
         carregaComboAdvogado();
+        setModal(true);
     }
 
     private void carregaComboCliente(){

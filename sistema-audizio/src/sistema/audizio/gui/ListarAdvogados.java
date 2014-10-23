@@ -17,7 +17,7 @@ import sistema.audizio.dao.DaoAdvogado;
  *
  * @author emerson
  */
-public class ListarAdvogados extends javax.swing.JFrame {
+public class ListarAdvogados extends javax.swing.JDialog {
 
     /**
      * Creates new form ListarClientes
@@ -26,6 +26,7 @@ public class ListarAdvogados extends javax.swing.JFrame {
     public ListarAdvogados() {
         initComponents();
         preencheTabela("");
+        setModal(true);
     }
     public void preencheTabela(String id){
         ArrayList<Advogado> advogados = new ArrayList<>();

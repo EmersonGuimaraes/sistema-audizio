@@ -10,13 +10,14 @@ package sistema.audizio.gui;
  *
  * @author emerson
  */
-public class Backup extends javax.swing.JFrame {
+public class Backup extends javax.swing.JDialog {
 
     /**
      * Creates new form Backup
      */
     public Backup() {
         initComponents();
+        setModal(true);
     }
 
     /**

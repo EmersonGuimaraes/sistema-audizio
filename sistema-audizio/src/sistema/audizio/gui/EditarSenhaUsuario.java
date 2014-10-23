@@ -14,7 +14,7 @@ import sistema.audizio.dao.DaoUsuario;
  *
  * @author emerson
  */
-public class EditarSenhaUsuario extends javax.swing.JFrame {
+public class EditarSenhaUsuario extends javax.swing.JDialog {
 
     /**
      * Creates new form EditarNomeUsuario
@@ -23,6 +23,7 @@ public class EditarSenhaUsuario extends javax.swing.JFrame {
    
     public EditarSenhaUsuario() {
         initComponents();
+        setModal(true);
     }
 
     /**

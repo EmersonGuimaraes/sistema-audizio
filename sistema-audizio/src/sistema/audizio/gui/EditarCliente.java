@@ -20,7 +20,7 @@ import sistema.audizio.dao.DaoCliente;
  *
  * @author Emerson Guimarães
  */
-public class EditarCliente extends javax.swing.JFrame {
+public class EditarCliente extends javax.swing.JDialog {
     boolean listaCheia = false;
     DefaultComboBoxModel comboModelCidade,comboModelBairro;
     String idCidade, idBairro;
@@ -33,6 +33,7 @@ public class EditarCliente extends javax.swing.JFrame {
         this.idCliente = id;
         initComponents();
         preencheCampos();
+        setModal(true);
        
     }
     

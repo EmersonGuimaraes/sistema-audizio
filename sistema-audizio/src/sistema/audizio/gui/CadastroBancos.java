@@ -13,13 +13,14 @@ import sistema.audizio.dao.DaoBanco;
  *
  * @author Emerson
  */
-public class CadastroBancos extends javax.swing.JFrame {
+public class CadastroBancos extends javax.swing.JDialog {
 
     /**
      * Creates new form CadastroBancos
      */
     public CadastroBancos() {
         initComponents();
+        setVisible(true);
     }
 
     /**

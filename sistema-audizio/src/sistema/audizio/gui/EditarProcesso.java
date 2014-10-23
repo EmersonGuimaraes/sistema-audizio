@@ -16,7 +16,7 @@ import sistema.audizio.dao.DaoVeiculo;
  *
  * @author emerson
  */
-public class EditarProcesso extends javax.swing.JFrame { 
+public class EditarProcesso extends javax.swing.JDialog { 
 
     /**
      * Creates new form CadastroProcesso
@@ -29,6 +29,7 @@ public class EditarProcesso extends javax.swing.JFrame {
         this.idProcesso = id;
         initComponents();
         preencheCampos();
+        setModal(true);
         
       /*tfAcao.setEnabled(false);
         comboAdvogado.setEnabled(false);

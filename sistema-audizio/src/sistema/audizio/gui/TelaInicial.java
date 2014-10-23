@@ -308,35 +308,35 @@ public class TelaInicial extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-        new EditarNomeUsuario().show();
+        new EditarNomeUsuario().setVisible(true);
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenuItem12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem12ActionPerformed
-        new EditarSenhaUsuario().show();
+        new EditarSenhaUsuario().setVisible(true);
     }//GEN-LAST:event_jMenuItem12ActionPerformed
 
     private void btClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btClientesActionPerformed
-        new ListarClientes().show();
+        new ListarClientes().setVisible(true);
     }//GEN-LAST:event_btClientesActionPerformed
 
     private void btProcessosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btProcessosActionPerformed
-        new ListarProcessos("").show();
+        new ListarProcessos("").setVisible(true);
     }//GEN-LAST:event_btProcessosActionPerformed
 
     private void btListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btListarActionPerformed
-        new ListarAdvogados().show();
+        new ListarAdvogados().setVisible(true);
     }//GEN-LAST:event_btListarActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-       new CadastroCliente().show();
+       new CadastroCliente().setVisible(true);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        new CadastroProcesso().show();
+        new CadastroProcesso().setVisible(true);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem13ActionPerformed
-        new CadastroAdvogado().show();
+        new CadastroAdvogado().setVisible(true);
     }//GEN-LAST:event_jMenuItem13ActionPerformed
 
     private void btSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSairActionPerformed
@@ -345,24 +345,24 @@ public class TelaInicial extends javax.swing.JFrame {
     }//GEN-LAST:event_btSairActionPerformed
 
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
-       new ListarProcessos("").show();
+       new ListarProcessos("").setVisible(true);
     }//GEN-LAST:event_jMenuItem7ActionPerformed
 
     private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
-       new ListarProcessos("aberto").show();
+       new ListarProcessos("aberto").setVisible(true);
        
     }//GEN-LAST:event_jMenuItem9ActionPerformed
 
     private void jMenuItem11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem11ActionPerformed
-         new ListarProcessos("arquivado").show();
+         new ListarProcessos("arquivado").setVisible(true);
     }//GEN-LAST:event_jMenuItem11ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-       new ListarClientes().show();
+       new ListarClientes().setVisible(true);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenuItem14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem14ActionPerformed
-        new ListarAdvogados().show();
+        new ListarAdvogados().setVisible(true);
     }//GEN-LAST:event_jMenuItem14ActionPerformed
 
     private void jMenu3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu3ActionPerformed
@@ -370,15 +370,15 @@ public class TelaInicial extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenu3ActionPerformed
 
     private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
-         new Sobre().show();
+         new Sobre().setVisible(true);
     }//GEN-LAST:event_jMenuItem10ActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
-        new Backup().show();
+        new Backup().setVisible(true);
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
-        new Backup().show();
+        new Backup().setVisible(true);
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     /**

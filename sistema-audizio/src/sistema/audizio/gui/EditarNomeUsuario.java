@@ -13,13 +13,14 @@ import sistema.audizio.dao.DaoUsuario;
  *
  * @author emerson
  */
-public class EditarNomeUsuario extends javax.swing.JFrame {
+public class EditarNomeUsuario extends javax.swing.JDialog {
 
     /**
      * Creates new form EditarNomeUsuario
      */
     public EditarNomeUsuario() {
         initComponents();
+        setModal(true);
     }
 
     /**

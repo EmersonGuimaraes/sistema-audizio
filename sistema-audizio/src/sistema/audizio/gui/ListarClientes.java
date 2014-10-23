@@ -16,7 +16,7 @@ import sistema.audizio.dao.DaoCliente;
  *
  * @author emerson
  */
-public class ListarClientes extends javax.swing.JFrame {
+public class ListarClientes extends javax.swing.JDialog {
     
     /**
      * Creates new form ListarClientes
@@ -26,6 +26,7 @@ public class ListarClientes extends javax.swing.JFrame {
     public ListarClientes() {
         initComponents();
         carregarTabela();
+        setModal(true);
     }
     public void carregarTabela(){
        DaoCliente dao = new DaoCliente();

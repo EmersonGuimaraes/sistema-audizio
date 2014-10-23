@@ -18,7 +18,7 @@ import sistema.audizio.dao.DaoProcesso;
  *
  * @author emerson
  */
-public class ListarProcessos extends javax.swing.JFrame {
+public class ListarProcessos extends javax.swing.JDialog {
 
     /**
      * Creates new form ListarClientes
@@ -27,6 +27,7 @@ public class ListarProcessos extends javax.swing.JFrame {
     public ListarProcessos(String situacao) {
         initComponents();
         carregarTabela(situacao);
+        setModal(true);
         if(situacao.equals("aberto")){
             rbAberto.setSelected(true);
         }else if(situacao.equals("arquivado")){

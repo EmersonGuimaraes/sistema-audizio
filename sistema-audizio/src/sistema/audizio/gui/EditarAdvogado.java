@@ -15,7 +15,7 @@ import sistema.audizio.dao.DaoAdvogado;
  *
  * @author emerson
  */
-public class EditarAdvogado extends javax.swing.JFrame {
+public class EditarAdvogado extends javax.swing.JDialog {
 
     /**
      * Creates new form CadastroAdvogado
@@ -25,6 +25,7 @@ public class EditarAdvogado extends javax.swing.JFrame {
         this.idAdvogado = id;
         initComponents();
         preencheCampos();
+        setModal(true);
     }
 
     public void preencheCampos(){

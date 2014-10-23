@@ -10,13 +10,14 @@ package sistema.audizio.gui;
  *
  * @author emerson
  */
-public class Sobre extends javax.swing.JFrame {
+public class Sobre extends javax.swing.JDialog {
 
     /**
      * Creates new form Sobre
      */
     public Sobre() {
         initComponents();
+        setModal(true);
     }
 
     /**
