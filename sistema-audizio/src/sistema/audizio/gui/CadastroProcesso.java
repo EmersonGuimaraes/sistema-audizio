@@ -40,10 +40,10 @@ public class CadastroProcesso extends javax.swing.JDialog {
     private void carregaComboCliente(){
         comboModel = (DefaultComboBoxModel) comboCliente.getModel();
         comboModel.removeAllElements();
-        comboModel.addElement("Selecionar...");
         ArrayList<Cliente> clientes = new ArrayList<>();
         clientes = daoCli.Consultar("");
         
+        comboModel.addElement("Selecionar...");
         for (int linha = 0; linha < clientes.size(); linha++){
             Cliente cliente = clientes.get(linha);
             comboModel.addElement(cliente.getNome());
@@ -53,10 +53,10 @@ public class CadastroProcesso extends javax.swing.JDialog {
     private void carregaComboAdvogado(){
         comboModelAdv = (DefaultComboBoxModel) comboAdvogado.getModel();
         comboModelAdv.removeAllElements();
-        comboModelAdv.addElement("Selecionar...");
         ArrayList<Advogado> advogados = new ArrayList<>();
         advogados = daoAdv.Consultar("");
         
+        comboModelAdv.addElement("Selecionar...");
         for (int linha = 0; linha < advogados.size(); linha++){
             Advogado advogado = advogados.get(linha);
             comboModelAdv.addElement(advogado.getNome());
@@ -101,15 +101,15 @@ public class CadastroProcesso extends javax.swing.JDialog {
         tfDataFim = new javax.swing.JFormattedTextField();
         jLabel16 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        taSituacaoAtual = new javax.swing.JTextArea();
         jLabel14 = new javax.swing.JLabel();
         tfVara = new javax.swing.JFormattedTextField();
         jLabel18 = new javax.swing.JLabel();
-        tfValor = new javax.swing.JTextField();
         tfComarca = new javax.swing.JTextField();
         jLabel19 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        comoEstado = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -268,13 +268,13 @@ public class CadastroProcesso extends javax.swing.JDialog {
 
         jLabel16.setText("SITUAÇÃO ATUAL");
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        taSituacaoAtual.setColumns(20);
+        taSituacaoAtual.setRows(5);
+        jScrollPane1.setViewportView(taSituacaoAtual);
 
         jLabel14.setText("VARA");
 
-        jLabel18.setText("VALOR");
+        jLabel18.setText("Veículo foi:");
 
         jLabel19.setText("COMARCA");
 
@@ -292,6 +292,8 @@ public class CadastroProcesso extends javax.swing.JDialog {
             }
         });
 
+        comoEstado.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecionar...", "Apreendido", "Encontrado", "Teste", "Teste" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -301,9 +303,11 @@ public class CadastroProcesso extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel18)
-                            .addComponent(tfValor, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel18)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(comoEstado, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
                         .addComponent(btCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -410,7 +414,7 @@ public class CadastroProcesso extends javax.swing.JDialog {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel18)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tfValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(comoEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(btSalvar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -439,6 +443,11 @@ public class CadastroProcesso extends javax.swing.JDialog {
          processo.setAdvogado(comboAdvogado.getSelectedIndex()+1);
          processo.setAcao(tfAcao.getText());
          processo.setReboqueiro(tfReboqueiro.getText());
+         processo.setCliente(comboCliente.getSelectedIndex());
+         processo.setAdvogado(comboAdvogado.getSelectedIndex());
+         processo.setVara(tfVara.getText());
+         processo.setComarca(tfComarca.getText());
+         processo.setSituacao_atual(taSituacaoAtual.getText());
         
          
         //Seta os valores do veiculo
@@ -451,6 +460,7 @@ public class CadastroProcesso extends javax.swing.JDialog {
          int chassi = Integer.parseInt(tfChassi.getText());
          veiculo.setChassi(chassi);
          veiculo.setRenavam(tfRenavam.getText());
+         veiculo.setEstado(String.valueOf(comoEstado.getSelectedItem()));
          
          
          
@@ -469,7 +479,7 @@ public class CadastroProcesso extends javax.swing.JDialog {
         tfPlaca.setText(null);
         tfProcesso.setText(null);
         tfReboqueiro.setText(null);
-        tfValor.setText(null);
+        comoEstado.setSelectedIndex(0);
     }//GEN-LAST:event_btSalvarActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -522,6 +532,7 @@ public class CadastroProcesso extends javax.swing.JDialog {
     private javax.swing.JButton btSalvar;
     private javax.swing.JComboBox comboAdvogado;
     private javax.swing.JComboBox comboCliente;
+    private javax.swing.JComboBox comoEstado;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
@@ -544,7 +555,7 @@ public class CadastroProcesso extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTextArea taSituacaoAtual;
     private javax.swing.JTextField tfAcao;
     private javax.swing.JFormattedTextField tfAnoFabricacao;
     private javax.swing.JFormattedTextField tfAnoModelo;
@@ -559,7 +570,6 @@ public class CadastroProcesso extends javax.swing.JDialog {
     private javax.swing.JTextField tfProcesso;
     private javax.swing.JTextField tfReboqueiro;
     private javax.swing.JTextField tfRenavam;
-    private javax.swing.JTextField tfValor;
     private javax.swing.JFormattedTextField tfVara;
     // End of variables declaration//GEN-END:variables
 }

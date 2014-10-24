@@ -61,7 +61,6 @@ public class DaoCliente extends Conexao{
                 ConsultarSQL(sql,true);
                 while (rs.next()) {
                     Cliente cliente = new Cliente();
-                    System.out.println(rs.getString("nome"));
                     cliente.setIdCliente(rs.getString("id"));
                     cliente.setNome(rs.getString("nome"));
                     cliente.setNascimento(rs.getString("nascimento"));

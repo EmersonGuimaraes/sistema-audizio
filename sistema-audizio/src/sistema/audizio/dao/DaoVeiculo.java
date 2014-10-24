@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import sistema.audizio.bean.Veiculo;
 
 /**
@@ -20,9 +21,10 @@ public class DaoVeiculo extends Conexao{
     String sql;
     public void Cadastrar(Veiculo veiculo){
         sql = "INSERT INTO tb_veiculo VALUES(null,'"+veiculo.getMarca()+"','"+veiculo.getModelo()+"',"
-                + "'"+veiculo.getCor()+"','"+veiculo.getAnoFabricacao()+"','"+veiculo.getAnoModelo()+"','"+veiculo.getPlaca()+"','"+veiculo.getChassi()+"','"+veiculo.getRenavam()+"','"+veiculo.getEstado()+"','0')";
+                + "'"+veiculo.getCor()+"','"+veiculo.getAnoFabricacao()+"','"+veiculo.getAnoModelo()+"','"+veiculo.getPlaca()+"','"+veiculo.getChassi()+"','"+veiculo.getRenavam()+"','"+veiculo.getEstado()+"')";
+             ConsultarSQL(sql, false);
+       
         
-        ConsultarSQL(sql, false);
     }
     
     public void Editar(Veiculo veiculo){
