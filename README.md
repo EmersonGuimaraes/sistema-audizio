@@ -1,4 +1,4 @@
 sistema-audizio
 ===============
 
-Sistema de controle de processos judiciários.
+Sistema para controle de processos judiciários.
