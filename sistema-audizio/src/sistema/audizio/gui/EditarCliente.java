@@ -607,8 +607,10 @@ public class EditarCliente extends javax.swing.JDialog {
          if(tfNome.getText().equals("") || tfTelefone.getText().equals("")){
              JOptionPane.showMessageDialog(null, "Preencha os campos corretamente!");
          }else{
-            System.out.println("ID = "+idCliente);
-            cliente.setIdCliente(idCidade);
+            
+            String id = idCliente;
+            System.out.println("ID = "+id);
+            cliente.setIdCliente(id);
             cliente.setNome(tfNome.getText());
             cliente.setNascimento(mask.removeMascara(tfDataNasci.getText()));
             cliente.setRg(tfRg.getText());
