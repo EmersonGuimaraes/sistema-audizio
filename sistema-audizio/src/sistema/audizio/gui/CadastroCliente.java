@@ -543,7 +543,10 @@ public class CadastroCliente extends javax.swing.JDialog {
          if(tfNome.getText().equals("") || tfTelefone.getText().equals("")){
              JOptionPane.showMessageDialog(null, "Preencha os campos corretamente!");
          }else{
-         
+            int codA=1,codB,codC;
+            codB = daoCliente.retornaCod();
+            codC = codA+codB;
+            
             cliente.setNome(tfNome.getText());
             cliente.setNascimento(mask.removeMascara(tfDataNasci.getText()));
             cliente.setRg(tfRg.getText());
@@ -563,7 +566,7 @@ public class CadastroCliente extends javax.swing.JDialog {
             cliente.setEmail(tfEmail.getText());
             cliente.setWhatsapp(mask.removeMascara(tfWhats.getText()));
             cliente.setNum(tfNumero.getText());
-      
+            cliente.setCod(codC);
                
             daoCliente.Cadastrar(cliente);
             

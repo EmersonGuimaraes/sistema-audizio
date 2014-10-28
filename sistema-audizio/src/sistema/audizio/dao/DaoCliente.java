@@ -20,7 +20,7 @@ public class DaoCliente extends Conexao{
                 + "'"+cliente.getOrgao_exp()+"','"+cliente.getData_exp()+"','"+cliente.getCpf()+"','"+cliente.getNacionalidade()+"',"
                 + "'"+cliente.getProfisao()+"','"+cliente.getEstado_civil()+"','"+cliente.getCep()+"','"+cliente.getEndereco()+"',"
                 + "'"+cliente.getNum()+"','"+cliente.getEstado()+"','"+cliente.getCidade()+"','"+cliente.getBairro()+"',"
-                + "'"+cliente.getFone()+"','"+cliente.getCelular()+"','"+cliente.getEmail()+"','"+cliente.getWhatsapp()+"')";
+                + "'"+cliente.getFone()+"','"+cliente.getCelular()+"','"+cliente.getEmail()+"','"+cliente.getWhatsapp()+"','"+cliente.getCod()+"')";
 
         ConsultarSQL(sql, false);
         JOptionPane.showMessageDialog(null, "Cadastro Realizado com Sucesso!");
@@ -98,22 +98,26 @@ public class DaoCliente extends Conexao{
     }
     
     public int retornaCod(){
-        int cod = 0;
-        String sql= "SELECT cod FROM tb_cliente";
+       int codA = 0;
+        String sql= "SELECT * FROM tb_cliente ORDER BY cod DESC LIMIT 1";
         try {
             ConsultarSQL(sql, true);
-            rs.first();
+           
             while (rs.next()) {
-                cod = rs.getInt("cod");
+                codA = rs.getInt("cod");
             }
-            System.out.println("cod :"+cod);
+            System.out.println("cod :"+codA);
+            
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro na consulta do cod");
             Logger.getLogger(DaoCliente.class.getName()).log(Level.SEVERE, null, ex);
-            cod = 1;
+           codA = 1;
         }
-        
-        return cod;
+         System.out.println("cod2 :"+codA);
+        return codA;
+    }
+    public static void main(String[] args) {
+        new DaoCliente().retornaCod();
     }
   }
 
