@@ -593,6 +593,7 @@ public class EditarCliente extends javax.swing.JDialog {
         tfTelefone.setEnabled(false);
         tfCelular.setEnabled(false);
         tfEmail.setEnabled(false);
+        tfWhats.setEnabled(false);
         btEditar.setEnabled(true);
         btSalvar.setEnabled(false);
         btImprimir.setEnabled(true);

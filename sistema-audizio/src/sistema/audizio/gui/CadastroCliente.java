@@ -582,6 +582,9 @@ public class CadastroCliente extends javax.swing.JDialog {
             tfProfissao.setText(null);
             tfTelefone.setText(null);
             tfCelular.setText(null);
+            tfWhats.setText(null);
+            comboCidade.setSelectedIndex(0);
+            comboBairro.setSelectedIndex(0);
             
          }
          

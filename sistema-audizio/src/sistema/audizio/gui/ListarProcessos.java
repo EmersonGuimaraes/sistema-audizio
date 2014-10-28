@@ -47,7 +47,7 @@ public class ListarProcessos extends javax.swing.JDialog {
                 for(Processo pro:processos){
                     modeloTabela.addRow(new Object[] {pro.getIdProcesso(), pro.getCliente(),pro.getProcesso(), pro.getSituacao()});
                 }
-      
+                tbListarProcessos.getTableHeader().setReorderingAllowed(false);   
     }
     public void removerLinhas(){
          if (modeloTabela.getRowCount() > 0) {
