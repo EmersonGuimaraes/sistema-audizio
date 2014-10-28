@@ -11,5 +11,17 @@ package sistema.audizio.bean;
  * @author Raylan Alves
  */
 public class Cliente extends Pessoa{
+    String idCliente;
+
+    public String getIdCliente() {
+        return idCliente;
+    }
+
+    public void setIdCliente(String idCliente) {
+        this.idCliente = idCliente;
+    }
+    
+    
+    
     
 }

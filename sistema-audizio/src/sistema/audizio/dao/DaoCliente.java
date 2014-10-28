@@ -18,21 +18,25 @@ public class DaoCliente extends Conexao{
     public void Cadastrar(Cliente cliente){
         sql = "INSERT INTO tb_cliente VALUES(null,'"+cliente.getNome()+"','"+cliente.getNascimento()+"','"+cliente.getRg()+"',"
                 + "'"+cliente.getOrgao_exp()+"','"+cliente.getData_exp()+"','"+cliente.getCpf()+"','"+cliente.getNacionalidade()+"',"
-                + "'"+cliente.getProfisao()+"','"+cliente.getEstado_civil()+"','"+cliente.getCep()+"','"+cliente.getEndereco()+"','"+cliente.getNum()+"'"
-                + "'"+cliente.getEstado()+"','"+cliente.getCidade()+"','"+cliente.getBairro()+"','"+cliente.getFone()+"','"+cliente.getCelular()+"','"+cliente.getEmail()+"','"+cliente.getWhatsapp()+"')";
+                + "'"+cliente.getProfisao()+"','"+cliente.getEstado_civil()+"','"+cliente.getCep()+"','"+cliente.getEndereco()+"',"
+                + "'"+cliente.getNum()+"','"+cliente.getEstado()+"','"+cliente.getCidade()+"','"+cliente.getBairro()+"',"
+                + "'"+cliente.getFone()+"','"+cliente.getCelular()+"','"+cliente.getEmail()+"','"+cliente.getWhatsapp()+"')";
+
         ConsultarSQL(sql, false);
-        System.out.println("cpf:"+cliente.getCpf());
         JOptionPane.showMessageDialog(null, "Cadastro Realizado com Sucesso!");
     }
     
     public void Editar(Cliente cliente){
-       System.out.println("ID DA EDIÇÃO"+cliente.getIdCliente());
-        sql = "UPDATE tb_cliente SET nome = '"+cliente.getNome()+"',nascimento = '"+cliente.getNascimento()+"',rg = '"+cliente.getRg()+"',"
-                + "orgao_exp = '"+cliente.getOrgao_exp()+"',data_exp = '"+cliente.getData_exp()+"',cpf = '"+cliente.getCpf()+"',nacionalidade = '"+cliente.getNascimento()+"',"
-                + "profissao = '"+cliente.getProfisao()+"',estado_civil = '"+cliente.getEstado_civil()+"',cep = '"+cliente.getCep()+"',endereco = '"+cliente.getEndereco()+"',numero = '"+cliente.getNum()+"'"
-                + "estado = '"+cliente.getEstado()+"',cidade = '"+cliente.getCidade()+"',bairro = '"+cliente.getBairro()+"',telefone = '"+cliente.getFone()+"',celular = '"+cliente.getCelular()+"',"
-                + "email = '"+cliente.getEmail()+"',whatsapp = '"+cliente.getWhatsapp()+"' WHERE id = '"+cliente.getIdCliente()+"'";
+        System.out.println("ID CLIENTE UPDATE = "+cliente.getIdCliente());
+      sql = "UPDATE tb_cliente SET nome='"+cliente.getNome()+"',nascimento='"+cliente.getNascimento()+"',rg='"+cliente.getRg()+"',"
+              + "orgao_exp='"+cliente.getOrgao_exp()+"',data_exp='"+cliente.getData_exp()+"',cpf='"+cliente.getCpf()+"',"
+              + "nacionalidade='"+cliente.getNacionalidade()+"',profissao='"+cliente.getProfisao()+"',"
+              + "estado_civil='"+cliente.getEstado_civil()+"',cep='"+cliente.getCep()+"',"
+              + "endereco='"+cliente.getEndereco()+"',numero='"+cliente.getNum()+"',estado='"+cliente.getEstado()+"',"
+              + "cidade='"+cliente.getCidade()+"',bairro='"+cliente.getBairro()+"',telefone='"+cliente.getFone()+"',"
+              + "celular='"+cliente.getCelular()+"',email='"+cliente.getEmail()+"',whatsapp='"+cliente.getWhatsapp()+"' WHERE id = '"+cliente.getIdCliente()+"'";
         ConsultarSQL(sql, false);
+        JOptionPane.showMessageDialog(null, "Cliente Editado com Sucesso!");
     }
     public void Deletar(Cliente cliente){
         sql = "DELETE FROM tb_cliente WHERE id = '"+cliente.getIdCliente()+"'";

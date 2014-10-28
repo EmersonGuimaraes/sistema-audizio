@@ -37,20 +37,13 @@ public class CadastroCliente extends javax.swing.JDialog {
         ArrayList<Cidade> cidades = new ArrayList<>();
         DaoCidade daoCid = new DaoCidade();
         comboModelCidade = (DefaultComboBoxModel) comboCidade.getModel();
-       
-        comboModelCidade.removeAllElements();
-        
-        
-         
         cidades = daoCid.consultar("");
         
+        comboModelCidade.removeAllElements();
         comboModelCidade.addElement("Selecionar ...");
         
-       
         for (int linha = 0; linha < cidades.size(); linha++){
-           
             Cidade cidade = cidades.get(linha);
-            
             comboModelCidade.addElement(cidade.getNome());
         }
         
@@ -550,6 +543,7 @@ public class CadastroCliente extends javax.swing.JDialog {
          if(tfNome.getText().equals("") || tfTelefone.getText().equals("")){
              JOptionPane.showMessageDialog(null, "Preencha os campos corretamente!");
          }else{
+            
             cliente.setNome(tfNome.getText());
             cliente.setNascimento(mask.removeMascara(tfDataNasci.getText()));
             cliente.setRg(tfRg.getText());
@@ -568,7 +562,8 @@ public class CadastroCliente extends javax.swing.JDialog {
             cliente.setCelular(mask.removeMascara(tfCelular.getText()));
             cliente.setEmail(tfEmail.getText());
             cliente.setWhatsapp(mask.removeMascara(tfWhats.getText()));
-         
+            cliente.setNum(tfNumero.getText());
+            
             daoCliente.Cadastrar(cliente);
             
             tfNome.setText(null);
