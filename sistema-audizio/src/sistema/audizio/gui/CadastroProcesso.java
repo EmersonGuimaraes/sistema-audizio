@@ -478,7 +478,14 @@ public class CadastroProcesso extends javax.swing.JDialog {
         tfPlaca.setText(null);
         tfProcesso.setText(null);
         tfReboqueiro.setText(null);
+        tfVara.setText(null);
+        tfComarca.setText(null);
+        taSituacaoAtual.setText(null);
         comoEstado.setSelectedIndex(0);
+        comboAdvogado.setSelectedIndex(0);
+        comboCliente.setSelectedIndex(0);
+        comboAdvogado.setSelectedIndex(0);
+        
     }//GEN-LAST:event_btSalvarActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
