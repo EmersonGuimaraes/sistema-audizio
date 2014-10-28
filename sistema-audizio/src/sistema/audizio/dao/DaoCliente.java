@@ -96,6 +96,25 @@ public class DaoCliente extends Conexao{
         return clientes;
     
     }
+    
+    public int retornaCod(){
+        int cod = 0;
+        String sql= "SELECT cod FROM tb_cliente";
+        try {
+            ConsultarSQL(sql, true);
+            rs.first();
+            while (rs.next()) {
+                cod = rs.getInt("cod");
+            }
+            System.out.println("cod :"+cod);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro na consulta do cod");
+            Logger.getLogger(DaoCliente.class.getName()).log(Level.SEVERE, null, ex);
+            cod = 1;
+        }
+        
+        return cod;
+    }
   }
 
 

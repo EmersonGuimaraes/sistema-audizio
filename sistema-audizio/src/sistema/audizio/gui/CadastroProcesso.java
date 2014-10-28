@@ -292,7 +292,7 @@ public class CadastroProcesso extends javax.swing.JDialog {
             }
         });
 
-        comoEstado.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecionar...", "Apreendido", "Encontrado", "Teste", "Teste" }));
+        comoEstado.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecionar...", "Aberto", "Apreendido", "Não Encontrado", "Localizado" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -457,8 +457,7 @@ public class CadastroProcesso extends javax.swing.JDialog {
          veiculo.setAnoModelo(mask.removeMascara(tfAnoModelo.getText()));
          veiculo.setCor(tfCor.getText());
          veiculo.setPlaca(tfPlaca.getText());
-         int chassi = Integer.parseInt(tfChassi.getText());
-         veiculo.setChassi(chassi);
+         veiculo.setChassi(tfChassi.getText());
          veiculo.setRenavam(tfRenavam.getText());
          veiculo.setEstado(String.valueOf(comoEstado.getSelectedItem()));
          

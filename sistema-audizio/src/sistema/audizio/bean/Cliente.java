@@ -12,6 +12,7 @@ package sistema.audizio.bean;
  */
 public class Cliente extends Pessoa{
     String idCliente;
+   
 
     public String getIdCliente() {
         return idCliente;
@@ -20,6 +21,9 @@ public class Cliente extends Pessoa{
     public void setIdCliente(String idCliente) {
         this.idCliente = idCliente;
     }
+
+    
+    
     
     
     

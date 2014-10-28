@@ -56,7 +56,7 @@ public class DaoVeiculo extends Conexao{
                     veiculo.setAnoFabricacao(rs.getString("ano_fabricacao"));
                     veiculo.setAnoModelo(rs.getString("ano_modelo"));
                     veiculo.setPlaca(rs.getString("placa"));
-                    veiculo.setChassi(rs.getInt("chassi"));
+                    veiculo.setChassi(rs.getString("chassi"));
                     veiculo.setRenavam(rs.getString("renavam"));
                     veiculo.setEstado(rs.getString("estado"));
                     veiculos.add(veiculo);
