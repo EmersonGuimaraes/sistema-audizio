@@ -30,7 +30,7 @@ public class DaoVeiculo extends Conexao{
     public void Editar(Veiculo veiculo){
         sql = "UPDATE tb_veiculo SET marca='"+veiculo.getMarca()+"',modelo='"+veiculo.getModelo()+"',"
                 + "cor='"+veiculo.getCor()+"',ano_fabricacao='"+veiculo.getAnoFabricacao()+"',ano_modelo='"+veiculo.getAnoModelo()+"',"
-                + "placa='"+veiculo.getPlaca()+"',chassi='"+veiculo.getChassi()+"',renavam='"+veiculo.getRenavam()+"',estado='"+veiculo.getEstado()+"' WHERE placa = '"+veiculo.getPlaca()+"'";
+                + "placa='"+veiculo.getPlaca()+"',chassi='"+veiculo.getChassi()+"',renavam='"+veiculo.getRenavam()+"',estado='"+veiculo.getEstado()+"' WHERE id = '"+veiculo.getId()+"'";
         
         ConsultarSQL(sql, false);
     }

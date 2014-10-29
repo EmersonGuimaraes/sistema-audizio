@@ -563,7 +563,7 @@ public class EditarProcesso extends javax.swing.JDialog {
          processo.setVara(tfVara.getText());
          processo.setComarca(tfComarca.getText());
          processo.setSituacao_atual(taSituacaoAtual.getText());
-        
+         processo.setIdProcesso(idProcesso);
          
         //Seta os valores do veiculo
          veiculo.setMarca(tfMarca.getText());
@@ -574,12 +574,15 @@ public class EditarProcesso extends javax.swing.JDialog {
          veiculo.setPlaca(tfPlaca.getText());
          veiculo.setChassi(tfChassi.getText());
          veiculo.setRenavam(tfRenavam.getText());
-         veiculo.setEstado(String.valueOf(comoEstado.getSelectedItem()));
+         veiculo.setId(idProcesso);
+         String estado = String.valueOf(comoEstado.getSelectedItem());
+         System.out.println("Estado: "+estado);
+         veiculo.setEstado(estado);
          
          
          
         daoProcesso.Editar(processo);
-        //daoVeiculo.Editar(veiculo);
+        daoVeiculo.Editar(veiculo);
         
         comboCliente.setEnabled(false);
         comboAdvogado.setEnabled(false);

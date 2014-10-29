@@ -21,6 +21,7 @@ public class Veiculo {
     String marca;
     String renavam;
     String estado;
+    String id;
     
     public String getRenavam() {
         return renavam;
@@ -91,4 +92,14 @@ public class Veiculo {
     public void setEstado(String estado) {
         this.estado = estado;
     }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+    
+    
 }
