@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package sistema.audizio.gui;
+package sistema.audizio.backup;
 
 import java.io.File;
 import java.io.IOException;
@@ -14,16 +14,18 @@ import javax.swing.JOptionPane;
  *
  * @author emerson
  */
-public class RestaurarBackup {
+public class GerarBackup {
      
         String novonome = null;  
         int numerodobackup = 0;
-        String pasta = "C:/KRCsistemas/bck";
+        String pasta = "C:/SisAudizio/bkp";
+        //String pasta = "/home/zipnet/SisAudizio/bkp";
         String arq = "C:/SisAudizio/bkp/bkp_sisAudizio.sql";
+        //String arq = "/home/zipnet/SisAudizio/bkp/bkp_sisAudizio.sql";
         
 
 
-        public RestaurarBackup(){
+        public GerarBackup(){
             File diretorio = new File(pasta);  
             File bck = new File(arq);
             
@@ -35,7 +37,7 @@ public class RestaurarBackup {
             try {  
                 if (!bck.isFile()) {  
                     String comando = "C:/Program Files/MySQL/MySQL Server 5.5/bin/mysqldump.exe";  
-                    ProcessBuilder pb = new ProcessBuilder(comando, "--user=root", "--password=twe123", "ge", "--result-file="+arq);  
+                    ProcessBuilder pb = new ProcessBuilder(comando, "--user=root", "--password=5215052", "ge", "--result-file="+arq);  
                     pb.start();  
                     JOptionPane.showMessageDialog(null, "Cópia de segurança realizada com sucesso", "Backup", JOptionPane.CLOSED_OPTION);  
       
