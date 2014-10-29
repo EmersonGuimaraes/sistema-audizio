@@ -17,8 +17,10 @@ public class Processo {
     String reboqueiro;
     String data_estacionamento;
     String fone_advogado;
-    int cliente;
-    int advogado; 
+    String cliente;
+    int idCliente;
+    String advogado; 
+    int idAdvogado;
     String acao;
     String idVeiculo;
     String idProcesso;
@@ -96,19 +98,19 @@ public class Processo {
         this.fone_advogado = fone_advogado;
     }
 
-    public int getCliente() {
+    public String getCliente() {
         return cliente;
     }
 
-    public void setCliente(int idCliente) {
+    public void setCliente(String cliente) {
         this.cliente = cliente;
     }
 
-    public int getAdvogado() {
+    public String getAdvogado() {
         return advogado;
     }
 
-    public void setAdvogado(int idAdvogado) {
+    public void setAdvogado(String advogado) {
         this.advogado = advogado;
     }
 
@@ -143,6 +145,24 @@ public class Processo {
     public void setVara(String vara) {
         this.vara = vara;
     }
+
+    public void setIdCliente(int idCliente) {
+        this.idCliente = idCliente;
+    }
+
+    public int getIdCliente() {
+        return idCliente;
+    }
+
+    public void setIdAdvogado(int idAdvogado) {
+        this.idAdvogado = idAdvogado;
+    }
+
+    public int getIdAdvogado() {
+        return idAdvogado;
+    }
+    
+    
     
     
 }

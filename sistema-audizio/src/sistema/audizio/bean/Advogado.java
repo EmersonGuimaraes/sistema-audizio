@@ -12,7 +12,7 @@ package sistema.audizio.bean;
  */
 public class Advogado extends Pessoa {
     String idAdvogado;
-    
+    int cod;
     public String getIdAdvogado(){
         return idAdvogado;
     }
@@ -21,4 +21,13 @@ public class Advogado extends Pessoa {
         this.idAdvogado = id;
     }
 
+    public void setCod(int cod) {
+        this.cod = cod;
+    }
+
+    public int getCod() {
+        return cod;
+    }
+    
+    
 }

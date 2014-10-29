@@ -25,7 +25,7 @@ public class DaoProcesso extends Conexao{
     public void Cadastrar(Processo processo){
         
         sql="INSERT INTO tb_processo VALUES(null,'"+processo.getProcesso()+"','"+processo.getData_inicio()+"','"+processo.getData_termino()+"',"
-                + "'"+processo.getCliente()+"','"+processo.getAdvogado()+"','"+processo.getAcao()+"','"+processo.getReboqueiro()+"','ABERTO',"
+                + "'"+processo.getCliente()+"','"+processo.getAdvogado()+"','"+processo.getIdCliente()+"','"+processo.getIdAdvogado()+"','"+processo.getAcao()+"','"+processo.getReboqueiro()+"','ABERTO',"
                 + "'"+processo.getSituacao_atual()+"','"+processo.getVara()+"','"+processo.getComarca()+"')";
         try {
             ConsultarSQL(sql, false);
@@ -40,6 +40,7 @@ public class DaoProcesso extends Conexao{
                 + "cliente = '"+processo.getCliente()+"',advogado = '"+processo.getAdvogado()+"',valor = '"+
                 "acao = '"+processo.getAcao()+"',reboqueiro = '"+processo.getReboqueiro()+"',situacao = '"+processo.getSituacao()+"',situacao_atual = '"+processo.getSituacao_atual()+"',vara = '"+processo.getVara()+"',comarca = '"+processo.getComarca()+"' WHERE id = '"+processo.getIdProcesso()+"'";
         ConsultarSQL(sql, false);
+        JOptionPane.showMessageDialog(null, "PROCESSO EDITADO COM SUCESSO!");
     }
     
     public void Deletar(Processo processo){
@@ -59,7 +60,7 @@ public class DaoProcesso extends Conexao{
                     Processo processo = new Processo();
                     processo.setIdProcesso(rs.getString("id"));
                     processo.setProcesso(rs.getString("processo"));
-                    processo.setCliente(rs.getInt("cliente"));
+                    processo.setCliente(rs.getString("cliente"));
                     processo.setSituacao(rs.getString("situacao"));
                     
                     processos.add(processo);
@@ -73,7 +74,7 @@ public class DaoProcesso extends Conexao{
                     Processo processo = new Processo();
                     processo.setIdProcesso(rs.getString("id"));
                     processo.setProcesso(rs.getString("processo"));
-                    processo.setCliente(rs.getInt("cliente"));
+                    processo.setCliente(rs.getString("cliente"));
                     processo.setSituacao(rs.getString("situacao"));
                     
                     processos.add(processo);
@@ -89,7 +90,7 @@ public class DaoProcesso extends Conexao{
                     Processo processo = new Processo();
                     processo.setIdProcesso(rs.getString("id"));
                     processo.setProcesso(rs.getString("processo"));
-                    processo.setCliente(rs.getInt("cliente"));
+                    processo.setCliente(rs.getString("cliente"));
                     processo.setSituacao(rs.getString("situacao"));
                     
                     processos.add(processo);
@@ -105,14 +106,16 @@ public class DaoProcesso extends Conexao{
                     processo.setProcesso(rs.getString("processo"));
                     processo.setData_inicio(rs.getString("data_inicio"));
                     processo.setData_termino(rs.getString("data_termino"));
-                    processo.setCliente(rs.getInt("cliente"));
-                    processo.setAdvogado(rs.getInt("advogado"));
+                    processo.setCliente(rs.getString("cliente"));
+                    processo.setAdvogado(rs.getString("advogado"));
                     processo.setAcao(rs.getString("acao"));
                     processo.setReboqueiro(rs.getString("reboqueiro"));
                     processo.setSituacao(rs.getString("situacao"));
                     processo.setSituacao_atual(rs.getString("situacao_atual"));
                     processo.setVara(rs.getString("vara"));
                     processo.setComarca(rs.getString("comarca"));
+                    processo.setIdAdvogado(rs.getInt("id_advogado"));
+                    processo.setIdCliente(rs.getInt("id_cliente"));
                     processos.add(processo);
                 }
             }

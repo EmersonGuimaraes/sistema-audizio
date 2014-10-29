@@ -103,6 +103,11 @@ public class CadastroAdvogado extends javax.swing.JDialog {
             Advogado advogado = new Advogado();
             DaoAdvogado daoAdvogado = new DaoAdvogado();
             
+            int codA=1,codB,codC;
+            codB = daoAdvogado.retornaCod();
+            codC = codA+codB;
+            
+            advogado.setCod(codC);
             advogado.setNome(tfNome.getText());
             
             daoAdvogado.Cadastrar(advogado);

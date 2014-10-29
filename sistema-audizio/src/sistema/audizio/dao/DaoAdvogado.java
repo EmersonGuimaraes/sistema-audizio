@@ -21,7 +21,7 @@ public class DaoAdvogado extends Conexao{
     
     public void Cadastrar(Advogado advogado){
      
-        sql = "INSERT INTO tb_advogado VALUES(null,'"+advogado.getNome()+"')";
+        sql = "INSERT INTO tb_advogado VALUES(null,'"+advogado.getNome()+"','"+advogado.getCod()+"')";
         ConsultarSQL(sql, false);
         JOptionPane.showMessageDialog(null, "Cadastro Realizado com Sucesso!");
     }
@@ -74,5 +74,25 @@ public class DaoAdvogado extends Conexao{
        
          return advogados;
         
+    }
+    
+    public int retornaCod(){
+       int codA = 0;
+        String sql= "SELECT * FROM tb_advogado ORDER BY cod DESC LIMIT 1";
+        try {
+            ConsultarSQL(sql, true);
+           
+            while (rs.next()) {
+                codA = rs.getInt("cod");
+            }
+            System.out.println("cod :"+codA);
+            
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro na consulta do cod");
+            Logger.getLogger(DaoAdvogado.class.getName()).log(Level.SEVERE, null, ex);
+           codA = 1;
+        }
+         System.out.println("cod2 :"+codA);
+        return codA;
     }
 }
