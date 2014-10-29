@@ -47,7 +47,7 @@ public class ListarProcessos extends javax.swing.JDialog {
                 for(Processo pro:processos){
                     modeloTabela.addRow(new Object[] {pro.getIdProcesso(), pro.getCliente(),pro.getProcesso(), pro.getSituacao()});
                 }
-      
+                tbListarProcessos.getTableHeader().setReorderingAllowed(false);   
     }
     public void removerLinhas(){
          if (modeloTabela.getRowCount() > 0) {
@@ -242,7 +242,8 @@ public class ListarProcessos extends javax.swing.JDialog {
             idProcesso = tbListarProcessos.getValueAt(tbListarProcessos.getSelectedRow(),0).toString();
             System.out.println("ID DO PROCESSO:"+idProcesso);
        
-           // new EditarProcesso(idProcesso).show();
+           new EditarProcesso(idProcesso).setVisible(true);
+           
             this.dispose();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "SELECIONE UM PROCESSO PARA VER E/OU EDITAR.");

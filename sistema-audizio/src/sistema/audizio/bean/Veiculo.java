@@ -16,11 +16,12 @@ public class Veiculo {
     String ano_modelo;
     String cor;
     String modelo;
-    int chassi;
+    String chassi;
     String placa;
     String marca;
     String renavam;
     String estado;
+    String id;
     
     public String getRenavam() {
         return renavam;
@@ -60,11 +61,11 @@ public class Veiculo {
         this.modelo = modelo;
     }
 
-    public int getChassi() {
+    public String getChassi() {
         return chassi;
     }
 
-    public void setChassi(int chassi) {
+    public void setChassi(String chassi) {
         this.chassi = chassi;
     }
 
@@ -91,4 +92,14 @@ public class Veiculo {
     public void setEstado(String estado) {
         this.estado = estado;
     }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+    
+    
 }

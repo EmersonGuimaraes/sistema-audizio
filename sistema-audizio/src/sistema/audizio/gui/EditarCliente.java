@@ -79,13 +79,10 @@ public class EditarCliente extends javax.swing.JDialog {
        
         comboModelCidade.removeAllElements();
         
-        
-         
         cidades = daoCid.consultar("");
         
         comboModelCidade.addElement("Selecionar ...");
         
-       
         for (int linha = 0; linha < cidades.size(); linha++){
            
             Cidade cidade = cidades.get(linha);
@@ -121,7 +118,7 @@ public class EditarCliente extends javax.swing.JDialog {
                             //pegando a categoria da lista
                             Bairro bairro = bairros.get(linha);
                             //adicionando a categoria no combo
-                            System.out.println("Bairros: "+bairro.getNome());
+                           // System.out.println("Bairros: "+bairro.getNome());
                             comboModelBairro.addElement(bairro.getNome());
                         }
                     }
@@ -578,7 +575,7 @@ public class EditarCliente extends javax.swing.JDialog {
     }//GEN-LAST:event_tfCepActionPerformed
 
     private void btCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelarActionPerformed
-         tfNome.setEnabled(false);
+        tfNome.setEnabled(false);
         tfDataNasci.setEnabled(false);
         tfRg.setEnabled(false);
         tfOrgaoExp.setEnabled(false);
@@ -596,6 +593,7 @@ public class EditarCliente extends javax.swing.JDialog {
         tfTelefone.setEnabled(false);
         tfCelular.setEnabled(false);
         tfEmail.setEnabled(false);
+        tfWhats.setEnabled(false);
         btEditar.setEnabled(true);
         btSalvar.setEnabled(false);
         btImprimir.setEnabled(true);
@@ -606,10 +604,14 @@ public class EditarCliente extends javax.swing.JDialog {
          Cliente cliente = new Cliente();
          DaoCliente daoCliente = new DaoCliente();
          RemoveMascara mask = new RemoveMascara();
+         
          if(tfNome.getText().equals("") || tfTelefone.getText().equals("")){
              JOptionPane.showMessageDialog(null, "Preencha os campos corretamente!");
          }else{
-            cliente.setIdCliente(idCliente);
+            
+            String id = idCliente;
+            System.out.println("ID = "+id);
+            cliente.setIdCliente(id);
             cliente.setNome(tfNome.getText());
             cliente.setNascimento(mask.removeMascara(tfDataNasci.getText()));
             cliente.setRg(tfRg.getText());
@@ -628,9 +630,17 @@ public class EditarCliente extends javax.swing.JDialog {
             cliente.setCelular(mask.removeMascara(tfCelular.getText()));
             cliente.setEmail(tfEmail.getText());
             cliente.setWhatsapp(mask.removeMascara(tfWhats.getText()));
-         
-            daoCliente.Editar(cliente);
+            cliente.setNum(tfNumero.getText());
             
+            System.out.println("ID CLIENTE = "+idCliente);
+            daoCliente.Editar(cliente);
+             
+             
+            btSalvar.setEnabled(false);
+            btCancelar.setEnabled(false);
+            btImprimir.setEnabled(true);
+            btEditar.setEnabled(true);
+             
             tfNome.setEnabled(false);
             tfDataNasci.setEnabled(false);
             tfRg.setEnabled(false);
@@ -649,7 +659,9 @@ public class EditarCliente extends javax.swing.JDialog {
             tfTelefone.setEnabled(false);
             tfCelular.setEnabled(false);
             tfEmail.setEnabled(false);
-            btEditar.setEnabled(true);
+            tfWhats.setEnabled(false);
+            
+            preencheCampos();
          }
          
     }//GEN-LAST:event_btSalvarActionPerformed
@@ -673,6 +685,8 @@ public class EditarCliente extends javax.swing.JDialog {
         tfTelefone.setEnabled(true);
         tfCelular.setEnabled(true);
         tfEmail.setEnabled(true);
+        tfWhats.setEnabled(true);
+        
         btEditar.setEnabled(false);
         btSalvar.setEnabled(true);
         btImprimir.setEnabled(false);

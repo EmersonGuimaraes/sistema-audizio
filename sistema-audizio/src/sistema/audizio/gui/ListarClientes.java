@@ -37,7 +37,7 @@ public class ListarClientes extends javax.swing.JDialog {
        for(Cliente cli:clientes){
            modeloTabela.addRow(new Object[] {cli.getIdCliente(), cli.getNome(),cli.getFone(), cli.getEmail()});
         }
-        
+           tbListarCliente.getTableHeader().setReorderingAllowed(false);   
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -81,6 +81,7 @@ public class ListarClientes extends javax.swing.JDialog {
         });
         jScrollPane1.setViewportView(tbListarCliente);
         if (tbListarCliente.getColumnModel().getColumnCount() > 0) {
+            tbListarCliente.getColumnModel().getColumn(0).setResizable(false);
             tbListarCliente.getColumnModel().getColumn(0).setPreferredWidth(-5);
             tbListarCliente.getColumnModel().getColumn(1).setPreferredWidth(100);
             tbListarCliente.getColumnModel().getColumn(2).setPreferredWidth(50);

@@ -23,17 +23,20 @@ import sistema.audizio.dao.DaoVeiculo;
  *
  * @author emerson
  */
-public class CadastroProcesso extends javax.swing.JDialog { 
+public class EditarProcesso extends javax.swing.JDialog { 
     DefaultComboBoxModel comboModel, comboModelAdv;
     DaoCliente daoCli = new DaoCliente();
     DaoAdvogado daoAdv = new DaoAdvogado();
     /**
      * Creates new form CadastroProcesso
      */
-    public CadastroProcesso() {
+    String idProcesso;
+    public EditarProcesso(String id) {
+        this.idProcesso = id;
         initComponents();
         carregaComboCliente();
         carregaComboAdvogado();
+        preencheCampos(idProcesso);
         setModal(true);
     }
 
@@ -63,6 +66,47 @@ public class CadastroProcesso extends javax.swing.JDialog {
         }
         
     }
+    
+    public void preencheCampos(String id){
+        DaoProcesso daoProcesso = new DaoProcesso();
+        DaoVeiculo daoVeiculo = new DaoVeiculo();
+        ArrayList<Processo> processos = new DaoProcesso().Consultar(id);
+        ArrayList<Veiculo> veiculos = new DaoVeiculo().Consultar(id);
+        
+        int idAdvogado=0,idCliente=0;
+        String estado = null;
+        for (Processo pro:processos) {
+            //Setando dados do processo
+            tfProcesso.setText(pro.getProcesso());
+            taSituacaoAtual.setText(pro.getSituacao_atual());
+            tfVara.setText(pro.getVara());
+            tfAcao.setText(pro.getAcao());
+            tfComarca.setText(pro.getComarca());
+            tfReboqueiro.setText(pro.getReboqueiro());
+            tfDataInicio.setText(pro.getData_inicio());
+            tfDataFim.setText(pro.getData_termino());
+            idAdvogado = pro.getIdAdvogado();
+            idCliente = pro.getIdCliente();
+        }
+        carregaComboCliente();
+        comboCliente.setSelectedIndex(idCliente);
+        carregaComboAdvogado();
+        comboAdvogado.setSelectedIndex(idAdvogado);
+        
+        for (Veiculo veic:veiculos) {
+            //Setando dados do veiculo
+            tfMarca.setText(veic.getMarca());
+            tfModelo.setText(veic.getModelo());
+            tfCor.setText(veic.getCor());
+            tfPlaca.setText(veic.getPlaca());
+            tfAnoFabricacao.setText(veic.getAnoFabricacao());
+            tfAnoModelo.setText(veic.getAnoModelo());
+            tfRenavam.setText(veic.getRenavam());
+            tfChassi.setText(veic.getChassi());
+            estado = veic.getEstado();
+        }
+        comoEstado.setSelectedItem(estado);
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -79,7 +123,7 @@ public class CadastroProcesso extends javax.swing.JDialog {
         tfAcao = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         tfReboqueiro = new javax.swing.JTextField();
-        btCancelar = new javax.swing.JButton();
+        btEditar = new javax.swing.JButton();
         btSalvar = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
@@ -110,35 +154,46 @@ public class CadastroProcesso extends javax.swing.JDialog {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         comoEstado = new javax.swing.JComboBox();
+        btCancelar1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Editar Processo");
 
         jLabel1.setText("PROCESSO");
 
         jLabel2.setText("CLIENTE");
 
         comboCliente.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecionar . . ." }));
+        comboCliente.setEnabled(false);
+
+        tfProcesso.setEnabled(false);
 
         jLabel3.setText("DATA INÍCIO");
 
         jLabel4.setText("DATA TÉRMINO");
 
         comboAdvogado.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecionar . . ." }));
+        comboAdvogado.setEnabled(false);
 
         jLabel5.setText("ADVOGADO");
 
         jLabel7.setText("AÇÃO");
 
+        tfAcao.setEnabled(false);
+
         jLabel8.setText("REBOQUEIRO");
 
-        btCancelar.setText("CANCELAR");
-        btCancelar.addActionListener(new java.awt.event.ActionListener() {
+        tfReboqueiro.setEnabled(false);
+
+        btEditar.setText("EDITAR");
+        btEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btCancelarActionPerformed(evt);
+                btEditarActionPerformed(evt);
             }
         });
 
         btSalvar.setText("SALVAR");
+        btSalvar.setEnabled(false);
         btSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btSalvarActionPerformed(evt);
@@ -155,6 +210,14 @@ public class CadastroProcesso extends javax.swing.JDialog {
 
         jLabel12.setText("PLACA");
 
+        tfMarca.setEnabled(false);
+
+        tfModelo.setEnabled(false);
+
+        tfCor.setEnabled(false);
+
+        tfPlaca.setEnabled(false);
+
         jLabel13.setText("ANO DE FABRICAÇÃO E MODELO");
 
         try {
@@ -162,16 +225,22 @@ public class CadastroProcesso extends javax.swing.JDialog {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        tfAnoFabricacao.setEnabled(false);
 
         try {
             tfAnoModelo.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        tfAnoModelo.setEnabled(false);
 
         jLabel15.setText("CHASSSI");
 
+        tfChassi.setEnabled(false);
+
         jLabel17.setText("RENAVAM");
+
+        tfRenavam.setEnabled(false);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -259,26 +328,34 @@ public class CadastroProcesso extends javax.swing.JDialog {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        tfDataInicio.setEnabled(false);
 
         try {
             tfDataFim.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        tfDataFim.setEnabled(false);
 
         jLabel16.setText("SITUAÇÃO ATUAL");
 
         taSituacaoAtual.setColumns(20);
         taSituacaoAtual.setRows(5);
+        taSituacaoAtual.setEnabled(false);
         jScrollPane1.setViewportView(taSituacaoAtual);
 
         jLabel14.setText("VARA");
 
+        tfVara.setEnabled(false);
+
         jLabel18.setText("Veículo foi:");
+
+        tfComarca.setEnabled(false);
 
         jLabel19.setText("COMARCA");
 
         jButton1.setText("+");
+        jButton1.setEnabled(false);
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -286,6 +363,7 @@ public class CadastroProcesso extends javax.swing.JDialog {
         });
 
         jButton2.setText("+");
+        jButton2.setEnabled(false);
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -293,6 +371,15 @@ public class CadastroProcesso extends javax.swing.JDialog {
         });
 
         comoEstado.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecionar...", "Aberto", "Apreendido", "Não Encontrado", "Localizado" }));
+        comoEstado.setEnabled(false);
+
+        btCancelar1.setText("CANCELAR");
+        btCancelar1.setEnabled(false);
+        btCancelar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btCancelar1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -308,7 +395,9 @@ public class CadastroProcesso extends javax.swing.JDialog {
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addComponent(comoEstado, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
-                        .addComponent(btCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btCancelar1, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addComponent(btSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -412,11 +501,15 @@ public class CadastroProcesso extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel18)
+                        .addComponent(btEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(comoEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btSalvar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(btCancelar1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel18)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(comoEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btSalvar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -424,9 +517,31 @@ public class CadastroProcesso extends javax.swing.JDialog {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelarActionPerformed
-       this.dispose();
-    }//GEN-LAST:event_btCancelarActionPerformed
+    private void btEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditarActionPerformed
+        comboCliente.setEnabled(true);
+        comboAdvogado.setEnabled(true);
+        comoEstado.setEnabled(true);
+        tfProcesso.setEnabled(true);
+        tfDataInicio.setEnabled(true);
+        tfDataFim.setEnabled(true);
+        taSituacaoAtual.setEnabled(true);
+        tfVara.setEnabled(true);
+        tfAcao.setEnabled(true);
+        tfComarca.setEnabled(true);
+        tfReboqueiro.setEnabled(true);
+        tfMarca.setEnabled(true);
+        tfModelo.setEnabled(true);
+        tfCor.setEnabled(true);
+        tfPlaca.setEnabled(true);
+        tfAnoFabricacao.setEnabled(true);
+        tfAnoModelo.setEnabled(true);
+        tfRenavam.setEnabled(true);
+        tfChassi.setEnabled(true);
+        jButton1.setEnabled(true);
+        jButton2.setEnabled(true);
+        btCancelar1.setEnabled(true);
+        btSalvar.setEnabled(true);
+    }//GEN-LAST:event_btEditarActionPerformed
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
          Processo processo = new Processo();
@@ -448,7 +563,7 @@ public class CadastroProcesso extends javax.swing.JDialog {
          processo.setVara(tfVara.getText());
          processo.setComarca(tfComarca.getText());
          processo.setSituacao_atual(taSituacaoAtual.getText());
-        
+         processo.setIdProcesso(idProcesso);
          
         //Seta os valores do veiculo
          veiculo.setMarca(tfMarca.getText());
@@ -459,33 +574,42 @@ public class CadastroProcesso extends javax.swing.JDialog {
          veiculo.setPlaca(tfPlaca.getText());
          veiculo.setChassi(tfChassi.getText());
          veiculo.setRenavam(tfRenavam.getText());
-         veiculo.setEstado(String.valueOf(comoEstado.getSelectedItem()));
+         veiculo.setId(idProcesso);
+         String estado = String.valueOf(comoEstado.getSelectedItem());
+         System.out.println("Estado: "+estado);
+         veiculo.setEstado(estado);
          
          
          
-        daoProcesso.Cadastrar(processo);
-        daoVeiculo.Cadastrar(veiculo);
+        daoProcesso.Editar(processo);
+        daoVeiculo.Editar(veiculo);
         
-        tfAcao.setText(null);
-        tfAnoFabricacao.setText(null);
-        tfAnoModelo.setText(null);
-        tfChassi.setText(null);
-        tfCor.setText(null);
-        tfDataFim.setText(null);
-        tfDataInicio.setText(null);
-        tfMarca.setText(null);
-        tfModelo.setText(null);
-        tfPlaca.setText(null);
-        tfProcesso.setText(null);
-        tfReboqueiro.setText(null);
-        tfVara.setText(null);
-        tfComarca.setText(null);
-        tfRenavam.setText(null);
-        taSituacaoAtual.setText(null);
-        comoEstado.setSelectedIndex(0);
-        comboAdvogado.setSelectedIndex(0);
-        comboCliente.setSelectedIndex(0);
-        comboAdvogado.setSelectedIndex(0);
+        comboCliente.setEnabled(false);
+        comboAdvogado.setEnabled(false);
+        comoEstado.setEnabled(false);
+        tfProcesso.setEnabled(false);
+        tfDataInicio.setEnabled(false);
+        tfDataFim.setEnabled(false);
+        taSituacaoAtual.setEnabled(false);
+        tfVara.setEnabled(false);
+        tfAcao.setEnabled(false);
+        tfComarca.setEnabled(false);
+        tfReboqueiro.setEnabled(false);
+        tfMarca.setEnabled(false);
+        tfModelo.setEnabled(false);
+        tfCor.setEnabled(false);
+        tfPlaca.setEnabled(false);
+        tfAnoFabricacao.setEnabled(false);
+        tfAnoModelo.setEnabled(false);
+        tfRenavam.setEnabled(false);
+        tfChassi.setEnabled(false);
+        
+        btEditar.setEnabled(true);
+        btCancelar1.setEnabled(false);
+        btSalvar.setEnabled(false);
+        jButton1.setEnabled(false);
+        jButton2.setEnabled(false);
+        preencheCampos(idProcesso);
         
     }//GEN-LAST:event_btSalvarActionPerformed
 
@@ -498,6 +622,35 @@ public class CadastroProcesso extends javax.swing.JDialog {
        new CadastroCliente().setVisible(true);
        carregaComboCliente();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void btCancelar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelar1ActionPerformed
+       comboCliente.setEnabled(false);
+        comboAdvogado.setEnabled(false);
+        comoEstado.setEnabled(false);
+        tfProcesso.setEnabled(false);
+        tfDataInicio.setEnabled(false);
+        tfDataFim.setEnabled(false);
+        taSituacaoAtual.setEnabled(false);
+        tfVara.setEnabled(false);
+        tfAcao.setEnabled(false);
+        tfComarca.setEnabled(false);
+        tfReboqueiro.setEnabled(false);
+        tfMarca.setEnabled(false);
+        tfModelo.setEnabled(false);
+        tfCor.setEnabled(false);
+        tfPlaca.setEnabled(false);
+        tfAnoFabricacao.setEnabled(false);
+        tfAnoModelo.setEnabled(false);
+        tfRenavam.setEnabled(false);
+        tfChassi.setEnabled(false);
+        
+        btEditar.setEnabled(true);
+        btCancelar1.setEnabled(false);
+        btSalvar.setEnabled(false);
+        jButton1.setEnabled(false);
+        jButton2.setEnabled(false);
+        preencheCampos(idProcesso);
+    }//GEN-LAST:event_btCancelar1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -516,26 +669,23 @@ public class CadastroProcesso extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CadastroProcesso.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditarProcesso.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CadastroProcesso.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditarProcesso.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CadastroProcesso.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditarProcesso.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CadastroProcesso.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditarProcesso.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new CadastroProcesso().setVisible(true);
-            }
-        });
+      
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btCancelar;
+    private javax.swing.JButton btCancelar1;
+    private javax.swing.JButton btEditar;
     private javax.swing.JButton btSalvar;
     private javax.swing.JComboBox comboAdvogado;
     private javax.swing.JComboBox comboCliente;

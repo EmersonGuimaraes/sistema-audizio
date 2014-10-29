@@ -37,20 +37,13 @@ public class CadastroCliente extends javax.swing.JDialog {
         ArrayList<Cidade> cidades = new ArrayList<>();
         DaoCidade daoCid = new DaoCidade();
         comboModelCidade = (DefaultComboBoxModel) comboCidade.getModel();
-       
-        comboModelCidade.removeAllElements();
-        
-        
-         
         cidades = daoCid.consultar("");
         
+        comboModelCidade.removeAllElements();
         comboModelCidade.addElement("Selecionar ...");
         
-       
         for (int linha = 0; linha < cidades.size(); linha++){
-           
             Cidade cidade = cidades.get(linha);
-            
             comboModelCidade.addElement(cidade.getNome());
         }
         
@@ -550,6 +543,10 @@ public class CadastroCliente extends javax.swing.JDialog {
          if(tfNome.getText().equals("") || tfTelefone.getText().equals("")){
              JOptionPane.showMessageDialog(null, "Preencha os campos corretamente!");
          }else{
+            int codA=1,codB,codC;
+            codB = daoCliente.retornaCod();
+            codC = codA+codB;
+            
             cliente.setNome(tfNome.getText());
             cliente.setNascimento(mask.removeMascara(tfDataNasci.getText()));
             cliente.setRg(tfRg.getText());
@@ -568,7 +565,9 @@ public class CadastroCliente extends javax.swing.JDialog {
             cliente.setCelular(mask.removeMascara(tfCelular.getText()));
             cliente.setEmail(tfEmail.getText());
             cliente.setWhatsapp(mask.removeMascara(tfWhats.getText()));
-         
+            cliente.setNum(tfNumero.getText());
+            cliente.setCod(codC);
+               
             daoCliente.Cadastrar(cliente);
             
             tfNome.setText(null);
@@ -587,6 +586,9 @@ public class CadastroCliente extends javax.swing.JDialog {
             tfProfissao.setText(null);
             tfTelefone.setText(null);
             tfCelular.setText(null);
+            tfWhats.setText(null);
+            comboCidade.setSelectedIndex(0);
+            comboBairro.setSelectedIndex(0);
             
          }
          

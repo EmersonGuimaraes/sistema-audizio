@@ -36,7 +36,7 @@ public class ListarAdvogados extends javax.swing.JDialog {
        for(Advogado advo:advogados){
            modeloTabela.addRow(new Object[] {advo.getIdAdvogado(),advo.getNome()});
         }
- 
+       tbListarAdvogado.getTableHeader().setReorderingAllowed(false);   
     }
 
     /**
