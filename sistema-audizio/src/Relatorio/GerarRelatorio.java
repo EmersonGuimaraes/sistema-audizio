@@ -11,20 +11,16 @@ import java.io.IOException;
 
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.ListItem;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
-import com.itextpdf.text.pdf.PdfPTable;
-import com.itextpdf.text.pdf.PdfPCell;
-import java.io.ObjectOutputStream;
-import javax.swing.GroupLayout;
 
 public class GerarRelatorio {
 public static void main(String[] args) throws DocumentException, IOException {
 Document document = new Document();
 
-PdfWriter.getInstance(document, new FileOutputStream("C:\\Users\\ZipNet\\Desktop\\testes\\teste2.pdf"));
 
+//PdfWriter.getInstance(document, new FileOutputStream("C:\\Users\\ZipNet\\Desktop\\testes\\teste2.pdf"));
+PdfWriter.getInstance(document, new FileOutputStream("\\home\\zipnet\\teste2.pdf"));
 document.open();
 Paragraph veiculo = new Paragraph("VEICULO");
 Paragraph cliente = new Paragraph("CLIENTE");
