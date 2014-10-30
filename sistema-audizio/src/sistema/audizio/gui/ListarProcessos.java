@@ -72,6 +72,7 @@ public class ListarProcessos extends javax.swing.JDialog {
         rbArquivados = new javax.swing.JRadioButton();
         btEditar = new javax.swing.JButton();
         btArquivar = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -172,6 +173,13 @@ public class ListarProcessos extends javax.swing.JDialog {
             }
         });
 
+        jButton2.setText("GERAR PDF");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -188,7 +196,9 @@ public class ListarProcessos extends javax.swing.JDialog {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btEditar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btArquivar))
+                                .addComponent(btArquivar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 546, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 12, Short.MAX_VALUE)))
                 .addContainerGap())
@@ -205,7 +215,8 @@ public class ListarProcessos extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btEditar)
-                    .addComponent(btArquivar))
+                    .addComponent(btArquivar)
+                    .addComponent(jButton2))
                 .addGap(5, 5, 5))
         );
 
@@ -270,6 +281,18 @@ public class ListarProcessos extends javax.swing.JDialog {
       
     }//GEN-LAST:event_btArquivarActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        try {
+            String idProcesso;
+            idProcesso = tbListarProcessos.getValueAt(tbListarProcessos.getSelectedRow(),0).toString();
+            System.out.println("Id Cliente: "+idProcesso);
+       
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "SELECIONE UM CLIENTE PARA VER E/OU EDITAR.");
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -280,6 +303,7 @@ public class ListarProcessos extends javax.swing.JDialog {
     private javax.swing.JButton btEditar;
     private javax.swing.ButtonGroup grupoRadio;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JRadioButton rbAberto;
