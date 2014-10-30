@@ -10,13 +10,14 @@ package sistema.audizio.gui;
  * @author Internet
  * @Editado Emerson Guimarães
  */
-public class ContaReceber extends javax.swing.JFrame {
+public class ContaReceber extends javax.swing.JDialog {
 
     /**
      * Creates new form ContaReceber
      */
     public ContaReceber() {
         initComponents();
+        setModal(true);
         tfValor.setDocument(new LimitadorMoeda());
         tfValorDespesa.setDocument(new LimitadorMoeda());
         tfDesconto.setDocument(new LimitadorMoeda());
@@ -105,6 +106,11 @@ public class ContaReceber extends javax.swing.JFrame {
         jLabel9.setText("SITUAÇÃO");
 
         comboSituacao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecionar...", "Pendente", "Quitado" }));
+        comboSituacao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboSituacaoActionPerformed(evt);
+            }
+        });
 
         jButton1.setText("CADASTRAR CONTA");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -254,6 +260,10 @@ public class ContaReceber extends javax.swing.JFrame {
         data = mask.removeMascara(tfDataVencimento.getText());
         
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void comboSituacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboSituacaoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboSituacaoActionPerformed
 
     /**
      * @param args the command line arguments

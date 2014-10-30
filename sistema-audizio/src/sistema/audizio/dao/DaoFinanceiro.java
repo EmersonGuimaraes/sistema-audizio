@@ -6,35 +6,116 @@
 
 package sistema.audizio.dao;
 
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import sistema.audizio.bean.Financeiro;
+import sistema.audizio.bean.Processo;
 
 /**
  *
- * @author ZipNet
+ * @author Emerson
  */
 public class DaoFinanceiro extends Conexao{
     String sql;
-    public DaoFinanceiro() {
-    }
+     public void cadastrar(Financeiro f){
+         sql = "INSERT INTO tb_financeiro VALUES(null,'"+f.getIdProcesso()+"','"+f.getIdCliente()+"',"
+                 + "'"+f.getProcesso()+"','"+f.getCliente()+"','"+f.getValor()+"','"+f.getValor()+"',"
+                 + "'"+f.getValor_despesa()+"','"+f.desconto+"','"+f.vencimento+"','"+f.situacao+"',"
+                 + "'"+f.valor_total+"','"+f.desc_despesa+"')";
+         ConsultarSQL(sql, false);
+         JOptionPane.showMessageDialog(null, "CONTA CADASTRADA COM SUCESSO!");
+     }
+     
+     public ArrayList<Financeiro> consultarFinancas(String situacao){
+         ArrayList<Financeiro> financas = new ArrayList<>();
+         try {
+            
+            if(situacao.equals("")){
+                String sql = "SELECT id,cliente,processo,situacao FROM tb_processo";
+                ConsultarSQL(sql,true);
+                while (rs.next()) {
+                    Financeiro f = new Financeiro();
+                    f.setId(rs.getInt("id"));
+                    f.setId_processo(rs.getInt("id_processo"));
+                    f.setId_cliente(rs.getInt("id_cliente"));
+                    f.setProcesso(rs.getString("processo"));
+                    f.setCliente(rs.getString("cliente"));
+                    f.setValor(rs.getString("valor"));
+                    f.setValor_despesa(rs.getString("valor_despesa"));
+                    f.setDesconto(rs.getString("desconto"));
+                    f.setVencimento(rs.getString("vencimento"));
+                    f.setSituacao(rs.getString("situacao"));
+                    f.setValor_total(rs.getString("valor_total"));
+                    f.setDesc_despesa(rs.getString("desc_despesa"));
+                    financas.add(f);
+
+                }
+            }else if(situacao.equals("aberto")){
+                String sql = "SELECT id,cliente,processo,situacao FROM tb_processo WHERE situacao = '"+situacao+"'";
+                ConsultarSQL(sql,true);
+                
+                while (rs.next()) {
+                   Financeiro f = new Financeiro();
+                    f.setId(rs.getInt("id"));
+                    f.setId_processo(rs.getInt("id_processo"));
+                    f.setId_cliente(rs.getInt("id_cliente"));
+                    f.setProcesso(rs.getString("processo"));
+                    f.setCliente(rs.getString("cliente"));
+                    f.setVencimento(rs.getString("vencimento"));
+                    f.setSituacao(rs.getString("situacao"));
+                    f.setValor_total(rs.getString("valor_total"));
+                    financas.add(f);
+
+                }
+                
+            }else if(situacao.equals("arquivado")){
+                
+                String sql = "SELECT id,cliente,processo,situacao FROM tb_processo WHERE situacao = '"+situacao+"'";
+                ConsultarSQL(sql,true);
+                
+                while (rs.next()) {
+                    Financeiro f = new Financeiro();
+                    f.setId(rs.getInt("id"));
+                    f.setId_processo(rs.getInt("id_processo"));
+                    f.setId_cliente(rs.getInt("id_cliente"));
+                    f.setProcesso(rs.getString("processo"));
+                    f.setCliente(rs.getString("cliente"));
+                    f.setVencimento(rs.getString("vencimento"));
+                    f.setSituacao(rs.getString("situacao"));
+                    f.setValor_total(rs.getString("valor_total"));
+                    financas.add(f);
+
+                }
+                
+            }else{
+                String sql = "SELECT * FROM tb_financeiro WHERE id = '"+situacao+"'";
+                ConsultarSQL(sql,true);
+                while (rs.next()) {
+                    Financeiro f = new Financeiro();
+                    f.setId(rs.getInt("id"));
+                    f.setId_processo(rs.getInt("id_processo"));
+                    f.setId_cliente(rs.getInt("id_cliente"));
+                    f.setProcesso(rs.getString("processo"));
+                    f.setCliente(rs.getString("cliente"));
+                    f.setValor(rs.getString("valor"));
+                    f.setValor_despesa(rs.getString("valor_despesa"));
+                    f.setDesconto(rs.getString("desconto"));
+                    f.setVencimento(rs.getString("vencimento"));
+                    f.setSituacao(rs.getString("situacao"));
+                    f.setValor_total(rs.getString("valor_total"));
+                    f.setDesc_despesa(rs.getString("desc_despesa"));
+                    financas.add(f);
+                }
+            }
+          
+        } catch (SQLException ex) {
+            Logger.getLogger(DaoCliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         return financas;
+     }
     
-    public void Cadastrar(Financeiro financeiro){
-        
-        sql="INSERT INTO tb_financeiro VALUES(null,'"+financeiro.getCobranca()+"','"+financeiro.getDescricao()+"','"+financeiro.getDespesas()+"',"
-                + "'"+financeiro.getData_pagamento()+"','"+financeiro.getValor()+"')";
-        ConsultarSQL(sql, false);
-        JOptionPane.showMessageDialog(null, "Cadastro Realizado com Sucesso!");
-    }
-    public void Editar(Financeiro financeiro){
-        System.out.println("Id financeiro no dao:"+financeiro.getIdProcesso());
-        sql="UPDATE tb_financeiro SET cobranca = '"+financeiro.getCobranca()+"',descricao = '"+financeiro.getDescricao()+"',despesas = '"+financeiro.getDespesas()+"',"
-                + "data_pagamento = '"+financeiro.getData_pagamento()+"',valor = '"+financeiro.getValor()+"' WHERE id = '"+financeiro.getIdProcesso()+"'";
-        ConsultarSQL(sql, false);
-    }
-    
-    public void Deletar(Financeiro financeiro){
-        
-        sql="DELETE FROM tb_financeiro WHERE id = '"+financeiro.getIdProcesso()+"'";
-    }
        
 }
