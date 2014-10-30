@@ -31,6 +31,7 @@ public class DaoBairro extends Conexao{
     }
     
      public ArrayList<Bairro> consultar(String idCidade){
+         
         ArrayList<Bairro> bairros = new ArrayList<>();
         try {
             sql = "SELECT * FROM tb_bairro WHERE id_cidade = '"+idCidade+"'";
@@ -48,6 +49,25 @@ public class DaoBairro extends Conexao{
         } catch (SQLException ex) {
             Logger.getLogger(DaoCidade.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("Erro bairros");
+        }
+        return bairros;
+    }
+     
+     public ArrayList<Bairro> consultar2(String id){
+        ArrayList<Bairro> bairros = new ArrayList<>();
+        try {
+            sql = "SELECT * FROM tb_bairro WHERE id = '"+id+"'";
+            ConsultarSQL(sql, true);
+            
+            while (rs.next()) {
+               Bairro bairro = new Bairro();
+               bairro.setNome(rs.getString("bairro"));
+              
+               bairros.add(bairro);
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(DaoCidade.class.getName()).log(Level.SEVERE, null, ex);
         }
         return bairros;
     }

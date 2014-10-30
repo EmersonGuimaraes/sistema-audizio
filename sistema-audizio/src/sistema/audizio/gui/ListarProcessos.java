@@ -6,14 +6,24 @@
 
 package sistema.audizio.gui;
 
+import com.itextpdf.text.DocumentException;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import sistema.audizio.bean.Bairro;
+import sistema.audizio.bean.Cidade;
 import sistema.audizio.bean.Cliente;
 import sistema.audizio.bean.Processo;
+import sistema.audizio.bean.Veiculo;
+import sistema.audizio.dao.DaoBairro;
+import sistema.audizio.dao.DaoCidade;
 import sistema.audizio.dao.DaoCliente;
 import sistema.audizio.dao.DaoProcesso;
-
+import sistema.audizio.dao.DaoVeiculo;
+import sistema.audizio.relatorio.Relatorio;
 /**
  *
  * @author emerson
@@ -24,6 +34,11 @@ public class ListarProcessos extends javax.swing.JDialog {
      * Creates new form ListarClientes
      */
     DefaultTableModel modeloTabela;
+    ArrayList<Processo> processo;
+    ArrayList<Cliente> cliente;
+    ArrayList<Veiculo> veiculo;
+    ArrayList<Bairro> bairro;
+    ArrayList<Cidade> cidade;
     public ListarProcessos(String situacao) {
         initComponents();
         carregarTabela(situacao);
@@ -63,7 +78,7 @@ public class ListarProcessos extends javax.swing.JDialog {
     private void initComponents() {
 
         grupoRadio = new javax.swing.ButtonGroup();
-        jButton1 = new javax.swing.JButton();
+        btNovo = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbListarProcessos = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
@@ -72,14 +87,14 @@ public class ListarProcessos extends javax.swing.JDialog {
         rbArquivados = new javax.swing.JRadioButton();
         btEditar = new javax.swing.JButton();
         btArquivar = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btPdf = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jButton1.setText("NOVO PROCESSO");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btNovo.setText("NOVO PROCESSO");
+        btNovo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btNovoActionPerformed(evt);
             }
         });
 
@@ -106,8 +121,6 @@ public class ListarProcessos extends javax.swing.JDialog {
             tbListarProcessos.getColumnModel().getColumn(2).setPreferredWidth(80);
             tbListarProcessos.getColumnModel().getColumn(3).setPreferredWidth(10);
         }
-
-        jPanel2.setBorder(null);
 
         grupoRadio.add(rbTodos);
         rbTodos.setSelected(true);
@@ -173,10 +186,10 @@ public class ListarProcessos extends javax.swing.JDialog {
             }
         });
 
-        jButton2.setText("GERAR PDF");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btPdf.setText("GERAR PDF");
+        btPdf.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btPdfActionPerformed(evt);
             }
         });
 
@@ -188,7 +201,7 @@ public class ListarProcessos extends javax.swing.JDialog {
                 .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
@@ -198,7 +211,7 @@ public class ListarProcessos extends javax.swing.JDialog {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(btArquivar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(btPdf, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 546, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 12, Short.MAX_VALUE)))
                 .addContainerGap())
@@ -208,7 +221,7 @@ public class ListarProcessos extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btNovo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -216,7 +229,7 @@ public class ListarProcessos extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btEditar)
                     .addComponent(btArquivar)
-                    .addComponent(jButton2))
+                    .addComponent(btPdf))
                 .addGap(5, 5, 5))
         );
 
@@ -224,10 +237,10 @@ public class ListarProcessos extends javax.swing.JDialog {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoActionPerformed
         this.dispose();
         new CadastroProcesso().show();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btNovoActionPerformed
 
     private void rbAbertoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbAbertoActionPerformed
         removerLinhas();
@@ -281,17 +294,53 @@ public class ListarProcessos extends javax.swing.JDialog {
       
     }//GEN-LAST:event_btArquivarActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        try {
-            String idProcesso;
-            idProcesso = tbListarProcessos.getValueAt(tbListarProcessos.getSelectedRow(),0).toString();
-            System.out.println("Id Cliente: "+idProcesso);
+    private void btPdfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPdfActionPerformed
        
+            String idProcesso;
             
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "SELECIONE UM CLIENTE PARA VER E/OU EDITAR.");
+           /* Processo pro = new Processo();
+            Cliente cli = new Cliente();
+            Veiculo veic = new Veiculo();
+            */
+            Relatorio relatorio = new Relatorio();
+            
+            idProcesso = tbListarProcessos.getValueAt(tbListarProcessos.getSelectedRow(),0).toString();
+            ///DaoProcesso processo = new DaoProcesso();
+            //DaoCliente cliente = new DaoCliente();
+            //DaoVeiculo veiculo = new DaoVeiculo();
+            
+            processo = new DaoProcesso().Consultar(idProcesso);
+            System.out.println(processo.size());
+            String idcliente = String.valueOf(processo.get(0).getIdCliente());
+            System.out.println(idcliente);
+            cliente = new DaoCliente().Consultar(idcliente);
+            String idCidade, idBairro;
+            idCidade = cliente.get(0).getCidade();
+            idBairro = cliente.get(0).getCidade();
+            cidade = new DaoCidade().consultar(idCidade);
+            bairro = new DaoBairro().consultar2(idBairro);
+            veiculo = new DaoVeiculo().Consultar(idProcesso);
+            
+        
+        try {
+            /* veiculo.Consultar(pro.getIdProcesso());
+            System.out.println("Consulatar veiculo");
+            veic.setMarca(veiculo.rs.getString("marca"));
+            veic.setPlaca(veiculo.rs.getString("placa"));
+            veic.setModelo(veiculo.rs.getString("modelo"));
+            veic.setEstado(veiculo.rs.getString("estado"));
+            */
+            
+         
+            relatorio.gerar(cliente, processo, veiculo, cidade, bairro);
+        } catch (DocumentException ex) {
+            Logger.getLogger(ListarProcessos.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(ListarProcessos.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_jButton2ActionPerformed
+        
+            
+    }//GEN-LAST:event_btPdfActionPerformed
 
     /**
      * @param args the command line arguments
@@ -301,9 +350,9 @@ public class ListarProcessos extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btArquivar;
     private javax.swing.JButton btEditar;
+    private javax.swing.JButton btNovo;
+    private javax.swing.JButton btPdf;
     private javax.swing.ButtonGroup grupoRadio;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JRadioButton rbAberto;

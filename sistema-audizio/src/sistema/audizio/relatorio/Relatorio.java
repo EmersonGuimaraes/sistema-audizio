@@ -13,6 +13,10 @@ import com.itextpdf.text.pdf.PdfWriter;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import sistema.audizio.bean.Bairro;
+import sistema.audizio.bean.Cidade;
 import sistema.audizio.bean.Cliente;
 import sistema.audizio.bean.Processo;
 import sistema.audizio.bean.Veiculo;
@@ -20,73 +24,65 @@ import sistema.audizio.bean.Veiculo;
 public class Relatorio {
 
     public Relatorio() {
+        
     }
     
-    public void gerar(Cliente cli,Processo pro, Veiculo veic) throws DocumentException, FileNotFoundException{
+    public void gerar(ArrayList <Cliente> cliente, ArrayList <Processo> processo , ArrayList <Veiculo> veiculo, ArrayList<Cidade> cidade, ArrayList<Bairro> bairro) throws DocumentException, FileNotFoundException{
                 Document document = new Document();
-
-                //PdfWriter.getInstance(document, new FileOutputStream("C:\\Users\\ZipNet\\Desktop\\testes\\teste2.pdf"));
-                PdfWriter.getInstance(document, new FileOutputStream("/home/emerson/Documentos/teste.pdf"));
+                PdfWriter.getInstance(document, new FileOutputStream("C:\\Users\\ZipNet\\Desktop\\Pdf's\\teste.pdf"));
                 document.open();
-                Paragraph veiculo = new Paragraph("VEICULO");
-                Paragraph cliente = new Paragraph("CLIENTE");
-                Paragraph processo = new Paragraph("PROCESSO");
-                veiculo.setAlignment(Paragraph.ALIGN_CENTER);
-                cliente.setAlignment(Paragraph.ALIGN_CENTER);
-                processo.setAlignment(Paragraph.ALIGN_CENTER);
-                //Paragraph titulo = new Paragraph("Cliente: ");
-                //titulo.setAlignment(Paragraph.ALIGN_CENTER);
-                document.add(cliente);
+                Paragraph Veiculoulo = new Paragraph("VEICULO");
+                Paragraph Clienteente = new Paragraph("CLIENTE");
+                Paragraph Processocesso = new Paragraph("PROCESSO");
+                Veiculoulo.setAlignment(Paragraph.ALIGN_CENTER);
+                Clienteente.setAlignment(Paragraph.ALIGN_CENTER);
+                Processocesso.setAlignment(Paragraph.ALIGN_CENTER);
+                document.add(Clienteente);
                 document.add(new Paragraph("______________________________________________________________________________"));
 
-                document.add(new Paragraph("NOME: "+cli.getNome()));
+                document.add(new Paragraph("NOME: "+cliente.get(0).getNome()));
                 document.add(new Paragraph(" "));
-                document.add(new Paragraph("RG: "+cli.getRg()));
+                document.add(new Paragraph("RG: "+cliente.get(0).getRg()));
                 document.add(new Paragraph(" "));
-                document.add(new Paragraph("CEP: "+cli.getCep()));
+                document.add(new Paragraph("CEP: "+cliente.get(0).getCep()));
                 document.add(new Paragraph(" "));
-                document.add(new Paragraph("CPF: "+cli.getCpf()));
+                document.add(new Paragraph("CPF: "+cliente.get(0).getCpf()));
                 document.add(new Paragraph(" "));
-                document.add(new Paragraph("UF: "+cli.getEstado()));
+                document.add(new Paragraph("UF: "+cliente.get(0).getCidade()));
                 document.add(new Paragraph(" "));
-                document.add(new Paragraph("ENDEREÇO: "+cli.getEndereco()));
+                document.add(new Paragraph("ENDEREÇO: "+cliente.get(0).getEndereco()+", "+cliente.get(0).getNum()+", "+bairro.get(0).getNome()+", "+cidade.get(0).getNome()));
                 document.add(new Paragraph(" "));
-                document.add(new Paragraph("E-MAIL: "+cli.getEmail()));
-                document.add(veiculo);
+                document.add(new Paragraph("E-MAIL: "+cliente.get(0).getEmail()));
+                document.add(Veiculoulo);
                 document.add(new Paragraph("______________________________________________________________________________"));
                 document.add(new Paragraph(" "));
-                document.add(new Paragraph("MARCA: "+veic.getMarca()));
+                document.add(new Paragraph("MARCA: "+veiculo.get(0).getMarca()));
                 document.add(new Paragraph(" "));
-                document.add(new Paragraph("MODELO: "+veic.getModelo()));
+                document.add(new Paragraph("MODELO: "+veiculo.get(0).getModelo()));
                 document.add(new Paragraph(" "));
-                document.add(new Paragraph("PLACA: "+veic.getPlaca()));
+                document.add(new Paragraph("PLACA: "+veiculo.get(0).getPlaca()));
                 document.add(new Paragraph(" "));
-                document.add(new Paragraph("ESTADO: "+veic.getEstado()));
-                document.add(processo);
+                document.add(new Paragraph("ESTADO: "+veiculo.get(0).getEstado()));
+                document.add(Processocesso);
                 document.add(new Paragraph("______________________________________________________________________________"));
                 document.add(new Paragraph(" "));
-                document.add(new Paragraph("PROCESSO: "+pro.getProcesso()));
+                document.add(new Paragraph("PROCESSO: "+processo.get(0).getProcesso()));
                 document.add(new Paragraph(" "));
-                document.add(new Paragraph("DATA INICIO: "+pro.getData_inicio()));
+                document.add(new Paragraph("DATA INICIO: "+processo.get(0).getData_inicio()));
                 document.add(new Paragraph(" "));
-                document.add(new Paragraph("DATA TERMINO: "+pro.getData_termino()));
+                document.add(new Paragraph("DATA TERMINO: "+processo.get(0).getData_termino()));
                 document.add(new Paragraph(" "));
-                document.add(new Paragraph("ADVOGADO: "+pro.getAdvogado()));
+                document.add(new Paragraph("ADVOGADO: "+processo.get(0).getAdvogado()));
                 document.add(new Paragraph(" "));
-                document.add(new Paragraph("REBOQUEIRO: "+pro.getReboqueiro()));
+                document.add(new Paragraph("REBOQUEIRO: "+processo.get(0).getReboqueiro()));
                 document.add(new Paragraph(" "));
-                document.add(new Paragraph("COMARCA: "+pro.getComarca()));
+                document.add(new Paragraph("COMARCA: "+processo.get(0).getComarca()));
                 document.add(new Paragraph(" "));
-                document.add(new Paragraph("VARA: "+pro.getVara()));
-
-                //document.add(titulo);
+                document.add(new Paragraph("VARA: "+processo.get(0).getVara()));
                 document.close();
-                System.out.println("Relatório Criado");
+                JOptionPane.showMessageDialog(null, "RELATÓRIO CRIADO COM SUCESSO!");
     }
    
-    public static void main(String[] args) throws DocumentException, IOException {
-
-    }
 }
 
 

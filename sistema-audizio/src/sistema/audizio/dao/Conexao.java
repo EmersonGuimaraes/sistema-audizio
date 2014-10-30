@@ -13,7 +13,7 @@ public class Conexao {
     String url = "jdbc:mysql://localhost/audizio";
     String driver = "com.mysql.jdbc.Driver";
     String usuario = "root";
-    String senha = "5215052";
+    String senha = "";
     
     public void estabelecerConexao(){
         //IP();
