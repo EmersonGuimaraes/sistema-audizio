@@ -333,6 +333,7 @@ public class ListarProcessos extends javax.swing.JDialog {
             
          
             relatorio.gerar(cliente, processo, veiculo, cidade, bairro);
+            System.out.println("Passou");
         } catch (DocumentException ex) {
             Logger.getLogger(ListarProcessos.class.getName()).log(Level.SEVERE, null, ex);
         } catch (FileNotFoundException ex) {

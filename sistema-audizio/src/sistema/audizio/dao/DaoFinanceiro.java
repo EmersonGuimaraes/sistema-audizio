@@ -21,10 +21,10 @@ import sistema.audizio.bean.Processo;
 public class DaoFinanceiro extends Conexao{
     String sql;
      public void cadastrar(Financeiro f){
-         sql = "INSERT INTO tb_financeiro VALUES(null,'"+f.getIdProcesso()+"','"+f.getIdCliente()+"',"
-                 + "'"+f.getProcesso()+"','"+f.getCliente()+"','"+f.getValor()+"','"+f.getValor()+"',"
-                 + "'"+f.getValor_despesa()+"','"+f.desconto+"','"+f.vencimento+"','"+f.situacao+"',"
-                 + "'"+f.valor_total+"','"+f.desc_despesa+"')";
+         sql = "INSERT INTO tb_financeiro VALUES(null,'"+f.getId_cliente()+"',"
+                 + "'"+f.getProcesso()+"','"+f.getCliente()+"','"+f.getValor()+"','"+f.getValor_despesa()+"',"
+                 + "'"+f.getDesconto()+"','"+f.getVencimento()+"','"+f.getSituacao()+"','"+f.getValor_total()+"',"
+                 + "'"+f.getDesc_despesa()+"')";
          ConsultarSQL(sql, false);
          JOptionPane.showMessageDialog(null, "CONTA CADASTRADA COM SUCESSO!");
      }
@@ -34,12 +34,11 @@ public class DaoFinanceiro extends Conexao{
          try {
             
             if(situacao.equals("")){
-                String sql = "SELECT id,cliente,processo,situacao FROM tb_processo";
+                String sql = "SELECT * FROM tb_financeiro";
                 ConsultarSQL(sql,true);
                 while (rs.next()) {
                     Financeiro f = new Financeiro();
                     f.setId(rs.getInt("id"));
-                    f.setId_processo(rs.getInt("id_processo"));
                     f.setId_cliente(rs.getInt("id_cliente"));
                     f.setProcesso(rs.getString("processo"));
                     f.setCliente(rs.getString("cliente"));
@@ -53,14 +52,14 @@ public class DaoFinanceiro extends Conexao{
                     financas.add(f);
 
                 }
-            }else if(situacao.equals("aberto")){
-                String sql = "SELECT id,cliente,processo,situacao FROM tb_processo WHERE situacao = '"+situacao+"'";
+            }else if(situacao.equals("Pendente")){
+               String sql = "SELECT * FROM tb_financeiro WHERE situacao = '"+situacao+"'";
                 ConsultarSQL(sql,true);
                 
                 while (rs.next()) {
                    Financeiro f = new Financeiro();
                     f.setId(rs.getInt("id"));
-                    f.setId_processo(rs.getInt("id_processo"));
+                    
                     f.setId_cliente(rs.getInt("id_cliente"));
                     f.setProcesso(rs.getString("processo"));
                     f.setCliente(rs.getString("cliente"));
@@ -71,15 +70,15 @@ public class DaoFinanceiro extends Conexao{
 
                 }
                 
-            }else if(situacao.equals("arquivado")){
+            }else if(situacao.equals("Quitato")){
                 
-                String sql = "SELECT id,cliente,processo,situacao FROM tb_processo WHERE situacao = '"+situacao+"'";
+                String sql = "SELECT * FROM tb_financeiro WHERE situacao = '"+situacao+"'";
                 ConsultarSQL(sql,true);
                 
                 while (rs.next()) {
                     Financeiro f = new Financeiro();
                     f.setId(rs.getInt("id"));
-                    f.setId_processo(rs.getInt("id_processo"));
+                    
                     f.setId_cliente(rs.getInt("id_cliente"));
                     f.setProcesso(rs.getString("processo"));
                     f.setCliente(rs.getString("cliente"));
@@ -96,7 +95,7 @@ public class DaoFinanceiro extends Conexao{
                 while (rs.next()) {
                     Financeiro f = new Financeiro();
                     f.setId(rs.getInt("id"));
-                    f.setId_processo(rs.getInt("id_processo"));
+                    
                     f.setId_cliente(rs.getInt("id_cliente"));
                     f.setProcesso(rs.getString("processo"));
                     f.setCliente(rs.getString("cliente"));

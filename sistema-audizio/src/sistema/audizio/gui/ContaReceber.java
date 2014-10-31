@@ -5,6 +5,10 @@
  */
 package sistema.audizio.gui;
 
+import javax.swing.JOptionPane;
+import sistema.audizio.bean.Financeiro;
+import sistema.audizio.dao.DaoFinanceiro;
+
 /**
  *
  * @author Internet
@@ -15,9 +19,18 @@ public class ContaReceber extends javax.swing.JDialog {
     /**
      * Creates new form ContaReceber
      */
-    public ContaReceber() {
+    int idCli, idPro;
+    String processo, cliente;
+    public ContaReceber(String idCliente, String processo, String nomeCliente) {
+        this.idCli = Integer.parseInt(idCliente);
+        System.out.println("IdCliente: Processado: "+idCli);
+        this.processo = processo;
+        this.cliente = nomeCliente;
+        //this.idPro = Integer.parseInt(idProcesso);
         initComponents();
         setModal(true);
+        labelCliente.setText(nomeCliente);
+        labelProcesso.setText(processo);
         tfValor.setDocument(new LimitadorMoeda());
         tfValorDespesa.setDocument(new LimitadorMoeda());
         tfDesconto.setDocument(new LimitadorMoeda());
@@ -45,6 +58,7 @@ public class ContaReceber extends javax.swing.JDialog {
         String totalis = String.valueOf(novoTotal);
         System.out.println(totalis);
         tfTotal.setText(totalis);
+       btCadastrar.setEnabled(true);
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -56,7 +70,7 @@ public class ContaReceber extends javax.swing.JDialog {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        tfDescDespesa = new javax.swing.JTextArea();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -64,7 +78,7 @@ public class ContaReceber extends javax.swing.JDialog {
         tfDataVencimento = new javax.swing.JFormattedTextField();
         jLabel9 = new javax.swing.JLabel();
         comboSituacao = new javax.swing.JComboBox();
-        jButton1 = new javax.swing.JButton();
+        btCadastrar = new javax.swing.JButton();
         labelProcesso = new javax.swing.JLabel();
         labelCliente = new javax.swing.JLabel();
         tfTotal = new javax.swing.JFormattedTextField();
@@ -84,9 +98,9 @@ public class ContaReceber extends javax.swing.JDialog {
 
         jLabel4.setText("DESPESAS");
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        tfDescDespesa.setColumns(20);
+        tfDescDespesa.setRows(5);
+        jScrollPane1.setViewportView(tfDescDespesa);
 
         jLabel5.setText("VALOR DESPESAS");
 
@@ -105,17 +119,18 @@ public class ContaReceber extends javax.swing.JDialog {
 
         jLabel9.setText("SITUAÇÃO");
 
-        comboSituacao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecionar...", "Pendente", "Quitado" }));
+        comboSituacao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Pendente", "Quitado" }));
         comboSituacao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboSituacaoActionPerformed(evt);
             }
         });
 
-        jButton1.setText("CADASTRAR CONTA");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btCadastrar.setText("CADASTRAR CONTA");
+        btCadastrar.setEnabled(false);
+        btCadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btCadastrarActionPerformed(evt);
             }
         });
 
@@ -191,7 +206,7 @@ public class ContaReceber extends javax.swing.JDialog {
                                     .addGap(0, 0, Short.MAX_VALUE))
                                 .addGroup(layout.createSequentialGroup()
                                     .addGap(0, 0, Short.MAX_VALUE)
-                                    .addComponent(jButton1))))))
+                                    .addComponent(btCadastrar))))))
                 .addGap(28, 28, 28))
         );
         layout.setVerticalGroup(
@@ -236,7 +251,7 @@ public class ContaReceber extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(tfTotal)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(btCalcular, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -250,16 +265,45 @@ public class ContaReceber extends javax.swing.JDialog {
         calcularTotal(tfValor.getText(), tfValorDespesa.getText(), tfDesconto.getText());
     }//GEN-LAST:event_btCalcularActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        RemoveMascara mask = new RemoveMascara();
-        String valor,despesa,desconto,total,data;
+    private void btCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCadastrarActionPerformed
+       String message = "DESEJA REALMENTE CADASTRAR ESSA CONTA?";
+       int reply = JOptionPane.showConfirmDialog(null, message, "Confirmação", JOptionPane.YES_NO_OPTION);
+       if (reply == JOptionPane.YES_OPTION){
+           RemoveMascara mask = new RemoveMascara();
+           Financeiro f = new Financeiro();
+           DaoFinanceiro daoF = new DaoFinanceiro();
+           
+           String valor,despesa,descDespesa,desconto,total = null,data,situacao;
+         
+           
+            valor = mask.removeMascara(tfValor.getText());
+            despesa = mask.removeMascara(tfValorDespesa.getText());
+            desconto = mask.removeMascara(tfDesconto.getText());
+            data = mask.removeMascara(tfDataVencimento.getText());
+            descDespesa = tfDescDespesa.getText();
+            situacao = String.valueOf(comboSituacao.getSelectedItem());
+            total = tfTotal.getText();
+            
+            System.out.println("IdCli: +"+idCli);
+            f.setId_cliente(idCli);
+            f.setProcesso(processo);
+            f.setCliente(cliente);
+            f.setValor(valor);
+            f.setValor_despesa(despesa);
+            f.setDesconto(desconto);
+            f.setValor_total(total);
+            f.setDesc_despesa(descDespesa);
+            f.setVencimento(data);
+            f.setSituacao(situacao);
+            
+            daoF.cadastrar(f);
+            
+            dispose();
+            
+       } 
         
-        valor = mask.removeMascara(tfValor.getText());
-        despesa = mask.removeMascara(tfValorDespesa.getText());
-        desconto = mask.removeMascara(tfDesconto.getText());
-        data = mask.removeMascara(tfDataVencimento.getText());
         
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btCadastrarActionPerformed
 
     private void comboSituacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboSituacaoActionPerformed
         // TODO add your handling code here:
@@ -293,17 +337,13 @@ public class ContaReceber extends javax.swing.JDialog {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ContaReceber().setVisible(true);
-            }
-        });
+       
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btCadastrar;
     private javax.swing.JButton btCalcular;
     private javax.swing.JComboBox comboSituacao;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -315,10 +355,10 @@ public class ContaReceber extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JLabel labelCliente;
     private javax.swing.JLabel labelProcesso;
     private javax.swing.JFormattedTextField tfDataVencimento;
+    private javax.swing.JTextArea tfDescDespesa;
     private javax.swing.JFormattedTextField tfDesconto;
     private javax.swing.JFormattedTextField tfTotal;
     private javax.swing.JFormattedTextField tfValor;
