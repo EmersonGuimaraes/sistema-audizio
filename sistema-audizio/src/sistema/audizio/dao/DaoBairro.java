@@ -53,10 +53,11 @@ public class DaoBairro extends Conexao{
         return bairros;
     }
      
-     public ArrayList<Bairro> consultar2(String id){
+     public ArrayList<Bairro> consultar2(String idCidade){
         ArrayList<Bairro> bairros = new ArrayList<>();
+        
         try {
-            sql = "SELECT * FROM tb_bairro WHERE id = '"+id+"'";
+            sql = "SELECT * FROM tb_bairro WHERE id_cidade = '"+idCidade+"'";
             ConsultarSQL(sql, true);
             
             while (rs.next()) {

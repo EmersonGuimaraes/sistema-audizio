@@ -25,13 +25,18 @@ public class DaoCidade extends Conexao{
         JOptionPane.showMessageDialog(null, "CIDADE CADASTRADA COM SUCESSO!");
     }
     public void editar(Cidade cidade){
-        sql = "UPDATE tb_cidade SET cidade = '"+cidade.getNome()+"' WHERE cod='"+cidade.getCod()+"'";
+        sql = "UPDATE tb_cidade SET cidade = '"+cidade.getNome()+"' WHERE id='"+cidade.getCod()+"'";
         ConsultarSQL(sql, false);
     }
     public ArrayList<Cidade> consultar(String id){
         ArrayList<Cidade> cidades = new ArrayList<>();
         try {
-            sql = "SELECT * FROM tb_cidade";
+            if(id.equals("")){
+                sql = "SELECT * FROM tb_cidade";
+            }else{
+                sql = "SELECT * FROM tb_cidade WHERE id='"+id+"'";
+            }
+            
             ConsultarSQL(sql, true);
             
             while (rs.next()) {

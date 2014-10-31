@@ -148,10 +148,11 @@ public class ListarClientes extends javax.swing.JDialog {
             idCliente = tbListarCliente.getValueAt(tbListarCliente.getSelectedRow(),0).toString();
             System.out.println("Id Cliente: "+idCliente);
        
-            new EditarCliente(idCliente).show();
+            new EditarCliente(idCliente).setVisible(true);
             this.dispose();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "SELECIONE UM CLIENTE PARA VER E/OU EDITAR.");
+            System.err.println("Erro\n"+e);
         }
        
        

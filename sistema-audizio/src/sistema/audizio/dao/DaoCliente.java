@@ -34,7 +34,7 @@ public class DaoCliente extends Conexao{
               + "estado_civil='"+cliente.getEstado_civil()+"',cep='"+cliente.getCep()+"',"
               + "endereco='"+cliente.getEndereco()+"',numero='"+cliente.getNum()+"',estado='"+cliente.getEstado()+"',"
               + "cidade='"+cliente.getCidade()+"',bairro='"+cliente.getBairro()+"',telefone='"+cliente.getFone()+"',"
-              + "celular='"+cliente.getCelular()+"',email='"+cliente.getEmail()+"',whatsapp='"+cliente.getWhatsapp()+"' WHERE id = '"+cliente.getIdCliente()+"'";
+              + "celular='"+cliente.getCelular()+"',email='"+cliente.getEmail()+"',whatsapp='"+cliente.getWhatsapp()+"' WHERE cod = '"+cliente.getIdCliente()+"'";
         ConsultarSQL(sql, false);
         JOptionPane.showMessageDialog(null, "Cliente Editado com Sucesso!");
     }

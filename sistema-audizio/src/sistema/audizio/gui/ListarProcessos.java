@@ -315,10 +315,12 @@ public class ListarProcessos extends javax.swing.JDialog {
             System.out.println(idcliente);
             cliente = new DaoCliente().Consultar(idcliente);
             String idCidade, idBairro;
+            
             idCidade = cliente.get(0).getCidade();
             idBairro = cliente.get(0).getBairro();
+            System.out.println("Id Cidade: "+idCidade+"\n Id Bairro: "+idBairro);
             cidade = new DaoCidade().consultar(idCidade);
-            bairro = new DaoBairro().consultar2(idBairro);
+            bairro = new DaoBairro().consultar2(idCidade);
             veiculo = new DaoVeiculo().Consultar(idProcesso);
             
         

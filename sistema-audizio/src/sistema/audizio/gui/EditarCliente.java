@@ -30,6 +30,7 @@ public class EditarCliente extends javax.swing.JDialog {
     String idCliente;
     ArrayList<Cliente> clientes = new ArrayList<>();
     public EditarCliente(String id) {
+        System.out.println("Editar Cliente");
         this.idCliente = id;
         initComponents();
         preencheCampos();

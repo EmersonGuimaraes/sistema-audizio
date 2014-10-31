@@ -27,11 +27,11 @@ public class ListarContas extends javax.swing.JDialog {
     DaoCliente daoCliente = new DaoCliente();
     public ListarContas(){
         initComponents();
-        carregarTabela();
+        carregarTabela("");
         setModal(true);
     }
-    public void carregarTabela(){
-      ArrayList<Financeiro> financas = new DaoFinanceiro().consultarFinancas("");
+    public void carregarTabela(String situacao){
+      ArrayList<Financeiro> financas = new DaoFinanceiro().consultarFinancas(situacao);
       // System.out.println("Tamanho do array "+clientes.size());
        modeloTabela = (DefaultTableModel) tbListarConta.getModel();
        for(Financeiro f:financas){
@@ -39,7 +39,10 @@ public class ListarContas extends javax.swing.JDialog {
            System.out.println(f.getCliente());
         }
            tbListarConta.getTableHeader().setReorderingAllowed(false);   
+           
     }
+   
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -49,16 +52,17 @@ public class ListarContas extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        buttonGroup1 = new javax.swing.ButtonGroup();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        grupoFiltro = new javax.swing.ButtonGroup();
+        ScrollTbListarContas = new javax.swing.JScrollPane();
         tbListarConta = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+        btVerEditar = new javax.swing.JButton();
+        btQuitar = new javax.swing.JButton();
+        labelPesquisa = new javax.swing.JLabel();
         tfPesquisa = new javax.swing.JTextField();
-        rbTodos = new javax.swing.JRadioButton();
-        rbPendentes = new javax.swing.JRadioButton();
-        rbQuitados = new javax.swing.JRadioButton();
+        panelFiltro = new javax.swing.JPanel();
+        cbTodos = new javax.swing.JRadioButton();
+        cbPendentes = new javax.swing.JRadioButton();
+        cdQuitados = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -78,7 +82,7 @@ public class ListarContas extends javax.swing.JDialog {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(tbListarConta);
+        ScrollTbListarContas.setViewportView(tbListarConta);
         if (tbListarConta.getColumnModel().getColumnCount() > 0) {
             tbListarConta.getColumnModel().getColumn(0).setResizable(false);
             tbListarConta.getColumnModel().getColumn(0).setPreferredWidth(-10);
@@ -89,31 +93,58 @@ public class ListarContas extends javax.swing.JDialog {
             tbListarConta.getColumnModel().getColumn(5).setPreferredWidth(50);
         }
 
-        jButton1.setText("VER/EDITAR");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btVerEditar.setText("VER/EDITAR");
+        btVerEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btVerEditarActionPerformed(evt);
             }
         });
 
-        jButton2.setText("QUITAR");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btQuitar.setText("QUITAR");
+        btQuitar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btQuitarActionPerformed(evt);
             }
         });
 
-        jLabel1.setText("PESQUISAR:");
+        labelPesquisa.setText("PESQUISAR:");
 
-        buttonGroup1.add(rbTodos);
-        rbTodos.setSelected(true);
-        rbTodos.setText("TODOS");
+        tfPesquisa.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
 
-        buttonGroup1.add(rbPendentes);
-        rbPendentes.setText("PENDESTES");
+        panelFiltro.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        buttonGroup1.add(rbQuitados);
-        rbQuitados.setText("QUITADOS");
+        grupoFiltro.add(cbTodos);
+        cbTodos.setText("TODOS");
+
+        grupoFiltro.add(cbPendentes);
+        cbPendentes.setText("PENDENTES");
+
+        grupoFiltro.add(cdQuitados);
+        cdQuitados.setText("QUITADOS");
+
+        javax.swing.GroupLayout panelFiltroLayout = new javax.swing.GroupLayout(panelFiltro);
+        panelFiltro.setLayout(panelFiltroLayout);
+        panelFiltroLayout.setHorizontalGroup(
+            panelFiltroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelFiltroLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(cbTodos)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(cbPendentes)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cdQuitados)
+                .addContainerGap(26, Short.MAX_VALUE))
+        );
+        panelFiltroLayout.setVerticalGroup(
+            panelFiltroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelFiltroLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(panelFiltroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cbTodos)
+                    .addComponent(cbPendentes)
+                    .addComponent(cdQuitados))
+                .addContainerGap())
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -123,43 +154,38 @@ public class ListarContas extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(20, 20, 20)
-                        .addComponent(jButton1)
+                        .addComponent(btVerEditar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btQuitar, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(24, 24, 24)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(tfPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(rbTodos)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(rbPendentes)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(rbQuitados))
-                            .addComponent(jScrollPane1))))
+                        .addComponent(ScrollTbListarContas, javax.swing.GroupLayout.DEFAULT_SIZE, 822, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(labelPesquisa)
+                        .addGap(18, 18, 18)
+                        .addComponent(tfPesquisa)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(panelFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(23, 23, 23))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(rbTodos)
-                        .addComponent(rbPendentes)
-                        .addComponent(rbQuitados)
-                        .addComponent(tfPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 239, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(panelFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(8, 8, 8)
+                        .addComponent(labelPesquisa))
+                    .addComponent(tfPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(ScrollTbListarContas, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(btVerEditar)
+                    .addComponent(btQuitar))
                 .addContainerGap())
         );
 
@@ -167,7 +193,7 @@ public class ListarContas extends javax.swing.JDialog {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btVerEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btVerEditarActionPerformed
         System.out.println("Clicando");
         try {
             String idConta;
@@ -181,9 +207,9 @@ public class ListarContas extends javax.swing.JDialog {
         }
        
        
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btVerEditarActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btQuitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btQuitarActionPerformed
         DaoCliente dao = new DaoCliente();
         Cliente cliente = new Cliente();
         String idConta;
@@ -199,7 +225,7 @@ public class ListarContas extends javax.swing.JDialog {
             modeloTabela.removeRow(tbListarConta.getSelectedRow());
             JOptionPane.showMessageDialog(null, "CONTA QUITADA!");
 
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btQuitarActionPerformed
     }
     /**
      * @param args the command line arguments
@@ -238,14 +264,16 @@ public class ListarContas extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JRadioButton rbPendentes;
-    private javax.swing.JRadioButton rbQuitados;
-    private javax.swing.JRadioButton rbTodos;
+    private javax.swing.JScrollPane ScrollTbListarContas;
+    private javax.swing.JButton btQuitar;
+    private javax.swing.JButton btVerEditar;
+    private javax.swing.JRadioButton cbPendentes;
+    private javax.swing.JRadioButton cbTodos;
+    private javax.swing.JRadioButton cdQuitados;
+    private javax.swing.ButtonGroup grupoFiltro;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel labelPesquisa;
+    private javax.swing.JPanel panelFiltro;
     private javax.swing.JTable tbListarConta;
     private javax.swing.JTextField tfPesquisa;
     // End of variables declaration//GEN-END:variables
