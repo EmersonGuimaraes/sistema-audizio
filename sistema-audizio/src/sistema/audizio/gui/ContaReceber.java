@@ -119,7 +119,7 @@ public class ContaReceber extends javax.swing.JDialog {
 
         jLabel9.setText("SITUAÇÃO");
 
-        comboSituacao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Pendente", "Quitado" }));
+        comboSituacao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "PENDENTE", "QUITADO" }));
         comboSituacao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboSituacaoActionPerformed(evt);

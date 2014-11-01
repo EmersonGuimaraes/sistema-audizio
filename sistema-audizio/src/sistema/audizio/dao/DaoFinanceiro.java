@@ -24,7 +24,7 @@ public class DaoFinanceiro extends Conexao{
          sql = "INSERT INTO tb_financeiro VALUES(null,'"+f.getId_cliente()+"',"
                  + "'"+f.getProcesso()+"','"+f.getCliente()+"','"+f.getValor()+"','"+f.getValor_despesa()+"',"
                  + "'"+f.getDesconto()+"','"+f.getVencimento()+"','"+f.getSituacao()+"','"+f.getValor_total()+"',"
-                 + "'"+f.getDesc_despesa()+"')";
+                 + "'"+f.getDesc_despesa()+"','PENDENTE')";
          ConsultarSQL(sql, false);
          JOptionPane.showMessageDialog(null, "CONTA CADASTRADA COM SUCESSO!");
      }
@@ -49,10 +49,11 @@ public class DaoFinanceiro extends Conexao{
                     f.setSituacao(rs.getString("situacao"));
                     f.setValor_total(rs.getString("valor_total"));
                     f.setDesc_despesa(rs.getString("desc_despesa"));
+                    f.setData_pagamento(rs.getString("data_pagamento"));
                     financas.add(f);
 
                 }
-            }else if(situacao.equals("pendente")){
+            }else if(situacao.equals("PENDENTE")){
                String sql = "SELECT * FROM tb_financeiro WHERE situacao = '"+situacao+"'";
                 ConsultarSQL(sql,true);
                 
@@ -66,11 +67,12 @@ public class DaoFinanceiro extends Conexao{
                     f.setVencimento(rs.getString("vencimento"));
                     f.setSituacao(rs.getString("situacao"));
                     f.setValor_total(rs.getString("valor_total"));
+                    f.setData_pagamento(rs.getString("data_pagamento"));
                     financas.add(f);
 
                 }
                 
-            }else if(situacao.equals("quitato")){
+            }else if(situacao.equals("QUITADO")){
                 
                 String sql = "SELECT * FROM tb_financeiro WHERE situacao = '"+situacao+"'";
                 ConsultarSQL(sql,true);
@@ -85,6 +87,7 @@ public class DaoFinanceiro extends Conexao{
                     f.setVencimento(rs.getString("vencimento"));
                     f.setSituacao(rs.getString("situacao"));
                     f.setValor_total(rs.getString("valor_total"));
+                    f.setData_pagamento(rs.getString("data_pagamento"));
                     financas.add(f);
 
                 }
@@ -106,6 +109,7 @@ public class DaoFinanceiro extends Conexao{
                     f.setSituacao(rs.getString("situacao"));
                     f.setValor_total(rs.getString("valor_total"));
                     f.setDesc_despesa(rs.getString("desc_despesa"));
+                    f.setData_pagamento(rs.getString("data_pagamento"));
                     financas.add(f);
                 }
             }
@@ -116,8 +120,8 @@ public class DaoFinanceiro extends Conexao{
          return financas;
      }
      
-     public void quitarConta(String idConta){
-         sql = "UPDATE tb_financeiro SET situacao = QUITADO WHERE id = '"+idConta+"'";
+     public void quitarConta(String idConta,String data){
+         sql = "UPDATE tb_financeiro SET situacao = 'QUITADO', data_pagamento='"+data+"' WHERE id = '"+idConta+"'";
          ConsultarSQL(sql, false);
          JOptionPane.showMessageDialog(null, "CONTA QUITADA COM SUCESSO!");
          

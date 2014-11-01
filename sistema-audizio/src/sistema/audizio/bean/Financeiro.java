@@ -17,6 +17,7 @@ public class Financeiro extends Processo{
     public String situacao;
     public String valor_total;
     public String desc_despesa;
+    public String data_pagamento;
 
     /**
      * @return the id
@@ -185,6 +186,15 @@ public class Financeiro extends Processo{
     public void setDesc_despesa(String desc_despesa) {
         this.desc_despesa = desc_despesa;
     }
+
+    public void setData_pagamento(String data_pagamento) {
+        this.data_pagamento = data_pagamento;
+    }
+
+    public String getData_pagamento() {
+        return data_pagamento;
+    }
+    
     
     
 }

@@ -7,8 +7,14 @@
 package sistema.audizio.gui;
 
 import com.itextpdf.text.DocumentException;
+import static com.sun.org.apache.xalan.internal.lib.ExsltDatetime.date;
 import java.io.FileNotFoundException;
+import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -45,9 +51,9 @@ public class ListarContas extends javax.swing.JDialog {
         initComponents();
         carregarTabela(situacao);
         setModal(true);
-        if(situacao.equals("pendente")){
+        if(situacao.equals("PENDENTE")){
             rbPendente.setSelected(true);
-        }else if(situacao.equals("quitado")){
+        }else if(situacao.equals("QUITADO")){
             rbQuitado.setSelected(true);
         }else{
             rbTodos.setSelected(true);
@@ -59,7 +65,7 @@ public class ListarContas extends javax.swing.JDialog {
             // System.out.println("Tamanho do array "+clientes.size());
             modeloTabela = (DefaultTableModel) tbListarContas.getModel();
             for(Financeiro f:financas){
-            modeloTabela.addRow(new Object[] {f.getId(), f.getCliente(),f.getProcesso(), f.getVencimento(), f.getValor_total(), f.getSituacao()});
+            modeloTabela.addRow(new Object[] {f.getId(), f.getCliente(),f.getProcesso(), f.getVencimento(), f.getValor_total(), f.getSituacao(),f.getData_pagamento()});
             System.out.println(f.getCliente());
             }
             tbListarContas.getTableHeader().setReorderingAllowed(false);
@@ -71,6 +77,24 @@ public class ListarContas extends javax.swing.JDialog {
             }
         }
     }
+    
+    private String getData() {
+	Calendar cal = new GregorianCalendar();
+            int dia = cal.get(Calendar.DATE);
+            int mes = cal.get(Calendar.MONTH) + 1;
+            int ano = cal.get(Calendar.YEAR);
+            int diaSemana = cal.get(Calendar.DAY_OF_WEEK);
+            int diaMes = cal.get(Calendar.DAY_OF_MONTH);
+            int diaAno = cal.get(Calendar.DAY_OF_YEAR);
+            
+            String data = String.valueOf(dia+"/"+mes+"/"+ano);
+        return data;
+ 
+    }
+
+
+
+
     
       
     @SuppressWarnings("unchecked")
@@ -96,11 +120,11 @@ public class ListarContas extends javax.swing.JDialog {
 
             },
             new String [] {
-                "ID", "CLIENTE", "PROCESSO", "VENCIMENTO", "VALOR TOTAL", "SITUAÇÃO"
+                "ID", "CLIENTE", "PROCESSO", "VENCIMENTO", "VALOR TOTAL", "PAGAMENTO", "DATA PAGA."
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -225,7 +249,7 @@ public class ListarContas extends javax.swing.JDialog {
 
     private void rbPendenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbPendenteActionPerformed
         removerLinhas();
-        carregarTabela("pendente");
+        carregarTabela("PENDENTE");
         btArquivar.setEnabled(true);
     }//GEN-LAST:event_rbPendenteActionPerformed
 
@@ -237,7 +261,7 @@ public class ListarContas extends javax.swing.JDialog {
 
     private void rbQuitadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbQuitadoActionPerformed
         removerLinhas();
-        carregarTabela("quitado");
+        carregarTabela("QUITADO");
         btArquivar.setEnabled(false);
     }//GEN-LAST:event_rbQuitadoActionPerformed
 
@@ -267,7 +291,7 @@ public class ListarContas extends javax.swing.JDialog {
             idConta = tbListarContas.getValueAt(tbListarContas.getSelectedRow(),0).toString();
             System.out.println("ID DA CONTA:"+idConta);
             DaoFinanceiro dao = new DaoFinanceiro();
-            dao.quitarConta(idConta);
+            dao.quitarConta(idConta,getData());
             modeloTabela.removeRow(tbListarContas.getSelectedRow());
        
         } 
