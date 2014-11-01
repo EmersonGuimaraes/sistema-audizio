@@ -52,7 +52,7 @@ public class DaoFinanceiro extends Conexao{
                     financas.add(f);
 
                 }
-            }else if(situacao.equals("Pendente")){
+            }else if(situacao.equals("pendente")){
                String sql = "SELECT * FROM tb_financeiro WHERE situacao = '"+situacao+"'";
                 ConsultarSQL(sql,true);
                 
@@ -70,7 +70,7 @@ public class DaoFinanceiro extends Conexao{
 
                 }
                 
-            }else if(situacao.equals("Quitato")){
+            }else if(situacao.equals("quitato")){
                 
                 String sql = "SELECT * FROM tb_financeiro WHERE situacao = '"+situacao+"'";
                 ConsultarSQL(sql,true);
@@ -114,6 +114,13 @@ public class DaoFinanceiro extends Conexao{
             Logger.getLogger(DaoCliente.class.getName()).log(Level.SEVERE, null, ex);
         }
          return financas;
+     }
+     
+     public void quitarConta(String idConta){
+         sql = "UPDATE tb_financeiro SET situacao = QUITADO WHERE id = '"+idConta+"'";
+         ConsultarSQL(sql, false);
+         JOptionPane.showMessageDialog(null, "CONTA QUITADA COM SUCESSO!");
+         
      }
     
        
