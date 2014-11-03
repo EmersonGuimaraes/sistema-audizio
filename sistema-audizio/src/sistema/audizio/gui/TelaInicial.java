@@ -6,6 +6,7 @@
 
 package sistema.audizio.gui;
 
+import sistema.audizio.backup.GerarBackup;
 import sistema.audizio.dao.DaoUsuario;
 import sun.swing.BakedArrayList;
 
@@ -384,7 +385,7 @@ public class TelaInicial extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem10ActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
-       
+        new GerarBackup();
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed

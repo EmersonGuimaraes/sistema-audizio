@@ -29,6 +29,14 @@ public class DaoFinanceiro extends Conexao{
          JOptionPane.showMessageDialog(null, "CONTA CADASTRADA COM SUCESSO!");
      }
      
+     public void editar(Financeiro f){
+         sql = "UPDATE tb_financeiro SET valor = '"+f.getValor()+"', valor_despesa = '"+f.getValor_despesa()+"',"
+                 + "desconto = '"+f.getDesconto()+"', vencimento = '"+f.getVencimento()+"', situacao = '"+f.getSituacao()+"',"
+                 + "valor_total = '"+f.getValor_total()+"', desc_despesa = '"+f.getDesc_despesa()+"' WHERE id = '"+f.getId()+"'";
+         ConsultarSQL(sql, false);
+         JOptionPane.showMessageDialog(null, "CONTA EDITADA COM SUCESSO!");
+     }
+     
      public ArrayList<Financeiro> consultarFinancas(String situacao){
          ArrayList<Financeiro> financas = new ArrayList<>();
          try {

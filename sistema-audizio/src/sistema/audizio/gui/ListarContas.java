@@ -271,7 +271,8 @@ public class ListarContas extends javax.swing.JDialog {
             idContas = tbListarContas.getValueAt(tbListarContas.getSelectedRow(),0).toString();
             System.out.println("ID DA CONTA:"+idContas);
        
-           //new EditarProcesso(idContas).setVisible(true);
+           new EditarContaReceber(idContas).setVisible(true);
+            carregarTabela("");
            
             this.dispose();
         } catch (Exception e) {

@@ -37,7 +37,7 @@ public class GerarBackup {
             try {  
                 if (!bck.isFile()) {  
                     String comando = "C:/Program Files/MySQL/MySQL Server 5.5/bin/mysqldump.exe";  
-                    ProcessBuilder pb = new ProcessBuilder(comando, "--user=root", "--password=5215052", "ge", "--result-file="+arq);  
+                    ProcessBuilder pb = new ProcessBuilder(comando, "--user=root", "--password=5215052", "audizio", "--result-file="+arq);  
                     pb.start();  
                     JOptionPane.showMessageDialog(null, "Cópia de segurança realizada com sucesso", "Backup", JOptionPane.CLOSED_OPTION);  
       
