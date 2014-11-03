@@ -318,6 +318,11 @@ public class CadastroProcesso extends javax.swing.JDialog {
 
         tfSituacaoF.setEditable(false);
         tfSituacaoF.setText("SEM FINANCEIRO");
+        tfSituacaoF.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfSituacaoFActionPerformed(evt);
+            }
+        });
 
         jLabel20.setText("TOTAL:");
 
@@ -487,66 +492,72 @@ public class CadastroProcesso extends javax.swing.JDialog {
     }//GEN-LAST:event_btCancelarActionPerformed
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
-         Processo processo = new Processo();
-         Veiculo veiculo = new Veiculo();
-         DaoProcesso daoProcesso = new DaoProcesso();
-         DaoVeiculo daoVeiculo = new DaoVeiculo();
-         RemoveMascara mask = new RemoveMascara();
-         
-         //Seta os valores do processo
-         processo.setProcesso(tfProcesso.getText());
-         processo.setCliente(String.valueOf(comboCliente.getSelectedItem()));
-         processo.setIdCliente(comboCliente.getSelectedIndex());
-         processo.setData_inicio(mask.removeMascara(tfDataInicio.getText()));
-         processo.setData_termino(mask.removeMascara(tfDataFim.getText()));
-         processo.setAdvogado(String.valueOf(comboAdvogado.getSelectedItem()));
-         processo.setIdAdvogado(comboAdvogado.getSelectedIndex());
-         processo.setAcao(tfAcao.getText());
-         processo.setReboqueiro(tfReboqueiro.getText());
-         processo.setVara(tfVara.getText());
-         processo.setComarca(tfComarca.getText());
-         processo.setSituacao_atual(taSituacaoAtual.getText());
-        
-         
-        //Seta os valores do veiculo
-         veiculo.setMarca(tfMarca.getText());
-         veiculo.setModelo(tfModelo.getText());
-         veiculo.setAnoFabricacao(mask.removeMascara(tfAnoFabricacao.getText()));
-         veiculo.setAnoModelo(mask.removeMascara(tfAnoModelo.getText()));
-         veiculo.setCor(tfCor.getText());
-         veiculo.setPlaca(tfPlaca.getText());
-         veiculo.setChassi(tfChassi.getText());
-         veiculo.setRenavam(tfRenavam.getText());
-         veiculo.setEstado(String.valueOf(comoEstado.getSelectedItem()));
-         
-         
-         
-        daoProcesso.Cadastrar(processo);
-        daoVeiculo.Cadastrar(veiculo);
-        
-        tfAcao.setText(null);
-        tfAnoFabricacao.setText(null);
-        tfAnoModelo.setText(null);
-        tfChassi.setText(null);
-        tfCor.setText(null);
-        tfDataFim.setText(null);
-        tfDataInicio.setText(null);
-        tfMarca.setText(null);
-        tfModelo.setText(null);
-        tfPlaca.setText(null);
-        tfProcesso.setText(null);
-        tfReboqueiro.setText(null);
-        tfVara.setText(null);
-        tfComarca.setText(null);
-        tfRenavam.setText(null);
-        taSituacaoAtual.setText(null);
-        tfSituacaoF.setText(null);
-        tfTotalF.setText(null);
-        comoEstado.setSelectedIndex(0);
-        comboAdvogado.setSelectedIndex(0);
-        comboCliente.setSelectedIndex(0);
-        comboAdvogado.setSelectedIndex(0);
-        btNovaConta.setEnabled(true);
+        String situacao = "SEM FINANCEIRO", valorF = "0.00";
+        String proce = null;
+        if((tfSituacaoF.getText().equals(situacao) && tfTotalF.getText().equals(valorF))){
+            JOptionPane.showMessageDialog(null, "POR FAVOR, PREENCHA TODOS OS CAMPOS!");
+        }else{ 
+                Processo processo = new Processo();
+                 Veiculo veiculo = new Veiculo();
+                 DaoProcesso daoProcesso = new DaoProcesso();
+                 DaoVeiculo daoVeiculo = new DaoVeiculo();
+                 RemoveMascara mask = new RemoveMascara();
+
+                 //Seta os valores do processo
+                 processo.setProcesso(tfProcesso.getText());
+                 processo.setCliente(String.valueOf(comboCliente.getSelectedItem()));
+                 processo.setIdCliente(comboCliente.getSelectedIndex());
+                 processo.setData_inicio(mask.removeMascara(tfDataInicio.getText()));
+                 processo.setData_termino(mask.removeMascara(tfDataFim.getText()));
+                 processo.setAdvogado(String.valueOf(comboAdvogado.getSelectedItem()));
+                 processo.setIdAdvogado(comboAdvogado.getSelectedIndex());
+                 processo.setAcao(tfAcao.getText());
+                 processo.setReboqueiro(tfReboqueiro.getText());
+                 processo.setVara(tfVara.getText());
+                 processo.setComarca(tfComarca.getText());
+                 processo.setSituacao_atual(taSituacaoAtual.getText());
+
+
+                //Seta os valores do veiculo
+                 veiculo.setMarca(tfMarca.getText());
+                 veiculo.setModelo(tfModelo.getText());
+                 veiculo.setAnoFabricacao(mask.removeMascara(tfAnoFabricacao.getText()));
+                 veiculo.setAnoModelo(mask.removeMascara(tfAnoModelo.getText()));
+                 veiculo.setCor(tfCor.getText());
+                 veiculo.setPlaca(tfPlaca.getText());
+                 veiculo.setChassi(tfChassi.getText());
+                 veiculo.setRenavam(tfRenavam.getText());
+                 veiculo.setEstado(String.valueOf(comoEstado.getSelectedItem()));
+
+
+
+                daoProcesso.Cadastrar(processo);
+                daoVeiculo.Cadastrar(veiculo);
+
+                tfAcao.setText(null);
+                tfAnoFabricacao.setText(null);
+                tfAnoModelo.setText(null);
+                tfChassi.setText(null);
+                tfCor.setText(null);
+                tfDataFim.setText(null);
+                tfDataInicio.setText(null);
+                tfMarca.setText(null);
+                tfModelo.setText(null);
+                tfPlaca.setText(null);
+                tfProcesso.setText(null);
+                tfReboqueiro.setText(null);
+                tfVara.setText(null);
+                tfComarca.setText(null);
+                tfRenavam.setText(null);
+                taSituacaoAtual.setText(null);
+                tfSituacaoF.setText(null);
+                tfTotalF.setText(null);
+                comoEstado.setSelectedIndex(0);
+                comboAdvogado.setSelectedIndex(0);
+                comboCliente.setSelectedIndex(0);
+                comboAdvogado.setSelectedIndex(0);
+                btNovaConta.setEnabled(true);
+        }
     }//GEN-LAST:event_btSalvarActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -573,6 +584,10 @@ public class CadastroProcesso extends javax.swing.JDialog {
             btNovaConta.setEnabled(false);
         }
     }//GEN-LAST:event_btNovaContaActionPerformed
+
+    private void tfSituacaoFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfSituacaoFActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfSituacaoFActionPerformed
 
     /**
      * @param args the command line arguments

@@ -540,7 +540,7 @@ public class CadastroCliente extends javax.swing.JDialog {
          Cliente cliente = new Cliente();
          DaoCliente daoCliente = new DaoCliente();
          RemoveMascara mask = new RemoveMascara();
-         if(tfNome.getText().equals("") || tfTelefone.getText().equals("")){
+         if(tfNome.getText().equals("")){
              JOptionPane.showMessageDialog(null, "Preencha os campos corretamente!");
          }else{
             int codA=1,codB,codC;
