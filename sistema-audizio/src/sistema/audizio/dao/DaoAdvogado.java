@@ -28,7 +28,7 @@ public class DaoAdvogado extends Conexao{
     
     public void Editar(Advogado advogado){
       
-        sql = "UPDATE tb_advogado SET nome = '"+advogado.getNome()+"' WHERE id = '"+advogado.getIdAdvogado()+"'";
+        sql = "UPDATE tb_advogado SET nome = '"+advogado.getNome()+"' WHERE cod = '"+advogado.getIdAdvogado()+"'";
     }
     public void Deletar(Advogado advogado){
         
@@ -47,7 +47,7 @@ public class DaoAdvogado extends Conexao{
                             Advogado advogado = new Advogado();
                             advogado.setIdAdvogado(rs.getString("id"));
                             advogado.setNome(rs.getString("nome"));
-
+                            advogado.setCod(rs.getInt("cod"));
                             advogados.add(advogado);
 
                         }
@@ -56,13 +56,13 @@ public class DaoAdvogado extends Conexao{
                     }
             }else{
                     try {
-                        ConsultarSQL("SELECT * FROM tb_advogado WHERE id = '"+id+"'", true);
+                        ConsultarSQL("SELECT * FROM tb_advogado WHERE cod = '"+id+"'", true);
                         while (rs.next()) {
 
                             Advogado advogado = new Advogado();
                             advogado.setIdAdvogado(rs.getString("id"));
                             advogado.setNome(rs.getString("nome"));
-
+                            advogado.setCod(rs.getInt("cod"));
                             advogados.add(advogado);
 
                         }

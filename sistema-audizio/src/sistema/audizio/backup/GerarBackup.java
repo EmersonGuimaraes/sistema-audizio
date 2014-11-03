@@ -18,9 +18,9 @@ public class GerarBackup {
      
         String novonome = null;  
         int numerodobackup = 0;
-        String pasta = "C:/SisAudizio/bkp";
+        String pasta = "C:/Users/Emerson Guimarães/Documentos/bkp";
         //String pasta = "/home/zipnet/SisAudizio/bkp";
-        String arq = "C:/SisAudizio/bkp/bkp_sisAudizio.sql";
+        String arq = "C:/Users/Emerson Guimarães/Documentos/bkp/bkp_sisAudizio.sql";
         //String arq = "/home/zipnet/SisAudizio/bkp/bkp_sisAudizio.sql";
         
 

@@ -49,7 +49,7 @@ public class DaoCliente extends Conexao{
         try {
             
             if(id.equals("")){
-                String sql = "SELECT id,nome,email,telefone FROM tb_cliente";
+                String sql = "SELECT id,nome,email,telefone,cod FROM tb_cliente";
                 ConsultarSQL(sql,true);
                 while (rs.next()) {
                     Cliente cliente = new Cliente();
@@ -57,6 +57,7 @@ public class DaoCliente extends Conexao{
                     cliente.setNome(rs.getString("nome"));
                     cliente.setFone(rs.getString("telefone"));
                     cliente.setEmail(rs.getString("email"));
+                    cliente.setCod(rs.getInt("cod"));
 
                     clientes.add(cliente);
                 }
@@ -85,6 +86,7 @@ public class DaoCliente extends Conexao{
                     cliente.setEstado(rs.getString("estado"));
                     cliente.setNum(rs.getString("numero"));
                     cliente.setWhatsapp(rs.getString("whatsapp"));
+                    cliente.setCod(rs.getInt("cod"));
                     clientes.add(cliente);
              }
             }

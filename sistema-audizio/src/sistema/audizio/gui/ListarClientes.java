@@ -35,7 +35,7 @@ public class ListarClientes extends javax.swing.JDialog {
       // System.out.println("Tamanho do array "+clientes.size());
        modeloTabela = (DefaultTableModel) tbListarCliente.getModel();
        for(Cliente cli:clientes){
-           modeloTabela.addRow(new Object[] {cli.getIdCliente(), cli.getNome(),cli.getFone(), cli.getEmail()});
+           modeloTabela.addRow(new Object[] {cli.getCod(), cli.getNome(),cli.getFone(), cli.getEmail()});
         }
            tbListarCliente.getTableHeader().setReorderingAllowed(false);   
     }

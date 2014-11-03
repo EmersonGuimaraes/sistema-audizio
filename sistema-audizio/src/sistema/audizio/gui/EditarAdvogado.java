@@ -45,11 +45,7 @@ public class EditarAdvogado extends javax.swing.JDialog {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         tfNome = new javax.swing.JTextField();
-        tfOab = new javax.swing.JTextField();
-        tfAreaAtuacao = new javax.swing.JTextField();
         btCancelar = new javax.swing.JButton();
         btSalvar = new javax.swing.JButton();
         btEditar = new javax.swing.JButton();
@@ -58,15 +54,7 @@ public class EditarAdvogado extends javax.swing.JDialog {
 
         jLabel1.setText("NOME");
 
-        jLabel2.setText("OAB");
-
-        jLabel3.setText("ÁREA DE ATUAÇÃO");
-
         tfNome.setEnabled(false);
-
-        tfOab.setEnabled(false);
-
-        tfAreaAtuacao.setEnabled(false);
 
         btCancelar.setText("CANCELAR");
         btCancelar.setEnabled(false);
@@ -111,17 +99,7 @@ public class EditarAdvogado extends javax.swing.JDialog {
                         .addComponent(btEditar, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(12, 12, 12))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel3)
-                        .addGap(51, 51, 51))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(tfOab, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tfAreaAtuacao)
-                        .addContainerGap())))
+                        .addGap(12, 12, 12))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -132,18 +110,10 @@ public class EditarAdvogado extends javax.swing.JDialog {
                 .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tfAreaAtuacao, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfOab, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btCancelar)
                     .addComponent(btSalvar)
                     .addComponent(btEditar))
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -153,15 +123,13 @@ public class EditarAdvogado extends javax.swing.JDialog {
     private void btCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelarActionPerformed
        btSalvar.setEnabled(false);
        tfNome.setEnabled(false);
-       tfOab.setEnabled(false);
-       tfAreaAtuacao.setEnabled(false);
        btCancelar.setEnabled(false);
        btEditar.setEnabled(true);
     }//GEN-LAST:event_btCancelarActionPerformed
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
         JOptionPane.showMessageDialog(null, "Em Construção !");
-        if(tfNome.getText().equals("") || tfOab.getText().equals("") || tfAreaAtuacao.getText().equals("")){
+        if(tfNome.getText().equals("")){
             JOptionPane.showMessageDialog(null, "Preencha os campos corretamente!");
         }else{
             Advogado advogado = new Advogado();
@@ -174,8 +142,6 @@ public class EditarAdvogado extends javax.swing.JDialog {
             
             btSalvar.setEnabled(false);
             tfNome.setEnabled(false);
-            tfOab.setEnabled(false);
-            tfAreaAtuacao.setEnabled(false);
             btCancelar.setEnabled(false);
             btEditar.setEnabled(true);
         }
@@ -184,8 +150,6 @@ public class EditarAdvogado extends javax.swing.JDialog {
     private void btEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditarActionPerformed
        btSalvar.setEnabled(true);
        tfNome.setEnabled(true);
-       tfOab.setEnabled(true);
-       tfAreaAtuacao.setEnabled(true);
        btCancelar.setEnabled(true);
        btEditar.setEnabled(false);
     }//GEN-LAST:event_btEditarActionPerformed
@@ -200,10 +164,6 @@ public class EditarAdvogado extends javax.swing.JDialog {
     private javax.swing.JButton btEditar;
     private javax.swing.JButton btSalvar;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JTextField tfAreaAtuacao;
     private javax.swing.JTextField tfNome;
-    private javax.swing.JTextField tfOab;
     // End of variables declaration//GEN-END:variables
 }
