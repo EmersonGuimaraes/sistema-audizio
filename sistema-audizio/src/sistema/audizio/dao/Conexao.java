@@ -1,6 +1,11 @@
 package sistema.audizio.dao;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.sql.*;
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 public class Conexao {
@@ -10,7 +15,7 @@ public class Conexao {
     public Statement stmt;
     public ResultSet rs;
     //String url = "jdbc:mysql://localhost/sis_audisio";
-    String url = "jdbc:mysql://localhost/audizio";
+    String url = "jdbc:mysql://"+getIp()+"/audizio";
     String driver = "com.mysql.jdbc.Driver";
     String usuario = "root";
     String senha = "5215052";
@@ -28,7 +33,7 @@ public class Conexao {
             stmt = con.createStatement();
             System.out.println("Conectado ao Banco!");
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null,"Não Conectado ao Banco de dados.\n [IP: 127.0.0.1]");
+            JOptionPane.showMessageDialog(null,"Não Conectado ao Banco de dados.\n [IP: "+getIp()+"]");
         }
     }
     
@@ -50,6 +55,16 @@ public class Conexao {
             JOptionPane.showMessageDialog(null,"Erro na Consulta ao Banco.\n"+e);
         }
         return false;
+    }
+    
+    public String getIp(){
+        String arquivo = null;
+        try {
+            arquivo = new Scanner(new File("c://aubdtxt.txt")).next();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Conexao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return arquivo;
     }
     
     

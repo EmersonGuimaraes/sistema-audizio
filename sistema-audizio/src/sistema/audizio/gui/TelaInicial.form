@@ -261,13 +261,13 @@
               <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Component id="btSair" min="-2" pref="34" max="-2" attributes="0"/>
-                  <Component id="btClientes" pref="119" max="32767" attributes="0"/>
-                  <Component id="btProcessos" alignment="0" max="32767" attributes="0"/>
+                  <Component id="btProcessos" alignment="0" pref="66" max="32767" attributes="0"/>
+                  <Component id="btClientes" alignment="0" max="32767" attributes="0"/>
                   <Component id="btListar" alignment="0" max="32767" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="jLabel2" pref="273" max="32767" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <Component id="jLabel2" pref="321" max="32767" attributes="0"/>
+              <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="lbNomeUsuario" min="-2" pref="31" max="-2" attributes="0"/>
