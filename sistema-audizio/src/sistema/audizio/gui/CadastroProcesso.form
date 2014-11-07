@@ -66,7 +66,7 @@
                               <Component id="jScrollPane1" max="32767" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                       <Group type="102" attributes="0">
                                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                               <Component id="jLabel5" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -76,13 +76,14 @@
                                           <Component id="jButton1" min="-2" pref="39" max="-2" attributes="0"/>
                                       </Group>
                                       <Component id="jLabel8" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <Component id="jLabel21" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="tfAssessoria" max="32767" attributes="0"/>
-                                          </Group>
-                                          <Component id="tfReboqueiro" alignment="0" min="-2" pref="302" max="-2" attributes="0"/>
+                                      <Component id="tfReboqueiro" alignment="0" min="-2" pref="302" max="-2" attributes="0"/>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="jLabel21" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="cbAssessoria" max="32767" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="btAssessoria" min="-2" pref="43" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
@@ -200,12 +201,13 @@
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel20" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="tfTotalF" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="tfAssessoria" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel21" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="cbAssessoria" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btAssessoria" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
@@ -219,7 +221,7 @@
                   <Component id="btSalvar" alignment="0" max="32767" attributes="0"/>
                   <Component id="btCancelar" alignment="0" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace pref="19" max="32767" attributes="0"/>
+              <EmptySpace pref="18" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -551,12 +553,11 @@
     <Component class="javax.swing.JComboBox" name="comoEstado">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="5">
+          <StringArray count="4">
             <StringItem index="0" value="Selecionar..."/>
-            <StringItem index="1" value="Aberto"/>
-            <StringItem index="2" value="Apreendido"/>
-            <StringItem index="3" value="N&#xe3;o Encontrado"/>
-            <StringItem index="4" value="Localizado"/>
+            <StringItem index="1" value="Apreendido"/>
+            <StringItem index="2" value="N&#xe3;o Encontrado"/>
+            <StringItem index="3" value="Localizado"/>
           </StringArray>
         </Property>
       </Properties>
@@ -599,7 +600,20 @@
         <Property name="text" type="java.lang.String" value="ASSESSORIA"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="tfAssessoria">
+    <Component class="javax.swing.JComboBox" name="cbAssessoria">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="0"/>
+        </Property>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="btAssessoria">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="+"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btAssessoriaActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

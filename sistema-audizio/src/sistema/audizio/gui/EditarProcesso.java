@@ -11,10 +11,12 @@ import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import sistema.audizio.bean.Advogado;
+import sistema.audizio.bean.Assessoria;
 import sistema.audizio.bean.Cliente;
 import sistema.audizio.bean.Processo;
 import sistema.audizio.bean.Veiculo;
 import sistema.audizio.dao.DaoAdvogado;
+import sistema.audizio.dao.DaoAssessoria;
 import sistema.audizio.dao.DaoCliente;
 import sistema.audizio.dao.DaoProcesso;
 import sistema.audizio.dao.DaoVeiculo;
@@ -24,9 +26,10 @@ import sistema.audizio.dao.DaoVeiculo;
  * @author emerson
  */
 public class EditarProcesso extends javax.swing.JDialog { 
-    DefaultComboBoxModel comboModel, comboModelAdv;
+    DefaultComboBoxModel comboModel, comboModelAdv, comboModelAss;
     DaoCliente daoCli = new DaoCliente();
     DaoAdvogado daoAdv = new DaoAdvogado();
+    DaoAssessoria daoAss = new DaoAssessoria();
     /**
      * Creates new form CadastroProcesso
      */
@@ -73,7 +76,7 @@ public class EditarProcesso extends javax.swing.JDialog {
         ArrayList<Processo> processos = new DaoProcesso().Consultar(id);
         ArrayList<Veiculo> veiculos = new DaoVeiculo().Consultar(id);
         
-        int idAdvogado=0,idCliente=0;
+        int idAdvogado=0,idCliente=0,idAssessoria = 0;
         String estado = null;
         for (Processo pro:processos) {
             //Setando dados do processo
@@ -87,11 +90,13 @@ public class EditarProcesso extends javax.swing.JDialog {
             tfDataFim.setText(pro.getData_termino());
             idAdvogado = pro.getIdAdvogado();
             idCliente = pro.getIdCliente();
+            idAssessoria = Integer.parseInt(pro.getAssessoria());
         }
         carregaComboCliente();
         comboCliente.setSelectedIndex(idCliente);
         carregaComboAdvogado();
         comboAdvogado.setSelectedIndex(idAdvogado);
+        carregaAssessoria(idAssessoria);
         
         for (Veiculo veic:veiculos) {
             //Setando dados do veiculo
@@ -106,6 +111,20 @@ public class EditarProcesso extends javax.swing.JDialog {
             estado = veic.getEstado();
         }
         comoEstado.setSelectedItem(estado);
+    }
+    public void carregaAssessoria(int id){
+       comboModelAss = (DefaultComboBoxModel) cbAssessoria.getModel();
+        comboModelAss.removeAllElements();
+        ArrayList<Assessoria> assessorias = new ArrayList<>();
+        assessorias = daoAss.consultar("");
+        
+        comboModelAss.addElement("Selecionar...");
+        for (int linha = 0; linha < assessorias.size(); linha++){
+            Assessoria assessoria = assessorias.get(linha);
+            comboModelAss.addElement(assessoria.getNome());
+            System.out.println("Assessoria: "+assessoria.getNome());
+        }
+        cbAssessoria.setSelectedIndex(id);
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -155,6 +174,8 @@ public class EditarProcesso extends javax.swing.JDialog {
         jButton2 = new javax.swing.JButton();
         comoEstado = new javax.swing.JComboBox();
         btCancelar1 = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        cbAssessoria = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Editar Processo");
@@ -263,7 +284,7 @@ public class EditarProcesso extends javax.swing.JDialog {
                             .addComponent(jLabel11))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
                                 .addComponent(jLabel12)
                                 .addGap(59, 59, 59))
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -381,6 +402,10 @@ public class EditarProcesso extends javax.swing.JDialog {
             }
         });
 
+        jLabel6.setText("ASSESSORIA");
+
+        cbAssessoria.setEnabled(false);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -420,13 +445,15 @@ public class EditarProcesso extends javax.swing.JDialog {
                                 .addComponent(jLabel4))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jScrollPane1)
+                                    .addComponent(jLabel5)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabel16)
                                         .addGap(0, 0, Short.MAX_VALUE))
-                                    .addComponent(jScrollPane1)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel5)
-                                        .addGap(219, 219, 219)))
+                                        .addComponent(jLabel6)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(cbAssessoria, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -473,7 +500,7 @@ public class EditarProcesso extends javax.swing.JDialog {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel16)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel14)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -481,11 +508,18 @@ public class EditarProcesso extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tfAcao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(tfAcao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel19)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tfComarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(tfComarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6)
+                            .addComponent(cbAssessoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -504,12 +538,11 @@ public class EditarProcesso extends javax.swing.JDialog {
                         .addComponent(btEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btCancelar1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel18)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(comoEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(btSalvar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(comoEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btSalvar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -541,6 +574,7 @@ public class EditarProcesso extends javax.swing.JDialog {
         jButton2.setEnabled(true);
         btCancelar1.setEnabled(true);
         btSalvar.setEnabled(true);
+        cbAssessoria.setEnabled(true);
     }//GEN-LAST:event_btEditarActionPerformed
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
@@ -563,6 +597,7 @@ public class EditarProcesso extends javax.swing.JDialog {
          processo.setVara(tfVara.getText());
          processo.setComarca(tfComarca.getText());
          processo.setSituacao_atual(taSituacaoAtual.getText());
+         processo.setAssessoria(String.valueOf(cbAssessoria.getSelectedIndex()));
          processo.setIdProcesso(idProcesso);
          
         //Seta os valores do veiculo
@@ -609,6 +644,7 @@ public class EditarProcesso extends javax.swing.JDialog {
         btSalvar.setEnabled(false);
         jButton1.setEnabled(false);
         jButton2.setEnabled(false);
+        cbAssessoria.setEnabled(false);
         preencheCampos(idProcesso);
         
     }//GEN-LAST:event_btSalvarActionPerformed
@@ -643,6 +679,7 @@ public class EditarProcesso extends javax.swing.JDialog {
         tfAnoModelo.setEnabled(false);
         tfRenavam.setEnabled(false);
         tfChassi.setEnabled(false);
+        cbAssessoria.setEnabled(false);
         
         btEditar.setEnabled(true);
         btCancelar1.setEnabled(false);
@@ -687,6 +724,7 @@ public class EditarProcesso extends javax.swing.JDialog {
     private javax.swing.JButton btCancelar1;
     private javax.swing.JButton btEditar;
     private javax.swing.JButton btSalvar;
+    private javax.swing.JComboBox cbAssessoria;
     private javax.swing.JComboBox comboAdvogado;
     private javax.swing.JComboBox comboCliente;
     private javax.swing.JComboBox comoEstado;
@@ -707,6 +745,7 @@ public class EditarProcesso extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;

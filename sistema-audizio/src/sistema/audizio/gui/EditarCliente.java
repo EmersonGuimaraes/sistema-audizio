@@ -163,8 +163,8 @@ public class EditarCliente extends javax.swing.JDialog {
         btEditar = new javax.swing.JButton();
         lbCelular1 = new javax.swing.JLabel();
         tfWhats = new javax.swing.JFormattedTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btNovoBairro = new javax.swing.JButton();
+        btNovaCidade = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -318,9 +318,21 @@ public class EditarCliente extends javax.swing.JDialog {
         }
         tfWhats.setEnabled(false);
 
-        jButton1.setText("+");
+        btNovoBairro.setText("+");
+        btNovoBairro.setEnabled(false);
+        btNovoBairro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btNovoBairroActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("+");
+        btNovaCidade.setText("+");
+        btNovaCidade.setEnabled(false);
+        btNovaCidade.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btNovaCidadeActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -398,7 +410,7 @@ public class EditarCliente extends javax.swing.JDialog {
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(comboCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(btNovaCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(layout.createSequentialGroup()
@@ -406,12 +418,11 @@ public class EditarCliente extends javax.swing.JDialog {
                                         .addGap(174, 174, 174))
                                     .addComponent(comboBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btNovoBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(tfEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                    .addComponent(tfEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -489,8 +500,8 @@ public class EditarCliente extends javax.swing.JDialog {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(comboCidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(comboBairro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1)
-                            .addComponent(jButton2))))
+                            .addComponent(btNovoBairro)
+                            .addComponent(btNovaCidade))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -552,7 +563,8 @@ public class EditarCliente extends javax.swing.JDialog {
         tfWhats.setEnabled(false);
         btEditar.setEnabled(true);
         btSalvar.setEnabled(false);
-        
+        btNovaCidade.setEnabled(false);
+        btNovoBairro.setEnabled(false);
         preencheCampos();
     }//GEN-LAST:event_btCancelarActionPerformed
 
@@ -610,7 +622,8 @@ public class EditarCliente extends javax.swing.JDialog {
             tfCelular.setEnabled(false);
             tfEmail.setEnabled(false);
             tfWhats.setEnabled(false);
-            
+            btNovaCidade.setEnabled(false);
+            btNovoBairro.setEnabled(false);
             preencheCampos();
          }
          
@@ -636,6 +649,8 @@ public class EditarCliente extends javax.swing.JDialog {
         
         btEditar.setEnabled(false);
         btSalvar.setEnabled(true);
+        btNovaCidade.setEnabled(true);
+        btNovoBairro.setEnabled(true);
        
         
     }//GEN-LAST:event_btEditarActionPerformed
@@ -664,6 +679,26 @@ public class EditarCliente extends javax.swing.JDialog {
          listaCheia = true;
     }//GEN-LAST:event_comboBairroMouseClicked
 
+    private void btNovaCidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovaCidadeActionPerformed
+        String c = "C";
+        new CadastroBairroCidade(c, "CIDADE", null, 0).setVisible(true);
+        carregaCidades();
+    }//GEN-LAST:event_btNovaCidadeActionPerformed
+
+    private void btNovoBairroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoBairroActionPerformed
+        String item = String.valueOf(comboModelCidade.getSelectedItem());
+        if(item == "Selecionar ..."){
+           JOptionPane.showMessageDialog(null, "SELECIONE UMA CIDADE!");
+        } else {
+             String b = "B";
+             int cod = comboCidade.getSelectedIndex();
+             System.out.println("codigo: "+cod);
+             new CadastroBairroCidade(b, "BAIRRO", item, cod).show();
+             carregaBairros(String.valueOf(cod));
+           
+        }
+    }//GEN-LAST:event_btNovoBairroActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -672,11 +707,11 @@ public class EditarCliente extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btCancelar;
     private javax.swing.JButton btEditar;
+    private javax.swing.JButton btNovaCidade;
+    private javax.swing.JButton btNovoBairro;
     private javax.swing.JButton btSalvar;
     private javax.swing.JComboBox comboBairro;
     private javax.swing.JComboBox comboCidade;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

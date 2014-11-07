@@ -11,11 +11,13 @@ import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import sistema.audizio.bean.Advogado;
+import sistema.audizio.bean.Assessoria;
 import sistema.audizio.bean.Cliente;
 import sistema.audizio.bean.Financeiro;
 import sistema.audizio.bean.Processo;
 import sistema.audizio.bean.Veiculo;
 import sistema.audizio.dao.DaoAdvogado;
+import sistema.audizio.dao.DaoAssessoria;
 import sistema.audizio.dao.DaoCliente;
 import sistema.audizio.dao.DaoFinanceiro;
 import sistema.audizio.dao.DaoProcesso;
@@ -26,9 +28,10 @@ import sistema.audizio.dao.DaoVeiculo;
  * @author emerson
  */
 public class CadastroProcesso extends javax.swing.JDialog { 
-    DefaultComboBoxModel comboModel, comboModelAdv;
+    DefaultComboBoxModel comboModel, comboModelAdv, comboModelAss;
     DaoCliente daoCli = new DaoCliente();
     DaoAdvogado daoAdv = new DaoAdvogado();
+    DaoAssessoria daoAss = new DaoAssessoria();
     /**
      * Creates new form CadastroProcesso
      */
@@ -36,6 +39,7 @@ public class CadastroProcesso extends javax.swing.JDialog {
         initComponents();
         carregaComboCliente();
         carregaComboAdvogado();
+        carregaAssessoria();
         setModal(true);
     }
 
@@ -64,6 +68,20 @@ public class CadastroProcesso extends javax.swing.JDialog {
             comboModelAdv.addElement(advogado.getNome());
         }
         
+    }
+    
+    public void carregaAssessoria(){
+       comboModelAss = (DefaultComboBoxModel) cbAssessoria.getModel();
+        comboModelAss.removeAllElements();
+        ArrayList<Assessoria> assessorias = new ArrayList<>();
+        assessorias = daoAss.consultar("");
+        
+        comboModelAss.addElement("Selecionar...");
+        for (int linha = 0; linha < assessorias.size(); linha++){
+            Assessoria assessoria = assessorias.get(linha);
+            comboModelAss.addElement(assessoria.getNome());
+            System.out.println("Assessoria: "+assessoria.getNome());
+        }
     }
     
     public void carregaFinanca(){
@@ -124,7 +142,8 @@ public class CadastroProcesso extends javax.swing.JDialog {
         jLabel20 = new javax.swing.JLabel();
         tfTotalF = new javax.swing.JTextField();
         jLabel21 = new javax.swing.JLabel();
-        tfAssessoria = new javax.swing.JTextField();
+        cbAssessoria = new javax.swing.JComboBox();
+        btAssessoria = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -307,7 +326,7 @@ public class CadastroProcesso extends javax.swing.JDialog {
             }
         });
 
-        comoEstado.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecionar...", "Aberto", "Apreendido", "Não Encontrado", "Localizado" }));
+        comoEstado.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecionar...", "Apreendido", "Não Encontrado", "Localizado" }));
 
         jLabel6.setText("FINANCEIRO");
 
@@ -332,6 +351,13 @@ public class CadastroProcesso extends javax.swing.JDialog {
         tfTotalF.setText("0.00");
 
         jLabel21.setText("ASSESSORIA");
+
+        btAssessoria.setText("+");
+        btAssessoria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btAssessoriaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -374,7 +400,7 @@ public class CadastroProcesso extends javax.swing.JDialog {
                                 .addComponent(jScrollPane1)
                                 .addGroup(layout.createSequentialGroup()
                                     .addGap(0, 0, Short.MAX_VALUE)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                         .addGroup(layout.createSequentialGroup()
                                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                                 .addComponent(jLabel5)
@@ -382,12 +408,14 @@ public class CadastroProcesso extends javax.swing.JDialog {
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                             .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addComponent(jLabel8)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                                .addComponent(jLabel21)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(tfAssessoria))
-                                            .addComponent(tfReboqueiro, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                        .addComponent(tfReboqueiro, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(jLabel21)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(cbAssessoria, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(btAssessoria, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGap(8, 8, 8)))))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(layout.createSequentialGroup()
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -475,12 +503,13 @@ public class CadastroProcesso extends javax.swing.JDialog {
                             .addComponent(tfReboqueiro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btNovaConta)
                             .addComponent(tfSituacaoF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(10, 10, 10)
+                .addGap(9, 9, 9)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel20)
                     .addComponent(tfTotalF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfAssessoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel21))
+                    .addComponent(jLabel21)
+                    .addComponent(cbAssessoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btAssessoria))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -491,7 +520,7 @@ public class CadastroProcesso extends javax.swing.JDialog {
                         .addComponent(comoEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(btSalvar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
         pack();
@@ -527,7 +556,7 @@ public class CadastroProcesso extends javax.swing.JDialog {
                  processo.setVara(tfVara.getText());
                  processo.setComarca(tfComarca.getText());
                  processo.setSituacao_atual(taSituacaoAtual.getText());
-                 processo.setAssessoria(tfAssessoria.getText());
+                 processo.setAssessoria(String.valueOf(cbAssessoria.getSelectedIndex()));
 
                 //Seta os valores do veiculo
                  veiculo.setMarca(tfMarca.getText());
@@ -600,6 +629,11 @@ public class CadastroProcesso extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_tfSituacaoFActionPerformed
 
+    private void btAssessoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAssessoriaActionPerformed
+       new CadastrarAssessoria().setVisible(true);
+       carregaAssessoria();
+    }//GEN-LAST:event_btAssessoriaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -636,9 +670,11 @@ public class CadastroProcesso extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btAssessoria;
     private javax.swing.JButton btCancelar;
     private javax.swing.JButton btNovaConta;
     private javax.swing.JButton btSalvar;
+    private javax.swing.JComboBox cbAssessoria;
     private javax.swing.JComboBox comboAdvogado;
     private javax.swing.JComboBox comboCliente;
     private javax.swing.JComboBox comoEstado;
@@ -671,7 +707,6 @@ public class CadastroProcesso extends javax.swing.JDialog {
     private javax.swing.JTextField tfAcao;
     private javax.swing.JFormattedTextField tfAnoFabricacao;
     private javax.swing.JFormattedTextField tfAnoModelo;
-    private javax.swing.JTextField tfAssessoria;
     private javax.swing.JTextField tfChassi;
     private javax.swing.JTextField tfComarca;
     private javax.swing.JTextField tfCor;
