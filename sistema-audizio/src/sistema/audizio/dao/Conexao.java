@@ -15,7 +15,7 @@ public class Conexao {
     public Statement stmt;
     public ResultSet rs;
     //String url = "jdbc:mysql://localhost/sis_audisio";
-    String url = "jdbc:mysql://"+getIp()+"/audizio";
+    String url = "jdbc:mysql://localhost/audizio";
     String driver = "com.mysql.jdbc.Driver";
     String usuario = "root";
     String senha = "5215052";
@@ -63,6 +63,7 @@ public class Conexao {
             arquivo = new Scanner(new File("c://aubdtxt.txt")).next();
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Conexao.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "IMPOSSÍVEL SE COMUNICAR COM A BASE DE DADOS!");
         }
         return arquivo;
     }

@@ -26,7 +26,7 @@ public class DaoProcesso extends Conexao{
         
         sql="INSERT INTO tb_processo VALUES(null,'"+processo.getProcesso()+"','"+processo.getData_inicio()+"','"+processo.getData_termino()+"',"
                 + "'"+processo.getCliente()+"','"+processo.getAdvogado()+"','"+processo.getIdCliente()+"','"+processo.getIdAdvogado()+"','"+processo.getAcao()+"','"+processo.getReboqueiro()+"','ABERTO',"
-                + "'"+processo.getSituacao_atual()+"','"+processo.getVara()+"','"+processo.getComarca()+"')";
+                + "'"+processo.getSituacao_atual()+"','"+processo.getVara()+"','"+processo.getComarca()+"','"+processo.getAssessoria()+"')";
         try {
             ConsultarSQL(sql, false);
             JOptionPane.showMessageDialog(null, "Cadastro Realizado com Sucesso!");
@@ -38,7 +38,7 @@ public class DaoProcesso extends Conexao{
         System.out.println("Id processo no dao:"+processo.getIdProcesso());
         sql="UPDATE tb_processo SET processo = '"+processo.getProcesso()+"',data_inicio = '"+processo.getData_inicio()+"',data_termino = '"+processo.getData_termino()+"',"
                 + "cliente = '"+processo.getCliente()+"',advogado = '"+processo.getAdvogado()+"',"+
-                "acao = '"+processo.getAcao()+"',reboqueiro = '"+processo.getReboqueiro()+"',situacao_atual = '"+processo.getSituacao_atual()+"',vara = '"+processo.getVara()+"',comarca = '"+processo.getComarca()+"' WHERE id = '"+processo.getIdProcesso()+"'";
+                "acao = '"+processo.getAcao()+"',reboqueiro = '"+processo.getReboqueiro()+"',situacao_atual = '"+processo.getSituacao_atual()+"',vara = '"+processo.getVara()+"',comarca = '"+processo.getComarca()+"', assessoria='"+processo.getAssessoria()+"' WHERE id = '"+processo.getIdProcesso()+"'";
         ConsultarSQL(sql, false);
         JOptionPane.showMessageDialog(null, "PROCESSO EDITADO COM SUCESSO!");
     }
@@ -116,6 +116,7 @@ public class DaoProcesso extends Conexao{
                     processo.setComarca(rs.getString("comarca"));
                     processo.setIdAdvogado(rs.getInt("id_advogado"));
                     processo.setIdCliente(rs.getInt("id_cliente"));
+                    processo.setAssessoria(rs.getString("assessoria"));
                     processos.add(processo);
                 }
             }

@@ -28,6 +28,7 @@ public class Processo {
     String situacao_atual;
     String comarca;
     String vara;
+    String assessoria;
    
     
     public String getIdProcesso(){
@@ -161,6 +162,15 @@ public class Processo {
     public int getIdAdvogado() {
         return idAdvogado;
     }
+
+    public String getAssessoria() {
+        return assessoria;
+    }
+
+    public void setAssessoria(String assessoria) {
+        this.assessoria = assessoria;
+    }
+    
     
     
     

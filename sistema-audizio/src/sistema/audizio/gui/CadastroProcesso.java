@@ -123,6 +123,8 @@ public class CadastroProcesso extends javax.swing.JDialog {
         tfSituacaoF = new javax.swing.JTextField();
         jLabel20 = new javax.swing.JLabel();
         tfTotalF = new javax.swing.JTextField();
+        jLabel21 = new javax.swing.JLabel();
+        tfAssessoria = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -329,6 +331,8 @@ public class CadastroProcesso extends javax.swing.JDialog {
         tfTotalF.setEditable(false);
         tfTotalF.setText("0.00");
 
+        jLabel21.setText("ASSESSORIA");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -378,7 +382,12 @@ public class CadastroProcesso extends javax.swing.JDialog {
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                             .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addComponent(jLabel8)
-                                        .addComponent(tfReboqueiro, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                                .addComponent(jLabel21)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(tfAssessoria))
+                                            .addComponent(tfReboqueiro, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(layout.createSequentialGroup()
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -469,7 +478,9 @@ public class CadastroProcesso extends javax.swing.JDialog {
                 .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel20)
-                    .addComponent(tfTotalF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfTotalF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfAssessoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel21))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -516,7 +527,7 @@ public class CadastroProcesso extends javax.swing.JDialog {
                  processo.setVara(tfVara.getText());
                  processo.setComarca(tfComarca.getText());
                  processo.setSituacao_atual(taSituacaoAtual.getText());
-
+                 processo.setAssessoria(tfAssessoria.getText());
 
                 //Seta os valores do veiculo
                  veiculo.setMarca(tfMarca.getText());
@@ -528,7 +539,7 @@ public class CadastroProcesso extends javax.swing.JDialog {
                  veiculo.setChassi(tfChassi.getText());
                  veiculo.setRenavam(tfRenavam.getText());
                  veiculo.setEstado(String.valueOf(comoEstado.getSelectedItem()));
-
+                 
 
 
                 daoProcesso.Cadastrar(processo);
@@ -646,6 +657,7 @@ public class CadastroProcesso extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -659,6 +671,7 @@ public class CadastroProcesso extends javax.swing.JDialog {
     private javax.swing.JTextField tfAcao;
     private javax.swing.JFormattedTextField tfAnoFabricacao;
     private javax.swing.JFormattedTextField tfAnoModelo;
+    private javax.swing.JTextField tfAssessoria;
     private javax.swing.JTextField tfChassi;
     private javax.swing.JTextField tfComarca;
     private javax.swing.JTextField tfCor;

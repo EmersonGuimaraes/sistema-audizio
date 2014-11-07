@@ -58,7 +58,7 @@ public class Relatorio {
 
                         document.add(new Paragraph("NOME::: "+cliente.get(0).getNome()));
                         document.add(new Paragraph(" "));
-                        document.add(new Paragraph("RG ::: "+cliente.get(0).getRg()));
+                        document.add(new Paragraph("CELULAR ::: "+cliente.get(0).getCelular()));
                         document.add(new Paragraph(" "));
                         document.add(new Paragraph("CEP ::: "+cliente.get(0).getCep()));
                         document.add(new Paragraph(" "));

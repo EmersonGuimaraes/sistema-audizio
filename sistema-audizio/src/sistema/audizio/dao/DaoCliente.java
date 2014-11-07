@@ -16,8 +16,8 @@ public class DaoCliente extends Conexao{
     String sql;
     
     public void Cadastrar(Cliente cliente){
-        sql = "INSERT INTO tb_cliente VALUES(null,'"+cliente.getNome()+"','"+cliente.getNascimento()+"','"+cliente.getRg()+"',"
-                + "'"+cliente.getOrgao_exp()+"','"+cliente.getData_exp()+"','"+cliente.getCpf()+"','"+cliente.getNacionalidade()+"',"
+        sql = "INSERT INTO tb_cliente VALUES(null,'"+cliente.getNome()+"','"+cliente.getNascimento()+"','"
+                + "'"+cliente.getCpf()+"','"+cliente.getNacionalidade()+"',"
                 + "'"+cliente.getProfisao()+"','"+cliente.getEstado_civil()+"','"+cliente.getCep()+"','"+cliente.getEndereco()+"',"
                 + "'"+cliente.getNum()+"','"+cliente.getEstado()+"','"+cliente.getCidade()+"','"+cliente.getBairro()+"',"
                 + "'"+cliente.getFone()+"','"+cliente.getCelular()+"','"+cliente.getEmail()+"','"+cliente.getWhatsapp()+"','"+cliente.getCod()+"')";
@@ -28,8 +28,8 @@ public class DaoCliente extends Conexao{
     
     public void Editar(Cliente cliente){
         System.out.println("ID CLIENTE UPDATE = "+cliente.getIdCliente());
-      sql = "UPDATE tb_cliente SET nome='"+cliente.getNome()+"',nascimento='"+cliente.getNascimento()+"',rg='"+cliente.getRg()+"',"
-              + "orgao_exp='"+cliente.getOrgao_exp()+"',data_exp='"+cliente.getData_exp()+"',cpf='"+cliente.getCpf()+"',"
+      sql = "UPDATE tb_cliente SET nome='"+cliente.getNome()+"',nascimento='"+cliente.getNascimento()+"',"
+              + "cpf='"+cliente.getCpf()+"',"
               + "nacionalidade='"+cliente.getNacionalidade()+"',profissao='"+cliente.getProfisao()+"',"
               + "estado_civil='"+cliente.getEstado_civil()+"',cep='"+cliente.getCep()+"',"
               + "endereco='"+cliente.getEndereco()+"',numero='"+cliente.getNum()+"',estado='"+cliente.getEstado()+"',"
@@ -69,9 +69,6 @@ public class DaoCliente extends Conexao{
                     cliente.setIdCliente(rs.getString("id"));
                     cliente.setNome(rs.getString("nome"));
                     cliente.setNascimento(rs.getString("nascimento"));
-                    cliente.setRg(rs.getString("rg"));
-                    cliente.setOrgao_exp(rs.getString("orgao_exp"));
-                    cliente.setData_exp(rs.getString("data_exp"));
                     cliente.setCpf(rs.getString("cpf"));
                     cliente.setNacionalidade(rs.getString("nacionalidade"));
                     cliente.setProfisao(rs.getString("profissao"));

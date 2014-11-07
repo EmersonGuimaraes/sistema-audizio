@@ -21,9 +21,6 @@ public class Pessoa {
         String cidade;
         String email;
         String num;
-        String rg;
-        String orgao_exp;
-        String data_exp;
         String cpf;
         String nacionalidade;
         String profisao;
@@ -95,32 +92,6 @@ public class Pessoa {
 
     public void setNum(String num) {
         this.num = num;
-    }
-
-
-
-    public String getRg() {
-        return rg;
-    }
-
-    public void setRg(String rg) {
-        this.rg = rg;
-    }
-
-    public String getOrgao_exp() {
-        return orgao_exp;
-    }
-
-    public void setOrgao_exp(String orgao_exp) {
-        this.orgao_exp = orgao_exp;
-    }
-
-    public String getData_exp() {
-        return data_exp;
-    }
-
-    public void setData_exp(String data_exp) {
-        this.data_exp = data_exp;
     }
 
     public String getCpf() {

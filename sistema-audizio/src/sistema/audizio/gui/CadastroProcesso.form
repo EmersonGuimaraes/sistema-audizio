@@ -76,7 +76,14 @@
                                           <Component id="jButton1" min="-2" pref="39" max="-2" attributes="0"/>
                                       </Group>
                                       <Component id="jLabel8" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="tfReboqueiro" alignment="0" min="-2" pref="302" max="-2" attributes="0"/>
+                                      <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="jLabel21" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="tfAssessoria" max="32767" attributes="0"/>
+                                          </Group>
+                                          <Component id="tfReboqueiro" alignment="0" min="-2" pref="302" max="-2" attributes="0"/>
+                                      </Group>
                                   </Group>
                               </Group>
                           </Group>
@@ -197,6 +204,8 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel20" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="tfTotalF" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="tfAssessoria" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabel21" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
@@ -584,6 +593,13 @@
         <Property name="editable" type="boolean" value="false"/>
         <Property name="text" type="java.lang.String" value="0.00"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel21">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="ASSESSORIA"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="tfAssessoria">
     </Component>
   </SubComponents>
 </Form>
