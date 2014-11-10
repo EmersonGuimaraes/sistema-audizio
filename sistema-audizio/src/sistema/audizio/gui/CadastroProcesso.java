@@ -85,7 +85,7 @@ public class CadastroProcesso extends javax.swing.JDialog {
     }
     
     public void carregaFinanca(){
-        ArrayList<Financeiro> financas = new DaoFinanceiro().consultarFinancas("");
+        ArrayList<Financeiro> financas = new DaoFinanceiro().consulta2();
         tfSituacaoF.setText(financas.get(0).getSituacao());
         tfTotalF.setText(financas.get(0).getValor_total());
     }

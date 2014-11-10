@@ -16,9 +16,9 @@ public class DaoCliente extends Conexao{
     String sql;
     
     public void Cadastrar(Cliente cliente){
-        sql = "INSERT INTO tb_cliente VALUES(null,'"+cliente.getNome()+"','"+cliente.getNascimento()+"','"
-                + "'"+cliente.getCpf()+"','"+cliente.getNacionalidade()+"',"
-                + "'"+cliente.getProfisao()+"','"+cliente.getEstado_civil()+"','"+cliente.getCep()+"','"+cliente.getEndereco()+"',"
+        sql = "INSERT INTO tb_cliente VALUES(null,'"+cliente.getNome()+"','"+cliente.getNascimento()+"',"
+                + "'"+cliente.getCpf()+"','"+cliente.getNacionalidade()+"','"+cliente.getProfisao()+"',"
+                + "'"+cliente.getEstado_civil()+"','"+cliente.getCep()+"','"+cliente.getEndereco()+"',"
                 + "'"+cliente.getNum()+"','"+cliente.getEstado()+"','"+cliente.getCidade()+"','"+cliente.getBairro()+"',"
                 + "'"+cliente.getFone()+"','"+cliente.getCelular()+"','"+cliente.getEmail()+"','"+cliente.getWhatsapp()+"','"+cliente.getCod()+"')";
 

@@ -31,6 +31,7 @@ public class ListarAssessoria extends javax.swing.JDialog {
     public void carregaTabela(){
         ArrayList<Assessoria> a = new DaoAssessoria().consultar("");
          modeloTabela = (DefaultTableModel) tbListarAssessoria.getModel();
+         
        for(Assessoria as:a){
            modeloTabela.addRow(new Object[] {as.getId(), as.getNome(),as.getCidade(), as.getBairro(), as.getEndereco()});
         }
@@ -50,10 +51,7 @@ public class ListarAssessoria extends javax.swing.JDialog {
 
         tbListarAssessoria.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "ID", "NOME", "CIDADE", "BAIRRO", "ENDEREÇO"
@@ -77,6 +75,11 @@ public class ListarAssessoria extends javax.swing.JDialog {
         });
 
         jButton2.setText("NOVA ASSESSORIA");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -119,6 +122,12 @@ public class ListarAssessoria extends javax.swing.JDialog {
             System.err.println("Erro\n"+e);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        new CadastrarAssessoria().setVisible(true);
+        this.dispose();
+        new ListarAssessoria().setVisible(true);
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments

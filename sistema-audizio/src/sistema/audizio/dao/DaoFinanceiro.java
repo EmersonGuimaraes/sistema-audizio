@@ -128,6 +128,34 @@ public class DaoFinanceiro extends Conexao{
          return financas;
      }
      
+     public ArrayList<Financeiro> consulta2(){
+        ArrayList<Financeiro> financas = new ArrayList<>();
+         try {
+           String sql = "SELECT * FROM tb_financeiro ORDER BY id DESC LIMIT 1";
+            ConsultarSQL(sql,true);
+            while (rs.next()) {
+                Financeiro f = new Financeiro();
+                f.setId(rs.getInt("id"));
+                f.setId_cliente(rs.getInt("id_cliente"));
+                f.setProcesso(rs.getString("processo"));
+                f.setCliente(rs.getString("cliente"));
+                f.setValor(rs.getString("valor"));
+                f.setValor_despesa(rs.getString("valor_despesa"));
+                f.setDesconto(rs.getString("desconto"));
+                f.setVencimento(rs.getString("vencimento"));
+                f.setSituacao(rs.getString("situacao"));
+                f.setValor_total(rs.getString("valor_total"));
+                f.setDesc_despesa(rs.getString("desc_despesa"));
+                f.setData_pagamento(rs.getString("data_pagamento"));
+                financas.add(f);
+                
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(DaoFinanceiro.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         return financas;
+     }
      public void quitarConta(String idConta,String data){
          sql = "UPDATE tb_financeiro SET situacao = 'QUITADO', data_pagamento='"+data+"' WHERE id = '"+idConta+"'";
          ConsultarSQL(sql, false);
