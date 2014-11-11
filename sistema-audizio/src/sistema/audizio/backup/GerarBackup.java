@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.sql.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import javax.swing.JOptionPane;
 /**
  *
@@ -18,12 +20,24 @@ public class GerarBackup {
      
         String novonome = null;  
         int numerodobackup = 0;
-        String pasta = "C:/Users/Emerson Guimarães/Documentos/bkp";
+        String pasta = "C:/sistema/backup";
         //String pasta = "/home/zipnet/SisAudizio/bkp";
-        String arq = "C:/Users/Emerson Guimarães/Documentos/bkp/bkp_sisAudizio.sql";
+        String arq = "C:/sistema/backup/bkp_"+getData()+".sql";
         //String arq = "/home/zipnet/SisAudizio/bkp/bkp_sisAudizio.sql";
         
-
+        private String getData() {
+	Calendar cal = new GregorianCalendar();
+            int dia = cal.get(Calendar.DATE);
+            int mes = cal.get(Calendar.MONTH) + 1;
+            int ano = cal.get(Calendar.YEAR);
+            int diaSemana = cal.get(Calendar.DAY_OF_WEEK);
+            int diaMes = cal.get(Calendar.DAY_OF_MONTH);
+            int diaAno = cal.get(Calendar.DAY_OF_YEAR);
+            
+            String data = String.valueOf(dia+"/"+mes+"/"+ano);
+        return data;
+ 
+    }
 
         public GerarBackup(){
             File diretorio = new File(pasta);  

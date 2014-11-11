@@ -6,6 +6,7 @@
 
 package sistema.audizio.gui;
 
+import javax.swing.ImageIcon;
 import sistema.audizio.backup.GerarBackup;
 import sistema.audizio.dao.DaoUsuario;
 import sun.swing.BakedArrayList;
@@ -24,8 +25,13 @@ public class TelaInicial extends javax.swing.JFrame {
         initComponents();
         this.setExtendedState(this.MAXIMIZED_BOTH);
         lbNomeUsuario.setText(daoUsuario.consultarUsuario().toUpperCase());
+        imgFundo();
     }
-
+     
+    public void imgFundo(){
+        ImageIcon icone = new ImageIcon("C:/sistema/imagens/fundo.png");
+        labelFoto.setIcon(icone);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -43,7 +49,7 @@ public class TelaInicial extends javax.swing.JFrame {
         btSair = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         lbNomeUsuario = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        labelFoto = new javax.swing.JLabel();
         btListar1 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
@@ -110,9 +116,8 @@ public class TelaInicial extends javax.swing.JFrame {
         lbNomeUsuario.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbNomeUsuario.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("BEM-VINDO!");
-        jLabel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        labelFoto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelFoto.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         btListar1.setText("ASSESSORIA");
         btListar1.addActionListener(new java.awt.event.ActionListener() {
@@ -303,7 +308,7 @@ public class TelaInicial extends javax.swing.JFrame {
                                 .addComponent(btListar1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                                 .addComponent(btSair, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(labelFoto, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(20, 20, 20))))
         );
         layout.setVerticalGroup(
@@ -318,7 +323,7 @@ public class TelaInicial extends javax.swing.JFrame {
                     .addComponent(btListar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btListar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
-                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 321, Short.MAX_VALUE)
+                .addComponent(labelFoto, javax.swing.GroupLayout.DEFAULT_SIZE, 321, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -419,37 +424,7 @@ public class TelaInicial extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaInicial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaInicial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaInicial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaInicial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new TelaInicial().setVisible(true);
-            }
-        });
-    }
+  
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btClientes;
@@ -458,7 +433,6 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JButton btProcessos;
     private javax.swing.JButton btSair;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu10;
     private javax.swing.JMenu jMenu2;
@@ -485,6 +459,7 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
+    private javax.swing.JLabel labelFoto;
     private javax.swing.JLabel lbNomeUsuario;
     // End of variables declaration//GEN-END:variables
 }

@@ -32,17 +32,9 @@ public class Relatorio {
 
     
     public void gerar(ArrayList <Cliente> cliente, ArrayList <Processo> processo , ArrayList <Veiculo> veiculo, ArrayList<Cidade> cidade, ArrayList<Bairro> bairro) throws DocumentException, FileNotFoundException{
-                String local;
-                JFileChooser file = new JFileChooser();
-                file.setSelectedFile(new File(cliente.get(0).getNome()+".pdf")); 
-                file.setFileSelectionMode(JFileChooser.FILES_ONLY);
-                file.setDialogTitle("Selecione um local para salvar o arquivo");
-                int retorno = file.showSaveDialog(null);
-                File arquivo = file.getSelectedFile();
-                local = arquivo.getPath();
+                String local = "c:/sistema/relatorios/"+cliente.get(0).getNome()+".pdf";
                 
-             
-                if (retorno == JFileChooser.APPROVE_OPTION) {
+            
                         Document document = new Document();
                         //PdfWriter.getInstance(document, new FileOutputStream("C:\\Users\\ZipNet\\Desktop\\Pdf's\\teste.pdf"));
                         PdfWriter.getInstance(document, new FileOutputStream(local));
@@ -96,8 +88,8 @@ public class Relatorio {
                         document.add(new Paragraph(" "));
                         document.add(new Paragraph("VARA ::: "+processo.get(0).getVara()));
                         document.close();
-                        JOptionPane.showMessageDialog(null, "RELATÓRIO CRIADO COM SUCESSO!");
-                }
+                        JOptionPane.showMessageDialog(null, "RELATÓRIO CRIADO COM SUCESSO!\n"+local);
+             
                
        
                 

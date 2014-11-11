@@ -4,7 +4,7 @@
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="2"/>
     <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-      <Color id="Cursor Padr&#xe3;o"/>
+      <Color id="Cursor Default"/>
     </Property>
     <Property name="resizable" type="boolean" value="false"/>
   </Properties>
@@ -339,7 +339,7 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="ENDERE&#xc7;O"/>
         <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-          <Color id="Cursor Padr&#xe3;o"/>
+          <Color id="Cursor Default"/>
         </Property>
       </Properties>
     </Component>
@@ -347,7 +347,7 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="N&#xda;MERO"/>
         <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-          <Color id="Cursor Padr&#xe3;o"/>
+          <Color id="Cursor Default"/>
         </Property>
       </Properties>
     </Component>
@@ -357,7 +357,7 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="TELEFONE"/>
         <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-          <Color id="Cursor Padr&#xe3;o"/>
+          <Color id="Cursor Default"/>
         </Property>
       </Properties>
     </Component>
@@ -375,7 +375,7 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="CELULAR"/>
         <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-          <Color id="Cursor Padr&#xe3;o"/>
+          <Color id="Cursor Default"/>
         </Property>
       </Properties>
     </Component>
@@ -516,7 +516,7 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="WhatsApp"/>
         <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-          <Color id="Cursor Padr&#xe3;o"/>
+          <Color id="Cursor Default"/>
         </Property>
       </Properties>
     </Component>
