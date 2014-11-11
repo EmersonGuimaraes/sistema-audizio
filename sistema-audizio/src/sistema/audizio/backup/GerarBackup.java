@@ -6,11 +6,10 @@ package sistema.audizio.backup;
 
 import java.io.File;
 import java.io.IOException;
-import java.sql.Date;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 /**
  *
@@ -20,9 +19,9 @@ public class GerarBackup {
      
         String novonome = null;  
         int numerodobackup = 0;
-        String pasta = "C:/sistema/backup";
+        String pasta = "C:/sistema/backup/";
         //String pasta = "/home/zipnet/SisAudizio/bkp";
-        String arq = "C:/sistema/backup/bkp_"+getData()+".sql";
+        String arq = "C:/sistema/backup/backup_"+getData()+".sql";
         //String arq = "/home/zipnet/SisAudizio/bkp/bkp_sisAudizio.sql";
         
         private String getData() {
@@ -34,7 +33,7 @@ public class GerarBackup {
             int diaMes = cal.get(Calendar.DAY_OF_MONTH);
             int diaAno = cal.get(Calendar.DAY_OF_YEAR);
             
-            String data = String.valueOf(dia+"/"+mes+"/"+ano);
+            String data = String.valueOf(dia+"-"+mes+"-"+ano);
         return data;
  
     }
@@ -43,20 +42,27 @@ public class GerarBackup {
             File diretorio = new File(pasta);  
             File bck = new File(arq);
             
-            if (!diretorio.isDirectory()) {  
+            if (!diretorio.isDirectory()) {
+                System.out.println("Não Existe!");
                 new File(pasta).mkdir();  
-            } else {  
+            } else {
+                System.out.println("Existe!");
             }  
             // Cria Arquivo de Backup    
             try {  
-                if (!bck.isFile()) {  
+                if (!bck.isFile()) {
+                   
+                    System.out.println("Arquivo Não Existe!");
                     String comando = "C:/Program Files/MySQL/MySQL Server 5.5/bin/mysqldump.exe";  
                     ProcessBuilder pb = new ProcessBuilder(comando, "--user=root", "--password=5215052", "audizio", "--result-file="+arq);  
                     pb.start();  
+                    
+                    
+                  
                     JOptionPane.showMessageDialog(null, "Cópia de segurança realizada com sucesso", "Backup", JOptionPane.CLOSED_OPTION);  
-      
+                    
                 } else {  
-                   
+                   System.out.println("Arquivo Existe!");
                     JOptionPane.showMessageDialog(null, "Você já realizou o backup hoje!", "Backup", JOptionPane.CLOSED_OPTION);  
                     //dispose();  
                 }  

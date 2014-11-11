@@ -115,7 +115,6 @@ public class CadastroBairroCidade extends JDialog implements ActionListener{
                                         bairro.setNome(tfBairro.getText());
                                         bairro.setCod_cidade(codCidade);
                                         daoBairro.cadastrar(bairro);
-					JOptionPane.showMessageDialog(null, "BAIRRO CADASTRADO COM SUCESSO!");
 					this.dispose();
 				}
 				

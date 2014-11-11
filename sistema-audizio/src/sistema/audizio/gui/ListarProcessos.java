@@ -312,7 +312,7 @@ public class ListarProcessos extends javax.swing.JDialog {
             processo = new DaoProcesso().Consultar(idProcesso);
             System.out.println(processo.size());
             String idcliente = String.valueOf(processo.get(0).getIdCliente());
-            System.out.println(idcliente);
+            System.out.println("id cliente listar: "+idcliente);
             cliente = new DaoCliente().Consultar(idcliente);
             String idCidade, idBairro;
             
