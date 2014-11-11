@@ -30,7 +30,16 @@ public class TelaInicial extends javax.swing.JFrame {
      
     public void imgFundo(){
         ImageIcon icone = new ImageIcon("C:/sistema/imagens/fundo.png");
+        ImageIcon icone1 = new ImageIcon("C:/sistema/imagens/icones/pessoa.png");
+        ImageIcon icone2 = new ImageIcon("C:/sistema/imagens/icones/processos.png");
+        ImageIcon icone3 = new ImageIcon("C:/sistema/imagens/icones/assessoria.png");
+        
         labelFoto.setIcon(icone);
+        btClientes.setIcon(icone1);
+        btProcessos.setIcon(icone2);
+        btAssessoria.setIcon(icone3);
+        btAdvogado.setIcon(icone1);
+        
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -45,12 +54,12 @@ public class TelaInicial extends javax.swing.JFrame {
         jMenu6 = new javax.swing.JMenu();
         btClientes = new javax.swing.JButton();
         btProcessos = new javax.swing.JButton();
-        btListar = new javax.swing.JButton();
+        btAdvogado = new javax.swing.JButton();
         btSair = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         lbNomeUsuario = new javax.swing.JLabel();
         labelFoto = new javax.swing.JLabel();
-        btListar1 = new javax.swing.JButton();
+        btAssessoria = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu5 = new javax.swing.JMenu();
@@ -97,10 +106,10 @@ public class TelaInicial extends javax.swing.JFrame {
             }
         });
 
-        btListar.setText("ADVOGADOS");
-        btListar.addActionListener(new java.awt.event.ActionListener() {
+        btAdvogado.setText("ADVOGADOS");
+        btAdvogado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btListarActionPerformed(evt);
+                btAdvogadoActionPerformed(evt);
             }
         });
 
@@ -119,10 +128,10 @@ public class TelaInicial extends javax.swing.JFrame {
         labelFoto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labelFoto.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        btListar1.setText("ASSESSORIA");
-        btListar1.addActionListener(new java.awt.event.ActionListener() {
+        btAssessoria.setText("ASSESSORIA");
+        btAssessoria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btListar1ActionPerformed(evt);
+                btAssessoriaActionPerformed(evt);
             }
         });
 
@@ -300,13 +309,13 @@ public class TelaInicial extends javax.swing.JFrame {
                             .addComponent(lbNomeUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addComponent(btClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(btProcessos, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btListar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(btListar1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btProcessos, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btAdvogado, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btAssessoria, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btSair, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(labelFoto, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(20, 20, 20))))
@@ -320,8 +329,8 @@ public class TelaInicial extends javax.swing.JFrame {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btClientes, javax.swing.GroupLayout.DEFAULT_SIZE, 66, Short.MAX_VALUE)
                         .addComponent(btProcessos, javax.swing.GroupLayout.DEFAULT_SIZE, 66, Short.MAX_VALUE))
-                    .addComponent(btListar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btListar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btAdvogado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btAssessoria, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addComponent(labelFoto, javax.swing.GroupLayout.DEFAULT_SIZE, 321, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -351,9 +360,9 @@ public class TelaInicial extends javax.swing.JFrame {
         new ListarProcessos("").setVisible(true);
     }//GEN-LAST:event_btProcessosActionPerformed
 
-    private void btListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btListarActionPerformed
+    private void btAdvogadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAdvogadoActionPerformed
         new ListarAdvogados().setVisible(true);
-    }//GEN-LAST:event_btListarActionPerformed
+    }//GEN-LAST:event_btAdvogadoActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
        new CadastroCliente().setVisible(true);
@@ -417,9 +426,9 @@ public class TelaInicial extends javax.swing.JFrame {
         new ListarAssessoria().setVisible(true);
     }//GEN-LAST:event_jMenuItem8ActionPerformed
 
-    private void btListar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btListar1ActionPerformed
+    private void btAssessoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAssessoriaActionPerformed
         new ListarAssessoria().setVisible(true);
-    }//GEN-LAST:event_btListar1ActionPerformed
+    }//GEN-LAST:event_btAssessoriaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -427,9 +436,9 @@ public class TelaInicial extends javax.swing.JFrame {
   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btAdvogado;
+    private javax.swing.JButton btAssessoria;
     private javax.swing.JButton btClientes;
-    private javax.swing.JButton btListar;
-    private javax.swing.JButton btListar1;
     private javax.swing.JButton btProcessos;
     private javax.swing.JButton btSair;
     private javax.swing.JLabel jLabel1;
