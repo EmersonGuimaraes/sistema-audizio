@@ -14,7 +14,7 @@ import javax.swing.text.*;
       
  public class LimitadorMoeda extends PlainDocument {     
         
-    public static final int maxdigits = 12;     
+    public static final int maxdigits = 50;     
         
        
     public void insertString(int offs, String str, AttributeSet a) throws BadLocationException {     
