@@ -85,6 +85,7 @@ public class DaoAdvogado extends Conexao{
             while (rs.next()) {
                 codA = rs.getInt("cod");
             }
+            
             System.out.println("cod :"+codA);
             
         } catch (SQLException ex) {

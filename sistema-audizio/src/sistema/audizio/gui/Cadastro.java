@@ -5,18 +5,17 @@
  */
 package sistema.audizio.gui;
 
-import java.awt.event.KeyEvent;
 import java.text.NumberFormat;
 import java.util.Locale;
 import javax.swing.ActionMap;
 import javax.swing.InputMap;
 import javax.swing.JComponent;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
-import sistema.audizio.dao.DaoCliente;
-import sistema.audizio.dao.DaoFinanceiro;
-import sistema.audizio.dao.DaoProcesso;
+import sistema.audizio.bean.Advogado;
+import sistema.audizio.bean.Assessoria;
+import sistema.audizio.bean.Cliente;
+import sistema.audizio.bean.Financeiro;
+import sistema.audizio.bean.Processo;
 
 /**
  *
@@ -37,6 +36,7 @@ public class Cadastro extends javax.swing.JFrame {
         ativarCampoAdvogado(false);
         this.setFocusable(true);
     }
+    
     public void atalhos(){
             InputMap imap = painelCliente.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW); 
             
@@ -135,7 +135,7 @@ public class Cadastro extends javax.swing.JFrame {
        tfValorDespesa.setEditable(condicao);
        tfDataVencimento.setEditable(condicao);
        tfDesconto.setEditable(condicao);
-       comboSituacao.setEnabled(condicao);
+       comboSituacaofinanceiro.setEnabled(condicao);
        tfDescDespesa.setEditable(condicao);
        btCalcular.setEnabled(condicao);
    }
@@ -213,6 +213,8 @@ public class Cadastro extends javax.swing.JFrame {
         tfVara = new javax.swing.JFormattedTextField();
         jLabel30 = new javax.swing.JLabel();
         comboSituacaoProcesso = new javax.swing.JComboBox();
+        jLabel31 = new javax.swing.JLabel();
+        tfsituacaoatual = new javax.swing.JTextField();
         painelAdvogado = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
         tfNomeAdvogado = new javax.swing.JTextField();
@@ -241,7 +243,7 @@ public class Cadastro extends javax.swing.JFrame {
         jLabel25 = new javax.swing.JLabel();
         tfDesconto = new javax.swing.JFormattedTextField();
         tfDataVencimento = new javax.swing.JFormattedTextField();
-        comboSituacao = new javax.swing.JComboBox();
+        comboSituacaofinanceiro = new javax.swing.JComboBox();
         jLabel26 = new javax.swing.JLabel();
         tfTotal = new javax.swing.JFormattedTextField();
         btCalcular = new javax.swing.JButton();
@@ -295,6 +297,11 @@ public class Cadastro extends javax.swing.JFrame {
 
         btSalvar.setText("Salvar (F3)");
         btSalvar.setEnabled(false);
+        btSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSalvarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout painelMenuLayout = new javax.swing.GroupLayout(painelMenu);
         painelMenu.setLayout(painelMenuLayout);
@@ -708,38 +715,54 @@ public class Cadastro extends javax.swing.JFrame {
 
         comboSituacaoProcesso.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "ABERTO", "ARQUIVADO" }));
 
+        jLabel31.setText("SITUAÇÃO ATUAL");
+
         javax.swing.GroupLayout painelProcessoLayout = new javax.swing.GroupLayout(painelProcesso);
         painelProcesso.setLayout(painelProcessoLayout);
         painelProcessoLayout.setHorizontalGroup(
             painelProcessoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelProcessoLayout.createSequentialGroup()
                 .addGap(37, 37, 37)
-                .addGroup(painelProcessoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(painelProcessoLayout.createSequentialGroup()
-                        .addGroup(painelProcessoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tfProcesso, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2))
-                        .addGap(42, 42, 42)
-                        .addGroup(painelProcessoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tfVara, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel14)))
+                .addGroup(painelProcessoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(painelProcessoLayout.createSequentialGroup()
                         .addGroup(painelProcessoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel13)
                             .addComponent(tfAcao, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(60, 60, 60)
+                        .addGap(47, 47, 47)
                         .addGroup(painelProcessoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
-                            .addComponent(tfDataInicio))))
-                .addGap(42, 42, 42)
-                .addGroup(painelProcessoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel30)
-                    .addComponent(jLabel4)
-                    .addComponent(tfDataFim)
-                    .addComponent(jLabel19)
-                    .addComponent(tfComarca, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
-                    .addComponent(comboSituacaoProcesso, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(54, Short.MAX_VALUE))
+                            .addComponent(tfDataInicio, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(74, 74, 74)
+                        .addGroup(painelProcessoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4)
+                            .addComponent(tfDataFim, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(painelProcessoLayout.createSequentialGroup()
+                        .addGroup(painelProcessoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel31)
+                            .addGroup(painelProcessoLayout.createSequentialGroup()
+                                .addGroup(painelProcessoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(tfProcesso, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel2))
+                                .addGroup(painelProcessoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(painelProcessoLayout.createSequentialGroup()
+                                        .addGap(42, 42, 42)
+                                        .addComponent(jLabel14))
+                                    .addGroup(painelProcessoLayout.createSequentialGroup()
+                                        .addGap(32, 32, 32)
+                                        .addComponent(tfVara, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(tfsituacaoatual, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(painelProcessoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(painelProcessoLayout.createSequentialGroup()
+                                .addGap(55, 55, 55)
+                                .addGroup(painelProcessoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel19)
+                                    .addComponent(tfComarca, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(painelProcessoLayout.createSequentialGroup()
+                                .addGap(28, 28, 28)
+                                .addGroup(painelProcessoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(comboSituacaoProcesso, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel30))))))
+                .addContainerGap())
         );
         painelProcessoLayout.setVerticalGroup(
             painelProcessoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -758,25 +781,29 @@ public class Cadastro extends javax.swing.JFrame {
                         .addComponent(jLabel14)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(tfVara, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(72, 72, 72)
+                .addGap(37, 37, 37)
                 .addGroup(painelProcessoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(painelProcessoLayout.createSequentialGroup()
-                        .addComponent(jLabel3)
+                        .addGroup(painelProcessoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(tfDataInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(painelProcessoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(tfDataInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfDataFim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(painelProcessoLayout.createSequentialGroup()
                         .addComponent(jLabel13)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tfAcao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(painelProcessoLayout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tfDataFim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(28, 28, 28)
-                .addComponent(jLabel30)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(comboSituacaoProcesso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(18, Short.MAX_VALUE))
+                        .addComponent(tfAcao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addGroup(painelProcessoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel31)
+                    .addComponent(jLabel30))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(painelProcessoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(tfsituacaoatual, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(comboSituacaoProcesso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("PROCESSO", painelProcesso);
@@ -948,10 +975,10 @@ public class Cadastro extends javax.swing.JFrame {
             ex.printStackTrace();
         }
 
-        comboSituacao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "PENDENTE", "QUITADO" }));
-        comboSituacao.addActionListener(new java.awt.event.ActionListener() {
+        comboSituacaofinanceiro.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "PENDENTE", "QUITADO" }));
+        comboSituacaofinanceiro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboSituacaoActionPerformed(evt);
+                comboSituacaofinanceiroActionPerformed(evt);
             }
         });
 
@@ -993,7 +1020,7 @@ public class Cadastro extends javax.swing.JFrame {
                             .addGroup(painelFinanceiroLayout.createSequentialGroup()
                                 .addComponent(tfDataVencimento, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(comboSituacao, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(comboSituacaofinanceiro, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(painelFinanceiroLayout.createSequentialGroup()
                                 .addGroup(painelFinanceiroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel20)
@@ -1047,7 +1074,7 @@ public class Cadastro extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(painelFinanceiroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(tfDataVencimento)
-                            .addComponent(comboSituacao)
+                            .addComponent(comboSituacaofinanceiro)
                             .addComponent(tfDesconto, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
@@ -1276,9 +1303,9 @@ public class Cadastro extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btNovoBairroAssessoriaActionPerformed
 
-    private void comboSituacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboSituacaoActionPerformed
+    private void comboSituacaofinanceiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboSituacaofinanceiroActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_comboSituacaoActionPerformed
+    }//GEN-LAST:event_comboSituacaofinanceiroActionPerformed
 
     private void btCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCalcularActionPerformed
         calcularTotal(tfValor.getText(), tfValorDespesa.getText(), tfDesconto.getText());
@@ -1319,6 +1346,66 @@ public class Cadastro extends javax.swing.JFrame {
     private void formKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyReleased
        
     }//GEN-LAST:event_formKeyReleased
+
+    private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
+        btSalvar.setEnabled(false);
+        btNovo.setEnabled(true);
+        
+        Cliente cli = new Cliente();
+            cli.setNome(tfNome.getText());
+            cli.setNascimento(tfDataNasci.getText());
+            cli.setCpf(tfCpf.getText());
+            cli.setNacionalidade(tfNacionalidade.getText());
+            cli.setProfisao(tfProfissao.getText());
+            cli.setEstado_civil(tfEstadoCivil.getText());
+            cli.setCep(tfCep.getText());
+            cli.setEndereco(tfEndereco.getText());
+            cli.setNum(tfNumero.getText());
+            cli.setEstado(tfEstado.getText());
+            cli.setCidade(String.valueOf(comboCidade.getSelectedItem()));
+            cli.setBairro(String.valueOf(comboBairro.getSelectedItem()));
+            cli.setFone(tfTelefone.getText());
+            cli.setCelular(tfCelular.getText());
+            cli.setEmail(tfEmail.getText());
+            cli.setWhatsapp(tfWhats.getText());
+            
+        Processo  processo = new Processo();
+       
+            processo.setProcesso(tfProcesso.getText());
+            processo.setData_inicio(tfDataInicio.getText());
+            processo.setData_termino(tfDataFim.getText());
+            processo.setAcao(tfAcao.getText());
+            processo.setSituacao(String.valueOf(comboSituacaofinanceiro.getSelectedItem()));
+            processo.setSituacao_atual(tfsituacaoatual.getText());
+            processo.setVara(tfVara.getText());
+            processo.setComarca(tfComarca.getText());
+        
+            
+        Advogado advogado = new Advogado();
+            
+            advogado.setNome(tfNomeAdvogado.getText());
+            advogado.setCelular(tfCelAdvogado.getText());
+            
+            
+        Assessoria assessoria = new Assessoria();
+        
+            assessoria.setNome(tfNomeAssessoria.getText());
+            assessoria.setCidade(String.valueOf(comboCidadeAssessoria.getSelectedItem()));
+            assessoria.setBairro(String.valueOf(comboBairroAssessoria.getSelectedItem()));
+            assessoria.setEndereco(tfEndereco.getText());
+        
+        Financeiro financeiro = new Financeiro();
+        financeiro.setProcesso(tfProcesso.getText());
+        financeiro.setCliente(tfNome.getText());
+        financeiro.setValor(tfValor.getText());
+        financeiro.setValor_despesa(tfValorDespesa.getText());
+        financeiro.setDesconto(tfDesconto.getText());
+        financeiro.setVencimento(tfDataVencimento.getText());
+        financeiro.setSituacao(String.valueOf(comboSituacaofinanceiro.getSelectedItem()));
+        financeiro.setValor_total(tfTotal.getText());
+        financeiro.setDesc_despesa(tfDescDespesa.getText());
+            //financeiro.setData_pagamento(tfda.getText());
+    }//GEN-LAST:event_btSalvarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1373,8 +1460,8 @@ public class Cadastro extends javax.swing.JFrame {
     private javax.swing.JComboBox comboBairroAssessoria;
     private javax.swing.JComboBox comboCidade;
     private javax.swing.JComboBox comboCidadeAssessoria;
-    private javax.swing.JComboBox comboSituacao;
     private javax.swing.JComboBox comboSituacaoProcesso;
+    private javax.swing.JComboBox comboSituacaofinanceiro;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -1400,6 +1487,7 @@ public class Cadastro extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
+    private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -1459,5 +1547,6 @@ public class Cadastro extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField tfValorDespesa;
     private javax.swing.JFormattedTextField tfVara;
     private javax.swing.JFormattedTextField tfWhats;
+    private javax.swing.JTextField tfsituacaoatual;
     // End of variables declaration//GEN-END:variables
 }
