@@ -22,7 +22,7 @@ public class DaoCidade extends Conexao{
     public void cadastrar(Cidade cidade){
        sql = "INSERT INTO tb_cidade VALUES(null,'"+cidade.getNome()+"')";
         ConsultarSQL(sql, false);
-        JOptionPane.showMessageDialog(null, "CIDADE CADASTRADA COM SUCESSO!");
+        
     }
     public void editar(Cidade cidade){
         sql = "UPDATE tb_cidade SET cidade = '"+cidade.getNome()+"' WHERE id='"+cidade.getCod()+"'";

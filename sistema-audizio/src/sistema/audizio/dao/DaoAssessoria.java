@@ -21,7 +21,7 @@ public class DaoAssessoria extends Conexao{
     public void cadastrar(Assessoria a){
        sql ="INSERT INTO tb_assessoria VALUES(null,'"+a.getNome()+"','"+a.getCidade()+"','"+a.getBairro()+"','"+a.getEndereco()+"')";
         ConsultarSQL(sql, false);
-        JOptionPane.showMessageDialog(null, "ASSESSORIA CADASTRADA COM SUCESSO!");
+        
     }
     
     public void editar(Assessoria a){

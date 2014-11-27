@@ -6,28 +6,45 @@
 package sistema.audizio.gui;
 
 import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.Locale;
 import javax.swing.ActionMap;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.InputMap;
 import javax.swing.JComponent;
+import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 import sistema.audizio.bean.Advogado;
 import sistema.audizio.bean.Assessoria;
+import sistema.audizio.bean.Bairro;
+import sistema.audizio.bean.Cidade;
 import sistema.audizio.bean.Cliente;
 import sistema.audizio.bean.Financeiro;
 import sistema.audizio.bean.Processo;
+import sistema.audizio.dao.DaoAdvogado;
+import sistema.audizio.dao.DaoAssessoria;
+import sistema.audizio.dao.DaoBairro;
+import sistema.audizio.dao.DaoCidade;
+import sistema.audizio.dao.DaoCliente;
+import sistema.audizio.dao.DaoFinanceiro;
+import sistema.audizio.dao.DaoProcesso;
 
 /**
  *
  * @author zipnet
  */
-public class Cadastro extends javax.swing.JFrame {
+public class Cadastro extends javax.swing.JDialog {
 
     /**
      * Creates new form Cadastro
      */
+     boolean listaCheia = false;
+    DefaultComboBoxModel comboModelCidade,comboModelBairro;
+    
     public Cadastro() {
+        setModal(true);
         initComponents();
+         carregaCidades();
         mascaraValores();
         AtivarCliente(false);
         ativarCampoProcesso(false);
@@ -37,6 +54,54 @@ public class Cadastro extends javax.swing.JFrame {
         this.setFocusable(true);
     }
     
+    private void carregaCidades(){
+        ArrayList<Cidade> cidades = new ArrayList<>();
+        DaoCidade daoCid = new DaoCidade();
+        comboModelCidade = (DefaultComboBoxModel) comboCidade.getModel();
+        cidades = daoCid.consultar("");
+        
+        comboModelCidade.removeAllElements();
+        comboModelCidade.addElement("Selecionar ...");
+        
+        for (int linha = 0; linha < cidades.size(); linha++){
+            Cidade cidade = cidades.get(linha);
+            comboModelCidade.addElement(cidade.getNome());
+        }
+        
+    }
+     private void carregaBairros(){
+         if(comboCidade.getSelectedItem().toString().equals("Selecionar ...")){
+             System.out.println("Nenhuma cidade selecionada");
+         }else{
+             System.out.println("Carregando bairros...");
+                String cod = String.valueOf(comboCidade.getSelectedIndex());
+                
+               comboModelBairro = (DefaultComboBoxModel) comboBairro.getModel();
+              
+               comboModelBairro.removeAllElements();
+              
+               ArrayList<Bairro> bairros = new ArrayList<>();
+                DaoBairro daoBairro = new DaoBairro();
+               bairros = daoBairro.consultar(cod);
+
+               comboModelBairro.addElement("Selecionar ...");
+               
+               if (bairros.isEmpty()) {
+                   JOptionPane.showMessageDialog(null, "ESSA CIDADE NÃO TEM BAIRROS CADASTRADOS!");
+                }else{
+                        System.out.println("Carregando bairros...");
+                        //percorrendo a lista para inserir os valores no combo
+                        for (int linha = 0; linha < bairros.size(); linha++){
+                            //pegando a categoria da lista
+                            Bairro bairro = bairros.get(linha);
+                            //adicionando a categoria no combo
+                            System.out.println("Bairros: "+bairro.getNome());
+                            comboModelBairro.addElement(bairro.getNome());
+                        }
+                  }
+            }
+     }
+         
     public void atalhos(){
             InputMap imap = painelCliente.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW); 
             
@@ -489,6 +554,11 @@ public class Cadastro extends javax.swing.JFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        tfWhats.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfWhatsActionPerformed(evt);
+            }
+        });
 
         lbCelular1.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
         lbCelular1.setText("WhatsApp");
@@ -959,6 +1029,12 @@ public class Cadastro extends javax.swing.JFrame {
 
         jLabel20.setText("DESPESAS");
 
+        tfValorDespesa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfValorDespesaActionPerformed(evt);
+            }
+        });
+
         jLabel23.setText("VALOR DESPESAS");
 
         tfDescDespesa.setColumns(20);
@@ -1212,11 +1288,24 @@ public class Cadastro extends javax.swing.JFrame {
     }//GEN-LAST:event_comboCidadeMouseExited
 
     private void comboCidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboCidadeActionPerformed
-      
+            String item = String.valueOf(comboModelCidade.getSelectedItem());
+       
+       if(item.equals("Selecionar ...") || item == "null"){
+           System.out.println("Olá");
+           if(listaCheia == true){
+               comboModelBairro.removeAllElements();
+               comboModelBairro.addElement("Selecionar ...");
+           }
+           comboBairro.setSelectedIndex(0);
+       }else{
+           System.out.println("Carregando bairros!");
+           carregaBairros();
+           listaCheia = true;
+       }
     }//GEN-LAST:event_comboCidadeActionPerformed
 
     private void comboBairroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_comboBairroMouseClicked
-        
+         listaCheia = true;
     }//GEN-LAST:event_comboBairroMouseClicked
 
     private void comboBairroMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_comboBairroMouseEntered
@@ -1228,11 +1317,23 @@ public class Cadastro extends javax.swing.JFrame {
     }//GEN-LAST:event_comboBairroActionPerformed
 
     private void btNovaCidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovaCidadeActionPerformed
-       
+       String c = "C";
+        new CadastroBairroCidade(c, "CIDADE", null, 0).setVisible(true);
+        carregaCidades();
     }//GEN-LAST:event_btNovaCidadeActionPerformed
 
     private void btNovoBairroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoBairroActionPerformed
-        
+        String item = String.valueOf(comboModelCidade.getSelectedItem());
+        if(item == "Selecionar ..."){
+           JOptionPane.showMessageDialog(null, "SELECIONE UMA CIDADE!");
+        } else {
+             String b = "B";
+             int cod = comboCidade.getSelectedIndex();
+             System.out.println("codigo: "+cod);
+             new CadastroBairroCidade(b, "BAIRRO", item, cod).show();
+             carregaBairros();
+           
+        }
 
     }//GEN-LAST:event_btNovoBairroActionPerformed
 
@@ -1348,6 +1449,7 @@ public class Cadastro extends javax.swing.JFrame {
     }//GEN-LAST:event_formKeyReleased
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
+       
         btSalvar.setEnabled(false);
         btNovo.setEnabled(true);
         
@@ -1395,17 +1497,78 @@ public class Cadastro extends javax.swing.JFrame {
             assessoria.setEndereco(tfEndereco.getText());
         
         Financeiro financeiro = new Financeiro();
-        financeiro.setProcesso(tfProcesso.getText());
-        financeiro.setCliente(tfNome.getText());
-        financeiro.setValor(tfValor.getText());
-        financeiro.setValor_despesa(tfValorDespesa.getText());
-        financeiro.setDesconto(tfDesconto.getText());
-        financeiro.setVencimento(tfDataVencimento.getText());
-        financeiro.setSituacao(String.valueOf(comboSituacaofinanceiro.getSelectedItem()));
-        financeiro.setValor_total(tfTotal.getText());
-        financeiro.setDesc_despesa(tfDescDespesa.getText());
+        
+            financeiro.setProcesso(tfProcesso.getText());
+            financeiro.setCliente(tfNome.getText());
+            financeiro.setValor(tfValor.getText());
+            financeiro.setValor_despesa(tfValorDespesa.getText());
+            financeiro.setDesconto(tfDesconto.getText());
+            financeiro.setVencimento(tfDataVencimento.getText());
+            financeiro.setSituacao(String.valueOf(comboSituacaofinanceiro.getSelectedItem()));
+            financeiro.setValor_total(tfTotal.getText());
+            financeiro.setDesc_despesa(tfDescDespesa.getText());
             //financeiro.setData_pagamento(tfda.getText());
+       DaoCliente daocli = new DaoCliente();
+       DaoProcesso daoprocesso = new DaoProcesso();
+       DaoAdvogado daoadv = new DaoAdvogado();
+       DaoAssessoria daoassessoria = new DaoAssessoria();
+       DaoFinanceiro daofinanceiro = new DaoFinanceiro();
+        
+            try {
+                
+            daocli.Cadastrar(cli);
+            daoprocesso.Cadastrar(processo);
+             daoadv.Cadastrar(advogado);
+              daoassessoria.cadastrar(assessoria);
+               daofinanceiro.cadastrar(financeiro);
+                JOptionPane.showMessageDialog(null, "Cadastro realizado com sucesso");
+                
+                tfAcao.setText(null);
+                tfCelAdvogado.setText(null);
+                tfCelular.setText(null);
+                tfCep.setText(null);
+                tfComarca.setText(null);
+                tfCpf.setText(null);
+                tfDataFim.setText(null);
+                tfDataInicio.setText(null);
+                tfDataNasci.setText(null);
+                tfDataVencimento.setText(null);
+                tfDescDespesa.setText(null);
+                tfEmail.setText(null);
+                tfEndereco.setText(null);
+                tfEnderecoAssessoria.setText(null);
+                tfEstado.setText(null);
+                tfEstadoCivil.setText(null);
+                tfNacionalidade.setText(null);
+                tfNome.setText(null);
+                tfNomeAdvogado.setText(null);
+                tfNomeAssessoria.setText(null);
+                tfNumero.setText(null);
+                tfProcesso.setText(null);
+                tfProfissao.setText(null);
+                tfTelefone.setText(null);
+                tfVara.setText(null);
+                tfWhats.setText(null);
+                tfsituacaoatual.setText(null);
+                tfTotal.setText("000");
+                tfValor.setText("000");
+                tfValorDespesa.setText("000");
+                tfDesconto.setText("000");
+                
+        } catch (Exception e) {
+                System.out.println("Não foi possivel realizar o cadastro, por favor verifique se os campos foram preenchidos corretamente e tente novamente.");
+        
+        }
+            
     }//GEN-LAST:event_btSalvarActionPerformed
+
+    private void tfValorDespesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfValorDespesaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfValorDespesaActionPerformed
+
+    private void tfWhatsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfWhatsActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfWhatsActionPerformed
 
     /**
      * @param args the command line arguments

@@ -23,7 +23,7 @@ public class DaoCliente extends Conexao{
                 + "'"+cliente.getFone()+"','"+cliente.getCelular()+"','"+cliente.getEmail()+"','"+cliente.getWhatsapp()+"','"+cliente.getCod()+"')";
 
         ConsultarSQL(sql, false);
-        JOptionPane.showMessageDialog(null, "Cadastro Realizado com Sucesso!");
+        
     }
     
     public void Editar(Cliente cliente){

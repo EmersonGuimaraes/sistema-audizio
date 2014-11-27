@@ -23,7 +23,7 @@ public class DaoAdvogado extends Conexao{
      
         sql = "INSERT INTO tb_advogado VALUES(null,'"+advogado.getNome()+"','"+advogado.getCod()+"')";
         ConsultarSQL(sql, false);
-        JOptionPane.showMessageDialog(null, "Cadastro Realizado com Sucesso!");
+        
     }
     
     public void Editar(Advogado advogado){

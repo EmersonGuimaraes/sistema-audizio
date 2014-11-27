@@ -630,6 +630,9 @@
                   <Format format="(##) ####-####" subtype="-1" type="5"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tfWhatsActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="lbCelular1">
               <Properties>
@@ -1230,6 +1233,9 @@
             <Component class="javax.swing.JFormattedTextField" name="tfValor">
             </Component>
             <Component class="javax.swing.JFormattedTextField" name="tfValorDespesa">
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tfValorDespesaActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel23">
               <Properties>

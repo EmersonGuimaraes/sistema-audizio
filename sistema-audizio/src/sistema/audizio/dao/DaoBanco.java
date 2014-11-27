@@ -16,7 +16,7 @@ public class DaoBanco extends Conexao{
     public void cadastrar(Banco banco){
         String sql = "INSERT INTO tb_banco VALUES (null,'"+banco.getNome()+"')";
         ConsultarSQL(sql, false);
-        JOptionPane.showMessageDialog(null, "BANCO CADASTRADO COM SUCESSO!");
+        
     }
     
 }

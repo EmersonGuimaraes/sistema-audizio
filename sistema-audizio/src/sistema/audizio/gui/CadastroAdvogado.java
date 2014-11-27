@@ -6,7 +6,6 @@
 
 package sistema.audizio.gui;
 
-import javax.swing.JOptionPane;
 import sistema.audizio.bean.Advogado;
 import sistema.audizio.dao.DaoAdvogado;
 

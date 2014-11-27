@@ -12,7 +12,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import sistema.audizio.bean.Financeiro;
-import sistema.audizio.bean.Processo;
 
 /**
  *
@@ -26,7 +25,7 @@ public class DaoFinanceiro extends Conexao{
                  + "'"+f.getDesconto()+"','"+f.getVencimento()+"','"+f.getSituacao()+"','"+f.getValor_total()+"',"
                  + "'"+f.getDesc_despesa()+"','PENDENTE')";
          ConsultarSQL(sql, false);
-         JOptionPane.showMessageDialog(null, "CONTA CADASTRADA COM SUCESSO!");
+         
      }
      
      public void editar(Financeiro f){

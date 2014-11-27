@@ -15,7 +15,7 @@ public class Conexao {
     public Statement stmt;
     public ResultSet rs;
     //String url = "jdbc:mysql://localhost/sis_audisio";
-    String url = "jdbc:mysql://"+getIp()+"/audizio";
+    String url = "jdbc:mysql://127.0.0.1/audizio";
     String driver = "com.mysql.jdbc.Driver";
     String usuario = "root";
     String senha = "5215052";
