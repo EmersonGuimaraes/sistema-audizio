@@ -36,7 +36,7 @@ public class DaoCliente extends Conexao{
               + "cidade='"+cliente.getCidade()+"',bairro='"+cliente.getBairro()+"',telefone='"+cliente.getFone()+"',"
               + "celular='"+cliente.getCelular()+"',email='"+cliente.getEmail()+"',whatsapp='"+cliente.getWhatsapp()+"' WHERE cod = '"+cliente.getIdCliente()+"'";
         ConsultarSQL(sql, false);
-        JOptionPane.showMessageDialog(null, "Cliente Editado com Sucesso!");
+        
     }
     public void Deletar(Cliente cliente){
         sql = "DELETE FROM tb_cliente WHERE id = '"+cliente.getIdCliente()+"'";

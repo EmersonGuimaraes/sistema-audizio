@@ -29,7 +29,7 @@ public class DaoAssessoria extends Conexao{
                 + "bairro = '"+a.getBairro()+"', endereco = '"+a.getEndereco()+"' WHERE id = '"+a.getId()+"'";
         
         ConsultarSQL(sql, false);
-        JOptionPane.showMessageDialog(null, "DADOS ATUALIZADOS COM SUCESSO!");
+        
     }
     
     public ArrayList<Assessoria> consultar(String id){

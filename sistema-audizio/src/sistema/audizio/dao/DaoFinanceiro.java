@@ -33,7 +33,7 @@ public class DaoFinanceiro extends Conexao{
                  + "desconto = '"+f.getDesconto()+"', vencimento = '"+f.getVencimento()+"', situacao = '"+f.getSituacao()+"',"
                  + "valor_total = '"+f.getValor_total()+"', desc_despesa = '"+f.getDesc_despesa()+"' WHERE id = '"+f.getId()+"'";
          ConsultarSQL(sql, false);
-         JOptionPane.showMessageDialog(null, "CONTA EDITADA COM SUCESSO!");
+         
      }
      
      public ArrayList<Financeiro> consultarFinancas(String situacao){

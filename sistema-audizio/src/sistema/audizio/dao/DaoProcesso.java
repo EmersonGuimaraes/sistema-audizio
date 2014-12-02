@@ -35,7 +35,7 @@ public class DaoProcesso extends Conexao{
                 + "cliente = '"+processo.getCliente()+"',advogado = '"+processo.getAdvogado()+"',"+
                 "acao = '"+processo.getAcao()+"',reboqueiro = '"+processo.getReboqueiro()+"',situacao_atual = '"+processo.getSituacao_atual()+"',vara = '"+processo.getVara()+"',comarca = '"+processo.getComarca()+"', assessoria='"+processo.getAssessoria()+"' WHERE id = '"+processo.getIdProcesso()+"'";
         ConsultarSQL(sql, false);
-        JOptionPane.showMessageDialog(null, "PROCESSO EDITADO COM SUCESSO!");
+        
     }
     
     public void Deletar(Processo processo){

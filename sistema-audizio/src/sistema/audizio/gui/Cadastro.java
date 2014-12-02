@@ -39,7 +39,7 @@ public class Cadastro extends javax.swing.JDialog {
      * Creates new form Cadastro
      */
      boolean listaCheia = false;
-    DefaultComboBoxModel comboModelCidade,comboModelBairro;
+    DefaultComboBoxModel comboModelCidade,comboModelBairro,comboModelCidadeAssesoria,comboModelBairroAssesoria;
     
     public Cadastro() {
         setModal(true);
@@ -58,6 +58,7 @@ public class Cadastro extends javax.swing.JDialog {
         ArrayList<Cidade> cidades = new ArrayList<>();
         DaoCidade daoCid = new DaoCidade();
         comboModelCidade = (DefaultComboBoxModel) comboCidade.getModel();
+        comboModelCidadeAssesoria = (DefaultComboBoxModel) comboCidadeAssessoria.getModel();
         cidades = daoCid.consultar("");
         
         comboModelCidade.removeAllElements();
@@ -1381,11 +1382,26 @@ public class Cadastro extends javax.swing.JDialog {
     }//GEN-LAST:event_comboCidadeAssessoriaMouseExited
 
     private void comboCidadeAssessoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboCidadeAssessoriaActionPerformed
-        // TODO add your handling code here:
+         String item = String.valueOf(comboModelCidade.getSelectedItem());
+       
+       if(item.equals("Selecionar ...") || item == "null"){
+           System.out.println("Olá");
+           if(listaCheia == true){
+               comboModelBairro.removeAllElements();
+               comboModelBairro.addElement("Selecionar ...");
+           }
+           comboBairro.setSelectedIndex(0);
+       }else{
+           System.out.println("Carregando bairros!");
+           carregaBairros();
+           listaCheia = true;
+       }
     }//GEN-LAST:event_comboCidadeAssessoriaActionPerformed
 
     private void btNovaCidadeAssessoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovaCidadeAssessoriaActionPerformed
-        // TODO add your handling code here:
+        String c = "C";
+        new CadastroBairroCidade(c, "CIDADE", null, 0).setVisible(true);
+        carregaCidades();
     }//GEN-LAST:event_btNovaCidadeAssessoriaActionPerformed
 
     private void comboBairroAssessoriaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_comboBairroAssessoriaMouseClicked
@@ -1401,7 +1417,16 @@ public class Cadastro extends javax.swing.JDialog {
     }//GEN-LAST:event_comboBairroAssessoriaActionPerformed
 
     private void btNovoBairroAssessoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoBairroAssessoriaActionPerformed
-        // TODO add your handling code here:
+         String item = String.valueOf(comboModelCidade.getSelectedItem());
+        if(item == "Selecionar ..."){
+           JOptionPane.showMessageDialog(null, "SELECIONE UMA CIDADE!");
+        } else {
+             String b = "B";
+             int cod = comboCidade.getSelectedIndex();
+             System.out.println("codigo: "+cod);
+             new CadastroBairroCidade(b, "BAIRRO", item, cod).show();
+             carregaBairros();
+        }
     }//GEN-LAST:event_btNovoBairroAssessoriaActionPerformed
 
     private void comboSituacaofinanceiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboSituacaofinanceiroActionPerformed
@@ -1449,7 +1474,21 @@ public class Cadastro extends javax.swing.JDialog {
     }//GEN-LAST:event_formKeyReleased
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
-       
+        if (tfAcao.getText().trim().equals("") || tfCelAdvogado.getText().trim().equals("") || tfCelular.getText().trim().equals("") || tfAcao.getText().trim().equals("") || tfCelAdvogado.getText().trim().equals("") || tfCelular.getText().trim().equals("")
+            || tfCep.getText().trim().equals("") || tfComarca.getText().trim().equals("") || tfCpf.getText().trim().equals("") || tfDataFim.getText().trim().equals("")
+                || tfDataInicio.getText().trim().equals("") || tfDataNasci.getText().trim().equals("") || tfDataVencimento.getText().trim().equals("")
+                || tfDescDespesa.getText().trim().equals("") || tfDesconto.getText().trim().equals("") || tfEmail.getText().trim().equals("")
+                || tfEndereco.getText().trim().equals("") || tfEnderecoAssessoria.getText().trim().equals("") || tfEstado.getText().trim().equals("")
+                || tfEstadoCivil.getText().trim().equals("") || tfNacionalidade.getText().trim().equals("") || tfNome.getText().trim().equals("") || tfNomeAdvogado.getText().trim().equals("")
+                || tfNomeAssessoria.getText().trim().equals("") || tfNumero.getText().trim().equals("") || tfProcesso.getText().trim().equals("") || tfProfissao.getText().trim().equals("")
+                || tfTelefone.getText().trim().equals("") || tfTotal.getText().trim().equals("") || tfValor.getText().equals(null) || tfValorDespesa.getText().trim().equals("")
+                || tfVara.getText().trim().equals("") || tfWhats.getText().trim().equals("") || tfsituacaoatual.getText().trim().equals(""))
+        {
+         
+            JOptionPane.showMessageDialog(null, "Verifique se todos os campos foram preenchidos e tente novamente.");
+            
+        }else{
+            
         btSalvar.setEnabled(false);
         btNovo.setEnabled(true);
         
@@ -1555,8 +1594,12 @@ public class Cadastro extends javax.swing.JDialog {
                 tfValorDespesa.setText("000");
                 tfDesconto.setText("000");
                 
+               
         } catch (Exception e) {
                 System.out.println("Não foi possivel realizar o cadastro, por favor verifique se os campos foram preenchidos corretamente e tente novamente.");
+        
+            
+            }
         
         }
             

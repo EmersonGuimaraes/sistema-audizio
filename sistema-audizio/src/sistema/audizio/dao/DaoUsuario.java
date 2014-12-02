@@ -7,12 +7,10 @@
 package sistema.audizio.dao;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import sistema.audizio.bean.Usuario;
-import sistema.audizio.gui.TelaInicial;
 
 /**
  *
