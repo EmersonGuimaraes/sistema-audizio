@@ -115,10 +115,14 @@ public class DaoCliente extends Conexao{
          System.out.println("cod2 :"+codA);
         return codA;
     }
+    
     public static void main(String[] args) {
+      
         new DaoCliente().retornaCod();
-    }
-  }
+        
+        }
+  
+}
 
 
 

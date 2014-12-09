@@ -14,6 +14,7 @@ import javax.swing.InputMap;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
+import javax.swing.table.DefaultTableModel;
 import sistema.audizio.bean.Advogado;
 import sistema.audizio.bean.Assessoria;
 import sistema.audizio.bean.Bairro;
@@ -34,7 +35,7 @@ import sistema.audizio.dao.DaoProcesso;
  * @author zipnet
  */
 public class Cadastro extends javax.swing.JDialog {
-
+    private DefaultTableModel modeloTabela;
     /**
      * Creates new form Cadastro
      */
@@ -52,6 +53,7 @@ public class Cadastro extends javax.swing.JDialog {
         ativarCampoFinanceiro(false);
         ativarCampoAdvogado(false);
         this.setFocusable(true);
+        carregarTabela();
     }
     
     private void carregaCidades(){
@@ -152,7 +154,7 @@ public class Cadastro extends javax.swing.JDialog {
              System.out.println(totalis);
              tfTotal.setText(totalis);
         } catch (Exception e) {
-            System.err.println("Fudeu\n"+e);
+            System.err.println("erro\n "+e);
         }
        
       
@@ -211,6 +213,210 @@ public class Cadastro extends javax.swing.JDialog {
        tfCelAdvogado.setEditable(condicao);
    }
 
+   
+    public void btnovo(){
+         AtivarCliente(true);
+        ativarCampoProcesso(true);
+        ativarCampoAssessoria(true);
+        ativarCampoFinanceiro(true);
+        ativarCampoAdvogado(true);
+        
+        btSalvar.setEnabled(true);
+        btCancelar.setEnabled(true);
+        btNovo.setEnabled(false);
+        btAlterar.setEnabled(false);
+        btExcluir.setEnabled(false);
+    }
+    
+    public void btcancelar(){
+        AtivarCliente(false);
+        ativarCampoProcesso(false);
+        ativarCampoAssessoria(false);
+        ativarCampoFinanceiro(false);
+        ativarCampoAdvogado(false);
+        
+        btSalvar.setEnabled(false);
+        btCancelar.setEnabled(false);
+        btNovo.setEnabled(true);
+        btAlterar.setEnabled(true);
+        btExcluir.setEnabled(true);
+    }
+    
+    public void btsalvar(){
+         if (tfAcao.getText().trim().equals("") || tfCelAdvogado.getText().trim().equals("") || tfCelular.getText().trim().equals("") || tfAcao.getText().trim().equals("") || tfCelAdvogado.getText().trim().equals("") || tfCelular.getText().trim().equals("")
+            || tfCep.getText().trim().equals("") || tfComarca.getText().trim().equals("") || tfCpf.getText().trim().equals("") || tfDataFim.getText().trim().equals("")
+                || tfDataInicio.getText().trim().equals("") || tfDataNasci.getText().trim().equals("") || tfDataVencimento.getText().trim().equals("")
+                || tfDescDespesa.getText().trim().equals("") || tfDesconto.getText().trim().equals("") || tfEmail.getText().trim().equals("")
+                || tfEndereco.getText().trim().equals("") || tfEnderecoAssessoria.getText().trim().equals("") || tfEstado.getText().trim().equals("")
+                || tfEstadoCivil.getText().trim().equals("") || tfNacionalidade.getText().trim().equals("") || tfNome.getText().trim().equals("") || tfNomeAdvogado.getText().trim().equals("")
+                || tfNomeAssessoria.getText().trim().equals("") || tfNumero.getText().trim().equals("") || tfProcesso.getText().trim().equals("") || tfProfissao.getText().trim().equals("")
+                || tfTelefone.getText().trim().equals("") || tfTotal.getText().trim().equals("") || tfValor.getText().equals(null) || tfValorDespesa.getText().trim().equals("")
+                || tfVara.getText().trim().equals("") || tfWhats.getText().trim().equals("") || tfsituacaoatual.getText().trim().equals(""))
+        {
+         
+            JOptionPane.showMessageDialog(null, "Verifique se todos os campos foram preenchidos e tente novamente.");
+            
+        }else{
+            
+        btSalvar.setEnabled(false);
+        btNovo.setEnabled(true);
+        
+        Cliente cli = new Cliente();
+            cli.setNome(tfNome.getText());
+            cli.setNascimento(tfDataNasci.getText());
+            cli.setCpf(tfCpf.getText());
+            cli.setNacionalidade(tfNacionalidade.getText());
+            cli.setProfisao(tfProfissao.getText());
+            cli.setEstado_civil(tfEstadoCivil.getText());
+            cli.setCep(tfCep.getText());
+            cli.setEndereco(tfEndereco.getText());
+            cli.setNum(tfNumero.getText());
+            cli.setEstado(tfEstado.getText());
+            cli.setCidade(String.valueOf(comboCidade.getSelectedItem()));
+            cli.setBairro(String.valueOf(comboBairro.getSelectedItem()));
+            cli.setFone(tfTelefone.getText());
+            cli.setCelular(tfCelular.getText());
+            cli.setEmail(tfEmail.getText());
+            cli.setWhatsapp(tfWhats.getText());
+            
+        Processo  processo = new Processo();
+       
+            processo.setProcesso(tfProcesso.getText());
+            processo.setData_inicio(tfDataInicio.getText());
+            processo.setData_termino(tfDataFim.getText());
+            processo.setAcao(tfAcao.getText());
+            processo.setSituacao(String.valueOf(comboSituacaofinanceiro.getSelectedItem()));
+            processo.setSituacao_atual(tfsituacaoatual.getText());
+            processo.setVara(tfVara.getText());
+            processo.setComarca(tfComarca.getText());
+        
+            
+        Advogado advogado = new Advogado();
+            
+            advogado.setNome(tfNomeAdvogado.getText());
+            advogado.setCelular(tfCelAdvogado.getText());
+            
+            
+        Assessoria assessoria = new Assessoria();
+        
+            assessoria.setNome(tfNomeAssessoria.getText());
+            assessoria.setCidade(String.valueOf(comboCidadeAssessoria.getSelectedItem()));
+            assessoria.setBairro(String.valueOf(comboBairroAssessoria.getSelectedItem()));
+            assessoria.setEndereco(tfEndereco.getText());
+        
+        Financeiro financeiro = new Financeiro();
+        
+            financeiro.setProcesso(tfProcesso.getText());
+            financeiro.setCliente(tfNome.getText());
+            financeiro.setValor(tfValor.getText());
+            financeiro.setValor_despesa(tfValorDespesa.getText());
+            financeiro.setDesconto(tfDesconto.getText());
+            financeiro.setVencimento(tfDataVencimento.getText());
+            financeiro.setSituacao(String.valueOf(comboSituacaofinanceiro.getSelectedItem()));
+            financeiro.setValor_total(tfTotal.getText());
+            financeiro.setDesc_despesa(tfDescDespesa.getText());
+            //financeiro.setData_pagamento(tfda.getText());
+       DaoCliente daocli = new DaoCliente();
+       DaoProcesso daoprocesso = new DaoProcesso();
+       DaoAdvogado daoadv = new DaoAdvogado();
+       DaoAssessoria daoassessoria = new DaoAssessoria();
+       DaoFinanceiro daofinanceiro = new DaoFinanceiro();
+        
+            try {
+                
+            daocli.Cadastrar(cli);
+            daoprocesso.Cadastrar(processo);
+             daoadv.Cadastrar(advogado);
+              daoassessoria.cadastrar(assessoria);
+               daofinanceiro.cadastrar(financeiro);
+                JOptionPane.showMessageDialog(null, "Cadastro realizado com sucesso");
+                
+                tfAcao.setText(null);
+                tfCelAdvogado.setText(null);
+                tfCelular.setText(null);
+                tfCep.setText(null);
+                tfComarca.setText(null);
+                tfCpf.setText(null);
+                tfDataFim.setText(null);
+                tfDataInicio.setText(null);
+                tfDataNasci.setText(null);
+                tfDataVencimento.setText(null);
+                tfDescDespesa.setText(null);
+                tfEmail.setText(null);
+                tfEndereco.setText(null);
+                tfEnderecoAssessoria.setText(null);
+                tfEstado.setText(null);
+                tfEstadoCivil.setText(null);
+                tfNacionalidade.setText(null);
+                tfNome.setText(null);
+                tfNomeAdvogado.setText(null);
+                tfNomeAssessoria.setText(null);
+                tfNumero.setText(null);
+                tfProcesso.setText(null);
+                tfProfissao.setText(null);
+                tfTelefone.setText(null);
+                tfVara.setText(null);
+                tfWhats.setText(null);
+                tfsituacaoatual.setText(null);
+                tfTotal.setText("000");
+                tfValor.setText("000");
+                tfValorDespesa.setText("000");
+                tfDesconto.setText("000");
+                
+               
+        } catch (Exception e) {
+                System.out.println("Não foi possivel realizar o cadastro, por favor verifique se os campos foram preenchidos corretamente e tente novamente.");
+        
+            
+            }
+        
+        }
+    }
+    
+    public void carregarTabela(){
+       DaoCliente dao = new DaoCliente();
+       ArrayList<Cliente> clientes = new ArrayList();  
+       clientes = dao.Consultar("");
+      // System.out.println("Tamanho do array "+clientes.size());
+       modeloTabela = (DefaultTableModel) tbListarCliente.getModel();
+       for(Cliente cli:clientes){
+           modeloTabela.addRow(new Object[] {cli.getIdCliente(), cli.getNome(),cli.getCpf()});
+        }
+           tbListarCliente.getTableHeader().setReorderingAllowed(false);   
+    }
+    
+    public void preencheClientes(String idCliente){
+        ArrayList<Cliente> clientes = new ArrayList<>();
+        DaoCliente dao = new DaoCliente();
+        clientes = dao.Consultar(idCliente);
+        int idCid = 0, idBarr = 0;
+        
+        
+        for(Cliente cli:clientes){
+            tfNome.setText(cli.getNome());
+            tfDataNasci.setText(cli.getNascimento());
+            tfCpf.setText(cli.getCpf());
+            tfNacionalidade.setText(cli.getNacionalidade());
+            tfProfissao.setText(cli.getProfisao());
+            tfEstadoCivil.setText(cli.getEstado_civil());
+            tfCep.setText(cli.getCep());
+            tfEndereco.setText(cli.getEndereco());
+            tfTelefone.setText(cli.getFone());
+            tfCelular.setText(cli.getCelular());
+            tfEmail.setText(cli.getEmail());
+            tfEstado.setText(cli.getEstado());
+            tfWhats.setText(cli.getWhatsapp());
+            tfNumero.setText(cli.getNum());
+            
+            idCid = Integer.parseInt(cli.getCidade());
+            idBarr = Integer.parseInt(cli.getBairro());
+        }
+        
+            carregaCidades();
+            comboCidade.setSelectedIndex(idCid);
+            //carregaBairros(String.valueOf(idCid));
+            comboBairro.setSelectedIndex(idBarr);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -324,13 +530,16 @@ public class Cadastro extends javax.swing.JDialog {
         jTextField1 = new javax.swing.JTextField();
         btPequisar = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tbListarCliente = new javax.swing.JTable();
 
         jToggleButton1.setText("jToggleButton1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
         addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                formKeyPressed(evt);
+            }
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 formKeyReleased(evt);
             }
@@ -345,13 +554,28 @@ public class Cadastro extends javax.swing.JDialog {
                 btNovoActionPerformed(evt);
             }
         });
+        btNovo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btNovoKeyPressed(evt);
+            }
+        });
 
         btAlterar.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
         btAlterar.setText("Alterar (F2)");
         btAlterar.setEnabled(false);
+        btAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btAlterarActionPerformed(evt);
+            }
+        });
 
         btExcluir.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
         btExcluir.setText("Excluir (F4)");
+        btExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btExcluirActionPerformed(evt);
+            }
+        });
 
         btCancelar.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
         btCancelar.setText("Cancelar (F5)");
@@ -531,6 +755,11 @@ public class Cadastro extends javax.swing.JDialog {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        tfCelular.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfCelularActionPerformed(evt);
+            }
+        });
         tfCelular.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 tfCelularKeyTyped(evt);
@@ -1221,7 +1450,7 @@ public class Cadastro extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tbListarCliente.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -1237,7 +1466,15 @@ public class Cadastro extends javax.swing.JDialog {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane2.setViewportView(jTable1);
+        tbListarCliente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                tbListarClienteMouseReleased(evt);
+            }
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbListarClienteMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(tbListarCliente);
 
         javax.swing.GroupLayout painelOrdenarLayout = new javax.swing.GroupLayout(painelOrdenar);
         painelOrdenar.setLayout(painelOrdenarLayout);
@@ -1428,7 +1665,7 @@ public class Cadastro extends javax.swing.JDialog {
              carregaBairros();
         }
     }//GEN-LAST:event_btNovoBairroAssessoriaActionPerformed
-
+           
     private void comboSituacaofinanceiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboSituacaofinanceiroActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_comboSituacaofinanceiroActionPerformed
@@ -1438,31 +1675,11 @@ public class Cadastro extends javax.swing.JDialog {
     }//GEN-LAST:event_btCalcularActionPerformed
 
     private void btNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoActionPerformed
-        AtivarCliente(true);
-        ativarCampoProcesso(true);
-        ativarCampoAssessoria(true);
-        ativarCampoFinanceiro(true);
-        ativarCampoAdvogado(true);
-        
-        btSalvar.setEnabled(true);
-        btCancelar.setEnabled(true);
-        btNovo.setEnabled(false);
-        btAlterar.setEnabled(false);
-        btExcluir.setEnabled(false);
+        btnovo();
     }//GEN-LAST:event_btNovoActionPerformed
 
     private void btCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelarActionPerformed
-        AtivarCliente(false);
-        ativarCampoProcesso(false);
-        ativarCampoAssessoria(false);
-        ativarCampoFinanceiro(false);
-        ativarCampoAdvogado(false);
-        
-        btSalvar.setEnabled(false);
-        btCancelar.setEnabled(false);
-        btNovo.setEnabled(true);
-        btAlterar.setEnabled(true);
-        btExcluir.setEnabled(true);
+           btcancelar();
     }//GEN-LAST:event_btCancelarActionPerformed
 
     private void tfNomeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfNomeKeyReleased
@@ -1474,134 +1691,8 @@ public class Cadastro extends javax.swing.JDialog {
     }//GEN-LAST:event_formKeyReleased
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
-        if (tfAcao.getText().trim().equals("") || tfCelAdvogado.getText().trim().equals("") || tfCelular.getText().trim().equals("") || tfAcao.getText().trim().equals("") || tfCelAdvogado.getText().trim().equals("") || tfCelular.getText().trim().equals("")
-            || tfCep.getText().trim().equals("") || tfComarca.getText().trim().equals("") || tfCpf.getText().trim().equals("") || tfDataFim.getText().trim().equals("")
-                || tfDataInicio.getText().trim().equals("") || tfDataNasci.getText().trim().equals("") || tfDataVencimento.getText().trim().equals("")
-                || tfDescDespesa.getText().trim().equals("") || tfDesconto.getText().trim().equals("") || tfEmail.getText().trim().equals("")
-                || tfEndereco.getText().trim().equals("") || tfEnderecoAssessoria.getText().trim().equals("") || tfEstado.getText().trim().equals("")
-                || tfEstadoCivil.getText().trim().equals("") || tfNacionalidade.getText().trim().equals("") || tfNome.getText().trim().equals("") || tfNomeAdvogado.getText().trim().equals("")
-                || tfNomeAssessoria.getText().trim().equals("") || tfNumero.getText().trim().equals("") || tfProcesso.getText().trim().equals("") || tfProfissao.getText().trim().equals("")
-                || tfTelefone.getText().trim().equals("") || tfTotal.getText().trim().equals("") || tfValor.getText().equals(null) || tfValorDespesa.getText().trim().equals("")
-                || tfVara.getText().trim().equals("") || tfWhats.getText().trim().equals("") || tfsituacaoatual.getText().trim().equals(""))
-        {
-         
-            JOptionPane.showMessageDialog(null, "Verifique se todos os campos foram preenchidos e tente novamente.");
-            
-        }else{
-            
-        btSalvar.setEnabled(false);
-        btNovo.setEnabled(true);
-        
-        Cliente cli = new Cliente();
-            cli.setNome(tfNome.getText());
-            cli.setNascimento(tfDataNasci.getText());
-            cli.setCpf(tfCpf.getText());
-            cli.setNacionalidade(tfNacionalidade.getText());
-            cli.setProfisao(tfProfissao.getText());
-            cli.setEstado_civil(tfEstadoCivil.getText());
-            cli.setCep(tfCep.getText());
-            cli.setEndereco(tfEndereco.getText());
-            cli.setNum(tfNumero.getText());
-            cli.setEstado(tfEstado.getText());
-            cli.setCidade(String.valueOf(comboCidade.getSelectedItem()));
-            cli.setBairro(String.valueOf(comboBairro.getSelectedItem()));
-            cli.setFone(tfTelefone.getText());
-            cli.setCelular(tfCelular.getText());
-            cli.setEmail(tfEmail.getText());
-            cli.setWhatsapp(tfWhats.getText());
-            
-        Processo  processo = new Processo();
        
-            processo.setProcesso(tfProcesso.getText());
-            processo.setData_inicio(tfDataInicio.getText());
-            processo.setData_termino(tfDataFim.getText());
-            processo.setAcao(tfAcao.getText());
-            processo.setSituacao(String.valueOf(comboSituacaofinanceiro.getSelectedItem()));
-            processo.setSituacao_atual(tfsituacaoatual.getText());
-            processo.setVara(tfVara.getText());
-            processo.setComarca(tfComarca.getText());
-        
-            
-        Advogado advogado = new Advogado();
-            
-            advogado.setNome(tfNomeAdvogado.getText());
-            advogado.setCelular(tfCelAdvogado.getText());
-            
-            
-        Assessoria assessoria = new Assessoria();
-        
-            assessoria.setNome(tfNomeAssessoria.getText());
-            assessoria.setCidade(String.valueOf(comboCidadeAssessoria.getSelectedItem()));
-            assessoria.setBairro(String.valueOf(comboBairroAssessoria.getSelectedItem()));
-            assessoria.setEndereco(tfEndereco.getText());
-        
-        Financeiro financeiro = new Financeiro();
-        
-            financeiro.setProcesso(tfProcesso.getText());
-            financeiro.setCliente(tfNome.getText());
-            financeiro.setValor(tfValor.getText());
-            financeiro.setValor_despesa(tfValorDespesa.getText());
-            financeiro.setDesconto(tfDesconto.getText());
-            financeiro.setVencimento(tfDataVencimento.getText());
-            financeiro.setSituacao(String.valueOf(comboSituacaofinanceiro.getSelectedItem()));
-            financeiro.setValor_total(tfTotal.getText());
-            financeiro.setDesc_despesa(tfDescDespesa.getText());
-            //financeiro.setData_pagamento(tfda.getText());
-       DaoCliente daocli = new DaoCliente();
-       DaoProcesso daoprocesso = new DaoProcesso();
-       DaoAdvogado daoadv = new DaoAdvogado();
-       DaoAssessoria daoassessoria = new DaoAssessoria();
-       DaoFinanceiro daofinanceiro = new DaoFinanceiro();
-        
-            try {
-                
-            daocli.Cadastrar(cli);
-            daoprocesso.Cadastrar(processo);
-             daoadv.Cadastrar(advogado);
-              daoassessoria.cadastrar(assessoria);
-               daofinanceiro.cadastrar(financeiro);
-                JOptionPane.showMessageDialog(null, "Cadastro realizado com sucesso");
-                
-                tfAcao.setText(null);
-                tfCelAdvogado.setText(null);
-                tfCelular.setText(null);
-                tfCep.setText(null);
-                tfComarca.setText(null);
-                tfCpf.setText(null);
-                tfDataFim.setText(null);
-                tfDataInicio.setText(null);
-                tfDataNasci.setText(null);
-                tfDataVencimento.setText(null);
-                tfDescDespesa.setText(null);
-                tfEmail.setText(null);
-                tfEndereco.setText(null);
-                tfEnderecoAssessoria.setText(null);
-                tfEstado.setText(null);
-                tfEstadoCivil.setText(null);
-                tfNacionalidade.setText(null);
-                tfNome.setText(null);
-                tfNomeAdvogado.setText(null);
-                tfNomeAssessoria.setText(null);
-                tfNumero.setText(null);
-                tfProcesso.setText(null);
-                tfProfissao.setText(null);
-                tfTelefone.setText(null);
-                tfVara.setText(null);
-                tfWhats.setText(null);
-                tfsituacaoatual.setText(null);
-                tfTotal.setText("000");
-                tfValor.setText("000");
-                tfValorDespesa.setText("000");
-                tfDesconto.setText("000");
-                
-               
-        } catch (Exception e) {
-                System.out.println("Não foi possivel realizar o cadastro, por favor verifique se os campos foram preenchidos corretamente e tente novamente.");
-        
-            
-            }
-        
-        }
+        btsalvar();
             
     }//GEN-LAST:event_btSalvarActionPerformed
 
@@ -1613,6 +1704,53 @@ public class Cadastro extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_tfWhatsActionPerformed
 
+    private void btNovoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btNovoKeyPressed
+ 
+    }//GEN-LAST:event_btNovoKeyPressed
+
+    private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
+     if(evt.getKeyCode() == evt.VK_F1){   
+           btnovo();
+        }   
+     if(evt.getKeyCode() == evt.VK_F3){   
+           btsalvar();
+        }
+     if(evt.getKeyCode() == evt.VK_F5){   
+           btcancelar();
+        }
+    }//GEN-LAST:event_formKeyPressed
+
+    private void btAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAlterarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btAlterarActionPerformed
+
+    private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
+        
+    }//GEN-LAST:event_btExcluirActionPerformed
+
+    private void tbListarClienteMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbListarClienteMouseReleased
+        
+    }//GEN-LAST:event_tbListarClienteMouseReleased
+
+    private void tfCelularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfCelularActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfCelularActionPerformed
+
+    private void tbListarClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbListarClienteMouseClicked
+        if (evt.getClickCount() > 1) {  
+            System.out.println("Clicou 2 vezes.");
+            try {
+            String idCliente;
+            idCliente = tbListarCliente.getValueAt(tbListarCliente.getSelectedRow(),0).toString();
+            System.out.println(idCliente);
+            
+                preencheClientes(idCliente);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "SELECIONE UM ADVOGADO PARA VER E/OU EDITAR.");
+        }
+        }
+    }//GEN-LAST:event_tbListarClienteMouseClicked
+     
     /**
      * @param args the command line arguments
      */
@@ -1704,7 +1842,6 @@ public class Cadastro extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JLabel lbBairro;
@@ -1723,6 +1860,7 @@ public class Cadastro extends javax.swing.JDialog {
     private javax.swing.JPanel painelMenu;
     private javax.swing.JPanel painelOrdenar;
     private javax.swing.JPanel painelProcesso;
+    private javax.swing.JTable tbListarCliente;
     private javax.swing.JTextField tfAcao;
     private javax.swing.JFormattedTextField tfCelAdvogado;
     private javax.swing.JFormattedTextField tfCelular;
