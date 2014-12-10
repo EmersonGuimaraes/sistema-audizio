@@ -21,7 +21,7 @@ public class DaoAdvogado extends Conexao{
     
     public void Cadastrar(Advogado advogado){
      
-        sql = "INSERT INTO tb_advogado VALUES(null,'"+advogado.getNome()+"','"+advogado.getCod()+"')";
+        sql = "INSERT INTO tb_advogado VALUES(null,'"+advogado.getNome()+"','"+advogado.getCelular()+"')";
         ConsultarSQL(sql, false);
         
     }

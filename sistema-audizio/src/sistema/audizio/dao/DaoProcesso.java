@@ -101,10 +101,7 @@ public class DaoProcesso extends Conexao{
                     processo.setProcesso(rs.getString("processo"));
                     processo.setData_inicio(rs.getString("data_inicio"));
                     processo.setData_termino(rs.getString("data_termino"));
-                    processo.setCliente(rs.getString("cliente"));
-                    processo.setAdvogado(rs.getString("advogado"));
                     processo.setAcao(rs.getString("acao"));
-                    processo.setReboqueiro(rs.getString("reboqueiro"));
                     processo.setSituacao(rs.getString("situacao"));
                     processo.setSituacao_atual(rs.getString("situacao_atual"));
                     processo.setVara(rs.getString("vara"));

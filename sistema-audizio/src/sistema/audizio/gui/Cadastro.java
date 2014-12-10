@@ -45,7 +45,7 @@ public class Cadastro extends javax.swing.JDialog {
     public Cadastro() {
         setModal(true);
         initComponents();
-         carregaCidades();
+        carregaCidades();
         mascaraValores();
         AtivarCliente(false);
         ativarCampoProcesso(false);
@@ -61,6 +61,7 @@ public class Cadastro extends javax.swing.JDialog {
         DaoCidade daoCid = new DaoCidade();
         comboModelCidade = (DefaultComboBoxModel) comboCidade.getModel();
         comboModelCidadeAssesoria = (DefaultComboBoxModel) comboCidadeAssessoria.getModel();
+        
         cidades = daoCid.consultar("");
         
         comboModelCidade.removeAllElements();
@@ -69,6 +70,7 @@ public class Cadastro extends javax.swing.JDialog {
         for (int linha = 0; linha < cidades.size(); linha++){
             Cidade cidade = cidades.get(linha);
             comboModelCidade.addElement(cidade.getNome());
+            comboModelCidadeAssesoria.addElement(cidade.getNome());
         }
         
     }
@@ -76,18 +78,28 @@ public class Cadastro extends javax.swing.JDialog {
          if(comboCidade.getSelectedItem().toString().equals("Selecionar ...")){
              System.out.println("Nenhuma cidade selecionada");
          }else{
+             if(comboModelCidadeAssesoria.getSelectedItem().toString().equals("Selecionar ...")){
+                System.out.println("Nenhuma cidade selecionada");
+            }
              System.out.println("Carregando bairros...");
                 String cod = String.valueOf(comboCidade.getSelectedIndex());
+                String cod1 = String.valueOf(comboCidadeAssessoria.getSelectedIndex());
                 
                comboModelBairro = (DefaultComboBoxModel) comboBairro.getModel();
-              
+               comboModelBairroAssesoria = (DefaultComboBoxModel) comboBairroAssessoria.getModel();
+               
                comboModelBairro.removeAllElements();
-              
+               comboModelBairroAssesoria.removeAllElements();
+               
                ArrayList<Bairro> bairros = new ArrayList<>();
-                DaoBairro daoBairro = new DaoBairro();
+               ArrayList<Bairro> bairros1 = new ArrayList<>();
+               
+               DaoBairro daoBairro = new DaoBairro();
                bairros = daoBairro.consultar(cod);
-
+               bairros1 = daoBairro.consultar(cod1);
+               
                comboModelBairro.addElement("Selecionar ...");
+               comboModelBairroAssesoria.addElement("Selecionar ...");
                
                if (bairros.isEmpty()) {
                    JOptionPane.showMessageDialog(null, "ESSA CIDADE NÃO TEM BAIRROS CADASTRADOS!");
@@ -100,7 +112,23 @@ public class Cadastro extends javax.swing.JDialog {
                             //adicionando a categoria no combo
                             System.out.println("Bairros: "+bairro.getNome());
                             comboModelBairro.addElement(bairro.getNome());
-                        }
+                         }
+                       
+                  }
+               
+                  if (bairros1.isEmpty()) {
+                   JOptionPane.showMessageDialog(null, "ESSA CIDADE NÃO TEM BAIRROS CADASTRADOS!");
+                }else{
+                        System.out.println("Carregando bairros...");
+                        //percorrendo a lista para inserir os valores no combo
+                        for (int linha = 0; linha < bairros1.size(); linha++){
+                            //pegando a categoria da lista
+                            Bairro bairro = bairros.get(linha);
+                            //adicionando a categoria no combo
+                            System.out.println("Bairros: "+bairro.getNome());
+                            comboModelBairroAssesoria.addElement(bairro.getNome());
+                         }
+                       
                   }
             }
      }
@@ -215,7 +243,7 @@ public class Cadastro extends javax.swing.JDialog {
 
    
     public void btnovo(){
-         AtivarCliente(true);
+        AtivarCliente(true);
         ativarCampoProcesso(true);
         ativarCampoAssessoria(true);
         ativarCampoFinanceiro(true);
@@ -238,8 +266,8 @@ public class Cadastro extends javax.swing.JDialog {
         btSalvar.setEnabled(false);
         btCancelar.setEnabled(false);
         btNovo.setEnabled(true);
-        btAlterar.setEnabled(true);
-        btExcluir.setEnabled(true);
+        //btAlterar.setEnabled(true);
+        //btExcluir.setEnabled(true);
     }
     
     public void btsalvar(){
@@ -257,33 +285,33 @@ public class Cadastro extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, "Verifique se todos os campos foram preenchidos e tente novamente.");
             
         }else{
-            
+           RemoveMascara rm = new RemoveMascara();
         btSalvar.setEnabled(false);
         btNovo.setEnabled(true);
         
         Cliente cli = new Cliente();
             cli.setNome(tfNome.getText());
-            cli.setNascimento(tfDataNasci.getText());
-            cli.setCpf(tfCpf.getText());
+            cli.setNascimento(rm.removeMascara(tfDataNasci.getText()));
+            cli.setCpf(rm.removeMascara(tfCpf.getText()));
             cli.setNacionalidade(tfNacionalidade.getText());
             cli.setProfisao(tfProfissao.getText());
             cli.setEstado_civil(tfEstadoCivil.getText());
-            cli.setCep(tfCep.getText());
+            cli.setCep(rm.removeMascara(tfCep.getText()));
             cli.setEndereco(tfEndereco.getText());
             cli.setNum(tfNumero.getText());
             cli.setEstado(tfEstado.getText());
             cli.setCidade(String.valueOf(comboCidade.getSelectedItem()));
             cli.setBairro(String.valueOf(comboBairro.getSelectedItem()));
-            cli.setFone(tfTelefone.getText());
-            cli.setCelular(tfCelular.getText());
+            cli.setFone(rm.removeMascara(tfTelefone.getText()));
+            cli.setCelular(rm.removeMascara(tfCelular.getText()));
             cli.setEmail(tfEmail.getText());
-            cli.setWhatsapp(tfWhats.getText());
+            cli.setWhatsapp(rm.removeMascara(tfWhats.getText()));
             
         Processo  processo = new Processo();
        
             processo.setProcesso(tfProcesso.getText());
-            processo.setData_inicio(tfDataInicio.getText());
-            processo.setData_termino(tfDataFim.getText());
+            processo.setData_inicio(rm.removeMascara(tfDataInicio.getText()));
+            processo.setData_termino(rm.removeMascara(tfDataFim.getText()));
             processo.setAcao(tfAcao.getText());
             processo.setSituacao(String.valueOf(comboSituacaofinanceiro.getSelectedItem()));
             processo.setSituacao_atual(tfsituacaoatual.getText());
@@ -294,14 +322,14 @@ public class Cadastro extends javax.swing.JDialog {
         Advogado advogado = new Advogado();
             
             advogado.setNome(tfNomeAdvogado.getText());
-            advogado.setCelular(tfCelAdvogado.getText());
+            advogado.setCelular(rm.removeMascara(tfCelAdvogado.getText()));
             
             
         Assessoria assessoria = new Assessoria();
         
             assessoria.setNome(tfNomeAssessoria.getText());
-            assessoria.setCidade(String.valueOf(comboCidadeAssessoria.getSelectedItem()));
-            assessoria.setBairro(String.valueOf(comboBairroAssessoria.getSelectedItem()));
+            assessoria.setCidade(String.valueOf(String.valueOf(comboCidadeAssessoria.getSelectedIndex())));
+            assessoria.setBairro(String.valueOf(comboBairroAssessoria.getSelectedIndex()));
             assessoria.setEndereco(tfEndereco.getText());
         
         Financeiro financeiro = new Financeiro();
@@ -363,7 +391,7 @@ public class Cadastro extends javax.swing.JDialog {
                 tfValorDespesa.setText("000");
                 tfDesconto.setText("000");
                 
-               
+               carregarTabela();
         } catch (Exception e) {
                 System.out.println("Não foi possivel realizar o cadastro, por favor verifique se os campos foram preenchidos corretamente e tente novamente.");
         
@@ -416,6 +444,54 @@ public class Cadastro extends javax.swing.JDialog {
             comboCidade.setSelectedIndex(idCid);
             //carregaBairros(String.valueOf(idCid));
             comboBairro.setSelectedIndex(idBarr);
+    }
+    
+    //Carrega dados do processo
+    public void preencheProcessos(String id){
+        DaoProcesso daoProcesso = new DaoProcesso();
+        ArrayList<Processo> processos = new DaoProcesso().Consultar(id);
+        
+        for (Processo pro:processos) {
+            //Setando dados do processo
+            tfProcesso.setText(pro.getProcesso());
+            tfVara.setText(pro.getVara());
+            tfAcao.setText(pro.getAcao());
+            tfComarca.setText(pro.getComarca());
+            tfDataInicio.setText(pro.getData_inicio());
+            tfDataFim.setText(pro.getData_termino());
+        }  
+    }
+    
+     public void preencheAssessoria(String id){
+        int idCid = 0, idBarr = 0;
+        ArrayList<Assessoria> ass = new DaoAssessoria().consultar(id);
+        for(Assessoria a:ass){
+            tfNomeAssessoria.setText(a.getNome());
+            //tfCidade.setText(a.getCidade());
+            //tfBairro.setText(a.getBairro());
+            tfEnderecoAssessoria.setText(a.getEndereco());
+            idCid = Integer.parseInt(a.getCidade());
+            idBarr = Integer.parseInt(a.getBairro());
+        }
+            comboCidade.setSelectedIndex(idCid);
+            //carregaBairros(String.valueOf(idCid));
+            comboBairro.setSelectedIndex(idBarr);
+    }
+    public void preencheFinanceiro(String id){
+        tfValor.setDocument(new LimitadorMoeda());
+        tfValorDespesa.setDocument(new LimitadorMoeda());
+        tfDesconto.setDocument(new LimitadorMoeda());
+        
+        ArrayList<Financeiro> financas = new DaoFinanceiro().consultarFinancas(id);
+        for(Financeiro f:financas){
+            tfValor.setText(f.getValor());
+            tfValorDespesa.setText(f.getValor_despesa());
+            tfDesconto.setText(f.getDesconto());
+            tfTotal.setText(f.getValor_total());
+            tfDescDespesa.setText(f.getDesc_despesa());        
+            tfDataVencimento.setText(f.getVencimento());
+            
+        }
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -521,6 +597,21 @@ public class Cadastro extends javax.swing.JDialog {
         btCalcular = new javax.swing.JButton();
         jLabel27 = new javax.swing.JLabel();
         painelConsultar = new javax.swing.JPanel();
+        jLabel32 = new javax.swing.JLabel();
+        tfMarca = new javax.swing.JTextField();
+        tfModelo = new javax.swing.JTextField();
+        jLabel33 = new javax.swing.JLabel();
+        jLabel34 = new javax.swing.JLabel();
+        tfCor = new javax.swing.JTextField();
+        tfPlaca = new javax.swing.JTextField();
+        jLabel35 = new javax.swing.JLabel();
+        jLabel36 = new javax.swing.JLabel();
+        tfChassi = new javax.swing.JTextField();
+        tfRenavam = new javax.swing.JTextField();
+        jLabel37 = new javax.swing.JLabel();
+        jLabel38 = new javax.swing.JLabel();
+        tfAnoModelo = new javax.swing.JFormattedTextField();
+        tfAnoFabricacao = new javax.swing.JFormattedTextField();
         painelOrdenar = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
         jLabel28 = new javax.swing.JLabel();
@@ -571,6 +662,7 @@ public class Cadastro extends javax.swing.JDialog {
 
         btExcluir.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
         btExcluir.setText("Excluir (F4)");
+        btExcluir.setEnabled(false);
         btExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btExcluirActionPerformed(evt);
@@ -579,6 +671,7 @@ public class Cadastro extends javax.swing.JDialog {
 
         btCancelar.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
         btCancelar.setText("Cancelar (F5)");
+        btCancelar.setEnabled(false);
         btCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btCancelarActionPerformed(evt);
@@ -1387,18 +1480,114 @@ public class Cadastro extends javax.swing.JDialog {
 
         jTabbedPane1.addTab("FINANCEIRO", painelFinanceiro);
 
+        jLabel32.setText("MARCA");
+
+        jLabel33.setText("MODELO");
+
+        jLabel34.setText("COR");
+
+        jLabel35.setText("PLACA");
+
+        jLabel36.setText("CHASSSI");
+
+        jLabel37.setText("RENAVAM");
+
+        jLabel38.setText("ANO DE FABRICAÇÃO E MODELO");
+
+        try {
+            tfAnoModelo.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
+        try {
+            tfAnoFabricacao.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
         javax.swing.GroupLayout painelConsultarLayout = new javax.swing.GroupLayout(painelConsultar);
         painelConsultar.setLayout(painelConsultarLayout);
         painelConsultarLayout.setHorizontalGroup(
             painelConsultarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 608, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelConsultarLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(painelConsultarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(painelConsultarLayout.createSequentialGroup()
+                        .addGroup(painelConsultarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel32)
+                            .addComponent(tfMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(painelConsultarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel33)
+                            .addComponent(tfModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(painelConsultarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(tfCor, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel34))
+                        .addGroup(painelConsultarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(painelConsultarLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 125, Short.MAX_VALUE)
+                                .addComponent(jLabel35)
+                                .addGap(47, 47, 47))
+                            .addGroup(painelConsultarLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(tfPlaca))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelConsultarLayout.createSequentialGroup()
+                        .addGroup(painelConsultarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel38)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelConsultarLayout.createSequentialGroup()
+                                .addComponent(tfAnoFabricacao, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(tfAnoModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(painelConsultarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(painelConsultarLayout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(tfRenavam, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(painelConsultarLayout.createSequentialGroup()
+                                .addGap(37, 37, 37)
+                                .addComponent(jLabel37)))
+                        .addGroup(painelConsultarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(painelConsultarLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel36)
+                                .addGap(13, 13, 13))
+                            .addGroup(painelConsultarLayout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(tfChassi)))))
+                .addContainerGap())
         );
         painelConsultarLayout.setVerticalGroup(
             painelConsultarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 315, Short.MAX_VALUE)
+            .addGroup(painelConsultarLayout.createSequentialGroup()
+                .addGap(33, 33, 33)
+                .addGroup(painelConsultarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel32)
+                    .addComponent(jLabel33)
+                    .addComponent(jLabel34)
+                    .addComponent(jLabel35))
+                .addGap(7, 7, 7)
+                .addGroup(painelConsultarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tfMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfCor, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(73, 73, 73)
+                .addGroup(painelConsultarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel38, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel36)
+                    .addComponent(jLabel37))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(painelConsultarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(painelConsultarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(tfAnoModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(tfRenavam, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(tfAnoFabricacao, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfChassi))
+                .addContainerGap(90, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("CONSULTAR", painelConsultar);
+        jTabbedPane1.addTab("VEÍCULO", painelConsultar);
 
         jPanel8.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -1739,12 +1928,17 @@ public class Cadastro extends javax.swing.JDialog {
     private void tbListarClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbListarClienteMouseClicked
         if (evt.getClickCount() > 1) {  
             System.out.println("Clicou 2 vezes.");
+            btExcluir.setEnabled(true);
+            btAlterar.setEnabled(true);
             try {
             String idCliente;
             idCliente = tbListarCliente.getValueAt(tbListarCliente.getSelectedRow(),0).toString();
             System.out.println(idCliente);
             
                 preencheClientes(idCliente);
+                preencheProcessos(idCliente);
+                preencheAssessoria(idCliente);
+                preencheFinanceiro(idCliente);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "SELECIONE UM ADVOGADO PARA VER E/OU EDITAR.");
         }
@@ -1832,6 +2026,13 @@ public class Cadastro extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
+    private javax.swing.JLabel jLabel32;
+    private javax.swing.JLabel jLabel33;
+    private javax.swing.JLabel jLabel34;
+    private javax.swing.JLabel jLabel35;
+    private javax.swing.JLabel jLabel36;
+    private javax.swing.JLabel jLabel37;
+    private javax.swing.JLabel jLabel38;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -1862,10 +2063,14 @@ public class Cadastro extends javax.swing.JDialog {
     private javax.swing.JPanel painelProcesso;
     private javax.swing.JTable tbListarCliente;
     private javax.swing.JTextField tfAcao;
+    private javax.swing.JFormattedTextField tfAnoFabricacao;
+    private javax.swing.JFormattedTextField tfAnoModelo;
     private javax.swing.JFormattedTextField tfCelAdvogado;
     private javax.swing.JFormattedTextField tfCelular;
     private javax.swing.JFormattedTextField tfCep;
+    private javax.swing.JTextField tfChassi;
     private javax.swing.JTextField tfComarca;
+    private javax.swing.JTextField tfCor;
     private javax.swing.JFormattedTextField tfCpf;
     private javax.swing.JFormattedTextField tfDataFim;
     private javax.swing.JFormattedTextField tfDataInicio;
@@ -1878,13 +2083,17 @@ public class Cadastro extends javax.swing.JDialog {
     private javax.swing.JTextField tfEnderecoAssessoria;
     private javax.swing.JFormattedTextField tfEstado;
     private javax.swing.JTextField tfEstadoCivil;
+    private javax.swing.JTextField tfMarca;
+    private javax.swing.JTextField tfModelo;
     private javax.swing.JTextField tfNacionalidade;
     private javax.swing.JTextField tfNome;
     private javax.swing.JTextField tfNomeAdvogado;
     private javax.swing.JTextField tfNomeAssessoria;
     private javax.swing.JTextField tfNumero;
+    private javax.swing.JTextField tfPlaca;
     private javax.swing.JTextField tfProcesso;
     private javax.swing.JTextField tfProfissao;
+    private javax.swing.JTextField tfRenavam;
     private javax.swing.JFormattedTextField tfTelefone;
     private javax.swing.JFormattedTextField tfTotal;
     private javax.swing.JFormattedTextField tfValor;
