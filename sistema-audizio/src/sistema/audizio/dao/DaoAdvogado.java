@@ -47,7 +47,7 @@ public class DaoAdvogado extends Conexao{
                             Advogado advogado = new Advogado();
                             advogado.setIdAdvogado(rs.getString("id"));
                             advogado.setNome(rs.getString("nome"));
-                            advogado.setCod(rs.getInt("cod"));
+                            advogado.setCelular(rs.getString("cel"));
                             advogados.add(advogado);
 
                         }
@@ -56,13 +56,13 @@ public class DaoAdvogado extends Conexao{
                     }
             }else{
                     try {
-                        ConsultarSQL("SELECT * FROM tb_advogado WHERE cod = '"+id+"'", true);
+                        ConsultarSQL("SELECT * FROM tb_advogado WHERE id = '"+id+"'", true);
                         while (rs.next()) {
 
                             Advogado advogado = new Advogado();
                             advogado.setIdAdvogado(rs.getString("id"));
                             advogado.setNome(rs.getString("nome"));
-                            advogado.setCod(rs.getInt("cod"));
+                            advogado.setCelular(rs.getString("cel"));
                             advogados.add(advogado);
 
                         }

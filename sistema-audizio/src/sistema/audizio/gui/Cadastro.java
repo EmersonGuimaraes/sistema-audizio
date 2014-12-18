@@ -29,6 +29,8 @@ import sistema.audizio.dao.DaoCidade;
 import sistema.audizio.dao.DaoCliente;
 import sistema.audizio.dao.DaoFinanceiro;
 import sistema.audizio.dao.DaoProcesso;
+import sistema.audizio.ultilitarios.NumeroDocument;
+import sun.java2d.pipe.LCDTextRenderer;
 
 /**
  *
@@ -46,7 +48,7 @@ public class Cadastro extends javax.swing.JDialog {
         setModal(true);
         initComponents();
         carregaCidades();
-        mascaraValores();
+        mascararValores();
         AtivarCliente(false);
         ativarCampoProcesso(false);
         ativarCampoAssessoria(false);
@@ -132,60 +134,14 @@ public class Cadastro extends javax.swing.JDialog {
                   }
             }
      }
-         
-    public void atalhos(){
-            InputMap imap = painelCliente.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW); 
-            
-            imap.put(KeyStroke.getKeyStroke("F1"), "panel.buttonF1press");    
-            imap.put(KeyStroke.getKeyStroke("F2"), "panel.buttonF1press");  
-            imap.put(KeyStroke.getKeyStroke("F3"), "panel.buttonF1press");
-            imap.put(KeyStroke.getKeyStroke("F4"), "panel.buttonF1press");
-            imap.put(KeyStroke.getKeyStroke("F5"), "panel.buttonF1press");
-            
-            ActionMap amap = painelCliente.getActionMap();
-            
-            /*amap.put("panel.buttonF1press", new DaoCliente().Cadastrar("1"));
-            amap.put("panel.buttonF1press", new DaoProcesso().Cadastrar("1"));
-            amap.put("panel.buttonF1press", new DaoFinanceiro().Cadastrar("1"));
-            
-            amap.put("panel.buttonF2press", new SaveAction());     
-            amap.put("panel.buttonF3press", new ClearAction()); */
-    }
-    public void mascaraValores(){
-        tfValor.setDocument(new LimitadorMoeda());
-        tfValorDespesa.setDocument(new LimitadorMoeda());
-        tfDesconto.setDocument(new LimitadorMoeda());
-        //tfTotal.setDocument(new LimitadorMoeda());
-        tfTotal.setText("000");
-        tfValor.setText("000");
-        tfValorDespesa.setText("000");
-        tfDesconto.setText("000");
+       
+    public void mascararValores(){
+       tfValor.setDocument(new NumeroDocument(7,2));
+       tfValorDespesa.setDocument(new NumeroDocument(7,2));
+       tfDesconto.setDocument(new NumeroDocument(7,2));
     }
     public void calcularTotal(String valor,String despesa,String desconto){
-        //float novoValor,novaDespesa,novoDesconto,novoTotal;
-        try {
-            /*novoValor = Float.parseFloat(valor);
-            novaDespesa = Float.parseFloat(despesa);
-            novoDesconto = Float.parseFloat(desconto);*/
-            
-            NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("pt","BR"));  
-            Double novoValor = nf.parse(valor).doubleValue();  
-            Double novaDespesa = nf.parse(valor).doubleValue();
-            Double novoDesconto = nf.parse(valor).doubleValue();
-           
-            
-          
-             Double novoTotal = nf.parse(valor).doubleValue();
-            // Double novoTotal = ((novoValor+novaDespesa)-novoDesconto);
-             System.out.println(novoTotal);
-             String totalis = String.valueOf(novoTotal);
-             System.out.println(totalis);
-             tfTotal.setText(totalis);
-        } catch (Exception e) {
-            System.err.println("erro\n "+e);
-        }
-       
-      
+        String Total = NumberFormat.getCurrencyInstance().format(12345678.90);
     }
     
     public void AtivarCliente(Boolean condicao){
@@ -265,6 +221,7 @@ public class Cadastro extends javax.swing.JDialog {
         
         btSalvar.setEnabled(false);
         btCancelar.setEnabled(false);
+        btRelatorio.setEnabled(false);
         btNovo.setEnabled(true);
         //btAlterar.setEnabled(true);
         //btExcluir.setEnabled(true);
@@ -285,7 +242,7 @@ public class Cadastro extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, "Verifique se todos os campos foram preenchidos e tente novamente.");
             
         }else{
-           RemoveMascara rm = new RemoveMascara();
+        RemoveMascara rm = new RemoveMascara();
         btSalvar.setEnabled(false);
         btNovo.setEnabled(true);
         
@@ -336,10 +293,10 @@ public class Cadastro extends javax.swing.JDialog {
         
             financeiro.setProcesso(tfProcesso.getText());
             financeiro.setCliente(tfNome.getText());
-            financeiro.setValor(tfValor.getText());
-            financeiro.setValor_despesa(tfValorDespesa.getText());
-            financeiro.setDesconto(tfDesconto.getText());
-            financeiro.setVencimento(tfDataVencimento.getText());
+            financeiro.setValor(rm.removeMascara(tfValor.getText()));
+            financeiro.setValor_despesa(rm.removeMascara(tfValorDespesa.getText()));
+            financeiro.setDesconto(rm.removeMascara(tfDesconto.getText()));
+            financeiro.setVencimento(rm.removeMascara(tfDataVencimento.getText()));
             financeiro.setSituacao(String.valueOf(comboSituacaofinanceiro.getSelectedItem()));
             financeiro.setValor_total(tfTotal.getText());
             financeiro.setDesc_despesa(tfDescDespesa.getText());
@@ -419,7 +376,7 @@ public class Cadastro extends javax.swing.JDialog {
         clientes = dao.Consultar(idCliente);
         int idCid = 0, idBarr = 0;
         
-        
+         System.out.println("Tamanho Array Cliente: "+clientes.size());
         for(Cliente cli:clientes){
             tfNome.setText(cli.getNome());
             tfDataNasci.setText(cli.getNascimento());
@@ -436,14 +393,15 @@ public class Cadastro extends javax.swing.JDialog {
             tfWhats.setText(cli.getWhatsapp());
             tfNumero.setText(cli.getNum());
             
-            idCid = Integer.parseInt(cli.getCidade());
-            idBarr = Integer.parseInt(cli.getBairro());
+            //idCid = Integer.parseInt(cli.getCidade());
+            //idBarr = Integer.parseInt(cli.getBairro());
+            
         }
         
-            carregaCidades();
-            comboCidade.setSelectedIndex(idCid);
+           // carregaCidades();
+            //comboCidade.setSelectedIndex(idCid);
             //carregaBairros(String.valueOf(idCid));
-            comboBairro.setSelectedIndex(idBarr);
+           // comboBairro.setSelectedIndex(idBarr);
     }
     
     //Carrega dados do processo
@@ -451,6 +409,7 @@ public class Cadastro extends javax.swing.JDialog {
         DaoProcesso daoProcesso = new DaoProcesso();
         ArrayList<Processo> processos = new DaoProcesso().Consultar(id);
         
+        System.out.println("Tamanho Array Processo: "+processos.size());
         for (Processo pro:processos) {
             //Setando dados do processo
             tfProcesso.setText(pro.getProcesso());
@@ -459,6 +418,8 @@ public class Cadastro extends javax.swing.JDialog {
             tfComarca.setText(pro.getComarca());
             tfDataInicio.setText(pro.getData_inicio());
             tfDataFim.setText(pro.getData_termino());
+            
+            
         }  
     }
     
@@ -493,6 +454,15 @@ public class Cadastro extends javax.swing.JDialog {
             
         }
     }
+    
+    public void preencheAdvogado(String id){
+        ArrayList<Advogado> advogados = new DaoAdvogado().Consultar(id);
+         for(Advogado a: advogados){
+             tfNomeAdvogado.setText(a.getNome());
+             tfCelAdvogado.setText(a.getCelular());
+             
+         }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -509,6 +479,7 @@ public class Cadastro extends javax.swing.JDialog {
         btExcluir = new javax.swing.JButton();
         btCancelar = new javax.swing.JButton();
         btSalvar = new javax.swing.JButton();
+        btRelatorio = new javax.swing.JButton();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         painelCliente = new javax.swing.JPanel();
         lbNome = new javax.swing.JLabel();
@@ -686,6 +657,9 @@ public class Cadastro extends javax.swing.JDialog {
             }
         });
 
+        btRelatorio.setText("Relatório(F6)");
+        btRelatorio.setEnabled(false);
+
         javax.swing.GroupLayout painelMenuLayout = new javax.swing.GroupLayout(painelMenu);
         painelMenu.setLayout(painelMenuLayout);
         painelMenuLayout.setHorizontalGroup(
@@ -695,6 +669,7 @@ public class Cadastro extends javax.swing.JDialog {
             .addComponent(btExcluir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btSalvar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btRelatorio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         painelMenuLayout.setVerticalGroup(
             painelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -708,7 +683,9 @@ public class Cadastro extends javax.swing.JDialog {
                 .addComponent(btExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(97, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btRelatorio, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(52, Short.MAX_VALUE))
         );
 
         lbNome.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
@@ -1064,7 +1041,7 @@ public class Cadastro extends javax.swing.JDialog {
                         .addComponent(tfEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(tfWhats, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(cWhats, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("CLIENTE", painelCliente);
@@ -1196,7 +1173,7 @@ public class Cadastro extends javax.swing.JDialog {
                 .addGroup(painelProcessoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(tfsituacaoatual, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(comboSituacaoProcesso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("PROCESSO", painelProcesso);
@@ -1351,6 +1328,12 @@ public class Cadastro extends javax.swing.JDialog {
         jLabel18.setText("VALOR");
 
         jLabel20.setText("DESPESAS");
+
+        tfValor.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tfValorKeyReleased(evt);
+            }
+        });
 
         tfValorDespesa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1699,7 +1682,7 @@ public class Cadastro extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(painelMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 12, Short.MAX_VALUE))
+                .addGap(0, 9, Short.MAX_VALUE))
         );
 
         pack();
@@ -1930,20 +1913,32 @@ public class Cadastro extends javax.swing.JDialog {
             System.out.println("Clicou 2 vezes.");
             btExcluir.setEnabled(true);
             btAlterar.setEnabled(true);
+            btRelatorio.setEnabled(true);
+            
+            String idCliente = null;
             try {
-            String idCliente;
+            
             idCliente = tbListarCliente.getValueAt(tbListarCliente.getSelectedRow(),0).toString();
             System.out.println(idCliente);
             
+               
                 preencheClientes(idCliente);
                 preencheProcessos(idCliente);
                 preencheAssessoria(idCliente);
+                preencheAdvogado(idCliente);
+                //preencheVeiculo(idCliente);
                 preencheFinanceiro(idCliente);
+                
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "SELECIONE UM ADVOGADO PARA VER E/OU EDITAR.");
+            JOptionPane.showMessageDialog(null, "SELECIONE UM CLIENTE PARA VER OU EDITAR");
         }
+           
         }
     }//GEN-LAST:event_tbListarClienteMouseClicked
+
+    private void tfValorKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfValorKeyReleased
+            
+    }//GEN-LAST:event_tfValorKeyReleased
      
     /**
      * @param args the command line arguments
@@ -1992,6 +1987,7 @@ public class Cadastro extends javax.swing.JDialog {
     private javax.swing.JButton btNovoBairro;
     private javax.swing.JButton btNovoBairroAssessoria;
     private javax.swing.JButton btPequisar;
+    private javax.swing.JButton btRelatorio;
     private javax.swing.JButton btSalvar;
     private javax.swing.JCheckBox cWhats;
     private javax.swing.JComboBox comboBairro;

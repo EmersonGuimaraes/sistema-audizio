@@ -93,6 +93,7 @@ public class DaoProcesso extends Conexao{
                 }
                 
             }else{
+                System.out.println("Entrou no método! "+situacao);
                 String sql = "SELECT * FROM tb_processo WHERE id = '"+situacao+"'";
                 ConsultarSQL(sql,true);
                 while (rs.next()) {
@@ -101,16 +102,17 @@ public class DaoProcesso extends Conexao{
                     processo.setProcesso(rs.getString("processo"));
                     processo.setData_inicio(rs.getString("data_inicio"));
                     processo.setData_termino(rs.getString("data_termino"));
+                    processo.setIdCliente(rs.getInt("id_cliente"));
+                    processo.setIdAdvogado(rs.getInt("id_advogado"));
                     processo.setAcao(rs.getString("acao"));
                     processo.setSituacao(rs.getString("situacao"));
                     processo.setSituacao_atual(rs.getString("situacao_atual"));
                     processo.setVara(rs.getString("vara"));
                     processo.setComarca(rs.getString("comarca"));
-                    processo.setIdAdvogado(rs.getInt("id_advogado"));
-                    processo.setIdCliente(rs.getInt("id_cliente"));
                     processo.setAssessoria(rs.getString("assessoria"));
                     processos.add(processo);
                 }
+                return processos;
             }
           
         } catch (SQLException ex) {
