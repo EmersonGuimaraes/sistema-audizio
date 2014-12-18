@@ -62,7 +62,7 @@ public class DaoCliente extends Conexao{
                     clientes.add(cliente);
                 }
             }else{
-                String sql = "SELECT * FROM tb_cliente WHERE cod = '"+id+"'";
+                String sql = "SELECT * FROM tb_cliente WHERE id = '"+id+"'";
                 ConsultarSQL(sql,true);
                 while (rs.next()) {
                     Cliente cliente = new Cliente();
