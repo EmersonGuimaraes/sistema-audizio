@@ -25,6 +25,7 @@ import sistema.audizio.bean.Cidade;
 import sistema.audizio.bean.Cliente;
 import sistema.audizio.bean.Financeiro;
 import sistema.audizio.bean.Processo;
+import sistema.audizio.bean.Veiculo;
 import sistema.audizio.dao.DaoAdvogado;
 import sistema.audizio.dao.DaoAssessoria;
 import sistema.audizio.dao.DaoBairro;
@@ -32,6 +33,7 @@ import sistema.audizio.dao.DaoCidade;
 import sistema.audizio.dao.DaoCliente;
 import sistema.audizio.dao.DaoFinanceiro;
 import sistema.audizio.dao.DaoProcesso;
+import sistema.audizio.dao.DaoVeiculo;
 import sistema.audizio.ultilitarios.NumeroDocument;
 import sun.java2d.pipe.LCDTextRenderer;
 
@@ -335,6 +337,18 @@ public class Cadastro extends javax.swing.JDialog {
             financeiro.setValor_total(tfTotal.getText());
             financeiro.setDesc_despesa(tfDescDespesa.getText());
             //financeiro.setData_pagamento(tfda.getText());
+       
+        Veiculo v = new Veiculo();
+            v.setMarca(tfMarca.getText());
+            v.setModelo(tfModelo.getText());
+            v.setCor(tfCor.getText());
+            v.setAnoFabricacao(tfAnoFabricacao.getText());
+            v.setModelo(tfAnoModelo.getText());
+            v.setPlaca(tfPlaca.getText());
+            v.setChassi(tfChassi.getText());
+            v.setRenavam(tfRenavam.getText());
+            v.setEstado(cbEstadoVeiculo.getSelectedItem().toString());
+            
        DaoCliente daocli = new DaoCliente();
        DaoProcesso daoprocesso = new DaoProcesso();
        DaoAdvogado daoadv = new DaoAdvogado();
@@ -497,6 +511,13 @@ public class Cadastro extends javax.swing.JDialog {
              
          }
     }
+    
+    public void preencheVeiculo(String id){
+        ArrayList<Veiculo> veiculo = new DaoVeiculo().Consultar(id);
+        for(Veiculo v:veiculo){
+            
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -618,6 +639,8 @@ public class Cadastro extends javax.swing.JDialog {
         jLabel38 = new javax.swing.JLabel();
         tfAnoModelo = new javax.swing.JFormattedTextField();
         tfAnoFabricacao = new javax.swing.JFormattedTextField();
+        jLabel39 = new javax.swing.JLabel();
+        cbEstadoVeiculo = new javax.swing.JComboBox();
         painelOrdenar = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
         jLabel28 = new javax.swing.JLabel();
@@ -1538,11 +1561,15 @@ public class Cadastro extends javax.swing.JDialog {
             ex.printStackTrace();
         }
 
+        jLabel39.setText("ESTADO DO VEÍCULO: ");
+
+        cbEstadoVeiculo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecionar...", "Encontrado", "Não Encontrado", "Apreendido" }));
+
         javax.swing.GroupLayout painelConsultarLayout = new javax.swing.GroupLayout(painelConsultar);
         painelConsultar.setLayout(painelConsultarLayout);
         painelConsultarLayout.setHorizontalGroup(
             painelConsultarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelConsultarLayout.createSequentialGroup()
+            .addGroup(painelConsultarLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(painelConsultarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(painelConsultarLayout.createSequentialGroup()
@@ -1559,26 +1586,32 @@ public class Cadastro extends javax.swing.JDialog {
                             .addComponent(jLabel34))
                         .addGroup(painelConsultarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(painelConsultarLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 125, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 113, Short.MAX_VALUE)
                                 .addComponent(jLabel35)
                                 .addGap(47, 47, 47))
                             .addGroup(painelConsultarLayout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(tfPlaca))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelConsultarLayout.createSequentialGroup()
-                        .addGroup(painelConsultarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel38)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelConsultarLayout.createSequentialGroup()
-                                .addComponent(tfAnoFabricacao, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(tfAnoModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGroup(painelConsultarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(painelConsultarLayout.createSequentialGroup()
+                        .addGroup(painelConsultarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, painelConsultarLayout.createSequentialGroup()
+                                .addComponent(jLabel39)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cbEstadoVeiculo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(painelConsultarLayout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(tfRenavam, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(painelConsultarLayout.createSequentialGroup()
-                                .addGap(37, 37, 37)
-                                .addComponent(jLabel37)))
+                                .addGroup(painelConsultarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel38)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelConsultarLayout.createSequentialGroup()
+                                        .addComponent(tfAnoFabricacao, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(tfAnoModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(painelConsultarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(painelConsultarLayout.createSequentialGroup()
+                                        .addGap(18, 18, 18)
+                                        .addComponent(tfRenavam, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(painelConsultarLayout.createSequentialGroup()
+                                        .addGap(37, 37, 37)
+                                        .addComponent(jLabel37)))))
                         .addGroup(painelConsultarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(painelConsultarLayout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -1616,7 +1649,11 @@ public class Cadastro extends javax.swing.JDialog {
                         .addComponent(tfRenavam, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(tfAnoFabricacao, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(tfChassi))
-                .addContainerGap(90, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+                .addGroup(painelConsultarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cbEstadoVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel39))
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("VEÍCULO", painelConsultar);
@@ -2047,6 +2084,7 @@ public class Cadastro extends javax.swing.JDialog {
     private javax.swing.JButton btRelatorio;
     private javax.swing.JButton btSalvar;
     private javax.swing.JCheckBox cWhats;
+    private javax.swing.JComboBox cbEstadoVeiculo;
     private javax.swing.JComboBox comboBairro;
     private javax.swing.JComboBox comboBairroAssessoria;
     private javax.swing.JComboBox comboCidade;
@@ -2087,6 +2125,7 @@ public class Cadastro extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel38;
+    private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
