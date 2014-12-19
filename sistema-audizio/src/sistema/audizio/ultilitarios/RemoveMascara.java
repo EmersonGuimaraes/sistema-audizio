@@ -1,5 +1,5 @@
 
-package sistema.audizio.gui;
+package sistema.audizio.ultilitarios;
 
 public class RemoveMascara {
    public String removeMascara(String cpf){

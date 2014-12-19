@@ -5,6 +5,9 @@
  */
 package sistema.audizio.gui;
 
+import java.text.DecimalFormat;
+import sistema.audizio.ultilitarios.LimitadorMoeda;
+import sistema.audizio.ultilitarios.RemoveMascara;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Locale;
@@ -38,6 +41,7 @@ import sun.java2d.pipe.LCDTextRenderer;
  */
 public class Cadastro extends javax.swing.JDialog {
     private DefaultTableModel modeloTabela;
+    RemoveMascara rm = new RemoveMascara();
     /**
      * Creates new form Cadastro
      */
@@ -136,12 +140,42 @@ public class Cadastro extends javax.swing.JDialog {
      }
        
     public void mascararValores(){
+        
        tfValor.setDocument(new NumeroDocument(7,2));
        tfValorDespesa.setDocument(new NumeroDocument(7,2));
        tfDesconto.setDocument(new NumeroDocument(7,2));
+       //tfTotal.setDocument(new NumeroDocument(7,2));
     }
     public void calcularTotal(String valor,String despesa,String desconto){
-        String Total = NumberFormat.getCurrencyInstance().format(12345678.90);
+        DecimalFormat formatador = new DecimalFormat("###,##0.00");
+        try {
+           
+            Locale locBrazil = new Locale("pt", "BR");  
+            NumberFormat nf = NumberFormat.getInstance(locBrazil);
+            
+            Number valorP = nf.parse(valor);
+            Number valorDesc = nf.parse(desconto);
+            Number valorDesp = nf.parse(despesa);
+            
+            double n1,n2,n3, total;
+            
+            n1 = valorP.doubleValue();
+            n2 = valorDesp.doubleValue();
+            n3 = valorDesc.doubleValue();
+            
+            total = (n1+n2)-n3;
+            System.out.println("Total: "+total);
+            
+            String nTotal = String.valueOf(total);
+            tfTotal.setText(nTotal);
+                        
+
+        } catch (Exception e) {
+            System.err.println(e);
+        }
+        
+        //String totalGeral = NumberFormat.getCurrencyInstance().format(novoTotal);
+        //tfTotal.setText(totalGeral);
     }
     
     public void AtivarCliente(Boolean condicao){
@@ -290,7 +324,7 @@ public class Cadastro extends javax.swing.JDialog {
             assessoria.setEndereco(tfEndereco.getText());
         
         Financeiro financeiro = new Financeiro();
-        
+            calcularTotal(tfValor.getText(), tfValorDespesa.getText(), tfDesconto.getText());
             financeiro.setProcesso(tfProcesso.getText());
             financeiro.setCliente(tfNome.getText());
             financeiro.setValor(rm.removeMascara(tfValor.getText()));
@@ -567,6 +601,7 @@ public class Cadastro extends javax.swing.JDialog {
         tfTotal = new javax.swing.JFormattedTextField();
         btCalcular = new javax.swing.JButton();
         jLabel27 = new javax.swing.JLabel();
+        jCheckBox1 = new javax.swing.JCheckBox();
         painelConsultar = new javax.swing.JPanel();
         jLabel32 = new javax.swing.JLabel();
         tfMarca = new javax.swing.JTextField();
@@ -1370,8 +1405,13 @@ public class Cadastro extends javax.swing.JDialog {
         tfTotal.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         tfTotal.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         tfTotal.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        tfTotal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfTotalActionPerformed(evt);
+            }
+        });
 
-        btCalcular.setText("CALC");
+        btCalcular.setText("CALCULAR");
         btCalcular.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btCalcularActionPerformed(evt);
@@ -1380,6 +1420,13 @@ public class Cadastro extends javax.swing.JDialog {
 
         jLabel27.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
         jLabel27.setText("VALOR TOTAL");
+
+        jCheckBox1.setText("Pago");
+        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout painelFinanceiroLayout = new javax.swing.GroupLayout(painelFinanceiro);
         painelFinanceiro.setLayout(painelFinanceiroLayout);
@@ -1398,7 +1445,7 @@ public class Cadastro extends javax.swing.JDialog {
                             .addComponent(tfDesconto, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(painelFinanceiroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 264, Short.MAX_VALUE)
                             .addGroup(painelFinanceiroLayout.createSequentialGroup()
                                 .addComponent(tfDataVencimento, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
@@ -1412,53 +1459,55 @@ public class Cadastro extends javax.swing.JDialog {
                                         .addComponent(jLabel26)))
                                 .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(painelFinanceiroLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btCalcular, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(painelFinanceiroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tfTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(painelFinanceiroLayout.createSequentialGroup()
-                        .addGap(36, 36, 36)
-                        .addComponent(jLabel27)))
-                .addGap(8, 8, 8))
+                        .addComponent(jCheckBox1)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(painelFinanceiroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(painelFinanceiroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(tfTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(painelFinanceiroLayout.createSequentialGroup()
+                            .addGap(36, 36, 36)
+                            .addComponent(jLabel27)))
+                    .addComponent(btCalcular, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
         painelFinanceiroLayout.setVerticalGroup(
             painelFinanceiroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelFinanceiroLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(painelFinanceiroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel20)
-                    .addComponent(jLabel18, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addGap(6, 6, 6)
-                .addGroup(painelFinanceiroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(painelFinanceiroLayout.createSequentialGroup()
-                        .addComponent(tfValor, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel23)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(tfValorDespesa, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(painelFinanceiroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(painelFinanceiroLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 79, Short.MAX_VALUE)
-                        .addComponent(jLabel27)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelFinanceiroLayout.createSequentialGroup()
                         .addGroup(painelFinanceiroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btCalcular, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tfTotal))
-                        .addContainerGap())
-                    .addGroup(painelFinanceiroLayout.createSequentialGroup()
+                            .addComponent(jLabel20)
+                            .addComponent(jLabel18, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addGap(6, 6, 6)
+                        .addGroup(painelFinanceiroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(painelFinanceiroLayout.createSequentialGroup()
+                                .addComponent(tfValor, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel23)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(tfValorDespesa, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(painelFinanceiroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel24)
                             .addComponent(jLabel25)
                             .addComponent(jLabel26))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                    .addGroup(painelFinanceiroLayout.createSequentialGroup()
+                        .addComponent(jLabel27)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(painelFinanceiroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(tfDataVencimento)
-                            .addComponent(comboSituacaofinanceiro)
-                            .addComponent(tfDesconto, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addComponent(tfTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(53, 53, 53)))
+                .addGroup(painelFinanceiroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(btCalcular, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(tfDataVencimento, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(comboSituacaofinanceiro, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(tfDesconto, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addComponent(jCheckBox1)
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("FINANCEIRO", painelFinanceiro);
@@ -1939,6 +1988,14 @@ public class Cadastro extends javax.swing.JDialog {
     private void tfValorKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfValorKeyReleased
             
     }//GEN-LAST:event_tfValorKeyReleased
+
+    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBox1ActionPerformed
+
+    private void tfTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfTotalActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfTotalActionPerformed
      
     /**
      * @param args the command line arguments
@@ -1996,6 +2053,7 @@ public class Cadastro extends javax.swing.JDialog {
     private javax.swing.JComboBox comboCidadeAssessoria;
     private javax.swing.JComboBox comboSituacaoProcesso;
     private javax.swing.JComboBox comboSituacaofinanceiro;
+    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;

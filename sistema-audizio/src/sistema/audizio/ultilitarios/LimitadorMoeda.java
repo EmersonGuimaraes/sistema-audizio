@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package sistema.audizio.gui;
+package sistema.audizio.ultilitarios;
 import javax.swing.text.*; 
 /**
  *

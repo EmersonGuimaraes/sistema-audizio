@@ -5,6 +5,8 @@
  */
 package sistema.audizio.gui;
 
+import sistema.audizio.ultilitarios.LimitadorMoeda;
+import sistema.audizio.ultilitarios.RemoveMascara;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import sistema.audizio.bean.Financeiro;
