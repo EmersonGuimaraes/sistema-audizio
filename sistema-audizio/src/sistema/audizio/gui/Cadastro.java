@@ -515,7 +515,15 @@ public class Cadastro extends javax.swing.JDialog {
     public void preencheVeiculo(String id){
         ArrayList<Veiculo> veiculo = new DaoVeiculo().Consultar(id);
         for(Veiculo v:veiculo){
-            
+            tfMarca.setText(v.getMarca());
+            tfModelo.setText(v.getModelo());
+            tfCor.setText(v.getCor());
+            tfAnoFabricacao.setText(v.getAnoFabricacao());
+            tfAnoModelo.setText(v.getAnoModelo());
+            tfPlaca.setText(v.getPlaca());
+            tfChassi.setText(v.getChassi());
+            tfRenavam.setText(v.getRenavam());
+            cbEstadoVeiculo.setSelectedItem(v.getEstado());
         }
     }
     /**
