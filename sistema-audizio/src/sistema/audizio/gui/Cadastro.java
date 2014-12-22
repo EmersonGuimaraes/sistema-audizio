@@ -63,7 +63,7 @@ public class Cadastro extends javax.swing.JDialog {
         ativarCampoAdvogado(false);
         ativaCampoVeiculo(false);
         this.setFocusable(true);
-        carregarTabela();
+        carregarTabela("");
     }
     
     private void carregaCidades(){
@@ -181,7 +181,11 @@ public class Cadastro extends javax.swing.JDialog {
         //String totalGeral = NumberFormat.getCurrencyInstance().format(novoTotal);
         //tfTotal.setText(totalGeral);
     }
-    
+    public boolean validarFormCliente(){
+        boolean estado = false;
+        
+        return estado;
+    }
     public void AtivarCliente(Boolean condicao){
         tfNome.setEditable(condicao);
         tfDataNasci.setEditable(condicao);
@@ -267,7 +271,7 @@ public class Cadastro extends javax.swing.JDialog {
         ativarCampoAssessoria(false);
         ativarCampoFinanceiro(false);
         ativarCampoAdvogado(false);
-        
+        ativaCampoVeiculo(false);
         btSalvar.setEnabled(false);
         btCancelar.setEnabled(false);
         btRelatorio.setEnabled(false);
@@ -277,16 +281,7 @@ public class Cadastro extends javax.swing.JDialog {
     }
     
     public void btsalvar(){
-         if (tfAcao.getText().trim().equals("") || tfCelAdvogado.getText().trim().equals("") || tfCelular.getText().trim().equals("") || tfAcao.getText().trim().equals("") || tfCelAdvogado.getText().trim().equals("") || tfCelular.getText().trim().equals("")
-            || tfCep.getText().trim().equals("") || tfComarca.getText().trim().equals("") || tfCpf.getText().trim().equals("") || tfDataFim.getText().trim().equals("")
-                || tfDataInicio.getText().trim().equals("") || tfDataNasci.getText().trim().equals("") || tfDataVencimento.getText().trim().equals("")
-                || tfDescDespesa.getText().trim().equals("") || tfDesconto.getText().trim().equals("") || tfEmail.getText().trim().equals("")
-                || tfEndereco.getText().trim().equals("") || tfEnderecoAssessoria.getText().trim().equals("") || tfEstado.getText().trim().equals("")
-                || tfEstadoCivil.getText().trim().equals("") || tfNacionalidade.getText().trim().equals("") || tfNome.getText().trim().equals("") || tfNomeAdvogado.getText().trim().equals("")
-                || tfNomeAssessoria.getText().trim().equals("") || tfNumero.getText().trim().equals("") || tfProcesso.getText().trim().equals("") || tfProfissao.getText().trim().equals("")
-                || tfTelefone.getText().trim().equals("") || tfTotal.getText().trim().equals("") || tfValor.getText().equals(null) || tfValorDespesa.getText().trim().equals("")
-                || tfVara.getText().trim().equals("") || tfWhats.getText().trim().equals("") || tfsituacaoatual.getText().trim().equals(""))
-        {
+         if (false){
          
             JOptionPane.showMessageDialog(null, "Verifique se todos os campos foram preenchidos e tente novamente.");
             
@@ -414,7 +409,7 @@ public class Cadastro extends javax.swing.JDialog {
                      tfValorDespesa.setText("000");
                      tfDesconto.setText("000");
 
-                     carregarTabela();
+                    
              } catch (Exception e) {
                      System.out.println("Não foi possivel realizar o cadastro, por favor verifique se os campos foram preenchidos corretamente e tente novamente.");
              }
@@ -430,8 +425,9 @@ public class Cadastro extends javax.swing.JDialog {
            } catch (Exception e) {
                System.out.println("Não foi possivel atualizar os dados, por favor verifique os campos e tente novamente.");
            }
-       }
             
+       }
+            carregarTabela("");
         
         }
     }
@@ -451,12 +447,15 @@ public class Cadastro extends javax.swing.JDialog {
         btExcluir.setEnabled(false);
         
     }
-    public void carregarTabela(){
+    public void carregarTabela(String pesquisa){
        DaoCliente dao = new DaoCliente();
        ArrayList<Cliente> clientes = new ArrayList();  
        clientes = dao.Consultar("");
       // System.out.println("Tamanho do array "+clientes.size());
+        
+        
        modeloTabela = (DefaultTableModel) tbListarCliente.getModel();
+       modeloTabela.setNumRows(0);
        for(Cliente cli:clientes){
            modeloTabela.addRow(new Object[] {cli.getIdCliente(), cli.getNome(),cli.getCpf()});
         }
@@ -701,7 +700,7 @@ public class Cadastro extends javax.swing.JDialog {
         jComboBox1 = new javax.swing.JComboBox();
         btImprimir = new javax.swing.JButton();
         jLabel29 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        tfPesquisa = new javax.swing.JTextField();
         btPequisar = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tbListarCliente = new javax.swing.JTable();
@@ -1723,6 +1722,12 @@ public class Cadastro extends javax.swing.JDialog {
 
         jLabel29.setText("PESQUISAR");
 
+        tfPesquisa.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tfPesquisaKeyReleased(evt);
+            }
+        });
+
         btPequisar.setText("Pesquisar");
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
@@ -1739,7 +1744,7 @@ public class Cadastro extends javax.swing.JDialog {
                     .addGroup(jPanel8Layout.createSequentialGroup()
                         .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jTextField1))
+                    .addComponent(tfPesquisa))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btImprimir, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)
@@ -1757,7 +1762,7 @@ public class Cadastro extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel29)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btPequisar))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -2090,6 +2095,10 @@ public class Cadastro extends javax.swing.JDialog {
     private void tfTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfTotalActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tfTotalActionPerformed
+
+    private void tfPesquisaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfPesquisaKeyReleased
+        carregarTabela(tfPesquisa.getText());
+    }//GEN-LAST:event_tfPesquisaKeyReleased
      
     /**
      * @param args the command line arguments
@@ -2193,7 +2202,6 @@ public class Cadastro extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JLabel lbBairro;
     private javax.swing.JLabel lbBairro1;
@@ -2240,6 +2248,7 @@ public class Cadastro extends javax.swing.JDialog {
     private javax.swing.JTextField tfNomeAdvogado;
     private javax.swing.JTextField tfNomeAssessoria;
     private javax.swing.JTextField tfNumero;
+    private javax.swing.JTextField tfPesquisa;
     private javax.swing.JTextField tfPlaca;
     private javax.swing.JTextField tfProcesso;
     private javax.swing.JTextField tfProfissao;
