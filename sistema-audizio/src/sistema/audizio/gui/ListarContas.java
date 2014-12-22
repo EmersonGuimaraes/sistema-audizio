@@ -6,17 +6,9 @@
 
 package sistema.audizio.gui;
 
-import com.itextpdf.text.DocumentException;
-import static com.sun.org.apache.xalan.internal.lib.ExsltDatetime.date;
-import java.io.FileNotFoundException;
-import java.sql.Date;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import sistema.audizio.bean.Bairro;
@@ -25,13 +17,7 @@ import sistema.audizio.bean.Cliente;
 import sistema.audizio.bean.Financeiro;
 import sistema.audizio.bean.Processo;
 import sistema.audizio.bean.Veiculo;
-import sistema.audizio.dao.DaoBairro;
-import sistema.audizio.dao.DaoCidade;
-import sistema.audizio.dao.DaoCliente;
 import sistema.audizio.dao.DaoFinanceiro;
-import sistema.audizio.dao.DaoProcesso;
-import sistema.audizio.dao.DaoVeiculo;
-import sistema.audizio.relatorio.Relatorio;
 /**
  *
  * @author emerson
