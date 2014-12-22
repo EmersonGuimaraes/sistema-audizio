@@ -28,7 +28,7 @@ public class DaoAdvogado extends Conexao{
     
     public void Editar(Advogado advogado){
       
-        sql = "UPDATE tb_advogado SET nome = '"+advogado.getNome()+"' WHERE cod = '"+advogado.getIdAdvogado()+"'";
+        sql = "UPDATE tb_advogado SET nome = '"+advogado.getNome()+"', cel = '"+advogado.getCelular()+"' WHERE id = '"+advogado.getIdAdvogado()+"'";
     }
     public void Deletar(Advogado advogado){
         
