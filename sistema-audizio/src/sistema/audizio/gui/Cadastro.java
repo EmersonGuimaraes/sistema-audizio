@@ -6,8 +6,6 @@
 package sistema.audizio.gui;
 
 import java.text.DecimalFormat;
-import sistema.audizio.ultilitarios.LimitadorMoeda;
-import sistema.audizio.ultilitarios.RemoveMascara;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Locale;
@@ -34,7 +32,10 @@ import sistema.audizio.dao.DaoCliente;
 import sistema.audizio.dao.DaoFinanceiro;
 import sistema.audizio.dao.DaoProcesso;
 import sistema.audizio.dao.DaoVeiculo;
+import sistema.audizio.ultilitarios.LimitadorMoeda;
 import sistema.audizio.ultilitarios.NumeroDocument;
+import sistema.audizio.ultilitarios.RemoveMascara;
+import sistema.audizio.ultilitarios.Validacao;
 import sun.java2d.pipe.LCDTextRenderer;
 
 /**
@@ -257,6 +258,7 @@ public class Cadastro extends javax.swing.JDialog {
         ativarCampoAssessoria(true);
         ativarCampoFinanceiro(true);
         ativarCampoAdvogado(true);
+        ativaCampoVeiculo(true);
         
         btSalvar.setEnabled(true);
         btCancelar.setEnabled(true);
@@ -279,157 +281,155 @@ public class Cadastro extends javax.swing.JDialog {
         //btAlterar.setEnabled(true);
         //btExcluir.setEnabled(true);
     }
-    
-    public void btsalvar(){
-         if (false){
-         
-            JOptionPane.showMessageDialog(null, "Verifique se todos os campos foram preenchidos e tente novamente.");
-            
-        }else{
-        RemoveMascara rm = new RemoveMascara();
-        btSalvar.setEnabled(false);
-        btNovo.setEnabled(true);
-        
-        Cliente cli = new Cliente();
-            cli.setNome(tfNome.getText());
-            cli.setNascimento(rm.removeMascara(tfDataNasci.getText()));
-            cli.setCpf(rm.removeMascara(tfCpf.getText()));
-            cli.setNacionalidade(tfNacionalidade.getText());
-            cli.setProfisao(tfProfissao.getText());
-            cli.setEstado_civil(tfEstadoCivil.getText());
-            cli.setCep(rm.removeMascara(tfCep.getText()));
-            cli.setEndereco(tfEndereco.getText());
-            cli.setNum(tfNumero.getText());
-            cli.setEstado(tfEstado.getText());
-            cli.setCidade(String.valueOf(comboCidade.getSelectedItem()));
-            cli.setBairro(String.valueOf(comboBairro.getSelectedItem()));
-            cli.setFone(rm.removeMascara(tfTelefone.getText()));
-            cli.setCelular(rm.removeMascara(tfCelular.getText()));
-            cli.setEmail(tfEmail.getText());
-            cli.setWhatsapp(rm.removeMascara(tfWhats.getText()));
-            cli.setIdCliente(idCliente);
-            
-        Processo  processo = new Processo();
-       
-            processo.setProcesso(tfProcesso.getText());
-            processo.setData_inicio(rm.removeMascara(tfDataInicio.getText()));
-            processo.setData_termino(rm.removeMascara(tfDataFim.getText()));
-            processo.setAcao(tfAcao.getText());
-            processo.setSituacao(String.valueOf(comboSituacaofinanceiro.getSelectedItem()));
-            processo.setSituacao_atual(tfsituacaoatual.getText());
-            processo.setVara(tfVara.getText());
-            processo.setComarca(tfComarca.getText());
-            processo.setIdProcesso(idCliente);
-            
-        Advogado advogado = new Advogado();
-            
-            advogado.setNome(tfNomeAdvogado.getText());
-            advogado.setCelular(rm.removeMascara(tfCelAdvogado.getText()));
-            advogado.setIdAdvogado(idCliente);
-            
-        Assessoria assessoria = new Assessoria();
-        
-            assessoria.setNome(tfNomeAssessoria.getText());
-            assessoria.setCidade(String.valueOf(String.valueOf(comboCidadeAssessoria.getSelectedIndex())));
-            assessoria.setBairro(String.valueOf(comboBairroAssessoria.getSelectedIndex()));
-            assessoria.setEndereco(tfEndereco.getText());
-            assessoria.setId(idCliente);
-            
-        Financeiro financeiro = new Financeiro();
-            calcularTotal(tfValor.getText(), tfValorDespesa.getText(), tfDesconto.getText());
-            financeiro.setProcesso(tfProcesso.getText());
-            financeiro.setCliente(tfNome.getText());
-            financeiro.setValor(rm.removeMascara(tfValor.getText()));
-            financeiro.setValor_despesa(rm.removeMascara(tfValorDespesa.getText()));
-            financeiro.setDesconto(rm.removeMascara(tfDesconto.getText()));
-            financeiro.setVencimento(rm.removeMascara(tfDataVencimento.getText()));
-            financeiro.setSituacao(String.valueOf(comboSituacaofinanceiro.getSelectedItem()));
-            financeiro.setValor_total(tfTotal.getText());
-            financeiro.setDesc_despesa(tfDescDespesa.getText());
-            financeiro.setId(Integer.parseInt(idCliente));
-            //financeiro.setData_pagamento(tfda.getText());
-       
-        Veiculo v = new Veiculo();
-            v.setMarca(tfMarca.getText());
-            v.setModelo(tfModelo.getText());
-            v.setCor(tfCor.getText());
-            v.setAnoFabricacao(tfAnoFabricacao.getText());
-            v.setModelo(tfAnoModelo.getText());
-            v.setPlaca(tfPlaca.getText());
-            v.setChassi(tfChassi.getText());
-            v.setRenavam(tfRenavam.getText());
-            v.setEstado(cbEstadoVeiculo.getSelectedItem().toString());
-            v.setId(idCliente);
-            
-       DaoCliente daocli = new DaoCliente();
-       DaoProcesso daoprocesso = new DaoProcesso();
-       DaoAdvogado daoadv = new DaoAdvogado();
-       DaoAssessoria daoassessoria = new DaoAssessoria();
-       DaoFinanceiro daofinanceiro = new DaoFinanceiro();
-        
-       if(estadoBotao==false){
-                try {
+    Validacao v = new Validacao();
+    public void btsalvar( Object[] listaField, Object[] listaCombo){
+         if (v.ValidatField(listaField)){
+             if(v.ValidaCombo(listaCombo)){
+                        RemoveMascara rm = new RemoveMascara();
+                        btSalvar.setEnabled(false);
+                        btNovo.setEnabled(true);
 
-                     daocli.Cadastrar(cli);
-                     daoprocesso.Cadastrar(processo);
-                     daoadv.Cadastrar(advogado);
-                     daoassessoria.cadastrar(assessoria);
-                     daofinanceiro.cadastrar(financeiro);
-                     JOptionPane.showMessageDialog(null, "Cadastro realizado com sucesso");
+                        Cliente cli = new Cliente();
+                            cli.setNome(tfNome.getText());
+                            cli.setNascimento(rm.removeMascara(tfDataNasci.getText()));
+                            cli.setCpf(rm.removeMascara(tfCpf.getText()));
+                            cli.setNacionalidade(tfNacionalidade.getText());
+                            cli.setProfisao(tfProfissao.getText());
+                            cli.setEstado_civil(tfEstadoCivil.getText());
+                            cli.setCep(rm.removeMascara(tfCep.getText()));
+                            cli.setEndereco(tfEndereco.getText());
+                            cli.setNum(tfNumero.getText());
+                            cli.setEstado(tfEstado.getText());
+                            cli.setCidade(String.valueOf(comboCidade.getSelectedItem()));
+                            cli.setBairro(String.valueOf(comboBairro.getSelectedItem()));
+                            cli.setFone(rm.removeMascara(tfTelefone.getText()));
+                            cli.setCelular(rm.removeMascara(tfCelular.getText()));
+                            cli.setEmail(tfEmail.getText());
+                            cli.setWhatsapp(rm.removeMascara(tfWhats.getText()));
+                            cli.setIdCliente(idCliente);
 
-                     tfAcao.setText(null);
-                     tfCelAdvogado.setText(null);
-                     tfCelular.setText(null);
-                     tfCep.setText(null);
-                     tfComarca.setText(null);
-                     tfCpf.setText(null);
-                     tfDataFim.setText(null);
-                     tfDataInicio.setText(null);
-                     tfDataNasci.setText(null);
-                     tfDataVencimento.setText(null);
-                     tfDescDespesa.setText(null);
-                     tfEmail.setText(null);
-                     tfEndereco.setText(null);
-                     tfEnderecoAssessoria.setText(null);
-                     tfEstado.setText(null);
-                     tfEstadoCivil.setText(null);
-                     tfNacionalidade.setText(null);
-                     tfNome.setText(null);
-                     tfNomeAdvogado.setText(null);
-                     tfNomeAssessoria.setText(null);
-                     tfNumero.setText(null);
-                     tfProcesso.setText(null);
-                     tfProfissao.setText(null);
-                     tfTelefone.setText(null);
-                     tfVara.setText(null);
-                     tfWhats.setText(null);
-                     tfsituacaoatual.setText(null);
-                     tfTotal.setText("000");
-                     tfValor.setText("000");
-                     tfValorDespesa.setText("000");
-                     tfDesconto.setText("000");
+                        Processo  processo = new Processo();
 
-                    
-             } catch (Exception e) {
-                     System.out.println("Não foi possivel realizar o cadastro, por favor verifique se os campos foram preenchidos corretamente e tente novamente.");
-             }
-       }else{
-            try {
-                     daocli.Editar(cli);
-                     daoprocesso.Editar(processo);
-                     daoadv.Editar(advogado);
-                     daoassessoria.editar(assessoria);
-                     daofinanceiro.editar(financeiro);
-                     JOptionPane.showMessageDialog(null, "Edição realizada com sucesso");
-                     
-           } catch (Exception e) {
-               System.out.println("Não foi possivel atualizar os dados, por favor verifique os campos e tente novamente.");
-           }
-            
-       }
-            carregarTabela("");
+                            processo.setProcesso(tfProcesso.getText());
+                            processo.setData_inicio(rm.removeMascara(tfDataInicio.getText()));
+                            processo.setData_termino(rm.removeMascara(tfDataFim.getText()));
+                            processo.setAcao(tfAcao.getText());
+                            processo.setSituacao(String.valueOf(comboSituacaofinanceiro.getSelectedItem()));
+                            processo.setSituacao_atual(tfsituacaoatual.getText());
+                            processo.setVara(tfVara.getText());
+                            processo.setComarca(tfComarca.getText());
+                            processo.setIdProcesso(idCliente);
+
+                        Advogado advogado = new Advogado();
+
+                            advogado.setNome(tfNomeAdvogado.getText());
+                            advogado.setCelular(rm.removeMascara(tfCelAdvogado.getText()));
+                            advogado.setIdAdvogado(idCliente);
+
+                        Assessoria assessoria = new Assessoria();
+
+                            assessoria.setNome(tfNomeAssessoria.getText());
+                            assessoria.setCidade(String.valueOf(String.valueOf(comboCidadeAssessoria.getSelectedIndex())));
+                            assessoria.setBairro(String.valueOf(comboBairroAssessoria.getSelectedIndex()));
+                            assessoria.setEndereco(tfEndereco.getText());
+                            assessoria.setId(idCliente);
+
+                        Financeiro financeiro = new Financeiro();
+                            calcularTotal(tfValor.getText(), tfValorDespesa.getText(), tfDesconto.getText());
+                            financeiro.setProcesso(tfProcesso.getText());
+                            financeiro.setCliente(tfNome.getText());
+                            financeiro.setValor(rm.removeMascara(tfValor.getText()));
+                            financeiro.setValor_despesa(rm.removeMascara(tfValorDespesa.getText()));
+                            financeiro.setDesconto(rm.removeMascara(tfDesconto.getText()));
+                            financeiro.setVencimento(rm.removeMascara(tfDataVencimento.getText()));
+                            financeiro.setSituacao(String.valueOf(comboSituacaofinanceiro.getSelectedItem()));
+                            financeiro.setValor_total(tfTotal.getText());
+                            financeiro.setDesc_despesa(tfDescDespesa.getText());
+                            financeiro.setId(Integer.parseInt(idCliente));
+                            //financeiro.setData_pagamento(tfda.getText());
+
+                        Veiculo v = new Veiculo();
+                            v.setMarca(tfMarca.getText());
+                            v.setModelo(tfModelo.getText());
+                            v.setCor(tfCor.getText());
+                            v.setAnoFabricacao(tfAnoFabricacao.getText());
+                            v.setModelo(tfAnoModelo.getText());
+                            v.setPlaca(tfPlaca.getText());
+                            v.setChassi(tfChassi.getText());
+                            v.setRenavam(tfRenavam.getText());
+                            v.setEstado(cbEstadoVeiculo.getSelectedItem().toString());
+                            v.setId(idCliente);
+
+                       DaoCliente daocli = new DaoCliente();
+                       DaoProcesso daoprocesso = new DaoProcesso();
+                       DaoAdvogado daoadv = new DaoAdvogado();
+                       DaoAssessoria daoassessoria = new DaoAssessoria();
+                       DaoFinanceiro daofinanceiro = new DaoFinanceiro();
+
+                       if(estadoBotao==false){
+                                try {
+
+                                     daocli.Cadastrar(cli);
+                                     daoprocesso.Cadastrar(processo);
+                                     daoadv.Cadastrar(advogado);
+                                     daoassessoria.cadastrar(assessoria);
+                                     daofinanceiro.cadastrar(financeiro);
+                                     JOptionPane.showMessageDialog(null, "Cadastro realizado com sucesso");
+
+                                     tfAcao.setText(null);
+                                     tfCelAdvogado.setText(null);
+                                     tfCelular.setText(null);
+                                     tfCep.setText(null);
+                                     tfComarca.setText(null);
+                                     tfCpf.setText(null);
+                                     tfDataFim.setText(null);
+                                     tfDataInicio.setText(null);
+                                     tfDataNasci.setText(null);
+                                     tfDataVencimento.setText(null);
+                                     tfDescDespesa.setText(null);
+                                     tfEmail.setText(null);
+                                     tfEndereco.setText(null);
+                                     tfEnderecoAssessoria.setText(null);
+                                     tfEstado.setText(null);
+                                     tfEstadoCivil.setText(null);
+                                     tfNacionalidade.setText(null);
+                                     tfNome.setText(null);
+                                     tfNomeAdvogado.setText(null);
+                                     tfNomeAssessoria.setText(null);
+                                     tfNumero.setText(null);
+                                     tfProcesso.setText(null);
+                                     tfProfissao.setText(null);
+                                     tfTelefone.setText(null);
+                                     tfVara.setText(null);
+                                     tfWhats.setText(null);
+                                     tfsituacaoatual.setText(null);
+                                     tfTotal.setText("000");
+                                     tfValor.setText("000");
+                                     tfValorDespesa.setText("000");
+                                     tfDesconto.setText("000");
+
+
+                             } catch (Exception e) {
+                                     System.out.println("Não foi possivel realizar o cadastro, por favor verifique se os campos foram preenchidos corretamente e tente novamente.");
+                             }
+                       }else{
+                            try {
+                                     daocli.Editar(cli);
+                                     daoprocesso.Editar(processo);
+                                     daoadv.Editar(advogado);
+                                     daoassessoria.editar(assessoria);
+                                     daofinanceiro.editar(financeiro);
+                                     JOptionPane.showMessageDialog(null, "Edição realizada com sucesso");
+
+                           } catch (Exception e) {
+                               System.out.println("Não foi possivel atualizar os dados, por favor verifique os campos e tente novamente.");
+                           }
+
+                       }
+                            carregarTabela("");
         
         }
+      }
     }
     
     public void btAlterar(){
@@ -2009,7 +2009,16 @@ public class Cadastro extends javax.swing.JDialog {
     }//GEN-LAST:event_formKeyReleased
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
-            btsalvar();
+        Object[] listaCliente = {tfNome,tfCpf,tfCep,tfEndereco,tfNumero,tfEstado,tfCelular};
+        Object[] listaAdv = {tfNomeAdvogado,tfCelAdvogado};
+        Object[] listaAcess = {tfNomeAssessoria,tfEnderecoAssessoria};
+        Object[] listaFinanceiro = {tfValor,tfValorDespesa,tfDataVencimento};
+        Object[] listaProcesso = {tfProcesso,tfDataInicio,tfDataFim,tfAcao,tfsituacaoatual,tfVara,tfComarca};
+        
+        Object[] listaCb = {comboCidade,comboBairro,comboCidadeAssessoria,
+            comboBairroAssessoria,comboSituacaofinanceiro,comboSituacaoProcesso};
+        
+        btsalvar(listaField,listaCb);
         
         
             
@@ -2028,15 +2037,7 @@ public class Cadastro extends javax.swing.JDialog {
     }//GEN-LAST:event_btNovoKeyPressed
 
     private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
-     if(evt.getKeyCode() == evt.VK_F1){   
-           btnovo();
-        }   
-     if(evt.getKeyCode() == evt.VK_F3){   
-           btsalvar();
-        }
-     if(evt.getKeyCode() == evt.VK_F5){   
-           btcancelar();
-        }
+     
     }//GEN-LAST:event_formKeyPressed
 
     private void btAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAlterarActionPerformed
