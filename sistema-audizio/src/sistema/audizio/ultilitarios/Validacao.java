@@ -36,12 +36,13 @@ public class Validacao {
     }
     
     public boolean ValidatField(Object[] tf){
+        RemoveMascara rm = new RemoveMascara();
         boolean bo = true;
         int i;
         int n = tf.length;
         for(i=0;i<n;i++){
             JTextField nTF = (JTextField)tf[i];
-            String str = nTF.getText();
+            String str = rm.removeMascara(nTF.getText());
             if(str.equals("")){
                 nTF.grabFocus();
                 bo = false;
