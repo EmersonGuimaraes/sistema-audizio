@@ -248,7 +248,7 @@ public class Cadastro extends javax.swing.JDialog {
        tfAnoModelo.setEditable(condicao);
        tfChassi.setEditable(condicao);
        tfRenavam.setEditable(condicao);
-       cbEstadoVeiculo.setEditable(condicao);
+       cbEstadoVeiculo.setEnabled(condicao);
    }
 
    
@@ -350,7 +350,7 @@ public class Cadastro extends javax.swing.JDialog {
                                                 financeiro.setSituacao(String.valueOf(comboSituacaofinanceiro.getSelectedItem()));
                                                 financeiro.setValor_total(tfTotal.getText());
                                                 financeiro.setDesc_despesa(tfDescDespesa.getText());
-                                                financeiro.setId(Integer.parseInt(idCliente));
+                                                financeiro.setId(idCliente);
                                                 //financeiro.setData_pagamento(tfda.getText());
 
                                             Veiculo v = new Veiculo();

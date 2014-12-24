@@ -5,7 +5,7 @@ package sistema.audizio.bean;
  * @author ZipNet
  */
 public class Financeiro extends Processo{
-    public int id;
+    public String id;
     public int id_processo;
     public int id_cliente;
     public String processo;
@@ -22,14 +22,14 @@ public class Financeiro extends Processo{
     /**
      * @return the id
      */
-    public int getId() {
+    public String getId() {
         return id;
     }
 
     /**
      * @param id the id to set
      */
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

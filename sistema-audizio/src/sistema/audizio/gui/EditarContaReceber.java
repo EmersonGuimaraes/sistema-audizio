@@ -329,7 +329,7 @@ public class EditarContaReceber extends javax.swing.JDialog {
             situacao = String.valueOf(comboSituacao.getSelectedItem());
             total = tfTotal.getText();
             
-            f.setId(Integer.parseInt(idProcesso));
+            f.setId(idProcesso);
             
             f.setValor(valor);
             f.setValor_despesa(despesa);

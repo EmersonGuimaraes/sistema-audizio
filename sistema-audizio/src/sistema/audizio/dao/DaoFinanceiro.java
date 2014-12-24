@@ -45,7 +45,7 @@ public class DaoFinanceiro extends Conexao{
                 ConsultarSQL(sql,true);
                 while (rs.next()) {
                     Financeiro f = new Financeiro();
-                    f.setId(rs.getInt("id"));
+                    f.setId(rs.getString("id"));
                     f.setId_cliente(rs.getInt("id_cliente"));
                     f.setProcesso(rs.getString("processo"));
                     f.setCliente(rs.getString("cliente"));
@@ -66,7 +66,7 @@ public class DaoFinanceiro extends Conexao{
                 
                 while (rs.next()) {
                    Financeiro f = new Financeiro();
-                    f.setId(rs.getInt("id"));
+                    f.setId(rs.getString("id"));
                     
                     f.setId_cliente(rs.getInt("id_cliente"));
                     f.setProcesso(rs.getString("processo"));
@@ -86,7 +86,7 @@ public class DaoFinanceiro extends Conexao{
                 
                 while (rs.next()) {
                     Financeiro f = new Financeiro();
-                    f.setId(rs.getInt("id"));
+                    f.setId(rs.getString("id"));
                     
                     f.setId_cliente(rs.getInt("id_cliente"));
                     f.setProcesso(rs.getString("processo"));
@@ -104,7 +104,7 @@ public class DaoFinanceiro extends Conexao{
                 ConsultarSQL(sql,true);
                 while (rs.next()) {
                     Financeiro f = new Financeiro();
-                    f.setId(rs.getInt("id"));
+                    f.setId(rs.getString("id"));
                     
                     f.setId_cliente(rs.getInt("id_cliente"));
                     f.setProcesso(rs.getString("processo"));
@@ -134,7 +134,7 @@ public class DaoFinanceiro extends Conexao{
             ConsultarSQL(sql,true);
             while (rs.next()) {
                 Financeiro f = new Financeiro();
-                f.setId(rs.getInt("id"));
+                f.setId(rs.getString("id"));
                 f.setId_cliente(rs.getInt("id_cliente"));
                 f.setProcesso(rs.getString("processo"));
                 f.setCliente(rs.getString("cliente"));

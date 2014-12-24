@@ -150,7 +150,7 @@
               <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="tfTotal" pref="55" max="32767" attributes="0"/>
+                  <Component id="tfTotal" max="32767" attributes="0"/>
                   <Component id="btCalcular" max="32767" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="btCadastrar" min="-2" max="-2" attributes="0"/>
