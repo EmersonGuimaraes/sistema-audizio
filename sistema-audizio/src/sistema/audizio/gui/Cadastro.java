@@ -525,6 +525,7 @@ public class Cadastro extends javax.swing.JDialog {
             tfComarca.setText(pro.getComarca());
             tfDataInicio.setText(pro.getData_inicio());
             tfDataFim.setText(pro.getData_termino());
+            tfsituacaoatual.setText(pro.getSituacao_atual());
             
             
         }  
