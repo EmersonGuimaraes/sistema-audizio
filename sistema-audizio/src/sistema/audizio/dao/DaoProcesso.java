@@ -23,11 +23,11 @@ public class DaoProcesso extends Conexao{
     }
     
     public void Cadastrar(Processo processo){
-        
+        System.out.println("Processo: "+processo.getProcesso());
         sql="INSERT INTO tb_processo VALUES(null,'"+processo.getProcesso()+"','"+processo.getData_inicio()+"','"+processo.getData_termino()+"',"
-                + "'"+processo.getIdCliente()+"','"+processo.getIdAdvogado()+"','"+processo.getAcao()+"','ABERTO',"
+                + "'"+processo.getIdCliente()+"','"+processo.getIdAdvogado()+"','"+processo.getAcao()+"','"+processo.getSituacao()+"',"
                 + "'"+processo.getSituacao_atual()+"','"+processo.getVara()+"','"+processo.getComarca()+"','"+processo.getAssessoria()+"')";
-        
+        ConsultarSQL(sql, false);
     }
     public void Editar(Processo processo){
         System.out.println("Id processo no dao:"+processo.getIdProcesso());

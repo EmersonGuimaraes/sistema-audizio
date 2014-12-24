@@ -370,7 +370,7 @@ public class Cadastro extends javax.swing.JDialog {
                                            DaoAdvogado daoadv = new DaoAdvogado();
                                            DaoAssessoria daoassessoria = new DaoAssessoria();
                                            DaoFinanceiro daofinanceiro = new DaoFinanceiro();
-
+                                           DaoVeiculo daoVeiculo = new DaoVeiculo();
                                            if(estadoBotao==false){
                                                     try {
 
@@ -379,6 +379,7 @@ public class Cadastro extends javax.swing.JDialog {
                                                          daoadv.Cadastrar(advogado);
                                                          daoassessoria.cadastrar(assessoria);
                                                          daofinanceiro.cadastrar(financeiro);
+                                                         daoVeiculo.Cadastrar(v);
                                                          JOptionPane.showMessageDialog(null, "Cadastro realizado com sucesso");
 
                                                          tfAcao.setText(null);
@@ -424,6 +425,7 @@ public class Cadastro extends javax.swing.JDialog {
                                                          daoadv.Editar(advogado);
                                                          daoassessoria.editar(assessoria);
                                                          daofinanceiro.editar(financeiro);
+                                                         daoVeiculo.Editar(v);
                                                          JOptionPane.showMessageDialog(null, "Edição realizada com sucesso");
 
                                                } catch (Exception e) {
