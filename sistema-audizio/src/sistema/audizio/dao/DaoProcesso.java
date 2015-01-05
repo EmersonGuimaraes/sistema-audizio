@@ -26,14 +26,14 @@ public class DaoProcesso extends Conexao{
         System.out.println("Processo: "+processo.getProcesso());
         sql="INSERT INTO tb_processo VALUES(null,'"+processo.getProcesso()+"','"+processo.getData_inicio()+"','"+processo.getData_termino()+"',"
                 + "'"+processo.getIdCliente()+"','"+processo.getIdAdvogado()+"','"+processo.getAcao()+"','"+processo.getSituacao()+"',"
-                + "'"+processo.getSituacao_atual()+"','"+processo.getVara()+"','"+processo.getComarca()+"','"+processo.getAssessoria()+"')";
+                + "'"+processo.getSituacao_atual()+"','"+processo.getVara()+"','"+processo.getComarca()+"','"+processo.getAssessoria()+"','"+processo.getCliente()+"')";
         ConsultarSQL(sql, false);
     }
     public void Editar(Processo processo){
         System.out.println("Id processo no dao:"+processo.getIdProcesso());
         sql="UPDATE tb_processo SET processo = '"+processo.getProcesso()+"',data_inicio = '"+processo.getData_inicio()+"',data_termino = '"+processo.getData_termino()+"',"
                 + "acao = '"+processo.getAcao()+"',situacao = '"+processo.getSituacao()+"',situacao_atual = '"+processo.getSituacao_atual()+"',"
-                + "vara = '"+processo.getVara()+"',comarca = '"+processo.getComarca()+"' WHERE id = '"+processo.getIdProcesso()+"'";
+                + "vara = '"+processo.getVara()+"',comarca = '"+processo.getComarca()+"',nome_cliente = '"+processo.getCliente()+"' WHERE id = '"+processo.getIdProcesso()+"'";
         ConsultarSQL(sql, false);
         
     }
@@ -49,43 +49,43 @@ public class DaoProcesso extends Conexao{
         try {
             
             if(situacao.equals("")){
-                String sql = "SELECT id,cliente,processo,situacao FROM tb_processo";
+                String sql = "SELECT id,processo, nome_cliente,situacao FROM tb_processo";
                 ConsultarSQL(sql,true);
                 while (rs.next()) {
                     Processo processo = new Processo();
                     processo.setIdProcesso(rs.getString("id"));
                     processo.setProcesso(rs.getString("processo"));
-                    processo.setCliente(rs.getString("cliente"));
+                    processo.setCliente(rs.getString("nome_cliente"));
                     processo.setSituacao(rs.getString("situacao"));
                     
                     processos.add(processo);
 
                 }
-            }else if(situacao.equals("aberto")){
-                String sql = "SELECT id,cliente,processo,situacao FROM tb_processo WHERE situacao = '"+situacao+"'";
+            }else if(situacao.equals("ABERTO")){
+                String sql = "SELECT id,processo, nome_cliente,situacao FROM tb_processo WHERE situacao = '"+situacao+"'";
                 ConsultarSQL(sql,true);
                 
                 while (rs.next()) {
                     Processo processo = new Processo();
                     processo.setIdProcesso(rs.getString("id"));
                     processo.setProcesso(rs.getString("processo"));
-                    processo.setCliente(rs.getString("cliente"));
+                    processo.setCliente(rs.getString("nome_cliente"));
                     processo.setSituacao(rs.getString("situacao"));
                     
                     processos.add(processo);
 
                 }
                 
-            }else if(situacao.equals("arquivado")){
+            }else if(situacao.equals("ARQUIVADO")){
                 
-                String sql = "SELECT id,cliente,processo,situacao FROM tb_processo WHERE situacao = '"+situacao+"'";
+                String sql = "SELECT id,nome_cliente,processo,situacao FROM tb_processo WHERE situacao = '"+situacao+"'";
                 ConsultarSQL(sql,true);
                 
                 while (rs.next()) {
                     Processo processo = new Processo();
                     processo.setIdProcesso(rs.getString("id"));
                     processo.setProcesso(rs.getString("processo"));
-                    processo.setCliente(rs.getString("cliente"));
+                    processo.setCliente(rs.getString("nome_cliente"));
                     processo.setSituacao(rs.getString("situacao"));
                     
                     processos.add(processo);

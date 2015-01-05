@@ -138,7 +138,7 @@ public class ListarClientes extends javax.swing.JDialog {
 
     private void btNovoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoClienteActionPerformed
         this.dispose();
-        new CadastroCliente().show();
+         new Cadastro(0,true).setVisible(true);
     }//GEN-LAST:event_btNovoClienteActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed

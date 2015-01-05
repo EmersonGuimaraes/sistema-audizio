@@ -43,9 +43,9 @@ public class ListarProcessos extends javax.swing.JDialog {
         initComponents();
         carregarTabela(situacao);
         setModal(true);
-        if(situacao.equals("aberto")){
+        if(situacao.equals("ABERTO")){
             rbAberto.setSelected(true);
-        }else if(situacao.equals("arquivado")){
+        }else if(situacao.equals("ARQUIVADO")){
             rbArquivados.setSelected(true);
         }else{
             rbTodos.setSelected(true);
@@ -239,12 +239,12 @@ public class ListarProcessos extends javax.swing.JDialog {
 
     private void btNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoActionPerformed
         this.dispose();
-        new CadastroProcesso().show();
+         new Cadastro(2,true).setVisible(true);
     }//GEN-LAST:event_btNovoActionPerformed
 
     private void rbAbertoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbAbertoActionPerformed
         removerLinhas();
-        carregarTabela("aberto");
+        carregarTabela("ABERTO");
         btArquivar.setEnabled(true);
     }//GEN-LAST:event_rbAbertoActionPerformed
 
@@ -256,7 +256,7 @@ public class ListarProcessos extends javax.swing.JDialog {
 
     private void rbArquivadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbArquivadosActionPerformed
         removerLinhas();
-        carregarTabela("arquivado");
+        carregarTabela("ARQUIVADO");
         btArquivar.setEnabled(false);
     }//GEN-LAST:event_rbArquivadosActionPerformed
 
@@ -334,7 +334,7 @@ public class ListarProcessos extends javax.swing.JDialog {
             */
             
          
-            relatorio.gerar(cliente, processo, veiculo, cidade, bairro);
+           // relatorio.gerar(cliente, processo, veiculo, cidade, bairro);
             System.out.println("Passou");
         } catch (Exception ex) {
             Logger.getLogger(ListarProcessos.class.getName()).log(Level.SEVERE, null, ex);

@@ -24,8 +24,9 @@ public class TelaInicial extends javax.swing.JFrame {
     public TelaInicial() {
         initComponents();
         this.setExtendedState(this.MAXIMIZED_BOTH);
-        //lbNomeUsuario.setText(daoUsuario.consultarUsuario().toUpperCase());
+        lbNomeUsuario.setText(daoUsuario.consultarUsuario().toUpperCase());
        // imgFundo();
+        
     }
      
     public void imgFundo(){
@@ -34,7 +35,7 @@ public class TelaInicial extends javax.swing.JFrame {
         ImageIcon icone2 = new ImageIcon("C:/sistema/imagens/icones/processos.png");
         ImageIcon icone3 = new ImageIcon("C:/sistema/imagens/icones/assessoria.png");
         
-        labelFoto.setIcon(icone);
+        //labelFoto.setIcon(icone);
         btClientes.setIcon(icone1);
         btProcessos.setIcon(icone2);
         btAssessoria.setIcon(icone3);
@@ -58,8 +59,10 @@ public class TelaInicial extends javax.swing.JFrame {
         btSair = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         lbNomeUsuario = new javax.swing.JLabel();
-        labelFoto = new javax.swing.JLabel();
         btAssessoria = new javax.swing.JButton();
+        panelTela = new javax.swing.JPanel();
+        btFinanceiro = new javax.swing.JButton();
+        btVeiculo = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu5 = new javax.swing.JMenu();
@@ -92,21 +95,21 @@ public class TelaInicial extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Bem-vindo !");
 
-        btClientes.setText("CLIENTES");
+        btClientes.setText("CLIENTE");
         btClientes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btClientesActionPerformed(evt);
             }
         });
 
-        btProcessos.setText("PROCESSOS");
+        btProcessos.setText("PROCESSO");
         btProcessos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btProcessosActionPerformed(evt);
             }
         });
 
-        btAdvogado.setText("ADVOGADOS");
+        btAdvogado.setText("ADVOGADO");
         btAdvogado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btAdvogadoActionPerformed(evt);
@@ -125,13 +128,38 @@ public class TelaInicial extends javax.swing.JFrame {
         lbNomeUsuario.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbNomeUsuario.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        labelFoto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labelFoto.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
         btAssessoria.setText("ASSESSORIA");
         btAssessoria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btAssessoriaActionPerformed(evt);
+            }
+        });
+
+        panelTela.setBackground(new java.awt.Color(253, 251, 251));
+        panelTela.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        javax.swing.GroupLayout panelTelaLayout = new javax.swing.GroupLayout(panelTela);
+        panelTela.setLayout(panelTelaLayout);
+        panelTelaLayout.setHorizontalGroup(
+            panelTelaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        panelTelaLayout.setVerticalGroup(
+            panelTelaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 356, Short.MAX_VALUE)
+        );
+
+        btFinanceiro.setText("FINANCEIRO");
+        btFinanceiro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btFinanceiroActionPerformed(evt);
+            }
+        });
+
+        btVeiculo.setText("VEÍCULO");
+        btVeiculo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btVeiculoActionPerformed(evt);
             }
         });
 
@@ -300,40 +328,60 @@ public class TelaInicial extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(21, 21, 21)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(panelTela, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lbNomeUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(btClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btProcessos, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btAdvogado, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btAssessoria, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btSair, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(labelFoto, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(20, 20, 20))))
+                            .addComponent(btClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btAssessoria, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(30, 30, 30)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btProcessos, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btAdvogado, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btFinanceiro, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 144, Short.MAX_VALUE)
+                        .addComponent(btSair, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(20, 20, 20))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lbNomeUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(270, 270, 270)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btSair, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btClientes, javax.swing.GroupLayout.DEFAULT_SIZE, 66, Short.MAX_VALUE)
-                        .addComponent(btProcessos, javax.swing.GroupLayout.DEFAULT_SIZE, 66, Short.MAX_VALUE))
-                    .addComponent(btAdvogado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btAssessoria, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(31, 31, 31)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btSair, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btAssessoria, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(btProcessos, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addComponent(btAdvogado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btFinanceiro, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(18, 18, 18)
-                .addComponent(labelFoto, javax.swing.GroupLayout.DEFAULT_SIZE, 321, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(panelTela, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lbNomeUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -353,27 +401,27 @@ public class TelaInicial extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem12ActionPerformed
 
     private void btClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btClientesActionPerformed
-        new ListarClientes().setVisible(true);
+        new Cadastro(0,true).setVisible(true);
     }//GEN-LAST:event_btClientesActionPerformed
 
     private void btProcessosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btProcessosActionPerformed
-        new ListarProcessos("").setVisible(true);
+        new Cadastro(1,true).setVisible(true);
     }//GEN-LAST:event_btProcessosActionPerformed
 
     private void btAdvogadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAdvogadoActionPerformed
-        new ListarAdvogados().setVisible(true);
+        new Cadastro(2,true).setVisible(true);
     }//GEN-LAST:event_btAdvogadoActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-       new CadastroCliente().setVisible(true);
+       new Cadastro(0,true).setVisible(true);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        new CadastroProcesso().setVisible(true);
+        new Cadastro(1,true).setVisible(true);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem13ActionPerformed
-        new CadastroAdvogado().setVisible(true);
+        new Cadastro(2,true).setVisible(true);
     }//GEN-LAST:event_jMenuItem13ActionPerformed
 
     private void btSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSairActionPerformed
@@ -427,8 +475,16 @@ public class TelaInicial extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem8ActionPerformed
 
     private void btAssessoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAssessoriaActionPerformed
-        new ListarAssessoria().setVisible(true);
+        new Cadastro(3,true).setVisible(true);
     }//GEN-LAST:event_btAssessoriaActionPerformed
+
+    private void btFinanceiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btFinanceiroActionPerformed
+        new Cadastro(4,true).setVisible(true);
+    }//GEN-LAST:event_btFinanceiroActionPerformed
+
+    private void btVeiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btVeiculoActionPerformed
+        new Cadastro(5,true).setVisible(true);
+    }//GEN-LAST:event_btVeiculoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -439,8 +495,10 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JButton btAdvogado;
     private javax.swing.JButton btAssessoria;
     private javax.swing.JButton btClientes;
+    private javax.swing.JButton btFinanceiro;
     private javax.swing.JButton btProcessos;
     private javax.swing.JButton btSair;
+    private javax.swing.JButton btVeiculo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu10;
@@ -468,7 +526,7 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
-    private javax.swing.JLabel labelFoto;
     private javax.swing.JLabel lbNomeUsuario;
+    private javax.swing.JPanel panelTela;
     // End of variables declaration//GEN-END:variables
 }

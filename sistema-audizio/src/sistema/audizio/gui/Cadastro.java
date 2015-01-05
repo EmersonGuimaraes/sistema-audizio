@@ -47,7 +47,7 @@ public class Cadastro extends javax.swing.JDialog {
      boolean listaCheia = false;
     DefaultComboBoxModel comboModelCidade,comboModelBairro,comboModelCidadeAssesoria,comboModelBairroAssesoria;
     boolean estadoBotao = false; //False - Cadastra, True = Atualiza
-    public Cadastro() {
+    public Cadastro(int idPainel, boolean novo) {
         setModal(true);
         initComponents();
         carregaCidades();
@@ -60,6 +60,13 @@ public class Cadastro extends javax.swing.JDialog {
         ativaCampoVeiculo(false);
         this.setFocusable(true);
         carregarTabela("");
+        int idAba = 0;
+        idAba = idPainel;
+        PainelAbas.setSelectedIndex(idAba);
+        System.out.println("Botão Novo: "+novo);
+        if(novo == true){
+            btnovo();
+        }
     }
     
     private void carregaCidades(){
@@ -80,6 +87,7 @@ public class Cadastro extends javax.swing.JDialog {
         }
         
     }
+    
      private void carregaBairros(){
          if(comboCidade.getSelectedItem().toString().equals("Selecionar ...")){
              System.out.println("Nenhuma cidade selecionada");
@@ -248,6 +256,7 @@ public class Cadastro extends javax.swing.JDialog {
 
    
     public void btnovo(){
+        estadoBotao = false;
         AtivarCliente(true);
         ativarCampoProcesso(true);
         ativarCampoAssessoria(true);
@@ -316,11 +325,12 @@ public class Cadastro extends javax.swing.JDialog {
                                                 processo.setData_inicio(rm.removeMascara(tfDataInicio.getText()));
                                                 processo.setData_termino(rm.removeMascara(tfDataFim.getText()));
                                                 processo.setAcao(tfAcao.getText());
-                                                processo.setSituacao(String.valueOf(comboSituacaofinanceiro.getSelectedItem()));
+                                                processo.setSituacao(String.valueOf(comboSituacaoProcesso.getSelectedItem()));
                                                 processo.setSituacao_atual(tfsituacaoatual.getText());
                                                 processo.setVara(tfVara.getText());
                                                 processo.setComarca(tfComarca.getText());
                                                 processo.setIdProcesso(idCliente);
+                                                processo.setCliente(tfNome.getText());
 
                                             Advogado advogado = new Advogado();
 
@@ -445,7 +455,7 @@ public class Cadastro extends javax.swing.JDialog {
     }
     
     public void btAlterar(){
-        
+        estadoBotao = true;
         AtivarCliente(true);
         ativarCampoProcesso(true);
         ativarCampoAssessoria(true);
@@ -601,7 +611,7 @@ public class Cadastro extends javax.swing.JDialog {
         btCancelar = new javax.swing.JButton();
         btSalvar = new javax.swing.JButton();
         btRelatorio = new javax.swing.JButton();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
+        PainelAbas = new javax.swing.JTabbedPane();
         painelCliente = new javax.swing.JPanel();
         lbNome = new javax.swing.JLabel();
         tfNome = new javax.swing.JTextField();
@@ -816,6 +826,12 @@ public class Cadastro extends javax.swing.JDialog {
                 .addComponent(btRelatorio, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(52, Short.MAX_VALUE))
         );
+
+        PainelAbas.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                PainelAbasStateChanged(evt);
+            }
+        });
 
         lbNome.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
         lbNome.setText("NOME");
@@ -1173,7 +1189,7 @@ public class Cadastro extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("CLIENTE", painelCliente);
+        PainelAbas.addTab("CLIENTE", painelCliente);
 
         jLabel2.setFont(new java.awt.Font("Ubuntu", 0, 15)); // NOI18N
         jLabel2.setText("Nº PROCESSO");
@@ -1305,7 +1321,7 @@ public class Cadastro extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("PROCESSO", painelProcesso);
+        PainelAbas.addTab("PROCESSO", painelProcesso);
 
         jLabel15.setText("NOME");
 
@@ -1330,7 +1346,7 @@ public class Cadastro extends javax.swing.JDialog {
                 .addGroup(painelAdvogadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel16)
                     .addComponent(tfCelAdvogado, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(55, Short.MAX_VALUE))
+                .addContainerGap(43, Short.MAX_VALUE))
         );
         painelAdvogadoLayout.setVerticalGroup(
             painelAdvogadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1348,7 +1364,7 @@ public class Cadastro extends javax.swing.JDialog {
                 .addContainerGap(180, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("ADVOGADO", painelAdvogado);
+        PainelAbas.addTab("ADVOGADO", painelAdvogado);
 
         jLabel17.setText("ENDEREÇO");
 
@@ -1424,7 +1440,7 @@ public class Cadastro extends javax.swing.JDialog {
                     .addComponent(jLabel21)
                     .addComponent(tfNomeAssessoria)
                     .addComponent(tfEnderecoAssessoria, javax.swing.GroupLayout.PREFERRED_SIZE, 516, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(53, Short.MAX_VALUE))
+                .addContainerGap(41, Short.MAX_VALUE))
         );
         painelAssessoriaLayout.setVerticalGroup(
             painelAssessoriaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1452,7 +1468,7 @@ public class Cadastro extends javax.swing.JDialog {
                 .addContainerGap(46, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("ASSESSORIA", painelAssessoria);
+        PainelAbas.addTab("ASSESSORIA", painelAssessoria);
 
         jLabel18.setText("VALOR");
 
@@ -1604,7 +1620,7 @@ public class Cadastro extends javax.swing.JDialog {
                 .addContainerGap())
         );
 
-        jTabbedPane1.addTab("FINANCEIRO", painelFinanceiro);
+        PainelAbas.addTab("FINANCEIRO", painelFinanceiro);
 
         jLabel32.setText("MARCA");
 
@@ -1727,7 +1743,7 @@ public class Cadastro extends javax.swing.JDialog {
                 .addContainerGap())
         );
 
-        jTabbedPane1.addTab("VEÍCULO", painelConsultar);
+        PainelAbas.addTab("VEÍCULO", painelConsultar);
 
         jPanel8.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -1815,7 +1831,7 @@ public class Cadastro extends javax.swing.JDialog {
         painelOrdenar.setLayout(painelOrdenarLayout);
         painelOrdenarLayout.setHorizontalGroup(
             painelOrdenarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 608, Short.MAX_VALUE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 596, Short.MAX_VALUE)
             .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         painelOrdenarLayout.setVerticalGroup(
@@ -1827,7 +1843,7 @@ public class Cadastro extends javax.swing.JDialog {
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jTabbedPane1.addTab("ORDENAR", painelOrdenar);
+        PainelAbas.addTab("ORDENAR", painelOrdenar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -1837,14 +1853,14 @@ public class Cadastro extends javax.swing.JDialog {
                 .addContainerGap()
                 .addComponent(painelMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 616, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(PainelAbas, javax.swing.GroupLayout.PREFERRED_SIZE, 616, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(painelMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(PainelAbas, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 9, Short.MAX_VALUE))
         );
 
@@ -2010,7 +2026,7 @@ public class Cadastro extends javax.swing.JDialog {
     }//GEN-LAST:event_btCalcularActionPerformed
 
     private void btNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoActionPerformed
-        estadoBotao = false;
+        
         btnovo();
     }//GEN-LAST:event_btNovoActionPerformed
 
@@ -2060,7 +2076,7 @@ public class Cadastro extends javax.swing.JDialog {
     }//GEN-LAST:event_formKeyPressed
 
     private void btAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAlterarActionPerformed
-        estadoBotao = true;
+        
         btAlterar();
     }//GEN-LAST:event_btAlterarActionPerformed
 
@@ -2129,6 +2145,10 @@ public class Cadastro extends javax.swing.JDialog {
        // relatorio.gerar( null, null, null, null);
         
     }//GEN-LAST:event_btRelatorioActionPerformed
+
+    private void PainelAbasStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_PainelAbasStateChanged
+       
+    }//GEN-LAST:event_PainelAbasStateChanged
      
     /**
      * @param args the command line arguments
@@ -2160,12 +2180,13 @@ public class Cadastro extends javax.swing.JDialog {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Cadastro().setVisible(true);
+               // new Cadastro().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTabbedPane PainelAbas;
     private javax.swing.JButton btAlterar;
     private javax.swing.JButton btCalcular;
     private javax.swing.JButton btCancelar;
@@ -2231,7 +2252,6 @@ public class Cadastro extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JLabel lbBairro;
     private javax.swing.JLabel lbBairro1;
