@@ -24,8 +24,8 @@ public class TelaInicial extends javax.swing.JFrame {
     public TelaInicial() {
         initComponents();
         this.setExtendedState(this.MAXIMIZED_BOTH);
-        lbNomeUsuario.setText(daoUsuario.consultarUsuario().toUpperCase());
-        imgFundo();
+        //lbNomeUsuario.setText(daoUsuario.consultarUsuario().toUpperCase());
+       // imgFundo();
     }
      
     public void imgFundo(){

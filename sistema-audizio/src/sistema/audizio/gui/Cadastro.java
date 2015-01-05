@@ -9,12 +9,8 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Locale;
-import javax.swing.ActionMap;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.InputMap;
-import javax.swing.JComponent;
 import javax.swing.JOptionPane;
-import javax.swing.KeyStroke;
 import javax.swing.table.DefaultTableModel;
 import sistema.audizio.bean.Advogado;
 import sistema.audizio.bean.Assessoria;
@@ -36,7 +32,6 @@ import sistema.audizio.ultilitarios.LimitadorMoeda;
 import sistema.audizio.ultilitarios.NumeroDocument;
 import sistema.audizio.ultilitarios.RemoveMascara;
 import sistema.audizio.ultilitarios.Validacao;
-import sun.java2d.pipe.LCDTextRenderer;
 
 /**
  *
@@ -265,6 +260,8 @@ public class Cadastro extends javax.swing.JDialog {
         btNovo.setEnabled(false);
         btAlterar.setEnabled(false);
         btExcluir.setEnabled(false);
+        
+        
     }
     
     public void btcancelar(){
@@ -786,6 +783,11 @@ public class Cadastro extends javax.swing.JDialog {
 
         btRelatorio.setText("Relatório(F6)");
         btRelatorio.setEnabled(false);
+        btRelatorio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btRelatorioActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout painelMenuLayout = new javax.swing.GroupLayout(painelMenu);
         painelMenu.setLayout(painelMenuLayout);
@@ -2076,6 +2078,7 @@ public class Cadastro extends javax.swing.JDialog {
 
     private void tbListarClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbListarClienteMouseClicked
         if (evt.getClickCount() > 1) {  
+            
             System.out.println("Clicou 2 vezes.");
             btExcluir.setEnabled(true);
             btAlterar.setEnabled(true);
@@ -2094,6 +2097,7 @@ public class Cadastro extends javax.swing.JDialog {
                 preencheAdvogado(idCliente);
                 preencheVeiculo(idCliente);
                 preencheFinanceiro(idCliente);
+                
                 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "SELECIONE UM CLIENTE PARA VER OU EDITAR");
@@ -2117,6 +2121,14 @@ public class Cadastro extends javax.swing.JDialog {
     private void tfPesquisaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfPesquisaKeyReleased
         carregarTabela(tfPesquisa.getText());
     }//GEN-LAST:event_tfPesquisaKeyReleased
+
+    private void btRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRelatorioActionPerformed
+      
+      // Relatorio relatorio = new Relatorio();
+       
+       // relatorio.gerar( null, null, null, null);
+        
+    }//GEN-LAST:event_btRelatorioActionPerformed
      
     /**
      * @param args the command line arguments
