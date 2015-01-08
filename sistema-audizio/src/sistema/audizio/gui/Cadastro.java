@@ -345,7 +345,9 @@ public class Cadastro extends javax.swing.JDialog {
                                                 processo.setCliente(tfNome.getText());
                                                 
                                                 if(boxAssessoria == false){
-                                                    processo.setIdAssessoria(codigoAssessoria);
+                                                    int codigoass = Integer.parseInt(codigoAssessoria);
+                                                    processo.setIdAssessoria(codigoass);
+                                                    
                                                 }
                                                 if(boxAdvogado == false){
                                                     int codigoadv = Integer.parseInt(codigoAdvogado);
@@ -359,33 +361,29 @@ public class Cadastro extends javax.swing.JDialog {
                                                     Advogado advogado = new Advogado();
                                                     DaoAdvogado daoa = new DaoAdvogado();
                                                     
-                                                    codA=1;
-                                                    codB = 0;
-                                                    codC = 0;
+                                                    int codA1=1,codB1,codC1;
                                                     
-                                                    codB = daoa.retornaCod();
-                                                    codC = codA+codB;
+                                                    codB1 = daoa.retornaCod();
+                                                    codC1 = codA1+codB1;
                                                         advogado.setNome(tfNomeAdvogado.getText());
                                                         advogado.setCelular(rm.removeMascara(tfCelAdvogado.getText()));
-                                                        advogado.setCod(codC);
+                                                        advogado.setCod(codC1);
                                             
                                            
                                                     Assessoria assessoria = new Assessoria();
                                                     DaoAssessoria daoass = new DaoAssessoria();
                                                     
-                                                    codA=1;
-                                                    codB = 0;
-                                                    codC = 0;
+                                                    int codA2=1,codB2,codC2;
                                                     
-                                                    codB = daoass.retornaCod();
-                                                    codC = codA+codB;
+                                                    codB2 = daoass.retornaCod();
+                                                    codC2 = codA2+codB2;
 
                                                         assessoria.setNome(tfNomeAssessoria.getText());
                                                         assessoria.setCidade(String.valueOf(String.valueOf(comboCidadeAssessoria.getSelectedIndex())));
                                                         assessoria.setBairro(String.valueOf(comboBairroAssessoria.getSelectedIndex()));
                                                         assessoria.setEndereco(tfEndereco.getText());
                                                         assessoria.setId(idCliente);
-                                                        assessoria.setCod(codC);
+                                                        assessoria.setCod(codC2);
                                             
                                             
                                             Financeiro financeiro = new Financeiro();

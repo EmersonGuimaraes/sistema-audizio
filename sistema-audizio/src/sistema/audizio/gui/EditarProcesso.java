@@ -91,7 +91,7 @@ public class EditarProcesso extends javax.swing.JDialog {
             tfDataFim.setText(pro.getData_termino());
             idAdvogado = pro.getIdAdvogado();
             idCliente = pro.getIdCliente();
-            idAssessoria = Integer.parseInt(pro.getIdAssessoria());
+           // idAssessoria = Integer.parseInt(pro.getIdAssessoria());
         }
         carregaComboCliente();
         comboCliente.setSelectedIndex(idCliente);
@@ -598,7 +598,7 @@ public class EditarProcesso extends javax.swing.JDialog {
          processo.setVara(tfVara.getText());
          processo.setComarca(tfComarca.getText());
          processo.setSituacao_atual(taSituacaoAtual.getText());
-         processo.setIdAssessoria(String.valueOf(cbAssessoria.getSelectedIndex()));
+         //processo.setIdAssessoria(String.valueOf(cbAssessoria.getSelectedIndex()));
          processo.setIdProcesso(idProcesso);
          
         //Seta os valores do veiculo
