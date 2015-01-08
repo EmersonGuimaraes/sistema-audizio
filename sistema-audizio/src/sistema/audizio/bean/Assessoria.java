@@ -15,6 +15,17 @@ public class Assessoria {
     public String cidade;
     public String bairro;
     public String endereco;
+    public int cod;
+
+    public int getCod() {
+        return cod;
+    }
+
+    public void setCod(int cod) {
+        this.cod = cod;
+    }
+
+    
 
     /**
      * @return the id

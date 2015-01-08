@@ -21,18 +21,18 @@ public class DaoAdvogado extends Conexao{
     
     public void Cadastrar(Advogado advogado){
      
-        sql = "INSERT INTO tb_advogado VALUES(null,'"+advogado.getNome()+"','"+advogado.getCelular()+"')";
+        sql = "INSERT INTO tb_advogado VALUES(null,'"+advogado.getNome()+"','"+advogado.getCelular()+"','"+advogado.getCod()+"')";
         ConsultarSQL(sql, false);
         
     }
     
     public void Editar(Advogado advogado){
       
-        sql = "UPDATE tb_advogado SET nome = '"+advogado.getNome()+"', cel = '"+advogado.getCelular()+"' WHERE id = '"+advogado.getIdAdvogado()+"'";
+        sql = "UPDATE tb_advogado SET nome = '"+advogado.getNome()+"', cel = '"+advogado.getCelular()+"' WHERE cod = '"+advogado.getIdAdvogado()+"'";
     }
     public void Deletar(Advogado advogado){
         
-        sql = "DELETE FROM tb_advogado WHERE id = '"+advogado.getIdAdvogado()+"'";
+        sql = "DELETE FROM tb_advogado WHERE cod = '"+advogado.getIdAdvogado()+"'";
     } 
     
     public ArrayList<Advogado> Consultar(String id){
@@ -48,6 +48,7 @@ public class DaoAdvogado extends Conexao{
                             advogado.setIdAdvogado(rs.getString("id"));
                             advogado.setNome(rs.getString("nome"));
                             advogado.setCelular(rs.getString("cel"));
+                            advogado.setCod(rs.getInt("cod"));
                             advogados.add(advogado);
 
                         }
@@ -56,13 +57,14 @@ public class DaoAdvogado extends Conexao{
                     }
             }else{
                     try {
-                        ConsultarSQL("SELECT * FROM tb_advogado WHERE id = '"+id+"'", true);
+                        ConsultarSQL("SELECT * FROM tb_advogado WHERE cod = '"+id+"'", true);
                         while (rs.next()) {
 
                             Advogado advogado = new Advogado();
                             advogado.setIdAdvogado(rs.getString("id"));
                             advogado.setNome(rs.getString("nome"));
                             advogado.setCelular(rs.getString("cel"));
+                            advogado.setCod(rs.getInt("cod"));
                             advogados.add(advogado);
 
                         }

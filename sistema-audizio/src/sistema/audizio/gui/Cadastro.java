@@ -41,7 +41,8 @@ public class Cadastro extends javax.swing.JDialog {
     private DefaultTableModel modeloTabela;
     RemoveMascara rm = new RemoveMascara();
     String idCliente = null;
-    String codigoCliente;
+    String codigoCliente, codigoAdvogado, codigoAssessoria;
+    boolean boxCliente, boxAdvogado, boxAssessoria;
     /**
      * Creates new form Cadastro
      */
@@ -297,30 +298,39 @@ public class Cadastro extends javax.swing.JDialog {
                     if(v.ValidatField(asses)){
                         if (v.ValidatField(fin)) {
                             if (v.ValidatField(vei)) {
-                                
+                                        
                                             RemoveMascara rm = new RemoveMascara();
                                             btSalvar.setEnabled(false);
                                             btNovo.setEnabled(true);
-
-                                            Cliente cli = new Cliente();
-                                                cli.setNome(tfNome.getText());
-                                                cli.setNascimento(rm.removeMascara(tfDataNasci.getText()));
-                                                cli.setCpf(rm.removeMascara(tfCpf.getText()));
-                                                cli.setNacionalidade(tfNacionalidade.getText());
-                                                cli.setProfisao(tfProfissao.getText());
-                                                cli.setEstado_civil(tfEstadoCivil.getText());
-                                                cli.setCep(rm.removeMascara(tfCep.getText()));
-                                                cli.setEndereco(tfEndereco.getText());
-                                                cli.setNum(tfNumero.getText());
-                                                cli.setEstado(tfEstado.getText());
-                                                cli.setCidade(String.valueOf(comboCidade.getSelectedItem()));
-                                                cli.setBairro(String.valueOf(comboBairro.getSelectedItem()));
-                                                cli.setFone(rm.removeMascara(tfTelefone.getText()));
-                                                cli.setCelular(rm.removeMascara(tfCelular.getText()));
-                                                cli.setEmail(tfEmail.getText());
-                                                cli.setWhatsapp(rm.removeMascara(tfWhats.getText()));
-                                                cli.setIdCliente(idCliente);
-
+                                            
+                                            
+                                                    Cliente cli = new Cliente();
+                                                    DaoCliente daoc = new DaoCliente();
+                                                    /*GERA UM CÓDIGO ÚNICO PARA CADA CLIENTE*/
+                                                    int codA=1,codB,codC;
+                                                    codB = daoc.retornaCod();
+                                                    codC = codA+codB;
+                                                    
+                                                    cli.setNome(tfNome.getText());
+                                                    cli.setNascimento(rm.removeMascara(tfDataNasci.getText()));
+                                                    cli.setCpf(rm.removeMascara(tfCpf.getText()));
+                                                    cli.setNacionalidade(tfNacionalidade.getText());
+                                                    cli.setProfisao(tfProfissao.getText());
+                                                    cli.setEstado_civil(tfEstadoCivil.getText());
+                                                    cli.setCep(rm.removeMascara(tfCep.getText()));
+                                                    cli.setEndereco(tfEndereco.getText());
+                                                    cli.setNum(tfNumero.getText());
+                                                    cli.setEstado(tfEstado.getText());
+                                                    cli.setCidade(String.valueOf(comboCidade.getSelectedItem()));
+                                                    cli.setBairro(String.valueOf(comboBairro.getSelectedItem()));
+                                                    cli.setFone(rm.removeMascara(tfTelefone.getText()));
+                                                    cli.setCelular(rm.removeMascara(tfCelular.getText()));
+                                                    cli.setEmail(tfEmail.getText());
+                                                    cli.setWhatsapp(rm.removeMascara(tfWhats.getText()));
+                                                    cli.setIdCliente(idCliente);
+                                                    cli.setCod(codC);
+                                           
+                                            
                                             Processo  processo = new Processo();
 
                                                 processo.setProcesso(tfProcesso.getText());
@@ -333,21 +343,51 @@ public class Cadastro extends javax.swing.JDialog {
                                                 processo.setComarca(tfComarca.getText());
                                                 processo.setIdProcesso(idCliente);
                                                 processo.setCliente(tfNome.getText());
+                                                
+                                                if(boxAssessoria == false){
+                                                    processo.setIdAssessoria(codigoAssessoria);
+                                                }
+                                                if(boxAdvogado == false){
+                                                    int codigoadv = Integer.parseInt(codigoAdvogado);
+                                                    processo.setIdAdvogado(codigoadv);
+                                                }
+                                                if(boxCliente == false){
+                                                    int codigocli = Integer.parseInt(codigoCliente);
+                                                    processo.setIdAdvogado(codigocli);
+                                                }
+                                            
+                                                    Advogado advogado = new Advogado();
+                                                    DaoAdvogado daoa = new DaoAdvogado();
+                                                    
+                                                    codA=1;
+                                                    codB = 0;
+                                                    codC = 0;
+                                                    
+                                                    codB = daoa.retornaCod();
+                                                    codC = codA+codB;
+                                                        advogado.setNome(tfNomeAdvogado.getText());
+                                                        advogado.setCelular(rm.removeMascara(tfCelAdvogado.getText()));
+                                                        advogado.setCod(codC);
+                                            
+                                           
+                                                    Assessoria assessoria = new Assessoria();
+                                                    DaoAssessoria daoass = new DaoAssessoria();
+                                                    
+                                                    codA=1;
+                                                    codB = 0;
+                                                    codC = 0;
+                                                    
+                                                    codB = daoass.retornaCod();
+                                                    codC = codA+codB;
 
-                                            Advogado advogado = new Advogado();
-
-                                                advogado.setNome(tfNomeAdvogado.getText());
-                                                advogado.setCelular(rm.removeMascara(tfCelAdvogado.getText()));
-                                                advogado.setIdAdvogado(idCliente);
-
-                                            Assessoria assessoria = new Assessoria();
-
-                                                assessoria.setNome(tfNomeAssessoria.getText());
-                                                assessoria.setCidade(String.valueOf(String.valueOf(comboCidadeAssessoria.getSelectedIndex())));
-                                                assessoria.setBairro(String.valueOf(comboBairroAssessoria.getSelectedIndex()));
-                                                assessoria.setEndereco(tfEndereco.getText());
-                                                assessoria.setId(idCliente);
-
+                                                        assessoria.setNome(tfNomeAssessoria.getText());
+                                                        assessoria.setCidade(String.valueOf(String.valueOf(comboCidadeAssessoria.getSelectedIndex())));
+                                                        assessoria.setBairro(String.valueOf(comboBairroAssessoria.getSelectedIndex()));
+                                                        assessoria.setEndereco(tfEndereco.getText());
+                                                        assessoria.setId(idCliente);
+                                                        assessoria.setCod(codC);
+                                            
+                                            
                                             Financeiro financeiro = new Financeiro();
                                                 calcularTotal(tfValor.getText(), tfValorDespesa.getText(), tfDesconto.getText());
                                                 financeiro.setProcesso(tfProcesso.getText());
@@ -383,10 +423,10 @@ public class Cadastro extends javax.swing.JDialog {
                                            if(estadoBotao==false){
                                                     try {
 
-                                                         daocli.Cadastrar(cli);
+                                                         if(boxCliente == false){daocli.Cadastrar(cli);}
                                                          daoprocesso.Cadastrar(processo);
-                                                         daoadv.Cadastrar(advogado);
-                                                         daoassessoria.cadastrar(assessoria);
+                                                         if(boxAdvogado == false){daoadv.Cadastrar(advogado);}
+                                                         if(boxAssessoria == false){daoassessoria.cadastrar(assessoria);}
                                                          daofinanceiro.cadastrar(financeiro);
                                                          daoVeiculo.Cadastrar(v);
                                                          JOptionPane.showMessageDialog(null, "Cadastro realizado com sucesso");
@@ -673,6 +713,7 @@ public class Cadastro extends javax.swing.JDialog {
         tfNomeAdvogado = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
         tfCelAdvogado = new javax.swing.JFormattedTextField();
+        boxUsarAdvogado = new javax.swing.JCheckBox();
         painelAssessoria = new javax.swing.JPanel();
         tfEnderecoAssessoria = new javax.swing.JTextField();
         jLabel17 = new javax.swing.JLabel();
@@ -684,6 +725,7 @@ public class Cadastro extends javax.swing.JDialog {
         lbBairro1 = new javax.swing.JLabel();
         comboBairroAssessoria = new javax.swing.JComboBox();
         btNovoBairroAssessoria = new javax.swing.JButton();
+        boxUsarAssessoria = new javax.swing.JCheckBox();
         painelFinanceiro = new javax.swing.JPanel();
         jLabel18 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
@@ -1351,6 +1393,14 @@ public class Cadastro extends javax.swing.JDialog {
             ex.printStackTrace();
         }
 
+        boxUsarAdvogado.setFont(new java.awt.Font("Ubuntu", 0, 10)); // NOI18N
+        boxUsarAdvogado.setText("USAR ADVOGADO CADASTRADO");
+        boxUsarAdvogado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                boxUsarAdvogadoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout painelAdvogadoLayout = new javax.swing.GroupLayout(painelAdvogado);
         painelAdvogado.setLayout(painelAdvogadoLayout);
         painelAdvogadoLayout.setHorizontalGroup(
@@ -1358,13 +1408,16 @@ public class Cadastro extends javax.swing.JDialog {
             .addGroup(painelAdvogadoLayout.createSequentialGroup()
                 .addGap(57, 57, 57)
                 .addGroup(painelAdvogadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel15)
-                    .addComponent(tfNomeAdvogado, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(painelAdvogadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel16)
-                    .addComponent(tfCelAdvogado, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(43, Short.MAX_VALUE))
+                    .addComponent(boxUsarAdvogado)
+                    .addGroup(painelAdvogadoLayout.createSequentialGroup()
+                        .addGroup(painelAdvogadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel15)
+                            .addComponent(tfNomeAdvogado, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(painelAdvogadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel16)
+                            .addComponent(tfCelAdvogado, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(55, Short.MAX_VALUE))
         );
         painelAdvogadoLayout.setVerticalGroup(
             painelAdvogadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1379,7 +1432,9 @@ public class Cadastro extends javax.swing.JDialog {
                         .addComponent(jLabel15)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(tfNomeAdvogado, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(180, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(boxUsarAdvogado)
+                .addContainerGap(146, Short.MAX_VALUE))
         );
 
         PainelAbas.addTab("ADVOGADO", painelAdvogado);
@@ -1435,30 +1490,40 @@ public class Cadastro extends javax.swing.JDialog {
             }
         });
 
+        boxUsarAssessoria.setFont(new java.awt.Font("Ubuntu", 0, 10)); // NOI18N
+        boxUsarAssessoria.setText("USAR ASSESSORIA CADASTRADA");
+        boxUsarAssessoria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                boxUsarAssessoriaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout painelAssessoriaLayout = new javax.swing.GroupLayout(painelAssessoria);
         painelAssessoria.setLayout(painelAssessoriaLayout);
         painelAssessoriaLayout.setHorizontalGroup(
             painelAssessoriaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelAssessoriaLayout.createSequentialGroup()
                 .addGap(39, 39, 39)
-                .addGroup(painelAssessoriaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel17)
-                    .addComponent(jLabel22)
-                    .addGroup(painelAssessoriaLayout.createSequentialGroup()
-                        .addComponent(comboCidadeAssessoria, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btNovaCidadeAssessoria, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(painelAssessoriaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lbBairro1)
-                            .addGroup(painelAssessoriaLayout.createSequentialGroup()
-                                .addComponent(comboBairroAssessoria, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btNovoBairroAssessoria, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addComponent(jLabel21)
-                    .addComponent(tfNomeAssessoria)
-                    .addComponent(tfEnderecoAssessoria, javax.swing.GroupLayout.PREFERRED_SIZE, 516, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(41, Short.MAX_VALUE))
+                .addGroup(painelAssessoriaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(boxUsarAssessoria)
+                    .addGroup(painelAssessoriaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jLabel17)
+                        .addComponent(jLabel22)
+                        .addGroup(painelAssessoriaLayout.createSequentialGroup()
+                            .addComponent(comboCidadeAssessoria, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(btNovaCidadeAssessoria, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(painelAssessoriaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(lbBairro1)
+                                .addGroup(painelAssessoriaLayout.createSequentialGroup()
+                                    .addComponent(comboBairroAssessoria, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(btNovoBairroAssessoria, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(jLabel21)
+                        .addComponent(tfNomeAssessoria)
+                        .addComponent(tfEnderecoAssessoria, javax.swing.GroupLayout.PREFERRED_SIZE, 516, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(53, Short.MAX_VALUE))
         );
         painelAssessoriaLayout.setVerticalGroup(
             painelAssessoriaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1483,7 +1548,9 @@ public class Cadastro extends javax.swing.JDialog {
                 .addComponent(jLabel17)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tfEnderecoAssessoria, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(46, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(boxUsarAssessoria)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         PainelAbas.addTab("ASSESSORIA", painelAssessoria);
@@ -1573,7 +1640,7 @@ public class Cadastro extends javax.swing.JDialog {
                             .addComponent(tfDesconto, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(painelFinanceiroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 264, Short.MAX_VALUE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
                             .addGroup(painelFinanceiroLayout.createSequentialGroup()
                                 .addComponent(tfDataVencimento, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
@@ -1633,7 +1700,7 @@ public class Cadastro extends javax.swing.JDialog {
                     .addComponent(tfDataVencimento, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(comboSituacaofinanceiro, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(tfDesconto, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
                 .addComponent(jCheckBox1)
                 .addContainerGap())
         );
@@ -1691,7 +1758,7 @@ public class Cadastro extends javax.swing.JDialog {
                             .addComponent(jLabel34))
                         .addGroup(painelConsultarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(painelConsultarLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 113, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 125, Short.MAX_VALUE)
                                 .addComponent(jLabel35)
                                 .addGap(47, 47, 47))
                             .addGroup(painelConsultarLayout.createSequentialGroup()
@@ -1754,7 +1821,7 @@ public class Cadastro extends javax.swing.JDialog {
                         .addComponent(tfRenavam, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(tfAnoFabricacao, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(tfChassi))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
                 .addGroup(painelConsultarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cbEstadoVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel39))
@@ -1849,14 +1916,14 @@ public class Cadastro extends javax.swing.JDialog {
         painelOrdenar.setLayout(painelOrdenarLayout);
         painelOrdenarLayout.setHorizontalGroup(
             painelOrdenarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 596, Short.MAX_VALUE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 608, Short.MAX_VALUE)
             .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         painelOrdenarLayout.setVerticalGroup(
             painelOrdenarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelOrdenarLayout.createSequentialGroup()
                 .addGap(6, 6, 6)
-                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, 92, Short.MAX_VALUE)
+                .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -2171,6 +2238,7 @@ public class Cadastro extends javax.swing.JDialog {
     private void boxUsarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boxUsarClienteActionPerformed
         // TODO add your handling code here:
         if(boxUsarCliente.isSelected()){
+            boxCliente = true;
             //new ListaClientes().setVisible(true);
             ListaClientes lista = new ListaClientes();
            
@@ -2179,10 +2247,57 @@ public class Cadastro extends javax.swing.JDialog {
             if(lista.isConcluido()){
                 codigoCliente = lista.ConsultaCodigo();
                 preencheClientes(codigoCliente);
+                AtivarCliente(false);
                 System.out.println("Codigo: "+codigoCliente);
+            }else{
+                boxUsarCliente.setSelected(false);
             }
+        }else{
+            boxCliente = false;
         }
     }//GEN-LAST:event_boxUsarClienteActionPerformed
+
+    private void boxUsarAdvogadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boxUsarAdvogadoActionPerformed
+        if(boxUsarAdvogado.isSelected()){
+            boxAdvogado = true;
+            //new ListaClientes().setVisible(true);
+            ListaAdvogados lista = new ListaAdvogados();
+           
+           
+            lista.setVisible(true);
+            if(lista.isConcluido()){
+                codigoAdvogado = lista.ConsultaCodigo();
+                preencheAdvogado(codigoAdvogado);
+                ativarCampoAdvogado(false);
+                System.out.println("Codigo: "+codigoAdvogado);
+            }else{
+                boxUsarAdvogado.setSelected(false);
+            }
+        }else{
+            boxAdvogado = false;
+        }
+    }//GEN-LAST:event_boxUsarAdvogadoActionPerformed
+
+    private void boxUsarAssessoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boxUsarAssessoriaActionPerformed
+        if(boxUsarAssessoria.isSelected()){
+            boxAssessoria = true;
+            //new ListaClientes().setVisible(true);
+            ListaAssessoria lista = new ListaAssessoria();
+           
+           
+            lista.setVisible(true);
+            if(lista.isConcluido()){
+                codigoAssessoria = lista.ConsultaCodigo();
+                preencheAssessoria(codigoAssessoria);
+                ativarCampoAssessoria(false);
+                System.out.println("Codigo: "+codigoAssessoria);
+            }else{
+                boxUsarAssessoria.setSelected(false);
+            }
+        }else{
+            boxAssessoria = false;
+        }
+    }//GEN-LAST:event_boxUsarAssessoriaActionPerformed
      
     /**
      * @param args the command line arguments
@@ -2221,6 +2336,8 @@ public class Cadastro extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTabbedPane PainelAbas;
+    private javax.swing.JCheckBox boxUsarAdvogado;
+    private javax.swing.JCheckBox boxUsarAssessoria;
     private javax.swing.JCheckBox boxUsarCliente;
     private javax.swing.JButton btAlterar;
     private javax.swing.JButton btCalcular;

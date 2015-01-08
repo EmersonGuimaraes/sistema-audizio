@@ -9,24 +9,28 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import sistema.audizio.bean.Advogado;
+import sistema.audizio.bean.Assessoria;
 import sistema.audizio.bean.Cliente;
+import sistema.audizio.dao.DaoAdvogado;
+import sistema.audizio.dao.DaoAssessoria;
 import sistema.audizio.dao.DaoCliente;
 
 /**
  *
  * @author zipnet
  */
-public class ListaClientes extends javax.swing.JDialog {
+public class ListaAssessoria extends javax.swing.JDialog {
 
     /**
      * Creates new form ListaClientes
      */
     Boolean concluido = false;
-    public ListaClientes() {
+    public ListaAssessoria() {
         initComponents();
         setModal(true);
-        carregarTabela();
-        tbListaClientes.setFocusable(true);
+        preencheTabela();
+        tbListaAssessoria.setFocusable(true);
     }
     
     public boolean isConcluido(){
@@ -36,7 +40,7 @@ public class ListaClientes extends javax.swing.JDialog {
         String idCliente = null;
         try {
            
-            idCliente = tbListaClientes.getValueAt(tbListaClientes.getSelectedRow(),0).toString();
+            idCliente = tbListaAssessoria.getValueAt(tbListaAssessoria.getSelectedRow(),0).toString();
             
             this.dispose();
         } catch (Exception e) {
@@ -47,19 +51,14 @@ public class ListaClientes extends javax.swing.JDialog {
         return idCliente;
     }
     private DefaultTableModel modeloTabela;
-    public void carregarTabela(){
-                 
+    public void preencheTabela(){
+        ArrayList<Assessoria> a = new DaoAssessoria().consultar("");
+         modeloTabela = (DefaultTableModel) tbListaAssessoria.getModel();
          
-       DaoCliente dao = new DaoCliente();
-       ArrayList<Cliente> clientes = new ArrayList();  
-       clientes = dao.Consultar("");
-      // System.out.println("Tamanho do array "+clientes.size());
-       modeloTabela = (DefaultTableModel) tbListaClientes.getModel();
-      
-       for(Cliente cli:clientes){
-           modeloTabela.addRow(new Object[] {cli.getCod(), cli.getNome()});
+       for(Assessoria as:a){
+           modeloTabela.addRow(new Object[] {as.getId(), as.getNome(),as.getCidade()});
         }
-           tbListaClientes.getTableHeader().setReorderingAllowed(false);   
+       tbListaAssessoria.getTableHeader().setReorderingAllowed(false);
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -67,16 +66,16 @@ public class ListaClientes extends javax.swing.JDialog {
 
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tbListaClientes = new javax.swing.JTable();
+        tbListaAssessoria = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setResizable(false);
 
         jLabel1.setFont(new java.awt.Font("Ubuntu Condensed", 1, 36)); // NOI18N
-        jLabel1.setText("CLIENTES");
+        jLabel1.setText("ASSESSORIAS");
 
-        tbListaClientes.setModel(new javax.swing.table.DefaultTableModel(
+        tbListaAssessoria.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -92,20 +91,20 @@ public class ListaClientes extends javax.swing.JDialog {
                 return canEdit [columnIndex];
             }
         });
-        tbListaClientes.addMouseListener(new java.awt.event.MouseAdapter() {
+        tbListaAssessoria.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tbListaClientesMouseClicked(evt);
+                tbListaAssessoriaMouseClicked(evt);
             }
         });
-        tbListaClientes.addKeyListener(new java.awt.event.KeyAdapter() {
+        tbListaAssessoria.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                tbListaClientesKeyReleased(evt);
+                tbListaAssessoriaKeyReleased(evt);
             }
         });
-        jScrollPane1.setViewportView(tbListaClientes);
-        if (tbListaClientes.getColumnModel().getColumnCount() > 0) {
-            tbListaClientes.getColumnModel().getColumn(0).setMinWidth(-100);
-            tbListaClientes.getColumnModel().getColumn(0).setPreferredWidth(-70);
+        jScrollPane1.setViewportView(tbListaAssessoria);
+        if (tbListaAssessoria.getColumnModel().getColumnCount() > 0) {
+            tbListaAssessoria.getColumnModel().getColumn(0).setMinWidth(-100);
+            tbListaAssessoria.getColumnModel().getColumn(0).setPreferredWidth(-70);
         }
 
         jLabel2.setFont(new java.awt.Font("Ubuntu", 0, 10)); // NOI18N
@@ -116,15 +115,17 @@ public class ListaClientes extends javax.swing.JDialog {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(87, 87, 87)
-                        .addComponent(jLabel1))
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(37, 37, 37)
+                                .addComponent(jLabel2))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(37, 37, 37)
-                        .addComponent(jLabel2)))
+                        .addGap(71, 71, 71)
+                        .addComponent(jLabel1)))
                 .addContainerGap(13, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -143,7 +144,7 @@ public class ListaClientes extends javax.swing.JDialog {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void tbListaClientesKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbListaClientesKeyReleased
+    private void tbListaAssessoriaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbListaAssessoriaKeyReleased
        System.out.println("Clicando");
        if(evt.getKeyCode() == KeyEvent.VK_SPACE ){
            try {
@@ -161,26 +162,26 @@ public class ListaClientes extends javax.swing.JDialog {
             for(int a = 0; a < x; a++){  
                 modeloTabela.removeRow(0);  
             } 
-           carregarTabela();
+           preencheTabela();
        }
        
        if(evt.getKeyCode() == KeyEvent.VK_ESCAPE ){
            this.dispose();
        }
         
-    }//GEN-LAST:event_tbListaClientesKeyReleased
+    }//GEN-LAST:event_tbListaAssessoriaKeyReleased
 
-    private void tbListaClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbListaClientesMouseClicked
+    private void tbListaAssessoriaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbListaAssessoriaMouseClicked
         if (evt.getClickCount() > 1) { 
                 try {
                concluido = true;
                this.dispose();
                
            } catch (Exception e) {
-               JOptionPane.showMessageDialog(null, "SELECIONE UM CLIENTE!");
+               JOptionPane.showMessageDialog(null, "SELECIONE UMA ASSESSORIA!");
            }
         }
-    }//GEN-LAST:event_tbListaClientesMouseClicked
+    }//GEN-LAST:event_tbListaAssessoriaMouseClicked
 
     /**
      * @param args the command line arguments
@@ -199,20 +200,23 @@ public class ListaClientes extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ListaClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListaAssessoria.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ListaClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListaAssessoria.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ListaClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListaAssessoria.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ListaClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListaAssessoria.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ListaClientes().setVisible(true);
+                new ListaAssessoria().setVisible(true);
             }
         });
     }
@@ -221,6 +225,6 @@ public class ListaClientes extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tbListaClientes;
+    private javax.swing.JTable tbListaAssessoria;
     // End of variables declaration//GEN-END:variables
 }

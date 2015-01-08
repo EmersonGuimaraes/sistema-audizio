@@ -9,24 +9,26 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import sistema.audizio.bean.Advogado;
 import sistema.audizio.bean.Cliente;
+import sistema.audizio.dao.DaoAdvogado;
 import sistema.audizio.dao.DaoCliente;
 
 /**
  *
  * @author zipnet
  */
-public class ListaClientes extends javax.swing.JDialog {
+public class ListaAdvogados extends javax.swing.JDialog {
 
     /**
      * Creates new form ListaClientes
      */
     Boolean concluido = false;
-    public ListaClientes() {
+    public ListaAdvogados() {
         initComponents();
         setModal(true);
-        carregarTabela();
-        tbListaClientes.setFocusable(true);
+        preencheTabela();
+        tbListaAdvogados.setFocusable(true);
     }
     
     public boolean isConcluido(){
@@ -36,7 +38,7 @@ public class ListaClientes extends javax.swing.JDialog {
         String idCliente = null;
         try {
            
-            idCliente = tbListaClientes.getValueAt(tbListaClientes.getSelectedRow(),0).toString();
+            idCliente = tbListaAdvogados.getValueAt(tbListaAdvogados.getSelectedRow(),0).toString();
             
             this.dispose();
         } catch (Exception e) {
@@ -47,19 +49,15 @@ public class ListaClientes extends javax.swing.JDialog {
         return idCliente;
     }
     private DefaultTableModel modeloTabela;
-    public void carregarTabela(){
-                 
-         
-       DaoCliente dao = new DaoCliente();
-       ArrayList<Cliente> clientes = new ArrayList();  
-       clientes = dao.Consultar("");
-      // System.out.println("Tamanho do array "+clientes.size());
-       modeloTabela = (DefaultTableModel) tbListaClientes.getModel();
-      
-       for(Cliente cli:clientes){
-           modeloTabela.addRow(new Object[] {cli.getCod(), cli.getNome()});
+    public void preencheTabela(){
+        ArrayList<Advogado> advogados = new ArrayList<>();
+        DaoAdvogado dao = new DaoAdvogado();
+        advogados = dao.Consultar("");
+        modeloTabela = (DefaultTableModel) tbListaAdvogados.getModel();
+       for(Advogado advo:advogados){
+           modeloTabela.addRow(new Object[] {advo.getCod(),advo.getNome()});
         }
-           tbListaClientes.getTableHeader().setReorderingAllowed(false);   
+       tbListaAdvogados.getTableHeader().setReorderingAllowed(false);   
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -67,16 +65,16 @@ public class ListaClientes extends javax.swing.JDialog {
 
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tbListaClientes = new javax.swing.JTable();
+        tbListaAdvogados = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setResizable(false);
 
         jLabel1.setFont(new java.awt.Font("Ubuntu Condensed", 1, 36)); // NOI18N
-        jLabel1.setText("CLIENTES");
+        jLabel1.setText("ADVOGADOS");
 
-        tbListaClientes.setModel(new javax.swing.table.DefaultTableModel(
+        tbListaAdvogados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -92,20 +90,20 @@ public class ListaClientes extends javax.swing.JDialog {
                 return canEdit [columnIndex];
             }
         });
-        tbListaClientes.addMouseListener(new java.awt.event.MouseAdapter() {
+        tbListaAdvogados.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tbListaClientesMouseClicked(evt);
+                tbListaAdvogadosMouseClicked(evt);
             }
         });
-        tbListaClientes.addKeyListener(new java.awt.event.KeyAdapter() {
+        tbListaAdvogados.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                tbListaClientesKeyReleased(evt);
+                tbListaAdvogadosKeyReleased(evt);
             }
         });
-        jScrollPane1.setViewportView(tbListaClientes);
-        if (tbListaClientes.getColumnModel().getColumnCount() > 0) {
-            tbListaClientes.getColumnModel().getColumn(0).setMinWidth(-100);
-            tbListaClientes.getColumnModel().getColumn(0).setPreferredWidth(-70);
+        jScrollPane1.setViewportView(tbListaAdvogados);
+        if (tbListaAdvogados.getColumnModel().getColumnCount() > 0) {
+            tbListaAdvogados.getColumnModel().getColumn(0).setMinWidth(-100);
+            tbListaAdvogados.getColumnModel().getColumn(0).setPreferredWidth(-70);
         }
 
         jLabel2.setFont(new java.awt.Font("Ubuntu", 0, 10)); // NOI18N
@@ -116,15 +114,17 @@ public class ListaClientes extends javax.swing.JDialog {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(87, 87, 87)
-                        .addComponent(jLabel1))
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(37, 37, 37)
+                                .addComponent(jLabel2))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(37, 37, 37)
-                        .addComponent(jLabel2)))
+                        .addGap(71, 71, 71)
+                        .addComponent(jLabel1)))
                 .addContainerGap(13, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -143,7 +143,7 @@ public class ListaClientes extends javax.swing.JDialog {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void tbListaClientesKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbListaClientesKeyReleased
+    private void tbListaAdvogadosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbListaAdvogadosKeyReleased
        System.out.println("Clicando");
        if(evt.getKeyCode() == KeyEvent.VK_SPACE ){
            try {
@@ -161,26 +161,26 @@ public class ListaClientes extends javax.swing.JDialog {
             for(int a = 0; a < x; a++){  
                 modeloTabela.removeRow(0);  
             } 
-           carregarTabela();
+           preencheTabela();
        }
        
        if(evt.getKeyCode() == KeyEvent.VK_ESCAPE ){
            this.dispose();
        }
         
-    }//GEN-LAST:event_tbListaClientesKeyReleased
+    }//GEN-LAST:event_tbListaAdvogadosKeyReleased
 
-    private void tbListaClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbListaClientesMouseClicked
+    private void tbListaAdvogadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbListaAdvogadosMouseClicked
         if (evt.getClickCount() > 1) { 
                 try {
                concluido = true;
                this.dispose();
                
            } catch (Exception e) {
-               JOptionPane.showMessageDialog(null, "SELECIONE UM CLIENTE!");
+               JOptionPane.showMessageDialog(null, "SELECIONE UM ADVOGADO!");
            }
         }
-    }//GEN-LAST:event_tbListaClientesMouseClicked
+    }//GEN-LAST:event_tbListaAdvogadosMouseClicked
 
     /**
      * @param args the command line arguments
@@ -199,20 +199,21 @@ public class ListaClientes extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ListaClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListaAdvogados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ListaClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListaAdvogados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ListaClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListaAdvogados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ListaClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListaAdvogados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ListaClientes().setVisible(true);
+                new ListaAdvogados().setVisible(true);
             }
         });
     }
@@ -221,6 +222,6 @@ public class ListaClientes extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tbListaClientes;
+    private javax.swing.JTable tbListaAdvogados;
     // End of variables declaration//GEN-END:variables
 }
