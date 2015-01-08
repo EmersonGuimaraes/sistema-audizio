@@ -557,7 +557,7 @@ public class CadastroProcesso extends javax.swing.JDialog {
                  processo.setVara(tfVara.getText());
                  processo.setComarca(tfComarca.getText());
                  processo.setSituacao_atual(taSituacaoAtual.getText());
-                 processo.setAssessoria(String.valueOf(cbAssessoria.getSelectedIndex()));
+                 processo.setIdAssessoria(String.valueOf(cbAssessoria.getSelectedIndex()));
 
                 //Seta os valores do veiculo
                  veiculo.setMarca(tfMarca.getText());
