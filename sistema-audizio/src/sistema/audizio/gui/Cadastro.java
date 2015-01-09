@@ -344,19 +344,23 @@ public class Cadastro extends javax.swing.JDialog {
                                                 processo.setIdProcesso(idCliente);
                                                 processo.setCliente(tfNome.getText());
                                                 
-                                                if(boxAssessoria == false){
-                                                    int codigoass = Integer.parseInt(codigoAssessoria);
-                                                    processo.setIdAssessoria(codigoass);
-                                                    
+                                                try{
+                                                    if(boxAssessoria == false){
+                                                        int codigoass = Integer.parseInt(codigoAssessoria);
+                                                        processo.setIdAssessoria(codigoass);
+                                                    }
+                                                    if(boxAdvogado == false){
+                                                        int codigoadv = Integer.parseInt(codigoAdvogado);
+                                                        processo.setIdAdvogado(codigoadv);
+                                                    }
+                                                    if(boxCliente == false){
+                                                        int codigocli = Integer.parseInt(codigoCliente);
+                                                        processo.setIdAdvogado(codigocli);
+                                                    }
+                                                }catch(NumberFormatException e){
+                                                    System.err.println(e.getMessage());
                                                 }
-                                                if(boxAdvogado == false){
-                                                    int codigoadv = Integer.parseInt(codigoAdvogado);
-                                                    processo.setIdAdvogado(codigoadv);
-                                                }
-                                                if(boxCliente == false){
-                                                    int codigocli = Integer.parseInt(codigoCliente);
-                                                    processo.setIdAdvogado(codigocli);
-                                                }
+                                                
                                             
                                                     Advogado advogado = new Advogado();
                                                     DaoAdvogado daoa = new DaoAdvogado();
