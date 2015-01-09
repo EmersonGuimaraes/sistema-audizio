@@ -330,7 +330,7 @@ public class Cadastro extends javax.swing.JDialog {
                                                     cli.setIdCliente(idCliente);
                                                     cli.setCod(codC);
                                            
-                                            
+                                            System.out.println("Fim do Salvar: Cliente");
                                             Processo  processo = new Processo();
 
                                                 processo.setProcesso(tfProcesso.getText());
@@ -347,7 +347,7 @@ public class Cadastro extends javax.swing.JDialog {
                                                 try{
                                                     if(boxCliente == true){
                                                         int codigocli = Integer.parseInt(codigoCliente);
-                                                        processo.setIdAdvogado(codigocli);
+                                                        processo.setIdCliente(codigocli);
                                                     }else{
                                                         processo.setIdCliente(codC);
                                                     }
@@ -379,7 +379,7 @@ public class Cadastro extends javax.swing.JDialog {
                                                     }
                                                     
                                             
-                                           
+                                                    System.out.println("Fim do Salvar: Advogado");
                                                     Assessoria assessoria = new Assessoria();
                                                     DaoAssessoria daoass = new DaoAssessoria();
                                                     
@@ -406,7 +406,7 @@ public class Cadastro extends javax.swing.JDialog {
                                                         }
                                                         
                                             
-                                            
+                                                        System.out.println("Fim do Salvar: Assessoria");
                                             Financeiro financeiro = new Financeiro();
                                                 calcularTotal(tfValor.getText(), tfValorDespesa.getText(), tfDesconto.getText());
                                                 financeiro.setProcesso(tfProcesso.getText());
@@ -432,7 +432,7 @@ public class Cadastro extends javax.swing.JDialog {
                                                 v.setRenavam(tfRenavam.getText());
                                                 v.setEstado(cbEstadoVeiculo.getSelectedItem().toString());
                                                 v.setId(idCliente);
-
+                                            System.out.println("Fim do Salvar: Veiculo");
                                            DaoCliente daocli = new DaoCliente();
                                            DaoProcesso daoprocesso = new DaoProcesso();
                                            DaoAdvogado daoadv = new DaoAdvogado();
@@ -440,6 +440,7 @@ public class Cadastro extends javax.swing.JDialog {
                                            DaoFinanceiro daofinanceiro = new DaoFinanceiro();
                                            DaoVeiculo daoVeiculo = new DaoVeiculo();
                                            if(estadoBotao==false){
+                                               System.out.println("Entrou Fim do Salvar");
                                                     try {
 
                                                          if(boxCliente == false){daocli.Cadastrar(cli);}
@@ -487,6 +488,7 @@ public class Cadastro extends javax.swing.JDialog {
                                                          System.out.println("Não foi possivel realizar o cadastro, por favor verifique se os campos foram preenchidos corretamente e tente novamente.");
                                                  }
                                            }else{
+                                               System.out.println("Fim do Salvar:Edita");
                                                 try {
                                                          daocli.Editar(cli);
                                                          daoprocesso.Editar(processo);
@@ -502,6 +504,7 @@ public class Cadastro extends javax.swing.JDialog {
 
                                            }
                                                 carregarTabela("");
+                                                System.out.println("Fim do Salvar");
                                 
                                 
                             }
