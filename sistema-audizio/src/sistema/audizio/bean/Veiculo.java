@@ -22,6 +22,15 @@ public class Veiculo {
     String renavam;
     String estado;
     String id;
+    int id_processo;
+
+    public void setId_processo(int id_processo) {
+        this.id_processo = id_processo;
+    }
+
+    public int getId_processo() {
+        return id_processo;
+    }
     
     public String getRenavam() {
         return renavam;

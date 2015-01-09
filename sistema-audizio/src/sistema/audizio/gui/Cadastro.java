@@ -420,12 +420,23 @@ public class Cadastro extends javax.swing.JDialog {
                                                 financeiro.setDesc_despesa(tfDescDespesa.getText());
                                                 financeiro.setId(idCliente);
                                                 //financeiro.setData_pagamento(tfda.getText());
+                                                try{
+                                                    if(boxCliente == true){
+                                                        int codigocli = Integer.parseInt(codigoCliente);
+                                                        financeiro.setIdCliente(codigocli);
+                                                    }else{
+                                                        financeiro.setIdCliente(codC);
+                                                    }
+                                                }catch(NumberFormatException e){
+                                                    System.err.println(e.getMessage());
+                                                }
 
                                             Veiculo v = new Veiculo();
                                                 v.setMarca(tfMarca.getText());
                                                 v.setModelo(tfModelo.getText());
                                                 v.setCor(tfCor.getText());
                                                 v.setAnoFabricacao(tfAnoFabricacao.getText());
+                                                v.setAnoModelo(tfAnoModelo.getText());
                                                 v.setModelo(tfAnoModelo.getText());
                                                 v.setPlaca(tfPlaca.getText());
                                                 v.setChassi(tfChassi.getText());
