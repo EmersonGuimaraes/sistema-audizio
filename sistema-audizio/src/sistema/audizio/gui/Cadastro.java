@@ -42,7 +42,7 @@ public class Cadastro extends javax.swing.JDialog {
     RemoveMascara rm = new RemoveMascara();
     String idCliente = null;
     String codigoCliente, codigoAdvogado, codigoAssessoria;
-    boolean boxCliente, boxAdvogado, boxAssessoria;
+    boolean boxCliente = false, boxAdvogado = false, boxAssessoria = false;
     /**
      * Creates new form Cadastro
      */
@@ -345,17 +345,11 @@ public class Cadastro extends javax.swing.JDialog {
                                                 processo.setCliente(tfNome.getText());
                                                 
                                                 try{
-                                                    if(boxAssessoria == false){
-                                                        int codigoass = Integer.parseInt(codigoAssessoria);
-                                                        processo.setIdAssessoria(codigoass);
-                                                    }
-                                                    if(boxAdvogado == false){
-                                                        int codigoadv = Integer.parseInt(codigoAdvogado);
-                                                        processo.setIdAdvogado(codigoadv);
-                                                    }
-                                                    if(boxCliente == false){
+                                                    if(boxCliente == true){
                                                         int codigocli = Integer.parseInt(codigoCliente);
                                                         processo.setIdAdvogado(codigocli);
+                                                    }else{
+                                                        processo.setIdCliente(codC);
                                                     }
                                                 }catch(NumberFormatException e){
                                                     System.err.println(e.getMessage());
@@ -372,6 +366,18 @@ public class Cadastro extends javax.swing.JDialog {
                                                         advogado.setNome(tfNomeAdvogado.getText());
                                                         advogado.setCelular(rm.removeMascara(tfCelAdvogado.getText()));
                                                         advogado.setCod(codC1);
+                                                        
+                                                    try {
+                                                        if(boxAdvogado == true){
+                                                            int codigoadv = Integer.parseInt(codigoAdvogado);
+                                                            processo.setIdAdvogado(codigoadv);
+                                                        }else{
+                                                            processo.setIdAdvogado(codC1);
+                                                        }
+                                                    } catch (NumberFormatException e) {
+                                                        System.err.println(e.getStackTrace());
+                                                    }
+                                                    
                                             
                                            
                                                     Assessoria assessoria = new Assessoria();
@@ -388,6 +394,17 @@ public class Cadastro extends javax.swing.JDialog {
                                                         assessoria.setEndereco(tfEndereco.getText());
                                                         assessoria.setId(idCliente);
                                                         assessoria.setCod(codC2);
+                                                        try {
+                                                            if(boxAssessoria == true){
+                                                                int codigoass = Integer.parseInt(codigoAssessoria);
+                                                                processo.setIdAssessoria(codigoass);
+                                                            }else{
+                                                                processo.setIdAssessoria(codC2);
+                                                            }
+                                                        } catch (NumberFormatException e) {
+                                                            System.err.println(e.getStackTrace());
+                                                        }
+                                                        
                                             
                                             
                                             Financeiro financeiro = new Financeiro();
