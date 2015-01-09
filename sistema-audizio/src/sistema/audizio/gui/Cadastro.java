@@ -54,6 +54,7 @@ public class Cadastro extends javax.swing.JDialog {
         initComponents();
         
         carregaCidadesCliente();
+        carregaCidadesAssessoria();
         mascararValores();
         AtivarCliente(false);
         ativarCampoProcesso(false);
@@ -770,13 +771,13 @@ public class Cadastro extends javax.swing.JDialog {
         jLabel17 = new javax.swing.JLabel();
         tfNomeAssessoria = new javax.swing.JTextField();
         jLabel21 = new javax.swing.JLabel();
-        comboCidadeAssessoria = new javax.swing.JComboBox();
         jLabel22 = new javax.swing.JLabel();
-        btNovaCidadeAssessoria = new javax.swing.JButton();
         lbBairro1 = new javax.swing.JLabel();
+        boxUsarAssessoria = new javax.swing.JCheckBox();
+        comboCidadeAssessoria = new javax.swing.JComboBox();
+        btNovaCidadeAssessoria = new javax.swing.JButton();
         comboBairroAssessoria = new javax.swing.JComboBox();
         btNovoBairroAssessoria = new javax.swing.JButton();
-        boxUsarAssessoria = new javax.swing.JCheckBox();
         painelFinanceiro = new javax.swing.JPanel();
         jLabel18 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
@@ -1494,6 +1495,20 @@ public class Cadastro extends javax.swing.JDialog {
 
         jLabel21.setText("NOME");
 
+        jLabel22.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
+        jLabel22.setText("CIDADE");
+
+        lbBairro1.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
+        lbBairro1.setText("BAIRRO");
+
+        boxUsarAssessoria.setFont(new java.awt.Font("Ubuntu", 0, 10)); // NOI18N
+        boxUsarAssessoria.setText("USAR ASSESSORIA CADASTRADA");
+        boxUsarAssessoria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                boxUsarAssessoriaActionPerformed(evt);
+            }
+        });
+
         comboCidadeAssessoria.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecionar...." }));
         comboCidadeAssessoria.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseExited(java.awt.event.MouseEvent evt) {
@@ -1506,18 +1521,12 @@ public class Cadastro extends javax.swing.JDialog {
             }
         });
 
-        jLabel22.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
-        jLabel22.setText("CIDADE");
-
         btNovaCidadeAssessoria.setText("+");
         btNovaCidadeAssessoria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btNovaCidadeAssessoriaActionPerformed(evt);
             }
         });
-
-        lbBairro1.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
-        lbBairro1.setText("BAIRRO");
 
         comboBairroAssessoria.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecionar...." }));
         comboBairroAssessoria.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1541,14 +1550,6 @@ public class Cadastro extends javax.swing.JDialog {
             }
         });
 
-        boxUsarAssessoria.setFont(new java.awt.Font("Ubuntu", 0, 10)); // NOI18N
-        boxUsarAssessoria.setText("USAR ASSESSORIA CADASTRADA");
-        boxUsarAssessoria.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                boxUsarAssessoriaActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout painelAssessoriaLayout = new javax.swing.GroupLayout(painelAssessoria);
         painelAssessoria.setLayout(painelAssessoriaLayout);
         painelAssessoriaLayout.setHorizontalGroup(
@@ -1556,21 +1557,21 @@ public class Cadastro extends javax.swing.JDialog {
             .addGroup(painelAssessoriaLayout.createSequentialGroup()
                 .addGap(39, 39, 39)
                 .addGroup(painelAssessoriaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(painelAssessoriaLayout.createSequentialGroup()
+                        .addComponent(comboCidadeAssessoria, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btNovaCidadeAssessoria, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(comboBairroAssessoria, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btNovoBairroAssessoria, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(boxUsarAssessoria)
                     .addGroup(painelAssessoriaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(jLabel17)
                         .addComponent(jLabel22)
                         .addGroup(painelAssessoriaLayout.createSequentialGroup()
-                            .addComponent(comboCidadeAssessoria, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(btNovaCidadeAssessoria, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(painelAssessoriaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(lbBairro1)
-                                .addGroup(painelAssessoriaLayout.createSequentialGroup()
-                                    .addComponent(comboBairroAssessoria, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(btNovoBairroAssessoria, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGap(267, 267, 267)
+                            .addComponent(lbBairro1))
                         .addComponent(jLabel21)
                         .addComponent(tfNomeAssessoria)
                         .addComponent(tfEnderecoAssessoria, javax.swing.GroupLayout.PREFERRED_SIZE, 516, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -1587,21 +1588,19 @@ public class Cadastro extends javax.swing.JDialog {
                 .addGroup(painelAssessoriaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbBairro1, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel22))
-                .addGap(9, 9, 9)
-                .addGroup(painelAssessoriaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btNovoBairroAssessoria, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(painelAssessoriaLayout.createSequentialGroup()
-                        .addGap(1, 1, 1)
-                        .addComponent(comboCidadeAssessoria))
-                    .addComponent(comboBairroAssessoria)
-                    .addComponent(btNovaCidadeAssessoria, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(27, 27, 27)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(painelAssessoriaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(comboCidadeAssessoria, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(comboBairroAssessoria, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btNovaCidadeAssessoria, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btNovoBairroAssessoria))
+                .addGap(18, 18, 18)
                 .addComponent(jLabel17)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tfEnderecoAssessoria, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(boxUsarAssessoria)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(41, 41, 41))
         );
 
         PainelAbas.addTab("ASSESSORIA", painelAssessoria);
@@ -2100,58 +2099,6 @@ public class Cadastro extends javax.swing.JDialog {
     private void tfDataInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfDataInicioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tfDataInicioActionPerformed
-
-    private void comboCidadeAssessoriaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_comboCidadeAssessoriaMouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_comboCidadeAssessoriaMouseExited
-
-    private void comboCidadeAssessoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboCidadeAssessoriaActionPerformed
-      String item = String.valueOf(comboModelCidadeAssesoria.getSelectedItem());
-       
-       if(item.equals("Selecionar....") || item == "null"){
-           System.out.println("Model Assessoria");
-           if(listaCheia == true){
-               comboModelBairroAssesoria.removeAllElements();
-               comboModelBairroAssesoria.addElement("Selecionar....");
-           }
-           comboBairroAssessoria.setSelectedIndex(0);
-       }else{
-           System.out.println("Carregando bairros!");
-           carregaBairrosAssesoria();
-           listaCheia = true;
-       }
-    }//GEN-LAST:event_comboCidadeAssessoriaActionPerformed
-
-    private void btNovaCidadeAssessoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovaCidadeAssessoriaActionPerformed
-        String c = "C";
-        new CadastroBairroCidade(c, "CIDADE", null, 0).setVisible(true);
-        carregaCidadesAssessoria();
-    }//GEN-LAST:event_btNovaCidadeAssessoriaActionPerformed
-
-    private void comboBairroAssessoriaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_comboBairroAssessoriaMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_comboBairroAssessoriaMouseClicked
-
-    private void comboBairroAssessoriaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_comboBairroAssessoriaMouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_comboBairroAssessoriaMouseEntered
-
-    private void comboBairroAssessoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBairroAssessoriaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_comboBairroAssessoriaActionPerformed
-
-    private void btNovoBairroAssessoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoBairroAssessoriaActionPerformed
-         String item = String.valueOf(comboModelCidadeAssesoria.getSelectedItem());
-        if(item == "Selecionar...."){
-           JOptionPane.showMessageDialog(null, "SELECIONE UMA CIDADE!");
-        } else {
-             String b = "B";
-             int cod = comboCidadeAssessoria.getSelectedIndex();
-             System.out.println("codigo: "+cod);
-             new CadastroBairroCidade(b, "BAIRRO", item, cod).show();
-             carregaBairrosCliente();
-        }
-    }//GEN-LAST:event_btNovoBairroAssessoriaActionPerformed
            
     private void comboSituacaofinanceiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboSituacaofinanceiroActionPerformed
         // TODO add your handling code here:
@@ -2349,6 +2296,47 @@ public class Cadastro extends javax.swing.JDialog {
             boxAssessoria = false;
         }
     }//GEN-LAST:event_boxUsarAssessoriaActionPerformed
+
+    private void comboCidadeAssessoriaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_comboCidadeAssessoriaMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboCidadeAssessoriaMouseExited
+
+    private void comboCidadeAssessoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboCidadeAssessoriaActionPerformed
+        String item = String.valueOf(comboModelCidadeAssesoria.getSelectedItem());
+       
+       if(item.equals("Selecionar....") || item == "null"){
+           System.out.println("Olá");
+           if(listaCheia == true){
+               comboModelBairroAssesoria.removeAllElements();
+               comboModelBairroAssesoria.addElement("Selecionar....");
+           }
+           comboBairroAssessoria.setSelectedIndex(0);
+       }else{
+           System.out.println("Carregando bairros!");
+           carregaBairrosAssesoria();
+           listaCheia = true;
+       }
+    }//GEN-LAST:event_comboCidadeAssessoriaActionPerformed
+
+    private void btNovaCidadeAssessoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovaCidadeAssessoriaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btNovaCidadeAssessoriaActionPerformed
+
+    private void comboBairroAssessoriaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_comboBairroAssessoriaMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboBairroAssessoriaMouseClicked
+
+    private void comboBairroAssessoriaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_comboBairroAssessoriaMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboBairroAssessoriaMouseEntered
+
+    private void comboBairroAssessoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBairroAssessoriaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboBairroAssessoriaActionPerformed
+
+    private void btNovoBairroAssessoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoBairroAssessoriaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btNovoBairroAssessoriaActionPerformed
      
     /**
      * @param args the command line arguments
