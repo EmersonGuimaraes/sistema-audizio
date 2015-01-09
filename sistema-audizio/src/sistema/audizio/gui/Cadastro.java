@@ -53,7 +53,7 @@ public class Cadastro extends javax.swing.JDialog {
         setModal(true);
         initComponents();
         
-        carregaCidades();
+        carregaCidadesCliente();
         mascararValores();
         AtivarCliente(false);
         ativarCampoProcesso(false);
@@ -72,51 +72,52 @@ public class Cadastro extends javax.swing.JDialog {
         }
     }
     
-    private void carregaCidades(){
+    private void carregaCidadesCliente(){
         ArrayList<Cidade> cidades = new ArrayList<>();
         DaoCidade daoCid = new DaoCidade();
         comboModelCidade = (DefaultComboBoxModel) comboCidade.getModel();
-        comboModelCidadeAssesoria = (DefaultComboBoxModel) comboCidadeAssessoria.getModel();
-        
         cidades = daoCid.consultar("");
         
         comboModelCidade.removeAllElements();
-        comboModelCidade.addElement("Selecionar ...");
+        comboModelCidade.addElement("Selecionar....");
         
         for (int linha = 0; linha < cidades.size(); linha++){
             Cidade cidade = cidades.get(linha);
             comboModelCidade.addElement(cidade.getNome());
-            comboModelCidadeAssesoria.addElement(cidade.getNome());
-        }
-        
+        }  
     }
     
-     private void carregaBairros(){
-         if(comboCidade.getSelectedItem().toString().equals("Selecionar ...")){
+    private void carregaCidadesAssessoria(){
+        ArrayList<Cidade> cidades = new ArrayList<>();
+        DaoCidade daoCid = new DaoCidade();
+        comboModelCidadeAssesoria = (DefaultComboBoxModel) comboCidadeAssessoria.getModel();
+        cidades = daoCid.consultar("");
+        
+        comboModelCidadeAssesoria.removeAllElements();
+        comboModelCidadeAssesoria.addElement("Selecionar....");
+        
+        for (int linha = 0; linha < cidades.size(); linha++){
+            Cidade cidade = cidades.get(linha);
+            comboModelCidadeAssesoria.addElement(cidade.getNome());
+        }  
+    }
+    
+     private void carregaBairrosCliente(){
+         if(comboCidade.getSelectedItem().toString().equals("Selecionar....")){
              System.out.println("Nenhuma cidade selecionada");
          }else{
-             if(comboModelCidadeAssesoria.getSelectedItem().toString().equals("Selecionar ...")){
-                System.out.println("Nenhuma cidade selecionada");
-            }
              System.out.println("Carregando bairros...");
                 String cod = String.valueOf(comboCidade.getSelectedIndex());
-                String cod1 = String.valueOf(comboCidadeAssessoria.getSelectedIndex());
                 
                comboModelBairro = (DefaultComboBoxModel) comboBairro.getModel();
-               comboModelBairroAssesoria = (DefaultComboBoxModel) comboBairroAssessoria.getModel();
-               
+              
                comboModelBairro.removeAllElements();
-               comboModelBairroAssesoria.removeAllElements();
-               
+              
                ArrayList<Bairro> bairros = new ArrayList<>();
-               ArrayList<Bairro> bairros1 = new ArrayList<>();
-               
-               DaoBairro daoBairro = new DaoBairro();
+                DaoBairro daoBairro = new DaoBairro();
                bairros = daoBairro.consultar(cod);
-               bairros1 = daoBairro.consultar(cod1);
-               
-               comboModelBairro.addElement("Selecionar ...");
-               comboModelBairroAssesoria.addElement("Selecionar ...");
+
+               comboModelBairro.addElement("Selecionar....");
                
                if (bairros.isEmpty()) {
                    JOptionPane.showMessageDialog(null, "ESSA CIDADE NÃO TEM BAIRROS CADASTRADOS!");
@@ -129,25 +130,42 @@ public class Cadastro extends javax.swing.JDialog {
                             //adicionando a categoria no combo
                             System.out.println("Bairros: "+bairro.getNome());
                             comboModelBairro.addElement(bairro.getNome());
-                         }
-                       
-                  }
+                        }
+                }
+         }
+     }
+     
+     private void carregaBairrosAssesoria(){
+         if(comboCidadeAssessoria.getSelectedItem().toString().equals("Selecionar....")){
+             System.out.println("Nenhuma cidade selecionada");
+         }else{
+             System.out.println("Carregando bairros...");
+                String cod = String.valueOf(comboCidadeAssessoria.getSelectedIndex());
+                
+               comboModelBairroAssesoria = (DefaultComboBoxModel) comboBairroAssessoria.getModel();
+              
+               comboModelBairroAssesoria.removeAllElements();
+              
+               ArrayList<Bairro> bairros = new ArrayList<>();
+                DaoBairro daoBairro = new DaoBairro();
+               bairros = daoBairro.consultar(cod);
+
+               comboModelBairroAssesoria.addElement("Selecionar....");
                
-                  if (bairros1.isEmpty()) {
+               if (bairros.isEmpty()) {
                    JOptionPane.showMessageDialog(null, "ESSA CIDADE NÃO TEM BAIRROS CADASTRADOS!");
                 }else{
                         System.out.println("Carregando bairros...");
                         //percorrendo a lista para inserir os valores no combo
-                        for (int linha = 0; linha < bairros1.size(); linha++){
+                        for (int linha = 0; linha < bairros.size(); linha++){
                             //pegando a categoria da lista
                             Bairro bairro = bairros.get(linha);
                             //adicionando a categoria no combo
                             System.out.println("Bairros: "+bairro.getNome());
                             comboModelBairroAssesoria.addElement(bairro.getNome());
-                         }
-                       
-                  }
-            }
+                        }
+                }
+         }
      }
        
     public void mascararValores(){
@@ -970,7 +988,7 @@ public class Cadastro extends javax.swing.JDialog {
         jLabel12.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
         jLabel12.setText("CIDADE");
 
-        comboBairro.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecionar..." }));
+        comboBairro.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecionar...." }));
         comboBairro.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 comboBairroMouseClicked(evt);
@@ -1501,7 +1519,7 @@ public class Cadastro extends javax.swing.JDialog {
         lbBairro1.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
         lbBairro1.setText("BAIRRO");
 
-        comboBairroAssessoria.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecionar..." }));
+        comboBairroAssessoria.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecionar...." }));
         comboBairroAssessoria.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 comboBairroAssessoriaMouseClicked(evt);
@@ -1995,18 +2013,18 @@ public class Cadastro extends javax.swing.JDialog {
     }//GEN-LAST:event_comboCidadeMouseExited
 
     private void comboCidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboCidadeActionPerformed
-            String item = String.valueOf(comboModelCidade.getSelectedItem());
+      String item = String.valueOf(comboModelCidade.getSelectedItem());
        
-       if(item.equals("Selecionar ...") || item == "null"){
+       if(item.equals("Selecionar....") || item == "null"){
            System.out.println("Olá");
            if(listaCheia == true){
                comboModelBairro.removeAllElements();
-               comboModelBairro.addElement("Selecionar ...");
+               comboModelBairro.addElement("Selecionar....");
            }
            comboBairro.setSelectedIndex(0);
        }else{
            System.out.println("Carregando bairros!");
-           carregaBairros();
+           carregaBairrosCliente();
            listaCheia = true;
        }
     }//GEN-LAST:event_comboCidadeActionPerformed
@@ -2026,19 +2044,19 @@ public class Cadastro extends javax.swing.JDialog {
     private void btNovaCidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovaCidadeActionPerformed
        String c = "C";
         new CadastroBairroCidade(c, "CIDADE", null, 0).setVisible(true);
-        carregaCidades();
+        carregaCidadesCliente();
     }//GEN-LAST:event_btNovaCidadeActionPerformed
 
     private void btNovoBairroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoBairroActionPerformed
         String item = String.valueOf(comboModelCidade.getSelectedItem());
-        if(item == "Selecionar ..."){
+        if(item == "Selecionar...."){
            JOptionPane.showMessageDialog(null, "SELECIONE UMA CIDADE!");
         } else {
              String b = "B";
              int cod = comboCidade.getSelectedIndex();
              System.out.println("codigo: "+cod);
              new CadastroBairroCidade(b, "BAIRRO", item, cod).show();
-             carregaBairros();
+             carregaBairrosCliente();
            
         }
 
@@ -2088,18 +2106,18 @@ public class Cadastro extends javax.swing.JDialog {
     }//GEN-LAST:event_comboCidadeAssessoriaMouseExited
 
     private void comboCidadeAssessoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboCidadeAssessoriaActionPerformed
-         String item = String.valueOf(comboModelCidade.getSelectedItem());
+      String item = String.valueOf(comboModelCidadeAssesoria.getSelectedItem());
        
-       if(item.equals("Selecionar ...") || item == "null"){
-           System.out.println("Olá");
+       if(item.equals("Selecionar....") || item == "null"){
+           System.out.println("Model Assessoria");
            if(listaCheia == true){
-               comboModelBairro.removeAllElements();
-               comboModelBairro.addElement("Selecionar ...");
+               comboModelBairroAssesoria.removeAllElements();
+               comboModelBairroAssesoria.addElement("Selecionar....");
            }
-           comboBairro.setSelectedIndex(0);
+           comboBairroAssessoria.setSelectedIndex(0);
        }else{
            System.out.println("Carregando bairros!");
-           carregaBairros();
+           carregaBairrosAssesoria();
            listaCheia = true;
        }
     }//GEN-LAST:event_comboCidadeAssessoriaActionPerformed
@@ -2107,7 +2125,7 @@ public class Cadastro extends javax.swing.JDialog {
     private void btNovaCidadeAssessoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovaCidadeAssessoriaActionPerformed
         String c = "C";
         new CadastroBairroCidade(c, "CIDADE", null, 0).setVisible(true);
-        carregaCidades();
+        carregaCidadesAssessoria();
     }//GEN-LAST:event_btNovaCidadeAssessoriaActionPerformed
 
     private void comboBairroAssessoriaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_comboBairroAssessoriaMouseClicked
@@ -2123,15 +2141,15 @@ public class Cadastro extends javax.swing.JDialog {
     }//GEN-LAST:event_comboBairroAssessoriaActionPerformed
 
     private void btNovoBairroAssessoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoBairroAssessoriaActionPerformed
-         String item = String.valueOf(comboModelCidade.getSelectedItem());
-        if(item == "Selecionar ..."){
+         String item = String.valueOf(comboModelCidadeAssesoria.getSelectedItem());
+        if(item == "Selecionar...."){
            JOptionPane.showMessageDialog(null, "SELECIONE UMA CIDADE!");
         } else {
              String b = "B";
-             int cod = comboCidade.getSelectedIndex();
+             int cod = comboCidadeAssessoria.getSelectedIndex();
              System.out.println("codigo: "+cod);
              new CadastroBairroCidade(b, "BAIRRO", item, cod).show();
-             carregaBairros();
+             carregaBairrosCliente();
         }
     }//GEN-LAST:event_btNovoBairroAssessoriaActionPerformed
            

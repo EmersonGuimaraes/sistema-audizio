@@ -61,6 +61,7 @@ public class TelaInicial extends javax.swing.JFrame {
         lbNomeUsuario = new javax.swing.JLabel();
         btAssessoria = new javax.swing.JButton();
         panelTela = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
         btFinanceiro = new javax.swing.JButton();
         btVeiculo = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -138,15 +139,25 @@ public class TelaInicial extends javax.swing.JFrame {
         panelTela.setBackground(new java.awt.Color(253, 251, 251));
         panelTela.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("LOGO");
+        jLabel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
         javax.swing.GroupLayout panelTelaLayout = new javax.swing.GroupLayout(panelTela);
         panelTela.setLayout(panelTelaLayout);
         panelTelaLayout.setHorizontalGroup(
             panelTelaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(panelTelaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         panelTelaLayout.setVerticalGroup(
             panelTelaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 356, Short.MAX_VALUE)
+            .addGroup(panelTelaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 332, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         btFinanceiro.setText("FINANCEIRO");
@@ -500,6 +511,7 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JButton btSair;
     private javax.swing.JButton btVeiculo;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu10;
     private javax.swing.JMenu jMenu2;

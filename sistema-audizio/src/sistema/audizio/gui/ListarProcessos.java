@@ -239,7 +239,7 @@ public class ListarProcessos extends javax.swing.JDialog {
 
     private void btNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoActionPerformed
         this.dispose();
-         new Cadastro(2,true).setVisible(true);
+         new Cadastro(1,true).setVisible(true);
     }//GEN-LAST:event_btNovoActionPerformed
 
     private void rbAbertoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbAbertoActionPerformed
