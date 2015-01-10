@@ -34,12 +34,12 @@ public class DaoCliente extends Conexao{
               + "estado_civil='"+cliente.getEstado_civil()+"',cep='"+cliente.getCep()+"',"
               + "endereco='"+cliente.getEndereco()+"',numero='"+cliente.getNum()+"',estado='"+cliente.getEstado()+"',"
               + "cidade='"+cliente.getCidade()+"',bairro='"+cliente.getBairro()+"',telefone='"+cliente.getFone()+"',"
-              + "celular='"+cliente.getCelular()+"',email='"+cliente.getEmail()+"',whatsapp='"+cliente.getWhatsapp()+"' WHERE id = '"+cliente.getIdCliente()+"'";
+              + "celular='"+cliente.getCelular()+"',email='"+cliente.getEmail()+"',whatsapp='"+cliente.getWhatsapp()+"' WHERE cod = '"+cliente.getIdCliente()+"'";
         ConsultarSQL(sql, false);
         
     }
     public void Deletar(Cliente cliente){
-        sql = "DELETE FROM tb_cliente WHERE id = '"+cliente.getIdCliente()+"'";
+        sql = "DELETE FROM tb_cliente WHERE cod = '"+cliente.getIdCliente()+"'";
         ConsultarSQL(sql, false);
     }
     
@@ -62,7 +62,7 @@ public class DaoCliente extends Conexao{
                     clientes.add(cliente);
                 }
             }else{
-                String sql = "SELECT * FROM tb_cliente WHERE id = '"+id+"'";
+                String sql = "SELECT * FROM tb_cliente WHERE cod = '"+id+"'";
                 ConsultarSQL(sql,true);
                 while (rs.next()) {
                     Cliente cliente = new Cliente();
@@ -114,6 +114,40 @@ public class DaoCliente extends Conexao{
         }
          System.out.println("cod2 :"+codA);
         return codA;
+    }
+    
+    public ArrayList<Cliente> consultaDinamica(String pesquisa, String campo){
+        ArrayList<Cliente> clientes = new ArrayList();
+        try {
+            String sql = "SELECT * FROM tb_cliente WHERE '"+campo+"' = '"+pesquisa+"'%";
+            ConsultarSQL(sql,true);
+            while (rs.next()) {
+                Cliente cliente = new Cliente();
+                cliente.setIdCliente(rs.getString("id"));
+                cliente.setNome(rs.getString("nome"));
+                cliente.setNascimento(rs.getString("nascimento"));
+                cliente.setCpf(rs.getString("cpf"));
+                cliente.setNacionalidade(rs.getString("nacionalidade"));
+                cliente.setProfisao(rs.getString("profissao"));
+                cliente.setEstado_civil(rs.getString("estado_civil"));
+                cliente.setCep(rs.getString("cep"));
+                cliente.setEndereco(rs.getString("endereco"));
+                cliente.setCidade(rs.getString("cidade"));
+                cliente.setBairro(rs.getString("bairro"));
+                cliente.setFone(rs.getString("telefone"));
+                cliente.setCelular(rs.getString("celular"));
+                cliente.setEmail(rs.getString("email"));
+                cliente.setEstado(rs.getString("estado"));
+                cliente.setNum(rs.getString("numero"));
+                cliente.setWhatsapp(rs.getString("whatsapp"));
+                cliente.setCod(rs.getInt("cod"));
+                clientes.add(cliente);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DaoCliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return clientes;
     }
     
     public static void main(String[] args) {

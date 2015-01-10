@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Locale;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import sistema.audizio.bean.Advogado;
 import sistema.audizio.bean.Assessoria;
@@ -63,7 +64,7 @@ public class Cadastro extends javax.swing.JDialog {
         ativarCampoAdvogado(false);
         ativaCampoVeiculo(false);
         this.setFocusable(true);
-        carregarTabela("");
+        carregarTabela(null);
         int idAba = 0;
         idAba = idPainel;
         PainelAbas.setSelectedIndex(idAba);
@@ -481,7 +482,7 @@ public class Cadastro extends javax.swing.JDialog {
                                                          daoVeiculo.Cadastrar(v);
                                                          JOptionPane.showMessageDialog(null, "Cadastro realizado com sucesso");
 
-                                                         tfAcao.setText(null);
+                                                         /*tfAcao.setText(null);
                                                          tfCelAdvogado.setText(null);
                                                          tfCelular.setText(null);
                                                          tfCep.setText(null);
@@ -511,7 +512,9 @@ public class Cadastro extends javax.swing.JDialog {
                                                          tfTotal.setText("000");
                                                          tfValor.setText("000");
                                                          tfValorDespesa.setText("000");
-                                                         tfDesconto.setText("000");
+                                                         tfDesconto.setText("000");*/
+                                                         limpaTela();
+                                                         
 
 
                                                  } catch (Exception e) {
@@ -533,7 +536,7 @@ public class Cadastro extends javax.swing.JDialog {
                                                }
 
                                            }
-                                                carregarTabela("");
+                                                carregarTabela(null);
                                                 System.out.println("Fim do Salvar");
                                 
                                 
@@ -548,6 +551,23 @@ public class Cadastro extends javax.swing.JDialog {
       }
     }
     
+    public void limpaTela(){
+            Object[] listaObjetos = {
+                tfNome,tfCpf,tfCep,tfEndereco,tfNumero,tfEstado,tfCelular,
+                tfNomeAdvogado,tfCelAdvogado,
+                tfNomeAssessoria,tfEnderecoAssessoria,
+                tfValor,tfValorDespesa,tfDataVencimento,tfDesconto,
+                tfProcesso,tfDataInicio,tfDataFim,tfAcao,tfsituacaoatual,tfVara,tfComarca,
+                tfMarca,tfModelo,tfCor,tfPlaca,tfAnoModelo,tfAnoFabricacao,tfRenavam,tfChassi
+            };
+          
+            for (int i = 0; i <= listaObjetos.length; i++) {
+                JTextField nTF = (JTextField)listaObjetos[i];
+                nTF.setText(null);
+                nTF.setEditable(false);
+            }
+          
+    }
     public void btAlterar(){
         estadoBotao = true;
         AtivarCliente(true);
@@ -563,12 +583,16 @@ public class Cadastro extends javax.swing.JDialog {
         btExcluir.setEnabled(false);
         
     }
-    public void carregarTabela(String pesquisa){
+    public void carregarTabela(ArrayList<Cliente> clie){
        DaoCliente dao = new DaoCliente();
        ArrayList<Cliente> clientes = new ArrayList();  
-       clientes = dao.Consultar("");
-      // System.out.println("Tamanho do array "+clientes.size());
-        
+      
+       if(clie == null){
+           clientes = dao.Consultar(""); 
+              
+      }else{
+           clientes = clie;
+      }  
         
        modeloTabela = (DefaultTableModel) tbListarCliente.getModel();
        modeloTabela.setNumRows(0);
@@ -817,7 +841,7 @@ public class Cadastro extends javax.swing.JDialog {
         painelOrdenar = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
         jLabel28 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox();
+        comboFiltro = new javax.swing.JComboBox();
         btImprimir = new javax.swing.JButton();
         jLabel29 = new javax.swing.JLabel();
         tfPesquisa = new javax.swing.JTextField();
@@ -1282,7 +1306,7 @@ public class Cadastro extends javax.swing.JDialog {
                     .addGroup(painelClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btNovoBairro)
                         .addComponent(tfEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(painelClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(painelClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(lbCelular1)
@@ -1589,11 +1613,11 @@ public class Cadastro extends javax.swing.JDialog {
                     .addComponent(lbBairro1, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel22))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(painelAssessoriaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(comboCidadeAssessoria, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(painelAssessoriaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(comboBairroAssessoria, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btNovaCidadeAssessoria, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btNovoBairroAssessoria))
+                    .addComponent(btNovoBairroAssessoria, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(comboCidadeAssessoria, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel17)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1884,7 +1908,12 @@ public class Cadastro extends javax.swing.JDialog {
 
         jLabel28.setText("FILTRAR POR:");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "CÓDIGO", "NOME", "ENDEREÇO" }));
+        comboFiltro.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "CÓDIGO", "NOME", "CPF" }));
+        comboFiltro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboFiltroActionPerformed(evt);
+            }
+        });
 
         btImprimir.setText("IMPRIMIR");
         btImprimir.setEnabled(false);
@@ -1898,6 +1927,11 @@ public class Cadastro extends javax.swing.JDialog {
         });
 
         btPequisar.setText("Pesquisar");
+        btPequisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btPequisarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -1911,7 +1945,7 @@ public class Cadastro extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel8Layout.createSequentialGroup()
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(comboFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(tfPesquisa))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1926,7 +1960,7 @@ public class Cadastro extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel28)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(comboFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btImprimir))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -1941,7 +1975,7 @@ public class Cadastro extends javax.swing.JDialog {
 
             },
             new String [] {
-                "CÓDIGO", "NOME", "ENDEREÇO"
+                "CÓDIGO", "NOME", "CPF"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -2218,7 +2252,7 @@ public class Cadastro extends javax.swing.JDialog {
     }//GEN-LAST:event_tfTotalActionPerformed
 
     private void tfPesquisaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfPesquisaKeyReleased
-        carregarTabela(tfPesquisa.getText());
+        
     }//GEN-LAST:event_tfPesquisaKeyReleased
 
     private void btRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRelatorioActionPerformed
@@ -2337,6 +2371,40 @@ public class Cadastro extends javax.swing.JDialog {
     private void btNovoBairroAssessoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoBairroAssessoriaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btNovoBairroAssessoriaActionPerformed
+
+    private void comboFiltroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboFiltroActionPerformed
+      
+    }//GEN-LAST:event_comboFiltroActionPerformed
+
+    private void btPequisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPequisarActionPerformed
+         
+        DaoCliente clie = new DaoCliente();
+        ArrayList<Cliente> cliente = new ArrayList<>();
+        if(comboFiltro.getSelectedIndex() == 1){
+            cliente = clie.consultaDinamica(tfPesquisa.getText(), "cod");
+            int x = modeloTabela.getRowCount();  
+            for(int a = 0; a < x; a++){  
+                modeloTabela.removeRow(0);  
+            }
+            carregarTabela(cliente);
+        }else if(comboFiltro.getSelectedIndex() == 2){
+            cliente = clie.consultaDinamica(tfPesquisa.getText(), "nome");
+            int x = modeloTabela.getRowCount();  
+            for(int a = 0; a < x; a++){  
+                modeloTabela.removeRow(0);  
+            }
+            carregarTabela(cliente);
+        }else if(comboFiltro.getSelectedIndex() == 3){
+            cliente = clie.consultaDinamica(tfPesquisa.getText(), "cpf");
+            int x = modeloTabela.getRowCount();  
+            for(int a = 0; a < x; a++){  
+                modeloTabela.removeRow(0);  
+            }
+            carregarTabela(cliente);
+        }
+       
+        
+    }//GEN-LAST:event_btPequisarActionPerformed
      
     /**
      * @param args the command line arguments
@@ -2397,10 +2465,10 @@ public class Cadastro extends javax.swing.JDialog {
     private javax.swing.JComboBox comboBairroAssessoria;
     private javax.swing.JComboBox comboCidade;
     private javax.swing.JComboBox comboCidadeAssessoria;
+    private javax.swing.JComboBox comboFiltro;
     private javax.swing.JComboBox comboSituacaoProcesso;
     private javax.swing.JComboBox comboSituacaofinanceiro;
     private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

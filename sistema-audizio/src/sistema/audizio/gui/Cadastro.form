@@ -395,7 +395,7 @@
                               <Component id="tfEstado" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace pref="14" max="32767" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                               <Component id="lbCelular1" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -1081,11 +1081,11 @@
                           <Component id="jLabel22" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="comboCidadeAssessoria" alignment="3" min="-2" pref="41" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="comboBairroAssessoria" alignment="0" min="-2" pref="42" max="-2" attributes="0"/>
                           <Component id="btNovaCidadeAssessoria" alignment="0" max="32767" attributes="0"/>
                           <Component id="btNovoBairroAssessoria" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="comboCidadeAssessoria" min="-2" pref="41" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jLabel17" min="-2" max="-2" attributes="0"/>
@@ -1679,7 +1679,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
-                                  <Component id="jComboBox1" min="-2" pref="178" max="-2" attributes="0"/>
+                                  <Component id="comboFiltro" min="-2" pref="178" max="-2" attributes="0"/>
                                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                               </Group>
                               <Component id="tfPesquisa" max="32767" attributes="0"/>
@@ -1699,7 +1699,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel28" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jComboBox1" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="comboFiltro" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="btImprimir" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -1719,16 +1719,19 @@
                     <Property name="text" type="java.lang.String" value="FILTRAR POR:"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JComboBox" name="jComboBox1">
+                <Component class="javax.swing.JComboBox" name="comboFiltro">
                   <Properties>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                       <StringArray count="3">
                         <StringItem index="0" value="C&#xd3;DIGO"/>
                         <StringItem index="1" value="NOME"/>
-                        <StringItem index="2" value="ENDERE&#xc7;O"/>
+                        <StringItem index="2" value="CPF"/>
                       </StringArray>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="comboFiltroActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JButton" name="btImprimir">
                   <Properties>
@@ -1750,6 +1753,9 @@
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Pesquisar"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btPequisarActionPerformed"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -1766,7 +1772,7 @@
                       <Table columnCount="3" rowCount="0">
                         <Column editable="false" title="C&#xd3;DIGO" type="java.lang.Object"/>
                         <Column editable="false" title="NOME" type="java.lang.Object"/>
-                        <Column editable="false" title="ENDERE&#xc7;O" type="java.lang.Object"/>
+                        <Column editable="false" title="CPF" type="java.lang.Object"/>
                       </Table>
                     </Property>
                     <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
