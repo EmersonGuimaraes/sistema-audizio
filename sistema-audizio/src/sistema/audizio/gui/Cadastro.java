@@ -411,7 +411,7 @@ public class Cadastro extends javax.swing.JDialog {
                                                         assessoria.setNome(tfNomeAssessoria.getText());
                                                         assessoria.setCidade(String.valueOf(String.valueOf(comboCidadeAssessoria.getSelectedIndex())));
                                                         assessoria.setBairro(String.valueOf(comboBairroAssessoria.getSelectedIndex()));
-                                                        assessoria.setEndereco(tfEndereco.getText());
+                                                        assessoria.setEndereco(tfEnderecoAssessoria.getText());
                                                         assessoria.setId(idAssessoria);
                                                         assessoria.setCod(codC2);
                                                         try {

@@ -155,7 +155,7 @@ public class TelaInicial extends javax.swing.JFrame {
             panelTelaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelTelaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(labelFoto, javax.swing.GroupLayout.DEFAULT_SIZE, 332, Short.MAX_VALUE)
+                .addComponent(labelFoto, javax.swing.GroupLayout.DEFAULT_SIZE, 433, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
