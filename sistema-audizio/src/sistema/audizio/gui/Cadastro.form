@@ -1642,8 +1642,12 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jScrollPane2" pref="608" max="32767" attributes="0"/>
                   <Component id="jPanel8" max="32767" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jScrollPane2" pref="584" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                  </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
@@ -1680,7 +1684,7 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
                                   <Component id="comboFiltro" min="-2" pref="178" max="-2" attributes="0"/>
-                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                  <EmptySpace min="0" pref="153" max="32767" attributes="0"/>
                               </Group>
                               <Component id="tfPesquisa" max="32767" attributes="0"/>
                           </Group>
@@ -1723,9 +1727,9 @@
                   <Properties>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                       <StringArray count="3">
-                        <StringItem index="0" value="C&#xd3;DIGO"/>
-                        <StringItem index="1" value="NOME"/>
-                        <StringItem index="2" value="CPF"/>
+                        <StringItem index="0" value="ID"/>
+                        <StringItem index="1" value="CLIENTE"/>
+                        <StringItem index="2" value="PROCESSO"/>
                       </StringArray>
                     </Property>
                   </Properties>
@@ -1766,18 +1770,26 @@
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
               <SubComponents>
-                <Component class="javax.swing.JTable" name="tbListarCliente">
+                <Component class="javax.swing.JTable" name="tbListarProcesso">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="3" rowCount="0">
-                        <Column editable="false" title="C&#xd3;DIGO" type="java.lang.Object"/>
-                        <Column editable="false" title="NOME" type="java.lang.Object"/>
-                        <Column editable="false" title="CPF" type="java.lang.Object"/>
+                      <Table columnCount="6" rowCount="0">
+                        <Column editable="false" title="ID" type="java.lang.Object"/>
+                        <Column editable="false" title="PROCESSO" type="java.lang.Object"/>
+                        <Column editable="false" title="CLIENTE" type="java.lang.Object"/>
+                        <Column editable="false" title="C" type="java.lang.Object"/>
+                        <Column editable="false" title="A" type="java.lang.Object"/>
+                        <Column editable="false" title="AS" type="java.lang.Object"/>
                       </Table>
                     </Property>
                     <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                       <TableColumnModel selectionModel="0">
-                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                        <Column maxWidth="-20" minWidth="50" prefWidth="50" resizable="true">
+                          <Title/>
+                          <Editor/>
+                          <Renderer/>
+                        </Column>
+                        <Column maxWidth="-20" minWidth="150" prefWidth="150" resizable="true">
                           <Title/>
                           <Editor/>
                           <Renderer/>
@@ -1787,7 +1799,17 @@
                           <Editor/>
                           <Renderer/>
                         </Column>
-                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                        <Column maxWidth="-20" minWidth="50" prefWidth="50" resizable="true">
+                          <Title/>
+                          <Editor/>
+                          <Renderer/>
+                        </Column>
+                        <Column maxWidth="-20" minWidth="50" prefWidth="50" resizable="true">
+                          <Title/>
+                          <Editor/>
+                          <Renderer/>
+                        </Column>
+                        <Column maxWidth="-20" minWidth="50" prefWidth="50" resizable="true">
                           <Title/>
                           <Editor/>
                           <Renderer/>
@@ -1799,8 +1821,8 @@
                     </Property>
                   </Properties>
                   <Events>
-                    <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tbListarClienteMouseReleased"/>
-                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tbListarClienteMouseClicked"/>
+                    <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tbListarProcessoMouseReleased"/>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tbListarProcessoMouseClicked"/>
                   </Events>
                 </Component>
               </SubComponents>

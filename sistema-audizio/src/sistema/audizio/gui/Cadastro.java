@@ -41,7 +41,7 @@ import sistema.audizio.ultilitarios.Validacao;
 public class Cadastro extends javax.swing.JDialog {
     private DefaultTableModel modeloTabela;
     RemoveMascara rm = new RemoveMascara();
-    String idCliente = null;
+    String idCliente = null, idProcesso = null, idAdvogado = null, idAssessoria=null;
     String codigoCliente, codigoAdvogado, codigoAssessoria;
     boolean boxCliente = false, boxAdvogado = false, boxAssessoria = false;
     /**
@@ -361,7 +361,7 @@ public class Cadastro extends javax.swing.JDialog {
                                                 processo.setSituacao_atual(tfsituacaoatual.getText());
                                                 processo.setVara(tfVara.getText());
                                                 processo.setComarca(tfComarca.getText());
-                                                processo.setIdProcesso(idCliente);
+                                                processo.setIdProcesso(idProcesso);
                                                 processo.setCliente(tfNome.getText());
                                                 
                                                 try{
@@ -412,7 +412,7 @@ public class Cadastro extends javax.swing.JDialog {
                                                         assessoria.setCidade(String.valueOf(String.valueOf(comboCidadeAssessoria.getSelectedIndex())));
                                                         assessoria.setBairro(String.valueOf(comboBairroAssessoria.getSelectedIndex()));
                                                         assessoria.setEndereco(tfEndereco.getText());
-                                                        assessoria.setId(idCliente);
+                                                        assessoria.setId(idAssessoria);
                                                         assessoria.setCod(codC2);
                                                         try {
                                                             if(boxAssessoria == true){
@@ -583,23 +583,23 @@ public class Cadastro extends javax.swing.JDialog {
         btExcluir.setEnabled(false);
         
     }
-    public void carregarTabela(ArrayList<Cliente> clie){
-       DaoCliente dao = new DaoCliente();
-       ArrayList<Cliente> clientes = new ArrayList();  
+    public void carregarTabela(ArrayList<Processo> processo){
+       DaoProcesso pro = new DaoProcesso();
+       ArrayList<Processo> processos = new ArrayList();  
       
-       if(clie == null){
-           clientes = dao.Consultar(""); 
+       if(processo == null){
+           processos = pro.Consultar(""); 
               
       }else{
-           clientes = clie;
+           processos = processo;
       }  
         
-       modeloTabela = (DefaultTableModel) tbListarCliente.getModel();
+       modeloTabela = (DefaultTableModel) tbListarProcesso.getModel();
        modeloTabela.setNumRows(0);
-       for(Cliente cli:clientes){
-           modeloTabela.addRow(new Object[] {cli.getIdCliente(), cli.getNome(),cli.getCpf()});
+       for(Processo p:processos){
+           modeloTabela.addRow(new Object[] {p.getIdProcesso(), p.getCliente(),p.getProcesso(), p.getIdCliente(), p.getIdAdvogado(), p.getIdAssessoria()});
         }
-           tbListarCliente.getTableHeader().setReorderingAllowed(false);   
+           tbListarProcesso.getTableHeader().setReorderingAllowed(false);   
     }
     
     public void preencheClientes(String idCliente){
@@ -847,7 +847,7 @@ public class Cadastro extends javax.swing.JDialog {
         tfPesquisa = new javax.swing.JTextField();
         btPequisar = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        tbListarCliente = new javax.swing.JTable();
+        tbListarProcesso = new javax.swing.JTable();
 
         jToggleButton1.setText("jToggleButton1");
 
@@ -1908,7 +1908,7 @@ public class Cadastro extends javax.swing.JDialog {
 
         jLabel28.setText("FILTRAR POR:");
 
-        comboFiltro.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "CÓDIGO", "NOME", "CPF" }));
+        comboFiltro.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "ID", "CLIENTE", "PROCESSO" }));
         comboFiltro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboFiltroActionPerformed(evt);
@@ -1946,7 +1946,7 @@ public class Cadastro extends javax.swing.JDialog {
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel8Layout.createSequentialGroup()
                         .addComponent(comboFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(0, 153, Short.MAX_VALUE))
                     .addComponent(tfPesquisa))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -1970,38 +1970,58 @@ public class Cadastro extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        tbListarCliente.setModel(new javax.swing.table.DefaultTableModel(
+        tbListarProcesso.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "CÓDIGO", "NOME", "CPF"
+                "ID", "PROCESSO", "CLIENTE", "C", "A", "AS"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        tbListarCliente.addMouseListener(new java.awt.event.MouseAdapter() {
+        tbListarProcesso.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
-                tbListarClienteMouseReleased(evt);
+                tbListarProcessoMouseReleased(evt);
             }
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tbListarClienteMouseClicked(evt);
+                tbListarProcessoMouseClicked(evt);
             }
         });
-        jScrollPane2.setViewportView(tbListarCliente);
+        jScrollPane2.setViewportView(tbListarProcesso);
+        if (tbListarProcesso.getColumnModel().getColumnCount() > 0) {
+            tbListarProcesso.getColumnModel().getColumn(0).setMinWidth(50);
+            tbListarProcesso.getColumnModel().getColumn(0).setPreferredWidth(50);
+            tbListarProcesso.getColumnModel().getColumn(0).setMaxWidth(-20);
+            tbListarProcesso.getColumnModel().getColumn(1).setMinWidth(150);
+            tbListarProcesso.getColumnModel().getColumn(1).setPreferredWidth(150);
+            tbListarProcesso.getColumnModel().getColumn(1).setMaxWidth(-20);
+            tbListarProcesso.getColumnModel().getColumn(3).setMinWidth(50);
+            tbListarProcesso.getColumnModel().getColumn(3).setPreferredWidth(50);
+            tbListarProcesso.getColumnModel().getColumn(3).setMaxWidth(-20);
+            tbListarProcesso.getColumnModel().getColumn(4).setMinWidth(50);
+            tbListarProcesso.getColumnModel().getColumn(4).setPreferredWidth(50);
+            tbListarProcesso.getColumnModel().getColumn(4).setMaxWidth(-20);
+            tbListarProcesso.getColumnModel().getColumn(5).setMinWidth(50);
+            tbListarProcesso.getColumnModel().getColumn(5).setPreferredWidth(50);
+            tbListarProcesso.getColumnModel().getColumn(5).setMaxWidth(-20);
+        }
 
         javax.swing.GroupLayout painelOrdenarLayout = new javax.swing.GroupLayout(painelOrdenar);
         painelOrdenar.setLayout(painelOrdenarLayout);
         painelOrdenarLayout.setHorizontalGroup(
             painelOrdenarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 608, Short.MAX_VALUE)
             .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(painelOrdenarLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 584, Short.MAX_VALUE)
+                .addContainerGap())
         );
         painelOrdenarLayout.setVerticalGroup(
             painelOrdenarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2201,15 +2221,15 @@ public class Cadastro extends javax.swing.JDialog {
         
     }//GEN-LAST:event_btExcluirActionPerformed
 
-    private void tbListarClienteMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbListarClienteMouseReleased
+    private void tbListarProcessoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbListarProcessoMouseReleased
         
-    }//GEN-LAST:event_tbListarClienteMouseReleased
+    }//GEN-LAST:event_tbListarProcessoMouseReleased
 
     private void tfCelularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfCelularActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tfCelularActionPerformed
 
-    private void tbListarClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbListarClienteMouseClicked
+    private void tbListarProcessoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbListarProcessoMouseClicked
         if (evt.getClickCount() > 1) {  
             
             System.out.println("Clicou 2 vezes.");
@@ -2220,16 +2240,22 @@ public class Cadastro extends javax.swing.JDialog {
             
             try {
             
-            idCliente = tbListarCliente.getValueAt(tbListarCliente.getSelectedRow(),0).toString();
-            System.out.println(idCliente);
+            idProcesso = tbListarProcesso.getValueAt(tbListarProcesso.getSelectedRow(),0).toString();
+            idCliente =  tbListarProcesso.getValueAt(tbListarProcesso.getSelectedRow(),3).toString();
+            idAdvogado =  tbListarProcesso.getValueAt(tbListarProcesso.getSelectedRow(),4).toString();
+            idAssessoria =  tbListarProcesso.getValueAt(tbListarProcesso.getSelectedRow(),5).toString();
             
-               
+            System.out.println("ID CLIENTE: "+idCliente);
+            System.out.println("ID ADVOGADO: "+idAdvogado);
+            System.out.println("ID ASSESSORIA: "+idAssessoria);
+            
+                preencheProcessos(idProcesso);
+                
                 preencheClientes(idCliente);
-                preencheProcessos(idCliente);
-                preencheAssessoria(idCliente);
-                preencheAdvogado(idCliente);
-                preencheVeiculo(idCliente);
-                preencheFinanceiro(idCliente);
+                preencheAssessoria(idAssessoria);
+                preencheAdvogado(idAdvogado);
+                preencheVeiculo(idProcesso);
+                preencheFinanceiro(idProcesso);
                 
                 
         } catch (Exception e) {
@@ -2237,7 +2263,7 @@ public class Cadastro extends javax.swing.JDialog {
         }
            
         }
-    }//GEN-LAST:event_tbListarClienteMouseClicked
+    }//GEN-LAST:event_tbListarProcessoMouseClicked
 
     private void tfValorKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfValorKeyReleased
             
@@ -2377,32 +2403,6 @@ public class Cadastro extends javax.swing.JDialog {
     }//GEN-LAST:event_comboFiltroActionPerformed
 
     private void btPequisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPequisarActionPerformed
-         
-        DaoCliente clie = new DaoCliente();
-        ArrayList<Cliente> cliente = new ArrayList<>();
-        if(comboFiltro.getSelectedIndex() == 1){
-            cliente = clie.consultaDinamica(tfPesquisa.getText(), "cod");
-            int x = modeloTabela.getRowCount();  
-            for(int a = 0; a < x; a++){  
-                modeloTabela.removeRow(0);  
-            }
-            carregarTabela(cliente);
-        }else if(comboFiltro.getSelectedIndex() == 2){
-            cliente = clie.consultaDinamica(tfPesquisa.getText(), "nome");
-            int x = modeloTabela.getRowCount();  
-            for(int a = 0; a < x; a++){  
-                modeloTabela.removeRow(0);  
-            }
-            carregarTabela(cliente);
-        }else if(comboFiltro.getSelectedIndex() == 3){
-            cliente = clie.consultaDinamica(tfPesquisa.getText(), "cpf");
-            int x = modeloTabela.getRowCount();  
-            for(int a = 0; a < x; a++){  
-                modeloTabela.removeRow(0);  
-            }
-            carregarTabela(cliente);
-        }
-       
         
     }//GEN-LAST:event_btPequisarActionPerformed
      
@@ -2528,7 +2528,7 @@ public class Cadastro extends javax.swing.JDialog {
     private javax.swing.JPanel painelMenu;
     private javax.swing.JPanel painelOrdenar;
     private javax.swing.JPanel painelProcesso;
-    private javax.swing.JTable tbListarCliente;
+    private javax.swing.JTable tbListarProcesso;
     private javax.swing.JTextField tfAcao;
     private javax.swing.JFormattedTextField tfAnoFabricacao;
     private javax.swing.JFormattedTextField tfAnoModelo;

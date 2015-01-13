@@ -49,7 +49,7 @@ public class DaoProcesso extends Conexao{
         try {
             
             if(situacao.equals("")){
-                String sql = "SELECT id,processo, nome_cliente,situacao FROM tb_processo";
+                String sql = "SELECT * FROM tb_processo";
                 ConsultarSQL(sql,true);
                 while (rs.next()) {
                     Processo processo = new Processo();
@@ -57,7 +57,9 @@ public class DaoProcesso extends Conexao{
                     processo.setProcesso(rs.getString("processo"));
                     processo.setCliente(rs.getString("nome_cliente"));
                     processo.setSituacao(rs.getString("situacao"));
-                    
+                    processo.setIdCliente(rs.getInt("id_cliente"));
+                    processo.setIdAdvogado(rs.getInt("id_advogado"));
+                    processo.setIdAssessoria(rs.getInt("id_assessoria"));
                     processos.add(processo);
 
                 }
@@ -71,7 +73,7 @@ public class DaoProcesso extends Conexao{
                     processo.setProcesso(rs.getString("processo"));
                     processo.setCliente(rs.getString("nome_cliente"));
                     processo.setSituacao(rs.getString("situacao"));
-                    
+                   
                     processos.add(processo);
 
                 }

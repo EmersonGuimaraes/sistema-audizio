@@ -25,21 +25,21 @@ public class TelaInicial extends javax.swing.JFrame {
         initComponents();
         this.setExtendedState(this.MAXIMIZED_BOTH);
         lbNomeUsuario.setText(daoUsuario.consultarUsuario().toUpperCase());
-       // imgFundo();
+        imgFundo();
         
     }
      
     public void imgFundo(){
-        ImageIcon icone = new ImageIcon("C:/sistema/imagens/fundo.png");
-        ImageIcon icone1 = new ImageIcon("C:/sistema/imagens/icones/pessoa.png");
-        ImageIcon icone2 = new ImageIcon("C:/sistema/imagens/icones/processos.png");
-        ImageIcon icone3 = new ImageIcon("C:/sistema/imagens/icones/assessoria.png");
+        ImageIcon icone = new ImageIcon("/home/zipnet/Imagens/bg_fundo.jpg");
+       // ImageIcon icone1 = new ImageIcon("C:/sistema/imagens/icones/pessoa.png");
+       // ImageIcon icone2 = new ImageIcon("C:/sistema/imagens/icones/processos.png");
+        //ImageIcon icone3 = new ImageIcon("C:/sistema/imagens/icones/assessoria.png");
         
-        //labelFoto.setIcon(icone);
-        btClientes.setIcon(icone1);
-        btProcessos.setIcon(icone2);
-        btAssessoria.setIcon(icone3);
-        btAdvogado.setIcon(icone1);
+        labelFoto.setIcon(icone);
+        //btClientes.setIcon(icone1);
+        //btProcessos.setIcon(icone2);
+        //btAssessoria.setIcon(icone3);
+       // btAdvogado.setIcon(icone1);
         
     }
     /**
@@ -61,7 +61,7 @@ public class TelaInicial extends javax.swing.JFrame {
         lbNomeUsuario = new javax.swing.JLabel();
         btAssessoria = new javax.swing.JButton();
         panelTela = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
+        labelFoto = new javax.swing.JLabel();
         btFinanceiro = new javax.swing.JButton();
         btVeiculo = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -139,9 +139,8 @@ public class TelaInicial extends javax.swing.JFrame {
         panelTela.setBackground(new java.awt.Color(253, 251, 251));
         panelTela.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("LOGO");
-        jLabel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        labelFoto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelFoto.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         javax.swing.GroupLayout panelTelaLayout = new javax.swing.GroupLayout(panelTela);
         panelTela.setLayout(panelTelaLayout);
@@ -149,14 +148,14 @@ public class TelaInicial extends javax.swing.JFrame {
             panelTelaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelTelaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(labelFoto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         panelTelaLayout.setVerticalGroup(
             panelTelaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelTelaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 332, Short.MAX_VALUE)
+                .addComponent(labelFoto, javax.swing.GroupLayout.DEFAULT_SIZE, 332, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -511,7 +510,6 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JButton btSair;
     private javax.swing.JButton btVeiculo;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu10;
     private javax.swing.JMenu jMenu2;
@@ -538,6 +536,7 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
+    private javax.swing.JLabel labelFoto;
     private javax.swing.JLabel lbNomeUsuario;
     private javax.swing.JPanel panelTela;
     // End of variables declaration//GEN-END:variables
