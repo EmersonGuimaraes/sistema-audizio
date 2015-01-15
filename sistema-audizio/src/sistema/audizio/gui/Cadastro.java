@@ -104,7 +104,7 @@ public class Cadastro extends javax.swing.JDialog {
         }  
     }
     
-     private void carregaBairrosCliente(){
+     private void carregaBairrosCliente(String idCli){
          if(comboCidade.getSelectedItem().toString().equals("Selecionar....")){
              System.out.println("Nenhuma cidade selecionada");
          }else{
@@ -117,7 +117,12 @@ public class Cadastro extends javax.swing.JDialog {
               
                ArrayList<Bairro> bairros = new ArrayList<>();
                 DaoBairro daoBairro = new DaoBairro();
-               bairros = daoBairro.consultar(cod);
+                if(idCli.equals("")){
+                    bairros = daoBairro.consultar(cod);
+                }else{
+                    bairros = daoBairro.consultar(idCli);
+                }
+               
 
                comboModelBairro.addElement("Selecionar....");
                
@@ -305,7 +310,7 @@ public class Cadastro extends javax.swing.JDialog {
         ativaCampoVeiculo(false);
         btSalvar.setEnabled(false);
         btCancelar.setEnabled(false);
-        btRelatorio.setEnabled(false);
+        
         btNovo.setEnabled(true);
         //btAlterar.setEnabled(true);
         //btExcluir.setEnabled(true);
@@ -578,7 +583,7 @@ public class Cadastro extends javax.swing.JDialog {
         ativaCampoVeiculo(true);
         btSalvar.setEnabled(true);
         btCancelar.setEnabled(true);
-        btRelatorio.setEnabled(false);
+        
         btNovo.setEnabled(false);
         btExcluir.setEnabled(false);
         
@@ -625,15 +630,15 @@ public class Cadastro extends javax.swing.JDialog {
             tfWhats.setText(cli.getWhatsapp());
             tfNumero.setText(cli.getNum());
             
-            //idCid = Integer.parseInt(cli.getCidade());
-            //idBarr = Integer.parseInt(cli.getBairro());
+            idCid = Integer.parseInt(cli.getCidade());
+            idBarr = Integer.parseInt(cli.getBairro());
             
         }
         
-           // carregaCidades();
-            //comboCidade.setSelectedIndex(idCid);
-            //carregaBairros(String.valueOf(idCid));
-           // comboBairro.setSelectedIndex(idBarr);
+           carregaCidadesCliente();
+           comboCidade.setSelectedIndex(idCid);
+           carregaBairrosCliente(String.valueOf(idCid));
+           comboBairro.setSelectedIndex(idBarr);
     }
     
     //Carrega dados do processo
@@ -728,7 +733,6 @@ public class Cadastro extends javax.swing.JDialog {
         btExcluir = new javax.swing.JButton();
         btCancelar = new javax.swing.JButton();
         btSalvar = new javax.swing.JButton();
-        btRelatorio = new javax.swing.JButton();
         PainelAbas = new javax.swing.JTabbedPane();
         painelCliente = new javax.swing.JPanel();
         lbNome = new javax.swing.JLabel();
@@ -864,7 +868,7 @@ public class Cadastro extends javax.swing.JDialog {
 
         painelMenu.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        btNovo.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
+        btNovo.setFont(new java.awt.Font("Ubuntu", 1, 14)); // NOI18N
         btNovo.setText("Novo (F1)");
         btNovo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -877,7 +881,8 @@ public class Cadastro extends javax.swing.JDialog {
             }
         });
 
-        btAlterar.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
+        btAlterar.setFont(new java.awt.Font("Ubuntu", 1, 14)); // NOI18N
+        btAlterar.setForeground(new java.awt.Color(210, 196, 0));
         btAlterar.setText("Alterar (F2)");
         btAlterar.setEnabled(false);
         btAlterar.addActionListener(new java.awt.event.ActionListener() {
@@ -886,7 +891,8 @@ public class Cadastro extends javax.swing.JDialog {
             }
         });
 
-        btExcluir.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
+        btExcluir.setFont(new java.awt.Font("Ubuntu", 1, 14)); // NOI18N
+        btExcluir.setForeground(new java.awt.Color(255, 106, 0));
         btExcluir.setText("Excluir (F4)");
         btExcluir.setEnabled(false);
         btExcluir.addActionListener(new java.awt.event.ActionListener() {
@@ -895,7 +901,8 @@ public class Cadastro extends javax.swing.JDialog {
             }
         });
 
-        btCancelar.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
+        btCancelar.setFont(new java.awt.Font("Ubuntu", 1, 14)); // NOI18N
+        btCancelar.setForeground(new java.awt.Color(254, 13, 13));
         btCancelar.setText("Cancelar (F5)");
         btCancelar.setEnabled(false);
         btCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -904,19 +911,13 @@ public class Cadastro extends javax.swing.JDialog {
             }
         });
 
+        btSalvar.setFont(new java.awt.Font("Ubuntu", 1, 14)); // NOI18N
+        btSalvar.setForeground(new java.awt.Color(12, 122, 13));
         btSalvar.setText("Salvar (F3)");
         btSalvar.setEnabled(false);
         btSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btSalvarActionPerformed(evt);
-            }
-        });
-
-        btRelatorio.setText("Relatório(F6)");
-        btRelatorio.setEnabled(false);
-        btRelatorio.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btRelatorioActionPerformed(evt);
             }
         });
 
@@ -927,9 +928,8 @@ public class Cadastro extends javax.swing.JDialog {
             .addComponent(btNovo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btAlterar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btExcluir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(btCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
             .addComponent(btSalvar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(btRelatorio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         painelMenuLayout.setVerticalGroup(
             painelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -943,9 +943,7 @@ public class Cadastro extends javax.swing.JDialog {
                 .addComponent(btExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btRelatorio, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(52, Short.MAX_VALUE))
+                .addContainerGap(97, Short.MAX_VALUE))
         );
 
         PainelAbas.addChangeListener(new javax.swing.event.ChangeListener() {
@@ -954,7 +952,7 @@ public class Cadastro extends javax.swing.JDialog {
             }
         });
 
-        lbNome.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
+        lbNome.setFont(new java.awt.Font("Ubuntu", 1, 12)); // NOI18N
         lbNome.setText("NOME");
 
         tfNome.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -974,10 +972,10 @@ public class Cadastro extends javax.swing.JDialog {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Ubuntu", 1, 12)); // NOI18N
         jLabel1.setText("DATA.NASC");
 
-        jLabel5.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Ubuntu", 1, 12)); // NOI18N
         jLabel5.setText("CPF");
 
         try {
@@ -986,16 +984,16 @@ public class Cadastro extends javax.swing.JDialog {
             ex.printStackTrace();
         }
 
-        jLabel6.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Ubuntu", 1, 12)); // NOI18N
         jLabel6.setText("NACIONALIDADE");
 
-        jLabel7.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Ubuntu", 1, 12)); // NOI18N
         jLabel7.setText("PROFISSÃO");
 
-        jLabel8.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Ubuntu", 1, 12)); // NOI18N
         jLabel8.setText("ESTA. CIVIL");
 
-        jLabel10.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
+        jLabel10.setFont(new java.awt.Font("Ubuntu", 1, 12)); // NOI18N
         jLabel10.setText("ESTADO");
 
         comboCidade.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecionar...." }));
@@ -1010,7 +1008,7 @@ public class Cadastro extends javax.swing.JDialog {
             }
         });
 
-        jLabel12.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
+        jLabel12.setFont(new java.awt.Font("Ubuntu", 1, 12)); // NOI18N
         jLabel12.setText("CIDADE");
 
         comboBairro.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecionar...." }));
@@ -1035,7 +1033,7 @@ public class Cadastro extends javax.swing.JDialog {
             }
         });
 
-        lbBairro.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
+        lbBairro.setFont(new java.awt.Font("Ubuntu", 1, 12)); // NOI18N
         lbBairro.setText("BAIRRO");
 
         btNovoBairro.setText("+");
@@ -1056,14 +1054,14 @@ public class Cadastro extends javax.swing.JDialog {
             }
         });
 
-        jLabel9.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
+        jLabel9.setFont(new java.awt.Font("Ubuntu", 1, 12)); // NOI18N
         jLabel9.setText("CEP");
 
-        lbNuemro.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
+        lbNuemro.setFont(new java.awt.Font("Ubuntu", 1, 12)); // NOI18N
         lbNuemro.setText("NÚMERO");
         lbNuemro.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
-        lbEndereco.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
+        lbEndereco.setFont(new java.awt.Font("Ubuntu", 1, 12)); // NOI18N
         lbEndereco.setText("ENDEREÇO");
         lbEndereco.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
@@ -1078,11 +1076,11 @@ public class Cadastro extends javax.swing.JDialog {
             }
         });
 
-        lbTelefone.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
+        lbTelefone.setFont(new java.awt.Font("Ubuntu", 1, 12)); // NOI18N
         lbTelefone.setText("TELEFONE");
         lbTelefone.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
-        lbCelular.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
+        lbCelular.setFont(new java.awt.Font("Ubuntu", 1, 12)); // NOI18N
         lbCelular.setText("CELULAR");
         lbCelular.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
@@ -1126,11 +1124,11 @@ public class Cadastro extends javax.swing.JDialog {
             }
         });
 
-        lbCelular1.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
+        lbCelular1.setFont(new java.awt.Font("Ubuntu", 1, 12)); // NOI18N
         lbCelular1.setText("WhatsApp");
         lbCelular1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
-        jLabel11.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
+        jLabel11.setFont(new java.awt.Font("Ubuntu", 1, 12)); // NOI18N
         jLabel11.setText("E-MAIL");
 
         try {
@@ -1327,19 +1325,19 @@ public class Cadastro extends javax.swing.JDialog {
 
         PainelAbas.addTab("CLIENTE", painelCliente);
 
-        jLabel2.setFont(new java.awt.Font("Ubuntu", 0, 15)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
         jLabel2.setText("Nº PROCESSO");
 
-        jLabel14.setFont(new java.awt.Font("Ubuntu", 0, 15)); // NOI18N
+        jLabel14.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
         jLabel14.setText("VARA");
 
-        jLabel3.setFont(new java.awt.Font("Ubuntu", 0, 15)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
         jLabel3.setText("DATA INÍCIO");
 
-        jLabel4.setFont(new java.awt.Font("Ubuntu", 0, 15)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
         jLabel4.setText("DATA TÉRMINO");
 
-        jLabel13.setFont(new java.awt.Font("Ubuntu", 0, 15)); // NOI18N
+        jLabel13.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
         jLabel13.setText("AÇÃO");
 
         try {
@@ -1359,13 +1357,15 @@ public class Cadastro extends javax.swing.JDialog {
             }
         });
 
-        jLabel19.setFont(new java.awt.Font("Ubuntu", 0, 15)); // NOI18N
+        jLabel19.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
         jLabel19.setText("COMARCA");
 
+        jLabel30.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
         jLabel30.setText("SITUAÇÃO");
 
         comboSituacaoProcesso.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "ABERTO", "ARQUIVADO" }));
 
+        jLabel31.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
         jLabel31.setText("SITUAÇÃO ATUAL");
 
         javax.swing.GroupLayout painelProcessoLayout = new javax.swing.GroupLayout(painelProcesso);
@@ -1459,8 +1459,10 @@ public class Cadastro extends javax.swing.JDialog {
 
         PainelAbas.addTab("PROCESSO", painelProcesso);
 
+        jLabel15.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
         jLabel15.setText("NOME");
 
+        jLabel16.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
         jLabel16.setText("Celular");
 
         try {
@@ -1510,19 +1512,21 @@ public class Cadastro extends javax.swing.JDialog {
                         .addComponent(tfNomeAdvogado, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(boxUsarAdvogado)
-                .addContainerGap(146, Short.MAX_VALUE))
+                .addContainerGap(145, Short.MAX_VALUE))
         );
 
         PainelAbas.addTab("ADVOGADO", painelAdvogado);
 
+        jLabel17.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
         jLabel17.setText("ENDEREÇO");
 
+        jLabel21.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
         jLabel21.setText("NOME");
 
-        jLabel22.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
+        jLabel22.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
         jLabel22.setText("CIDADE");
 
-        lbBairro1.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
+        lbBairro1.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
         lbBairro1.setText("BAIRRO");
 
         boxUsarAssessoria.setFont(new java.awt.Font("Ubuntu", 0, 10)); // NOI18N
@@ -1629,8 +1633,10 @@ public class Cadastro extends javax.swing.JDialog {
 
         PainelAbas.addTab("ASSESSORIA", painelAssessoria);
 
+        jLabel18.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
         jLabel18.setText("VALOR");
 
+        jLabel20.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
         jLabel20.setText("DESPESAS");
 
         tfValor.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -1645,14 +1651,17 @@ public class Cadastro extends javax.swing.JDialog {
             }
         });
 
+        jLabel23.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
         jLabel23.setText("VALOR DESPESAS");
 
         tfDescDespesa.setColumns(20);
         tfDescDespesa.setRows(5);
         jScrollPane1.setViewportView(tfDescDespesa);
 
+        jLabel24.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
         jLabel24.setText("VENCIMENTO");
 
+        jLabel25.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
         jLabel25.setText("DESCONTOS");
 
         try {
@@ -1668,6 +1677,7 @@ public class Cadastro extends javax.swing.JDialog {
             }
         });
 
+        jLabel26.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
         jLabel26.setText("SITUAÇÃO");
 
         tfTotal.setEditable(false);
@@ -1714,7 +1724,7 @@ public class Cadastro extends javax.swing.JDialog {
                             .addComponent(tfDesconto, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(painelFinanceiroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 263, Short.MAX_VALUE)
                             .addGroup(painelFinanceiroLayout.createSequentialGroup()
                                 .addComponent(tfDataVencimento, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
@@ -1774,25 +1784,32 @@ public class Cadastro extends javax.swing.JDialog {
                     .addComponent(tfDataVencimento, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(comboSituacaofinanceiro, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(tfDesconto, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
                 .addComponent(jCheckBox1)
                 .addContainerGap())
         );
 
         PainelAbas.addTab("FINANCEIRO", painelFinanceiro);
 
+        jLabel32.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
         jLabel32.setText("MARCA");
 
+        jLabel33.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
         jLabel33.setText("MODELO");
 
+        jLabel34.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
         jLabel34.setText("COR");
 
+        jLabel35.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
         jLabel35.setText("PLACA");
 
+        jLabel36.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
         jLabel36.setText("CHASSSI");
 
+        jLabel37.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
         jLabel37.setText("RENAVAM");
 
+        jLabel38.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
         jLabel38.setText("ANO DE FABRICAÇÃO E MODELO");
 
         try {
@@ -1807,6 +1824,7 @@ public class Cadastro extends javax.swing.JDialog {
             ex.printStackTrace();
         }
 
+        jLabel39.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
         jLabel39.setText("ESTADO DO VEÍCULO: ");
 
         cbEstadoVeiculo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecionar...", "Encontrado", "Não Encontrado", "Apreendido" }));
@@ -1832,7 +1850,7 @@ public class Cadastro extends javax.swing.JDialog {
                             .addComponent(jLabel34))
                         .addGroup(painelConsultarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(painelConsultarLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 125, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 120, Short.MAX_VALUE)
                                 .addComponent(jLabel35)
                                 .addGap(47, 47, 47))
                             .addGroup(painelConsultarLayout.createSequentialGroup()
@@ -1895,7 +1913,7 @@ public class Cadastro extends javax.swing.JDialog {
                         .addComponent(tfRenavam, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(tfAnoFabricacao, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(tfChassi))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
                 .addGroup(painelConsultarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cbEstadoVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel39))
@@ -1915,8 +1933,7 @@ public class Cadastro extends javax.swing.JDialog {
             }
         });
 
-        btImprimir.setText("IMPRIMIR");
-        btImprimir.setEnabled(false);
+        btImprimir.setText("RELATÓRIO");
 
         jLabel29.setText("PESQUISAR");
 
@@ -2041,8 +2058,9 @@ public class Cadastro extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(painelMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(PainelAbas, javax.swing.GroupLayout.PREFERRED_SIZE, 616, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(PainelAbas, javax.swing.GroupLayout.PREFERRED_SIZE, 616, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2077,7 +2095,7 @@ public class Cadastro extends javax.swing.JDialog {
            comboBairro.setSelectedIndex(0);
        }else{
            System.out.println("Carregando bairros!");
-           carregaBairrosCliente();
+           carregaBairrosCliente("");
            listaCheia = true;
        }
     }//GEN-LAST:event_comboCidadeActionPerformed
@@ -2109,7 +2127,7 @@ public class Cadastro extends javax.swing.JDialog {
              int cod = comboCidade.getSelectedIndex();
              System.out.println("codigo: "+cod);
              new CadastroBairroCidade(b, "BAIRRO", item, cod).show();
-             carregaBairrosCliente();
+             carregaBairrosCliente("");
            
         }
 
@@ -2235,7 +2253,7 @@ public class Cadastro extends javax.swing.JDialog {
             System.out.println("Clicou 2 vezes.");
             btExcluir.setEnabled(true);
             btAlterar.setEnabled(true);
-            btRelatorio.setEnabled(true);
+            
             
             
             try {
@@ -2280,14 +2298,6 @@ public class Cadastro extends javax.swing.JDialog {
     private void tfPesquisaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfPesquisaKeyReleased
         
     }//GEN-LAST:event_tfPesquisaKeyReleased
-
-    private void btRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRelatorioActionPerformed
-      
-      // Relatorio relatorio = new Relatorio();
-       
-       // relatorio.gerar( null, null, null, null);
-        
-    }//GEN-LAST:event_btRelatorioActionPerformed
 
     private void PainelAbasStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_PainelAbasStateChanged
        
@@ -2457,7 +2467,6 @@ public class Cadastro extends javax.swing.JDialog {
     private javax.swing.JButton btNovoBairro;
     private javax.swing.JButton btNovoBairroAssessoria;
     private javax.swing.JButton btPequisar;
-    private javax.swing.JButton btRelatorio;
     private javax.swing.JButton btSalvar;
     private javax.swing.JCheckBox cWhats;
     private javax.swing.JComboBox cbEstadoVeiculo;

@@ -5,12 +5,16 @@
  */
 package sistema.audizio.gui;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import sistema.audizio.ultilitarios.LimitadorMoeda;
 import sistema.audizio.ultilitarios.RemoveMascara;
 import java.util.ArrayList;
+import java.util.Locale;
 import javax.swing.JOptionPane;
 import sistema.audizio.bean.Financeiro;
 import sistema.audizio.dao.DaoFinanceiro;
+import sistema.audizio.ultilitarios.NumeroDocument;
 
 /**
  *
@@ -23,11 +27,48 @@ public class EditarContaReceber extends javax.swing.JDialog {
         this.idProcesso = id;
        initComponents();
         setModal(true);
-       
-        tfValor.setDocument(new LimitadorMoeda());
-        tfValorDespesa.setDocument(new LimitadorMoeda());
-        tfDesconto.setDocument(new LimitadorMoeda());
+        mascararValores();
         carregaCampos(id);
+    }
+    
+    public void mascararValores(){
+        
+       tfValor.setDocument(new NumeroDocument(7,2));
+       tfValorDespesa.setDocument(new NumeroDocument(7,2));
+       tfDesconto.setDocument(new NumeroDocument(7,2));
+       //tfTotal.setDocument(new NumeroDocument(7,2));
+    }
+    
+    public void calcularTotal(String valor,String despesa,String desconto){
+        DecimalFormat formatador = new DecimalFormat("###,##0.00");
+        try {
+           
+            Locale locBrazil = new Locale("pt", "BR");  
+            NumberFormat nf = NumberFormat.getInstance(locBrazil);
+            
+            Number valorP = nf.parse(valor);
+            Number valorDesc = nf.parse(desconto);
+            Number valorDesp = nf.parse(despesa);
+            
+            double n1,n2,n3, total;
+            
+            n1 = valorP.doubleValue();
+            n2 = valorDesp.doubleValue();
+            n3 = valorDesc.doubleValue();
+            
+            total = (n1+n2)-n3;
+            System.out.println("Total: "+total);
+            
+            String nTotal = String.valueOf(total);
+            tfTotal.setText(nTotal);
+                        
+
+        } catch (Exception e) {
+            System.err.println(e);
+        }
+        
+        //String totalGeral = NumberFormat.getCurrencyInstance().format(novoTotal);
+        //tfTotal.setText(totalGeral);
     }
 
     /**
@@ -52,19 +93,7 @@ public class EditarContaReceber extends javax.swing.JDialog {
         }
     }
     
-    public void calcularTotal(String valor,String despesa,String desconto){
-        double novoValor,novaDespesa,novoDesconto,novoTotal;
-        novoValor = Double.parseDouble(valor);
-        novaDespesa = Double.parseDouble(despesa);
-        novoDesconto = Double.parseDouble(desconto);
-        
-        novoTotal = ((novoValor+novaDespesa)-novoDesconto);
-        System.out.println(novoTotal);
-        String totalis = String.valueOf(novoTotal);
-        System.out.println(totalis);
-        tfTotal.setText(totalis);
-       btCadastrar.setEnabled(true);
-    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -341,9 +370,7 @@ public class EditarContaReceber extends javax.swing.JDialog {
             
             daoF.editar(f);
             
-            tfValor.setDocument(new LimitadorMoeda());
-            tfValorDespesa.setDocument(new LimitadorMoeda());
-            tfDesconto.setDocument(new LimitadorMoeda());
+           
             carregaCampos(idProcesso);
             
             
