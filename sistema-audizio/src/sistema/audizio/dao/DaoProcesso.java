@@ -112,6 +112,7 @@ public class DaoProcesso extends Conexao{
                     processo.setVara(rs.getString("vara"));
                     processo.setComarca(rs.getString("comarca"));
                     processo.setIdAssessoria(rs.getInt("id_assessoria"));
+                    processo.setCliente(rs.getString("nome_cliente"));
                     processos.add(processo);
                 }
                 return processos;

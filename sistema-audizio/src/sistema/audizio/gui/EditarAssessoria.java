@@ -32,14 +32,15 @@ public class EditarAssessoria extends javax.swing.JDialog {
         initComponents();
         preencheAssessoria(id);
         setModal(true);
+        carregaCidadesAssessoria();
     }
 
-    private void carregaBairrosAssesoria(){
+    private void carregaBairrosAssesoria(String idCidade){
          if(comboCidadeAssessoria.getSelectedItem().toString().equals("Selecionar....")){
              System.out.println("Nenhuma cidade selecionada");
          }else{
              System.out.println("Carregando bairros...");
-                String cod = String.valueOf(comboCidadeAssessoria.getSelectedIndex());
+                //String cod = String.valueOf(comboCidadeAssessoria.getSelectedIndex());
                 
                comboModelBairroAssesoria = (DefaultComboBoxModel) comboBairroAssessoria.getModel();
               
@@ -47,7 +48,7 @@ public class EditarAssessoria extends javax.swing.JDialog {
               
                ArrayList<Bairro> bairros = new ArrayList<>();
                 DaoBairro daoBairro = new DaoBairro();
-               bairros = daoBairro.consultar(cod);
+               bairros = daoBairro.consultar(idCidade);
 
                comboModelBairroAssesoria.addElement("Selecionar....");
                
@@ -96,17 +97,17 @@ public class EditarAssessoria extends javax.swing.JDialog {
     }
     
     public void preencheAssessoria(String id){
-        int idCid = 0, idBarr = 0;
+        String idCid = null, idBarr = null;
         ArrayList<Assessoria> ass = new DaoAssessoria().consultar(id);
         for(Assessoria a:ass){
             tfNomeAssessoria.setText(a.getNome());
             tfEnderecoAssessoria.setText(a.getEndereco());
-            idCid = Integer.parseInt(a.getCidade());
-            idBarr = Integer.parseInt(a.getBairro());
+            idCid = a.getCidade();
+            idBarr = a.getBairro();
         }
-            //comboCidadeAssessoria.setSelectedIndex(idCid);
-            //carregaBairros(String.valueOf(idCid));
-           // comboBairroAssessoria.setSelectedIndex(idBarr);
+            //comboCidadeAssessoria.setSelectedIndex(1);
+            //carregaBairrosAssesoria("1");
+            //comboBairroAssessoria.setSelectedIndex(1);
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -299,7 +300,8 @@ public class EditarAssessoria extends javax.swing.JDialog {
            comboBairroAssessoria.setSelectedIndex(0);
        }else{
            System.out.println("Carregando bairros!");
-           carregaBairrosAssesoria();
+           String idc = String.valueOf(comboCidadeAssessoria.getSelectedIndex());
+           carregaBairrosAssesoria(idc);
            listaCheia = true;
        }
     }//GEN-LAST:event_comboCidadeAssessoriaActionPerformed

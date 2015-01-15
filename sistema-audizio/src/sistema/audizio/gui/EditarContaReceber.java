@@ -145,12 +145,12 @@ public class EditarContaReceber extends javax.swing.JDialog {
             }
         });
 
-        labelProcesso.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        labelProcesso.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         labelProcesso.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labelProcesso.setText("00000");
         labelProcesso.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        labelCliente.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        labelCliente.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         labelCliente.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labelCliente.setText("Teste ");
         labelCliente.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -290,7 +290,7 @@ public class EditarContaReceber extends javax.swing.JDialog {
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tfTotal, javax.swing.GroupLayout.DEFAULT_SIZE, 55, Short.MAX_VALUE)
+                    .addComponent(tfTotal)
                     .addComponent(btCalcular, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btCadastrar)

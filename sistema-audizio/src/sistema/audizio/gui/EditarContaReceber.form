@@ -268,7 +268,7 @@
     <Component class="javax.swing.JLabel" name="labelProcesso">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Ubuntu" size="18" style="0"/>
+          <Font name="Ubuntu" size="18" style="1"/>
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
         <Property name="text" type="java.lang.String" value="00000"/>
@@ -282,7 +282,7 @@
     <Component class="javax.swing.JLabel" name="labelCliente">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Ubuntu" size="18" style="0"/>
+          <Font name="Ubuntu" size="18" style="1"/>
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
         <Property name="text" type="java.lang.String" value="Teste "/>

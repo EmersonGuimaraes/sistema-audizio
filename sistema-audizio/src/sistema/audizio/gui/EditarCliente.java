@@ -61,14 +61,14 @@ public class EditarCliente extends javax.swing.JDialog {
             tfWhats.setText(cli.getWhatsapp());
             tfNumero.setText(cli.getNum());
             
-            idCid = Integer.parseInt(cli.getCidade());
-            idBarr = Integer.parseInt(cli.getBairro());
+            //idCid = Integer.parseInt(cli.getCidade());
+            //idBarr = Integer.parseInt(cli.getBairro());
         }
         
-            carregaCidades();
-            comboCidade.setSelectedIndex(idCid);
-            carregaBairros(String.valueOf(idCid));
-            comboBairro.setSelectedIndex(idBarr);
+            //carregaCidades();
+            //comboCidade.setSelectedIndex(idCid);
+            //carregaBairros(String.valueOf(idCid));
+            //comboBairro.setSelectedIndex(idBarr);
     }
     
     private void carregaCidades(){
