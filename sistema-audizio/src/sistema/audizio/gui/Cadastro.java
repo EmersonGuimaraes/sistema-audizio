@@ -9,6 +9,8 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Locale;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -563,9 +565,10 @@ public class Cadastro extends javax.swing.JDialog {
         btExcluir.setEnabled(false);
         
     }
+    ArrayList<Processo> processos = new ArrayList(); 
     public void carregarTabela(ArrayList<Processo> processo){
        DaoProcesso pro = new DaoProcesso();
-       ArrayList<Processo> processos = new ArrayList();  
+        
       
        if(processo == null){
            processos = pro.Consultar(""); 
@@ -580,6 +583,20 @@ public class Cadastro extends javax.swing.JDialog {
            modeloTabela.addRow(new Object[] {p.getIdProcesso(), p.getCliente(),p.getProcesso(), p.getIdCliente(), p.getIdAdvogado(), p.getIdAssessoria()});
         }
            tbListarProcesso.getTableHeader().setReorderingAllowed(false);   
+    }
+    
+    public void carregamentoDinamico(String campo, String valor){
+        DaoProcesso pro = new DaoProcesso();
+        
+       
+        processos = pro.pesquisaDinamica(campo, valor);
+        modeloTabela = (DefaultTableModel) tbListarProcesso.getModel();
+        modeloTabela.setNumRows(0);
+       
+       for(Processo p:processos){
+           modeloTabela.addRow(new Object[] {p.getIdProcesso(), p.getCliente(),p.getProcesso(), p.getIdCliente(), p.getIdAdvogado(), p.getIdAssessoria()});
+        }
+           tbListarProcesso.getTableHeader().setReorderingAllowed(false);
     }
     
     public void preencheClientes(String idCliente){
@@ -901,7 +918,7 @@ public class Cadastro extends javax.swing.JDialog {
             .addComponent(btNovo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btAlterar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btExcluir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(btCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+            .addComponent(btCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, Short.MAX_VALUE)
             .addComponent(btSalvar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         painelMenuLayout.setVerticalGroup(
@@ -967,7 +984,7 @@ public class Cadastro extends javax.swing.JDialog {
         jLabel8.setText("ESTA. CIVIL");
 
         jLabel10.setFont(new java.awt.Font("Ubuntu", 1, 12)); // NOI18N
-        jLabel10.setText("ESTADO");
+        jLabel10.setText("UF");
 
         comboCidade.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecionar...." }));
         comboCidade.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1163,8 +1180,11 @@ public class Cadastro extends javax.swing.JDialog {
                                         .addComponent(btNovoBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(painelClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel10)
-                                    .addComponent(tfEstado)))
+                                    .addComponent(tfEstado)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelClienteLayout.createSequentialGroup()
+                                        .addGap(0, 0, Short.MAX_VALUE)
+                                        .addComponent(jLabel10)
+                                        .addGap(19, 19, 19))))
                             .addGroup(painelClienteLayout.createSequentialGroup()
                                 .addGroup(painelClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(lbNome)
@@ -1261,22 +1281,20 @@ public class Cadastro extends javax.swing.JDialog {
                                     .addComponent(tfNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(tfCep, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(tfEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGroup(painelClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(painelClienteLayout.createSequentialGroup()
-                                .addGroup(painelClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(lbBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel12))
-                                .addGap(9, 9, 9)
-                                .addGroup(painelClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(comboCidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(comboBairro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btNovaCidade)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelClienteLayout.createSequentialGroup()
-                                .addComponent(jLabel10)
-                                .addGap(36, 36, 36))))
-                    .addGroup(painelClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btNovoBairro)
-                        .addComponent(tfEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(painelClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lbBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel12))
+                        .addGap(9, 9, 9)
+                        .addGroup(painelClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(comboCidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(comboBairro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btNovaCidade)))
+                    .addGroup(painelClienteLayout.createSequentialGroup()
+                        .addComponent(jLabel10)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(painelClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btNovoBairro)
+                            .addComponent(tfEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(painelClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(painelClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -1965,7 +1983,7 @@ public class Cadastro extends javax.swing.JDialog {
 
             },
             new String [] {
-                "ID", "PROCESSO", "CLIENTE", "C", "A", "AS"
+                "ID", "CLIENTE", "PROCESSO", "C", "A", "AS"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -1989,9 +2007,9 @@ public class Cadastro extends javax.swing.JDialog {
             tbListarProcesso.getColumnModel().getColumn(0).setMinWidth(50);
             tbListarProcesso.getColumnModel().getColumn(0).setPreferredWidth(50);
             tbListarProcesso.getColumnModel().getColumn(0).setMaxWidth(-20);
-            tbListarProcesso.getColumnModel().getColumn(1).setMinWidth(150);
-            tbListarProcesso.getColumnModel().getColumn(1).setPreferredWidth(150);
-            tbListarProcesso.getColumnModel().getColumn(1).setMaxWidth(-20);
+            tbListarProcesso.getColumnModel().getColumn(2).setMinWidth(150);
+            tbListarProcesso.getColumnModel().getColumn(2).setPreferredWidth(150);
+            tbListarProcesso.getColumnModel().getColumn(2).setMaxWidth(-20);
             tbListarProcesso.getColumnModel().getColumn(3).setMinWidth(50);
             tbListarProcesso.getColumnModel().getColumn(3).setPreferredWidth(50);
             tbListarProcesso.getColumnModel().getColumn(3).setMaxWidth(-20);
@@ -2221,7 +2239,7 @@ public class Cadastro extends javax.swing.JDialog {
 
     private void tbListarProcessoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbListarProcessoMouseClicked
         if (evt.getClickCount() > 1) {  
-            
+           btcancelar();
             
             btExcluir.setEnabled(true);
             btAlterar.setEnabled(true);
@@ -2267,6 +2285,33 @@ public class Cadastro extends javax.swing.JDialog {
     }//GEN-LAST:event_tfTotalActionPerformed
 
     private void tfPesquisaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfPesquisaKeyReleased
+        try {
+                /*String valorCombo = (String) comboFiltro.getSelectedItem();
+                System.out.println(valorCombo);
+                String campo = null, valor = null;
+
+                if(valorCombo.equals("ID")){
+                   valor = tbListarProcesso.getValueAt(tbListarProcesso.getSelectedRow(),0).toString();
+                    System.out.println("v = "+ valor);
+                    campo = "id";
+                }else if(valorCombo.equals("PROCESSO")){
+                   valor = tbListarProcesso.getValueAt(tbListarProcesso.getSelectedRow(),2).toString();
+                    campo = "processo";
+                }else if(valorCombo.equals("CLIENTE")){
+                    valor = tbListarProcesso.getValueAt(tbListarProcesso.getSelectedRow(),2).toString();
+                    campo = "nome_cliente";
+                }*/
+
+                    if(tfPesquisa.getText().equals(null)){
+                        carregarTabela(null);
+                    }else{
+                        System.out.println(tfPesquisa.getText());
+                    }
+                    carregamentoDinamico("nome_cliente", "Y");
+        } catch (Exception e) {
+            System.out.println("Fudeu!");
+            Logger.getLogger(DaoProcesso.class.getName()).log(Level.SEVERE, null, e);
+        }
         
     }//GEN-LAST:event_tfPesquisaKeyReleased
 
