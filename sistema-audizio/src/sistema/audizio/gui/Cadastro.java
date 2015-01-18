@@ -68,7 +68,7 @@ public class Cadastro extends javax.swing.JDialog {
         int idAba = 0;
         idAba = idPainel;
         PainelAbas.setSelectedIndex(idAba);
-        System.out.println("Botão Novo: "+novo);
+        
         if(novo == true){
             btnovo();
         }
@@ -108,7 +108,7 @@ public class Cadastro extends javax.swing.JDialog {
          if(comboCidade.getSelectedItem().toString().equals("Selecionar....")){
              System.out.println("Nenhuma cidade selecionada");
          }else{
-             System.out.println("Carregando bairros...");
+             
                 String cod = String.valueOf(comboCidade.getSelectedIndex());
                 
                comboModelBairro = (DefaultComboBoxModel) comboBairro.getModel();
@@ -129,24 +129,24 @@ public class Cadastro extends javax.swing.JDialog {
                if (bairros.isEmpty()) {
                    JOptionPane.showMessageDialog(null, "ESSA CIDADE NÃO TEM BAIRROS CADASTRADOS!");
                 }else{
-                        System.out.println("Carregando bairros...");
+                        
                         //percorrendo a lista para inserir os valores no combo
                         for (int linha = 0; linha < bairros.size(); linha++){
                             //pegando a categoria da lista
                             Bairro bairro = bairros.get(linha);
                             //adicionando a categoria no combo
-                            System.out.println("Bairros: "+bairro.getNome());
+                            
                             comboModelBairro.addElement(bairro.getNome());
                         }
                 }
          }
      }
      
-     private void carregaBairrosAssesoria(){
+     private void carregaBairrosAssesoria(String idCli){
          if(comboCidadeAssessoria.getSelectedItem().toString().equals("Selecionar....")){
              System.out.println("Nenhuma cidade selecionada");
          }else{
-             System.out.println("Carregando bairros...");
+            
                 String cod = String.valueOf(comboCidadeAssessoria.getSelectedIndex());
                 
                comboModelBairroAssesoria = (DefaultComboBoxModel) comboBairroAssessoria.getModel();
@@ -155,20 +155,25 @@ public class Cadastro extends javax.swing.JDialog {
               
                ArrayList<Bairro> bairros = new ArrayList<>();
                 DaoBairro daoBairro = new DaoBairro();
-               bairros = daoBairro.consultar(cod);
+                
+               if(idCli.equals("")){
+                    bairros = daoBairro.consultar(cod);
+                }else{
+                    bairros = daoBairro.consultar(idCli);
+                }
 
                comboModelBairroAssesoria.addElement("Selecionar....");
                
                if (bairros.isEmpty()) {
                    JOptionPane.showMessageDialog(null, "ESSA CIDADE NÃO TEM BAIRROS CADASTRADOS!");
                 }else{
-                        System.out.println("Carregando bairros...");
+                        
                         //percorrendo a lista para inserir os valores no combo
                         for (int linha = 0; linha < bairros.size(); linha++){
                             //pegando a categoria da lista
                             Bairro bairro = bairros.get(linha);
                             //adicionando a categoria no combo
-                            System.out.println("Bairros: "+bairro.getNome());
+                            
                             comboModelBairroAssesoria.addElement(bairro.getNome());
                         }
                 }
@@ -200,7 +205,7 @@ public class Cadastro extends javax.swing.JDialog {
             n3 = valorDesc.doubleValue();
             
             total = (n1+n2)-n3;
-            System.out.println("Total: "+total);
+            
             
             String nTotal = String.valueOf(total);
             tfTotal.setText(nTotal);
@@ -346,8 +351,8 @@ public class Cadastro extends javax.swing.JDialog {
                                                     cli.setEndereco(tfEndereco.getText());
                                                     cli.setNum(tfNumero.getText());
                                                     cli.setEstado(tfEstado.getText());
-                                                    cli.setCidade(String.valueOf(comboCidade.getSelectedItem()));
-                                                    cli.setBairro(String.valueOf(comboBairro.getSelectedItem()));
+                                                    cli.setCidade(String.valueOf(comboCidade.getSelectedIndex()));
+                                                    cli.setBairro(String.valueOf(comboBairro.getSelectedIndex()));
                                                     cli.setFone(rm.removeMascara(tfTelefone.getText()));
                                                     cli.setCelular(rm.removeMascara(tfCelular.getText()));
                                                     cli.setEmail(tfEmail.getText());
@@ -355,7 +360,7 @@ public class Cadastro extends javax.swing.JDialog {
                                                     cli.setIdCliente(idCliente);
                                                     cli.setCod(codC);
                                            
-                                            System.out.println("Fim do Salvar: Cliente");
+                                            
                                             Processo  processo = new Processo();
 
                                                 processo.setProcesso(tfProcesso.getText());
@@ -404,7 +409,7 @@ public class Cadastro extends javax.swing.JDialog {
                                                     }
                                                     
                                             
-                                                    System.out.println("Fim do Salvar: Advogado");
+                                                    
                                                     Assessoria assessoria = new Assessoria();
                                                     DaoAssessoria daoass = new DaoAssessoria();
                                                     
@@ -431,7 +436,7 @@ public class Cadastro extends javax.swing.JDialog {
                                                         }
                                                         
                                             
-                                                        System.out.println("Fim do Salvar: Assessoria");
+                                               
                                             Financeiro financeiro = new Financeiro();
                                                 calcularTotal(tfValor.getText(), tfValorDespesa.getText(), tfDesconto.getText());
                                                 financeiro.setProcesso(tfProcesso.getText());
@@ -468,7 +473,7 @@ public class Cadastro extends javax.swing.JDialog {
                                                 v.setRenavam(tfRenavam.getText());
                                                 v.setEstado(cbEstadoVeiculo.getSelectedItem().toString());
                                                 v.setId(idCliente);
-                                            System.out.println("Fim do Salvar: Veiculo");
+                                           
                                            DaoCliente daocli = new DaoCliente();
                                            DaoProcesso daoprocesso = new DaoProcesso();
                                            DaoAdvogado daoadv = new DaoAdvogado();
@@ -476,7 +481,7 @@ public class Cadastro extends javax.swing.JDialog {
                                            DaoFinanceiro daofinanceiro = new DaoFinanceiro();
                                            DaoVeiculo daoVeiculo = new DaoVeiculo();
                                            if(estadoBotao==false){
-                                               System.out.println("Entrou Fim do Salvar");
+                                               
                                                     try {
 
                                                          if(boxCliente == false){daocli.Cadastrar(cli);}
@@ -487,37 +492,7 @@ public class Cadastro extends javax.swing.JDialog {
                                                          daoVeiculo.Cadastrar(v);
                                                          JOptionPane.showMessageDialog(null, "Cadastro realizado com sucesso");
 
-                                                         /*tfAcao.setText(null);
-                                                         tfCelAdvogado.setText(null);
-                                                         tfCelular.setText(null);
-                                                         tfCep.setText(null);
-                                                         tfComarca.setText(null);
-                                                         tfCpf.setText(null);
-                                                         tfDataFim.setText(null);
-                                                         tfDataInicio.setText(null);
-                                                         tfDataNasci.setText(null);
-                                                         tfDataVencimento.setText(null);
-                                                         tfDescDespesa.setText(null);
-                                                         tfEmail.setText(null);
-                                                         tfEndereco.setText(null);
-                                                         tfEnderecoAssessoria.setText(null);
-                                                         tfEstado.setText(null);
-                                                         tfEstadoCivil.setText(null);
-                                                         tfNacionalidade.setText(null);
-                                                         tfNome.setText(null);
-                                                         tfNomeAdvogado.setText(null);
-                                                         tfNomeAssessoria.setText(null);
-                                                         tfNumero.setText(null);
-                                                         tfProcesso.setText(null);
-                                                         tfProfissao.setText(null);
-                                                         tfTelefone.setText(null);
-                                                         tfVara.setText(null);
-                                                         tfWhats.setText(null);
-                                                         tfsituacaoatual.setText(null);
-                                                         tfTotal.setText("000");
-                                                         tfValor.setText("000");
-                                                         tfValorDespesa.setText("000");
-                                                         tfDesconto.setText("000");*/
+                                                         
                                                          limpaTela();
                                                          
 
@@ -526,7 +501,7 @@ public class Cadastro extends javax.swing.JDialog {
                                                          System.out.println("Não foi possivel realizar o cadastro, por favor verifique se os campos foram preenchidos corretamente e tente novamente.");
                                                  }
                                            }else{
-                                               System.out.println("Fim do Salvar:Edita");
+                                               
                                                 try {
                                                          daocli.Editar(cli);
                                                          daoprocesso.Editar(processo);
@@ -542,7 +517,7 @@ public class Cadastro extends javax.swing.JDialog {
 
                                            }
                                                 carregarTabela(null);
-                                                System.out.println("Fim do Salvar");
+                                                
                                 
                                 
                             }
@@ -613,7 +588,7 @@ public class Cadastro extends javax.swing.JDialog {
         clientes = dao.Consultar(idCliente);
         int idCid = 0, idBarr = 0;
         
-         System.out.println("Tamanho Array Cliente: "+clientes.size());
+         
         for(Cliente cli:clientes){
             tfNome.setText(cli.getNome());
             tfDataNasci.setText(cli.getNascimento());
@@ -634,11 +609,10 @@ public class Cadastro extends javax.swing.JDialog {
             idBarr = Integer.parseInt(cli.getBairro());
             
         }
-        
-           carregaCidadesCliente();
-           comboCidade.setSelectedIndex(idCid);
-           carregaBairrosCliente(String.valueOf(idCid));
-           comboBairro.setSelectedIndex(idBarr);
+           
+            comboCidade.setSelectedIndex(idCid);
+            carregaBairrosCliente(String.valueOf(idCid));
+            comboBairro.setSelectedIndex(idBarr);
     }
     
     //Carrega dados do processo
@@ -646,7 +620,7 @@ public class Cadastro extends javax.swing.JDialog {
         DaoProcesso daoProcesso = new DaoProcesso();
         ArrayList<Processo> processos = new DaoProcesso().Consultar(id);
         
-        System.out.println("Tamanho Array Processo: "+processos.size());
+        
         for (Processo pro:processos) {
             //Setando dados do processo
             tfProcesso.setText(pro.getProcesso());
@@ -666,15 +640,13 @@ public class Cadastro extends javax.swing.JDialog {
         ArrayList<Assessoria> ass = new DaoAssessoria().consultar(id);
         for(Assessoria a:ass){
             tfNomeAssessoria.setText(a.getNome());
-            //tfCidade.setText(a.getCidade());
-            //tfBairro.setText(a.getBairro());
             tfEnderecoAssessoria.setText(a.getEndereco());
             idCid = Integer.parseInt(a.getCidade());
             idBarr = Integer.parseInt(a.getBairro());
         }
-            comboCidade.setSelectedIndex(idCid);
-            //carregaBairros(String.valueOf(idCid));
-            comboBairro.setSelectedIndex(idBarr);
+            comboCidadeAssessoria.setSelectedIndex(idCid);
+            carregaBairrosAssesoria(String.valueOf(String.valueOf(idCid)));
+            comboBairroAssessoria.setSelectedIndex(idBarr);
     }
     public void preencheFinanceiro(String id){
         tfValor.setDocument(new LimitadorMoeda());
@@ -694,6 +666,7 @@ public class Cadastro extends javax.swing.JDialog {
     }
     
     public void preencheAdvogado(String id){
+        System.out.println("CONSULTA ADVOGADO ID: "+id);
         ArrayList<Advogado> advogados = new DaoAdvogado().Consultar(id);
          for(Advogado a: advogados){
              
@@ -2087,14 +2060,14 @@ public class Cadastro extends javax.swing.JDialog {
       String item = String.valueOf(comboModelCidade.getSelectedItem());
        
        if(item.equals("Selecionar....") || item == "null"){
-           System.out.println("Olá");
+           
            if(listaCheia == true){
                comboModelBairro.removeAllElements();
                comboModelBairro.addElement("Selecionar....");
            }
            comboBairro.setSelectedIndex(0);
        }else{
-           System.out.println("Carregando bairros!");
+          
            carregaBairrosCliente("");
            listaCheia = true;
        }
@@ -2125,7 +2098,6 @@ public class Cadastro extends javax.swing.JDialog {
         } else {
              String b = "B";
              int cod = comboCidade.getSelectedIndex();
-             System.out.println("codigo: "+cod);
              new CadastroBairroCidade(b, "BAIRRO", item, cod).show();
              carregaBairrosCliente("");
            
@@ -2250,7 +2222,7 @@ public class Cadastro extends javax.swing.JDialog {
     private void tbListarProcessoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbListarProcessoMouseClicked
         if (evt.getClickCount() > 1) {  
             
-            System.out.println("Clicou 2 vezes.");
+            
             btExcluir.setEnabled(true);
             btAlterar.setEnabled(true);
             
@@ -2267,14 +2239,13 @@ public class Cadastro extends javax.swing.JDialog {
             System.out.println("ID ADVOGADO: "+idAdvogado);
             System.out.println("ID ASSESSORIA: "+idAssessoria);
             
-                preencheProcessos(idProcesso);
                 
-                preencheClientes(idCliente);
                 preencheAssessoria(idAssessoria);
                 preencheAdvogado(idAdvogado);
                 preencheVeiculo(idProcesso);
                 preencheFinanceiro(idProcesso);
-                
+                preencheProcessos(idProcesso);
+                preencheClientes(idCliente);
                 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "SELECIONE UM CLIENTE PARA VER OU EDITAR");
@@ -2316,7 +2287,7 @@ public class Cadastro extends javax.swing.JDialog {
                 codigoCliente = lista.ConsultaCodigo();
                 preencheClientes(codigoCliente);
                 AtivarCliente(false);
-                System.out.println("Codigo: "+codigoCliente);
+               
             }else{
                 boxUsarCliente.setSelected(false);
             }
@@ -2337,7 +2308,7 @@ public class Cadastro extends javax.swing.JDialog {
                 codigoAdvogado = lista.ConsultaCodigo();
                 preencheAdvogado(codigoAdvogado);
                 ativarCampoAdvogado(false);
-                System.out.println("Codigo: "+codigoAdvogado);
+                
             }else{
                 boxUsarAdvogado.setSelected(false);
             }
@@ -2358,7 +2329,7 @@ public class Cadastro extends javax.swing.JDialog {
                 codigoAssessoria = lista.ConsultaCodigo();
                 preencheAssessoria(codigoAssessoria);
                 ativarCampoAssessoria(false);
-                System.out.println("Codigo: "+codigoAssessoria);
+                
             }else{
                 boxUsarAssessoria.setSelected(false);
             }
@@ -2375,15 +2346,15 @@ public class Cadastro extends javax.swing.JDialog {
         String item = String.valueOf(comboModelCidadeAssesoria.getSelectedItem());
        
        if(item.equals("Selecionar....") || item == "null"){
-           System.out.println("Olá");
+           
            if(listaCheia == true){
                comboModelBairroAssesoria.removeAllElements();
                comboModelBairroAssesoria.addElement("Selecionar....");
            }
            comboBairroAssessoria.setSelectedIndex(0);
        }else{
-           System.out.println("Carregando bairros!");
-           carregaBairrosAssesoria();
+           
+           carregaBairrosAssesoria("");
            listaCheia = true;
        }
     }//GEN-LAST:event_comboCidadeAssessoriaActionPerformed
