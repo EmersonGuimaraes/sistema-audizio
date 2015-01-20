@@ -1594,7 +1594,7 @@ public class Cadastro extends javax.swing.JDialog {
                         .addComponent(jLabel21)
                         .addComponent(tfNomeAssessoria)
                         .addComponent(tfEnderecoAssessoria, javax.swing.GroupLayout.PREFERRED_SIZE, 516, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(53, Short.MAX_VALUE))
+                .addContainerGap(41, Short.MAX_VALUE))
         );
         painelAssessoriaLayout.setVerticalGroup(
             painelAssessoriaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1609,10 +1609,12 @@ public class Cadastro extends javax.swing.JDialog {
                     .addComponent(jLabel22))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painelAssessoriaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(comboBairroAssessoria, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(comboBairroAssessoria, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btNovaCidadeAssessoria, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btNovoBairroAssessoria, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(comboCidadeAssessoria, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(painelAssessoriaLayout.createSequentialGroup()
+                        .addComponent(comboCidadeAssessoria, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(btNovoBairroAssessoria, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel17)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -2107,6 +2109,7 @@ public class Cadastro extends javax.swing.JDialog {
        String c = "C";
         new CadastroBairroCidade(c, "CIDADE", null, 0).setVisible(true);
         carregaCidadesCliente();
+        carregaCidadesAssessoria();
     }//GEN-LAST:event_btNovaCidadeActionPerformed
 
     private void btNovoBairroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoBairroActionPerformed
@@ -2118,6 +2121,7 @@ public class Cadastro extends javax.swing.JDialog {
              int cod = comboCidade.getSelectedIndex();
              new CadastroBairroCidade(b, "BAIRRO", item, cod).show();
              carregaBairrosCliente("");
+             carregaBairrosAssesoria("");
            
         }
 
@@ -2239,7 +2243,7 @@ public class Cadastro extends javax.swing.JDialog {
 
     private void tbListarProcessoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbListarProcessoMouseClicked
         if (evt.getClickCount() > 1) {  
-           btcancelar();
+           //btcancelar();
             
             btExcluir.setEnabled(true);
             btAlterar.setEnabled(true);
@@ -2405,7 +2409,10 @@ public class Cadastro extends javax.swing.JDialog {
     }//GEN-LAST:event_comboCidadeAssessoriaActionPerformed
 
     private void btNovaCidadeAssessoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovaCidadeAssessoriaActionPerformed
-        // TODO add your handling code here:
+        String c = "C";
+        new CadastroBairroCidade(c, "CIDADE", null, 0).setVisible(true);
+        carregaCidadesCliente();
+        carregaCidadesAssessoria();
     }//GEN-LAST:event_btNovaCidadeAssessoriaActionPerformed
 
     private void comboBairroAssessoriaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_comboBairroAssessoriaMouseClicked
@@ -2421,7 +2428,17 @@ public class Cadastro extends javax.swing.JDialog {
     }//GEN-LAST:event_comboBairroAssessoriaActionPerformed
 
     private void btNovoBairroAssessoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoBairroAssessoriaActionPerformed
-        // TODO add your handling code here:
+        String item = String.valueOf(comboModelCidadeAssesoria.getSelectedItem());
+        if(item == "Selecionar...."){
+           JOptionPane.showMessageDialog(null, "SELECIONE UMA CIDADE!");
+        } else {
+             String b = "B";
+             int cod = comboCidadeAssessoria.getSelectedIndex();
+             new CadastroBairroCidade(b, "BAIRRO", item, cod).show();
+             carregaBairrosCliente("");
+             carregaBairrosAssesoria("");
+           
+        }
     }//GEN-LAST:event_btNovoBairroAssessoriaActionPerformed
 
     private void comboFiltroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboFiltroActionPerformed
