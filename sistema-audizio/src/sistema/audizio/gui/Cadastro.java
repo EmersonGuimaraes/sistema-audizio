@@ -12,6 +12,7 @@ import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
@@ -545,8 +546,12 @@ public class Cadastro extends javax.swing.JDialog {
           
             for (int i = 0; i <= listaObjetos.length; i++) {
                 JTextField nTF = (JTextField)listaObjetos[i];
+                JFormattedTextField nfTF = (JFormattedTextField)listaObjetos[i];
                 nTF.setText(null);
                 nTF.setEditable(false);
+                
+                nfTF.setText(null);
+                nfTF.setEditable(false);
             }
           
     }
@@ -908,6 +913,11 @@ public class Cadastro extends javax.swing.JDialog {
         btSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btSalvarActionPerformed(evt);
+            }
+        });
+        btSalvar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btSalvarKeyPressed(evt);
             }
         });
 
@@ -1486,7 +1496,7 @@ public class Cadastro extends javax.swing.JDialog {
                         .addGroup(painelAdvogadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel16)
                             .addComponent(tfCelAdvogado, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(55, Short.MAX_VALUE))
+                .addContainerGap(43, Short.MAX_VALUE))
         );
         painelAdvogadoLayout.setVerticalGroup(
             painelAdvogadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1503,7 +1513,7 @@ public class Cadastro extends javax.swing.JDialog {
                         .addComponent(tfNomeAdvogado, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(boxUsarAdvogado)
-                .addContainerGap(145, Short.MAX_VALUE))
+                .addContainerGap(146, Short.MAX_VALUE))
         );
 
         PainelAbas.addTab("ADVOGADO", painelAdvogado);
@@ -1717,7 +1727,7 @@ public class Cadastro extends javax.swing.JDialog {
                             .addComponent(tfDesconto, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(painelFinanceiroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 263, Short.MAX_VALUE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 251, Short.MAX_VALUE)
                             .addGroup(painelFinanceiroLayout.createSequentialGroup()
                                 .addComponent(tfDataVencimento, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
@@ -1777,7 +1787,7 @@ public class Cadastro extends javax.swing.JDialog {
                     .addComponent(tfDataVencimento, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(comboSituacaofinanceiro, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(tfDesconto, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
                 .addComponent(jCheckBox1)
                 .addContainerGap())
         );
@@ -1843,7 +1853,7 @@ public class Cadastro extends javax.swing.JDialog {
                             .addComponent(jLabel34))
                         .addGroup(painelConsultarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(painelConsultarLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 120, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 108, Short.MAX_VALUE)
                                 .addComponent(jLabel35)
                                 .addGap(47, 47, 47))
                             .addGroup(painelConsultarLayout.createSequentialGroup()
@@ -1906,7 +1916,7 @@ public class Cadastro extends javax.swing.JDialog {
                         .addComponent(tfRenavam, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(tfAnoFabricacao, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(tfChassi))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
                 .addGroup(painelConsultarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cbEstadoVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel39))
@@ -1956,7 +1966,7 @@ public class Cadastro extends javax.swing.JDialog {
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel8Layout.createSequentialGroup()
                         .addComponent(comboFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 153, Short.MAX_VALUE))
+                        .addGap(0, 150, Short.MAX_VALUE))
                     .addComponent(tfPesquisa))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -2030,7 +2040,7 @@ public class Cadastro extends javax.swing.JDialog {
             .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(painelOrdenarLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 584, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 572, Short.MAX_VALUE)
                 .addContainerGap())
         );
         painelOrdenarLayout.setVerticalGroup(
@@ -2077,7 +2087,8 @@ public class Cadastro extends javax.swing.JDialog {
     }//GEN-LAST:event_comboCidadeMouseExited
 
     private void comboCidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboCidadeActionPerformed
-      String item = String.valueOf(comboModelCidade.getSelectedItem());
+        
+        String item = String.valueOf(comboModelCidade.getSelectedItem());
        
        if(item.equals("Selecionar....") || item == "null"){
            
@@ -2109,7 +2120,7 @@ public class Cadastro extends javax.swing.JDialog {
        String c = "C";
         new CadastroBairroCidade(c, "CIDADE", null, 0).setVisible(true);
         carregaCidadesCliente();
-        carregaCidadesAssessoria();
+        
     }//GEN-LAST:event_btNovaCidadeActionPerformed
 
     private void btNovoBairroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoBairroActionPerformed
@@ -2192,6 +2203,7 @@ public class Cadastro extends javax.swing.JDialog {
     }//GEN-LAST:event_formKeyReleased
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
+
         Object[] listaCliente = {tfNome,tfCpf,tfCep,tfEndereco,tfNumero,tfEstado,tfCelular};
         Object[] listaAdv = {tfNomeAdvogado,tfCelAdvogado};
         Object[] listaAcess = {tfNomeAssessoria,tfEnderecoAssessoria};
@@ -2217,11 +2229,34 @@ public class Cadastro extends javax.swing.JDialog {
     }//GEN-LAST:event_tfWhatsActionPerformed
 
     private void btNovoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btNovoKeyPressed
- 
+               
     }//GEN-LAST:event_btNovoKeyPressed
 
     private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
-     
+         if(evt.getKeyCode() == evt.VK_F1){   
+                            btnovo();
+}
+         if(evt.getKeyCode() == evt.VK_F2){   
+                            btAlterar();
+         }
+         if(evt.getKeyCode() == evt.VK_F3){   
+                            
+             Object[] listaCliente = {tfNome,tfCpf,tfCep,tfEndereco,tfNumero,tfEstado,tfCelular};
+        Object[] listaAdv = {tfNomeAdvogado,tfCelAdvogado};
+        Object[] listaAcess = {tfNomeAssessoria,tfEnderecoAssessoria};
+        Object[] listaFinanceiro = {tfValor,tfValorDespesa,tfDataVencimento};
+        Object[] listaProcesso = {tfProcesso,tfDataInicio,tfDataFim,tfAcao,tfsituacaoatual,tfVara,tfComarca};
+        Object[] listaVeiculo = {tfMarca,tfModelo,tfCor,tfPlaca,tfAnoModelo,tfAnoFabricacao,tfRenavam,tfChassi};
+        
+        Object[] listaCb = {comboCidade,comboBairro,comboCidadeAssessoria,
+            comboBairroAssessoria,comboSituacaofinanceiro,comboSituacaoProcesso};
+        
+        btsalvar(listaCliente,listaProcesso,listaAdv,listaAcess,listaFinanceiro,listaVeiculo);
+        
+             
+}
+        
+         
     }//GEN-LAST:event_formKeyPressed
 
     private void btAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAlterarActionPerformed
@@ -2289,38 +2324,12 @@ public class Cadastro extends javax.swing.JDialog {
     }//GEN-LAST:event_tfTotalActionPerformed
 
     private void tfPesquisaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfPesquisaKeyReleased
-        try {
-                /*String valorCombo = (String) comboFiltro.getSelectedItem();
-                System.out.println(valorCombo);
-                String campo = null, valor = null;
-
-                if(valorCombo.equals("ID")){
-                   valor = tbListarProcesso.getValueAt(tbListarProcesso.getSelectedRow(),0).toString();
-                    System.out.println("v = "+ valor);
-                    campo = "id";
-                }else if(valorCombo.equals("PROCESSO")){
-                   valor = tbListarProcesso.getValueAt(tbListarProcesso.getSelectedRow(),2).toString();
-                    campo = "processo";
-                }else if(valorCombo.equals("CLIENTE")){
-                    valor = tbListarProcesso.getValueAt(tbListarProcesso.getSelectedRow(),2).toString();
-                    campo = "nome_cliente";
-                }*/
-
-                    if(tfPesquisa.getText().equals(null)){
-                        carregarTabela(null);
-                    }else{
-                        System.out.println(tfPesquisa.getText());
-                    }
-                    carregamentoDinamico("nome_cliente", "Y");
-        } catch (Exception e) {
-            System.out.println("Fudeu!");
-            Logger.getLogger(DaoProcesso.class.getName()).log(Level.SEVERE, null, e);
-        }
+        
         
     }//GEN-LAST:event_tfPesquisaKeyReleased
 
     private void PainelAbasStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_PainelAbasStateChanged
-       
+            carregarTabela(null);
     }//GEN-LAST:event_PainelAbasStateChanged
 
     private void boxUsarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boxUsarClienteActionPerformed
@@ -2392,6 +2401,7 @@ public class Cadastro extends javax.swing.JDialog {
     }//GEN-LAST:event_comboCidadeAssessoriaMouseExited
 
     private void comboCidadeAssessoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboCidadeAssessoriaActionPerformed
+        
         String item = String.valueOf(comboModelCidadeAssesoria.getSelectedItem());
        
        if(item.equals("Selecionar....") || item == "null"){
@@ -2411,7 +2421,6 @@ public class Cadastro extends javax.swing.JDialog {
     private void btNovaCidadeAssessoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovaCidadeAssessoriaActionPerformed
         String c = "C";
         new CadastroBairroCidade(c, "CIDADE", null, 0).setVisible(true);
-        carregaCidadesCliente();
         carregaCidadesAssessoria();
     }//GEN-LAST:event_btNovaCidadeAssessoriaActionPerformed
 
@@ -2448,6 +2457,10 @@ public class Cadastro extends javax.swing.JDialog {
     private void btPequisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPequisarActionPerformed
         
     }//GEN-LAST:event_btPequisarActionPerformed
+
+    private void btSalvarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btSalvarKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btSalvarKeyPressed
      
     /**
      * @param args the command line arguments

@@ -5,6 +5,7 @@
  */
 package sistema.audizio.gui;
 
+import com.sun.imageio.plugins.common.I18N;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
@@ -97,17 +98,20 @@ public class EditarAssessoria extends javax.swing.JDialog {
     }
     
     public void preencheAssessoria(String id){
-        String idCid = null, idBarr = null;
+        int idCid = 0, idBarr = 0;
         ArrayList<Assessoria> ass = new DaoAssessoria().consultar(id);
+        
         for(Assessoria a:ass){
             tfNomeAssessoria.setText(a.getNome());
             tfEnderecoAssessoria.setText(a.getEndereco());
-            idCid = a.getCidade();
-            idBarr = a.getBairro();
+            idCid = Integer.parseInt(a.getCidade());
+            idBarr = Integer.parseInt(a.getBairro());
         }
-            //comboCidadeAssessoria.setSelectedIndex(1);
-            //carregaBairrosAssesoria("1");
-            //comboBairroAssessoria.setSelectedIndex(1);
+            System.out.println("ID CIDADE: "+idCid+" ID BAIRRO:"+idBarr );
+            
+            //comboCidadeAssessoria.setSelectedIndex(idCid);
+            //carregaBairrosAssesoria(String.valueOf(idCid));
+            //comboBairroAssessoria.setSelectedIndex(idBarr);
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -115,7 +119,6 @@ public class EditarAssessoria extends javax.swing.JDialog {
 
         btCadastrar = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
         jLabel21 = new javax.swing.JLabel();
         tfNomeAssessoria = new javax.swing.JTextField();
         comboCidadeAssessoria = new javax.swing.JComboBox();
@@ -131,7 +134,6 @@ public class EditarAssessoria extends javax.swing.JDialog {
         setResizable(false);
 
         btCadastrar.setText("SALVAR EDIÇÃO");
-        btCadastrar.setEnabled(false);
         btCadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btCadastrarActionPerformed(evt);
@@ -142,13 +144,6 @@ public class EditarAssessoria extends javax.swing.JDialog {
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
-            }
-        });
-
-        jButton3.setText("EDITAR");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
             }
         });
 
@@ -220,8 +215,6 @@ public class EditarAssessoria extends javax.swing.JDialog {
                         .addComponent(btNovoBairroAssessoria, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addGroup(layout.createSequentialGroup()
-                            .addComponent(jButton3)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(btCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -259,11 +252,9 @@ public class EditarAssessoria extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tfEnderecoAssessoria, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jButton3))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(21, 21, 21))
         );
 
@@ -279,10 +270,6 @@ public class EditarAssessoria extends javax.swing.JDialog {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
        this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-       
-    }//GEN-LAST:event_jButton3ActionPerformed
 
     private void comboCidadeAssessoriaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_comboCidadeAssessoriaMouseExited
         // TODO add your handling code here:
@@ -338,7 +325,6 @@ public class EditarAssessoria extends javax.swing.JDialog {
     private javax.swing.JComboBox comboBairroAssessoria;
     private javax.swing.JComboBox comboCidadeAssessoria;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;

@@ -35,8 +35,9 @@ public class EditarCliente extends javax.swing.JDialog {
         this.idCliente = id;
         initComponents();
         preencheCampos();
+        carregaCidades();
         setModal(true);
-       
+        ativarTextFild(false);
     }
     
     public void preencheCampos(){
@@ -61,16 +62,33 @@ public class EditarCliente extends javax.swing.JDialog {
             tfWhats.setText(cli.getWhatsapp());
             tfNumero.setText(cli.getNum());
             
-            //idCid = Integer.parseInt(cli.getCidade());
-            //idBarr = Integer.parseInt(cli.getBairro());
+            idCid = Integer.parseInt(cli.getCidade());
+            idBarr = Integer.parseInt(cli.getBairro());
         }
         
-            //carregaCidades();
+           
             //comboCidade.setSelectedIndex(idCid);
             //carregaBairros(String.valueOf(idCid));
             //comboBairro.setSelectedIndex(idBarr);
     }
     
+    public void ativarTextFild(boolean tipo){
+        tfCelular.setEditable(tipo);
+        tfCep.setEditable(tipo);
+        tfCpf.setEditable(tipo);
+        tfDataNasci.setEditable(tipo);
+        tfEmail.setEditable(tipo);
+        tfEndereco.setEditable(tipo);
+        tfEstado.setEditable(tipo);
+        tfEstadoCivil.setEditable(tipo);
+        tfNacionalidade.setEditable(tipo);
+        tfNome.setEditable(tipo);
+        tfNumero.setEditable(tipo);
+        tfProfissao.setEditable(tipo);
+        tfTelefone.setEditable(tipo);
+        tfWhats.setEditable(tipo);
+        
+    }
     private void carregaCidades(){
         ArrayList<Cidade> cidades = new ArrayList<>();
         DaoCidade daoCid = new DaoCidade();
@@ -92,6 +110,7 @@ public class EditarCliente extends javax.swing.JDialog {
        
         
     }
+    
     
     public void carregaBairros(String codCid){
                 if(comboCidade.getSelectedItem().toString().equals("Selecionar ...")){
@@ -175,14 +194,9 @@ public class EditarCliente extends javax.swing.JDialog {
 
         lbCidade.setText("CIDADE");
 
-        tfNome.setEnabled(false);
-
-        tfEndereco.setEnabled(false);
-
         lbBairro.setText("BAIRRO");
 
         comboCidade.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecionar...." }));
-        comboCidade.setEnabled(false);
         comboCidade.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboCidadeActionPerformed(evt);
@@ -190,7 +204,6 @@ public class EditarCliente extends javax.swing.JDialog {
         });
 
         comboBairro.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecionar..." }));
-        comboBairro.setEnabled(false);
         comboBairro.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 comboBairroMouseClicked(evt);
@@ -203,8 +216,6 @@ public class EditarCliente extends javax.swing.JDialog {
         lbNuemro.setText("NÚMERO");
         lbNuemro.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
-        tfNumero.setEnabled(false);
-
         lbTelefone.setText("TELEFONE");
         lbTelefone.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
@@ -213,7 +224,6 @@ public class EditarCliente extends javax.swing.JDialog {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        tfTelefone.setEnabled(false);
         tfTelefone.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tfTelefoneActionPerformed(evt);
@@ -228,7 +238,6 @@ public class EditarCliente extends javax.swing.JDialog {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        tfCelular.setEnabled(false);
 
         btCancelar.setText("CANCELAR");
         btCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -252,7 +261,6 @@ public class EditarCliente extends javax.swing.JDialog {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        tfDataNasci.setEnabled(false);
         tfDataNasci.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tfDataNasciActionPerformed(evt);
@@ -274,33 +282,21 @@ public class EditarCliente extends javax.swing.JDialog {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        tfCep.setEnabled(false);
         tfCep.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tfCepActionPerformed(evt);
             }
         });
 
-        tfNacionalidade.setEnabled(false);
-
-        tfProfissao.setEnabled(false);
-
-        tfEstadoCivil.setEnabled(false);
-
         jLabel10.setText("ESTADO");
 
-        tfEstado.setEnabled(false);
-
         jLabel11.setText("E-MAIL");
-
-        tfEmail.setEnabled(false);
 
         try {
             tfCpf.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        tfCpf.setEnabled(false);
 
         btEditar.setText("EDITAR");
         btEditar.addActionListener(new java.awt.event.ActionListener() {
@@ -317,7 +313,6 @@ public class EditarCliente extends javax.swing.JDialog {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        tfWhats.setEnabled(false);
 
         btNovoBairro.setText("+");
         btNovoBairro.setEnabled(false);
@@ -403,27 +398,27 @@ public class EditarCliente extends javax.swing.JDialog {
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, 522, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)
-                                        .addComponent(tfDataNasci, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lbCidade)
+                                        .addComponent(tfDataNasci, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(comboCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(lbCidade)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(comboCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(btNovaCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(btNovaCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(lbBairro)
-                                        .addGap(174, 174, 174))
-                                    .addComponent(comboBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btNovoBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(tfEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(lbBairro)
+                                                .addGap(174, 174, 174))
+                                            .addComponent(comboBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(btNovoBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(tfEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGap(0, 0, Short.MAX_VALUE)))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -546,22 +541,8 @@ public class EditarCliente extends javax.swing.JDialog {
     }//GEN-LAST:event_tfCepActionPerformed
 
     private void btCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelarActionPerformed
-        tfNome.setEnabled(false);
-        tfDataNasci.setEnabled(false);
-        tfCpf.setEnabled(false);
-        tfNacionalidade.setEnabled(false);
-        tfProfissao.setEnabled(false);
-        tfEstadoCivil.setEnabled(false);
-        tfCep.setEnabled(false);
-        comboCidade.setEnabled(false);
-        comboBairro.setEnabled(false);
-        tfEstado.setEnabled(false);
-        tfEndereco.setEnabled(false);
-        tfNumero.setEnabled(false);
-        tfTelefone.setEnabled(false);
-        tfCelular.setEnabled(false);
-        tfEmail.setEnabled(false);
-        tfWhats.setEnabled(false);
+        ativarTextFild(false);
+        
         btEditar.setEnabled(true);
         btSalvar.setEnabled(false);
         btNovaCidade.setEnabled(false);
@@ -631,22 +612,7 @@ public class EditarCliente extends javax.swing.JDialog {
     }//GEN-LAST:event_btSalvarActionPerformed
 
     private void btEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditarActionPerformed
-        tfNome.setEnabled(true);
-        tfDataNasci.setEnabled(true);
-        tfCpf.setEnabled(true);
-        tfNacionalidade.setEnabled(true);
-        tfProfissao.setEnabled(true);
-        tfEstadoCivil.setEnabled(true);
-        tfCep.setEnabled(true);
-        comboCidade.setEnabled(true);
-        comboBairro.setEnabled(true);
-        tfEstado.setEnabled(true);
-        tfEndereco.setEnabled(true);
-        tfNumero.setEnabled(true);
-        tfTelefone.setEnabled(true);
-        tfCelular.setEnabled(true);
-        tfEmail.setEnabled(true);
-        tfWhats.setEnabled(true);
+        ativarTextFild(true);
         
         btEditar.setEnabled(false);
         btSalvar.setEnabled(true);

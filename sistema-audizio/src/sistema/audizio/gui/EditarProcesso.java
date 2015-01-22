@@ -289,6 +289,7 @@ public class EditarProcesso extends javax.swing.JDialog {
          processo.setComarca(tfComarca.getText());
          processo.setSituacao_atual(taSituacaoAtual.getText());
          processo.setSituacao(comboSituacao.getSelectedItem().toString());
+         processo.setCliente(tfCliente.getText());
          processo.setIdProcesso(idProcesso);
          
        
