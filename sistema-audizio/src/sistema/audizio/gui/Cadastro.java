@@ -5,6 +5,8 @@
  */
 package sistema.audizio.gui;
 
+import com.itextpdf.text.DocumentException;
+import java.io.FileNotFoundException;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -36,6 +38,7 @@ import sistema.audizio.ultilitarios.LimitadorMoeda;
 import sistema.audizio.ultilitarios.NumeroDocument;
 import sistema.audizio.ultilitarios.RemoveMascara;
 import sistema.audizio.ultilitarios.Validacao;
+import sistema.audizio.relatorio.Relatorio;
 
 /**
  *
@@ -670,6 +673,7 @@ public class Cadastro extends javax.swing.JDialog {
             carregaBairrosAssesoria(String.valueOf(String.valueOf(idCid)));
             comboBairroAssessoria.setSelectedIndex(idBarr);
     }
+     
     public void preencheFinanceiro(String id){
         tfValor.setDocument(new LimitadorMoeda());
         tfValorDespesa.setDocument(new LimitadorMoeda());
@@ -1937,6 +1941,11 @@ public class Cadastro extends javax.swing.JDialog {
         });
 
         btImprimir.setText("RELATÓRIO");
+        btImprimir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btImprimirActionPerformed(evt);
+            }
+        });
 
         jLabel29.setText("PESQUISAR");
 
@@ -2461,6 +2470,40 @@ public class Cadastro extends javax.swing.JDialog {
     private void btSalvarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btSalvarKeyPressed
         // TODO add your handling code here:
     }//GEN-LAST:event_btSalvarKeyPressed
+
+    private void btImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btImprimirActionPerformed
+
+        
+        DaoCliente dao = new DaoCliente();
+        DaoCidade daocid = new DaoCidade();
+        Relatorio relatorio = new Relatorio();
+        String id = String.valueOf(tbListarProcesso.getValueAt(0,0));
+        String codCliente = String.valueOf(tbListarProcesso.getValueAt(0,3));
+        String codAdvogado = String.valueOf(tbListarProcesso.getValueAt(0,4));
+        String codAssesoria = String.valueOf(tbListarProcesso.getValueAt(0,5));
+        
+        ArrayList<Cliente> cli = dao.Consultar(codCliente);
+        ArrayList<Processo> procesos = new DaoProcesso().Consultar(id);
+        ArrayList<Veiculo> veiculo = new DaoVeiculo().Consultar(id);
+        ArrayList<Cidade> cidades = daocid.consultar(codCliente);
+         DaoBairro daoBairro = new DaoBairro();
+        ArrayList<Bairro> bairros = daoBairro.consultar(cli.get(0).getBairro());
+        
+        
+        try {
+            
+            relatorio.gerar(cli.get(0), processos.get(0), veiculo.get(0), cidades.get(0),bairros.get(0));
+            
+        } catch (DocumentException | FileNotFoundException ex) {
+            
+            Logger.getLogger(Cadastro.class.getName()).log(Level.SEVERE, null, ex);
+            
+        }
+            
+       
+        
+
+    }//GEN-LAST:event_btImprimirActionPerformed
      
     /**
      * @param args the command line arguments
@@ -2491,6 +2534,7 @@ public class Cadastro extends javax.swing.JDialog {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                // new Cadastro().setVisible(true);
             }

@@ -10,13 +10,10 @@ import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.Font.FontFamily;
-import com.itextpdf.text.FontFactory;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
-import java.awt.Color;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import sistema.audizio.bean.Bairro;
 import sistema.audizio.bean.Cidade;
@@ -33,9 +30,10 @@ public class Relatorio {
     
     public void gerar(Cliente cliente, Processo processo , Veiculo veiculo, Cidade cidade, Bairro bairro) throws DocumentException, FileNotFoundException{
                 
+        System.out.println("ENTROU NO GERAR");
                
             
-                    String local = "c:/sistema/relatorios/"+cliente.getNome()+".pdf";
+                    String local = "/home/zipnet/Área de Trabalho/"+cliente.getNome()+".pdf";
                 
             
                         Document document = new Document();
