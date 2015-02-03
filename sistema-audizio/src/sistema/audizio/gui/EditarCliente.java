@@ -13,9 +13,11 @@ import javax.swing.JOptionPane;
 import sistema.audizio.bean.Bairro;
 import sistema.audizio.bean.Cidade;
 import sistema.audizio.bean.Cliente;
+import sistema.audizio.bean.Processo;
 import sistema.audizio.dao.DaoBairro;
 import sistema.audizio.dao.DaoCidade;
 import sistema.audizio.dao.DaoCliente;
+import sistema.audizio.dao.DaoProcesso;
 
 /**
  *
@@ -578,7 +580,7 @@ public class EditarCliente extends javax.swing.JDialog {
             cliente.setEmail(tfEmail.getText());
             cliente.setWhatsapp(mask.removeMascara(tfWhats.getText()));
             cliente.setNum(tfNumero.getText());
-            
+           
             System.out.println("ID CLIENTE = "+idCliente);
             daoCliente.Editar(cliente);
              

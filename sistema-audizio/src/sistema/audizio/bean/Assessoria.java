@@ -15,6 +15,8 @@ public class Assessoria {
     public String cidade;
     public String bairro;
     public String endereco;
+    public String nome_advogado;
+    public String telefone_assessoria;
     public int cod;
 
     public int getCod() {
@@ -96,5 +98,23 @@ public class Assessoria {
     public void setEndereco(String endereco) {
         this.endereco = endereco;
     }
+
+    public String getNome_advogado() {
+        return nome_advogado;
+    }
+
+    public void setNome_advogado(String nome_advogado) {
+        this.nome_advogado = nome_advogado;
+    }
+
+    public String getTelefone_assessoria() {
+        return telefone_assessoria;
+    }
+
+    public void setTelefone_assessoria(String telefone_assessoria) {
+        this.telefone_assessoria = telefone_assessoria;
+    }
+    
+    
     
 }

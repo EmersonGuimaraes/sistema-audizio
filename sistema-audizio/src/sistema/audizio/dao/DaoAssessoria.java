@@ -19,14 +19,15 @@ import sistema.audizio.bean.Assessoria;
 public class DaoAssessoria extends Conexao{
     String sql;
     public void cadastrar(Assessoria a){
-       sql ="INSERT INTO tb_assessoria VALUES(null,'"+a.getNome()+"','"+a.getCidade()+"','"+a.getBairro()+"','"+a.getEndereco()+"','"+a.getCod()+"')";
+       sql ="INSERT INTO tb_assessoria VALUES(null,'"+a.getNome()+"','"+a.getCidade()+"','"+a.getBairro()+"','"+a.getEndereco()+"',"
+               + "'"+a.getNome_advogado()+"','"+a.getTelefone_assessoria()+"','"+a.getCod()+"')";
         ConsultarSQL(sql, false);
         
     }
     
     public void editar(Assessoria a){
         sql = "UPDATE tb_assessoria SET nome = '"+a.getNome()+"', cidade = '"+a.getCidade()+"',"
-                + "bairro = '"+a.getBairro()+"', endereco = '"+a.getEndereco()+"' WHERE cod = '"+a.getId()+"'";
+                + "bairro = '"+a.getBairro()+"', endereco = '"+a.getEndereco()+"', nome_advogado = '"+a.getNome_advogado()+"', telefone = '"+a.getTelefone_assessoria()+"' WHERE cod = '"+a.getId()+"'";
         
         ConsultarSQL(sql, false);
         
@@ -50,6 +51,8 @@ public class DaoAssessoria extends Conexao{
                 a.setCidade(rs.getString("cidade"));
                 a.setBairro(rs.getString("bairro"));
                 a.setEndereco(rs.getString("endereco"));
+                a.setNome_advogado(rs.getString("nome_advogado"));
+                a.setTelefone_assessoria(rs.getString("telefone"));
                 System.out.println("Ass: "+rs.getString("nome"));
                 ass.add(a);
             }
