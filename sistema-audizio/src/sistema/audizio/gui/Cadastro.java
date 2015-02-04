@@ -6,14 +6,21 @@
 package sistema.audizio.gui;
 
 import com.itextpdf.text.DocumentException;
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.Path;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JFileChooser;
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -79,6 +86,51 @@ public class Cadastro extends javax.swing.JDialog {
         }
     }
     
+    public void UploadArquivo(){
+         
+            try {
+                
+                //SELECIONA IMAGEM
+                String local = null;
+                JFileChooser fc = new JFileChooser();
+                int option = fc.showOpenDialog(jPanel1);
+                if (option == JFileChooser.APPROVE_OPTION) {
+                    try {
+                        File arquivo = fc.getSelectedFile();
+                        local = arquivo.getCanonicalPath();
+                        System.out.println("Arquivo selecionado: " + local);
+                    } catch (IOException ex) {
+                        Logger.getLogger(Cadastro.class.getName()).log(Level.SEVERE, null, ex);
+                    }  
+                    
+                } else {
+                    System.out.println("Nenhum arquivo selecionado!");
+                }
+                  
+                //BufferedImage imagem = ImageIO.read(RedimensionarImagem.class.getResourceAsStream("background.jpg"));
+                BufferedImage imagem = null;
+                try {
+                    imagem = ImageIO.read(new File(local).getCanonicalFile());
+                } catch (IOException ex) {
+                    System.err.println(ex);
+                }
+                int largura = 223, altura = 131;
+                BufferedImage new_img = new BufferedImage(largura, altura, BufferedImage.TYPE_INT_RGB);
+                Graphics2D g = new_img.createGraphics();
+                
+                g.drawImage(imagem, 0, 0, largura, altura, null);
+                
+                //ImageIO.write(new_img, "JPG", new File("c:/sistema/imagens/veiculos/nweImg.jpg"));
+                String nome = null, pasta = "c:/sistema/imagens/veiculos/";
+                ImageIO.write(new_img, "JPG", new File(pasta+nome+".jpg"));
+                
+                
+            } catch (IOException ex) {  
+                Logger.getLogger(Cadastro.class.getName()).log(Level.SEVERE, null,ex); 
+            }  
+            
+            
+    }
     private void carregaCidadesCliente(){
         ArrayList<Cidade> cidades = new ArrayList<>();
         DaoCidade daoCid = new DaoCidade();
@@ -831,6 +883,11 @@ public class Cadastro extends javax.swing.JDialog {
         tfAnoFabricacao = new javax.swing.JFormattedTextField();
         jLabel39 = new javax.swing.JLabel();
         cbEstadoVeiculo = new javax.swing.JComboBox();
+        jPanel1 = new javax.swing.JPanel();
+        tfNomeArquivo = new javax.swing.JTextField();
+        jLabel15 = new javax.swing.JLabel();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
         painelOrdenar = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tbListarProcesso = new javax.swing.JTable();
@@ -1906,6 +1963,47 @@ public class Cadastro extends javax.swing.JDialog {
 
         PainelAbas.addTab("VEÍCULO", painelConsultar);
 
+        jLabel15.setText("SELECIONE O ARQUIVO:");
+
+        jButton3.setText("SELECIONAR");
+
+        jButton4.setText("FAZER UPLOAD");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(76, 76, 76)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(tfNomeArquivo, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel15)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(166, 166, 166)
+                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(84, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(71, 71, 71)
+                .addComponent(jLabel15)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(tfNomeArquivo, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(33, 33, 33)
+                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(101, Short.MAX_VALUE))
+        );
+
+        PainelAbas.addTab("ANEXOS", jPanel1);
+
         tbListarProcesso.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -1923,11 +2021,11 @@ public class Cadastro extends javax.swing.JDialog {
             }
         });
         tbListarProcesso.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tbListarProcessoMouseClicked(evt);
-            }
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 tbListarProcessoMouseReleased(evt);
+            }
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbListarProcessoMouseClicked(evt);
             }
         });
         jScrollPane2.setViewportView(tbListarProcesso);
@@ -2459,6 +2557,8 @@ public class Cadastro extends javax.swing.JDialog {
     private javax.swing.JComboBox comboSituacaofinanceiro;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -2466,6 +2566,7 @@ public class Cadastro extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
@@ -2497,6 +2598,7 @@ public class Cadastro extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JToggleButton jToggleButton1;
@@ -2541,6 +2643,7 @@ public class Cadastro extends javax.swing.JDialog {
     private javax.swing.JTextField tfModelo;
     private javax.swing.JTextField tfNacionalidade;
     private javax.swing.JTextField tfNome;
+    private javax.swing.JTextField tfNomeArquivo;
     private javax.swing.JTextField tfNomeAssessoria;
     private javax.swing.JTextField tfNumero;
     private javax.swing.JTextField tfPlaca;
