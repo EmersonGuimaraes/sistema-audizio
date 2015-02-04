@@ -86,9 +86,9 @@ public class Cadastro extends javax.swing.JDialog {
         }
     }
     
-    public void UploadArquivo(){
+    public void SelecionarArquivo(){
          
-            try {
+          
                 
                 //SELECIONA IMAGEM
                 String local = null;
@@ -99,6 +99,7 @@ public class Cadastro extends javax.swing.JDialog {
                         File arquivo = fc.getSelectedFile();
                         local = arquivo.getCanonicalPath();
                         System.out.println("Arquivo selecionado: " + local);
+                        tfNomeArquivo.setText(local);
                     } catch (IOException ex) {
                         Logger.getLogger(Cadastro.class.getName()).log(Level.SEVERE, null, ex);
                     }  
@@ -106,31 +107,10 @@ public class Cadastro extends javax.swing.JDialog {
                 } else {
                     System.out.println("Nenhum arquivo selecionado!");
                 }
-                  
-                //BufferedImage imagem = ImageIO.read(RedimensionarImagem.class.getResourceAsStream("background.jpg"));
-                BufferedImage imagem = null;
-                try {
-                    imagem = ImageIO.read(new File(local).getCanonicalFile());
-                } catch (IOException ex) {
-                    System.err.println(ex);
-                }
-                int largura = 223, altura = 131;
-                BufferedImage new_img = new BufferedImage(largura, altura, BufferedImage.TYPE_INT_RGB);
-                Graphics2D g = new_img.createGraphics();
-                
-                g.drawImage(imagem, 0, 0, largura, altura, null);
-                
-                //ImageIO.write(new_img, "JPG", new File("c:/sistema/imagens/veiculos/nweImg.jpg"));
-                String nome = null, pasta = "c:/sistema/imagens/veiculos/";
-                ImageIO.write(new_img, "JPG", new File(pasta+nome+".jpg"));
-                
-                
-            } catch (IOException ex) {  
-                Logger.getLogger(Cadastro.class.getName()).log(Level.SEVERE, null,ex); 
-            }  
-            
-            
+          
     }
+    
+    
     private void carregaCidadesCliente(){
         ArrayList<Cidade> cidades = new ArrayList<>();
         DaoCidade daoCid = new DaoCidade();
@@ -886,8 +866,19 @@ public class Cadastro extends javax.swing.JDialog {
         jPanel1 = new javax.swing.JPanel();
         tfNomeArquivo = new javax.swing.JTextField();
         jLabel15 = new javax.swing.JLabel();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        btSelecionarArquivo = new javax.swing.JButton();
+        tfNomeArquivo1 = new javax.swing.JTextField();
+        btSelecionarArquivo1 = new javax.swing.JButton();
+        btSelecionarArquivo2 = new javax.swing.JButton();
+        tfNomeArquivo2 = new javax.swing.JTextField();
+        tfNomeArquivo3 = new javax.swing.JTextField();
+        btSelecionarArquivo3 = new javax.swing.JButton();
+        btSelecionarArquivo4 = new javax.swing.JButton();
+        tfNomeArquivo4 = new javax.swing.JTextField();
+        btSelecionarArquivo5 = new javax.swing.JButton();
+        tfNomeArquivo5 = new javax.swing.JTextField();
+        tfNomeArquivo6 = new javax.swing.JTextField();
+        btSelecionarArquivo6 = new javax.swing.JButton();
         painelOrdenar = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tbListarProcesso = new javax.swing.JTable();
@@ -1963,43 +1954,129 @@ public class Cadastro extends javax.swing.JDialog {
 
         PainelAbas.addTab("VEÍCULO", painelConsultar);
 
-        jLabel15.setText("SELECIONE O ARQUIVO:");
+        jLabel15.setText("SELECIONE OS ARQUIVOS:");
 
-        jButton3.setText("SELECIONAR");
+        btSelecionarArquivo.setText("SELECIONAR");
+        btSelecionarArquivo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSelecionarArquivoActionPerformed(evt);
+            }
+        });
 
-        jButton4.setText("FAZER UPLOAD");
+        btSelecionarArquivo1.setText("SELECIONAR");
+        btSelecionarArquivo1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSelecionarArquivo1ActionPerformed(evt);
+            }
+        });
+
+        btSelecionarArquivo2.setText("SELECIONAR");
+        btSelecionarArquivo2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSelecionarArquivo2ActionPerformed(evt);
+            }
+        });
+
+        btSelecionarArquivo3.setText("SELECIONAR");
+        btSelecionarArquivo3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSelecionarArquivo3ActionPerformed(evt);
+            }
+        });
+
+        btSelecionarArquivo4.setText("SELECIONAR");
+        btSelecionarArquivo4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSelecionarArquivo4ActionPerformed(evt);
+            }
+        });
+
+        btSelecionarArquivo5.setText("SELECIONAR");
+        btSelecionarArquivo5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSelecionarArquivo5ActionPerformed(evt);
+            }
+        });
+
+        btSelecionarArquivo6.setText("SELECIONAR");
+        btSelecionarArquivo6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSelecionarArquivo6ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(57, 57, 57)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(76, 76, 76)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(tfNomeArquivo, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel15)))
+                        .addComponent(tfNomeArquivo, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btSelecionarArquivo, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel15)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(166, 166, 166)
-                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(84, Short.MAX_VALUE))
+                        .addComponent(tfNomeArquivo1, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btSelecionarArquivo1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(tfNomeArquivo2, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btSelecionarArquivo2, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(tfNomeArquivo3, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btSelecionarArquivo3, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(tfNomeArquivo4, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btSelecionarArquivo4, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(tfNomeArquivo5, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btSelecionarArquivo5, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(tfNomeArquivo6, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btSelecionarArquivo6, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(97, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(71, 71, 71)
+                .addContainerGap()
                 .addComponent(jLabel15)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(tfNomeArquivo, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(33, 33, 33)
-                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(101, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tfNomeArquivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btSelecionarArquivo))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tfNomeArquivo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btSelecionarArquivo1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tfNomeArquivo2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btSelecionarArquivo2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tfNomeArquivo3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btSelecionarArquivo3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tfNomeArquivo4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btSelecionarArquivo4))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tfNomeArquivo5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btSelecionarArquivo5))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tfNomeArquivo6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btSelecionarArquivo6))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         PainelAbas.addTab("ANEXOS", jPanel1);
@@ -2495,6 +2572,34 @@ public class Cadastro extends javax.swing.JDialog {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
        carregaCidadesCliente();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void btSelecionarArquivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSelecionarArquivoActionPerformed
+        SelecionarArquivo();
+    }//GEN-LAST:event_btSelecionarArquivoActionPerformed
+
+    private void btSelecionarArquivo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSelecionarArquivo1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btSelecionarArquivo1ActionPerformed
+
+    private void btSelecionarArquivo2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSelecionarArquivo2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btSelecionarArquivo2ActionPerformed
+
+    private void btSelecionarArquivo3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSelecionarArquivo3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btSelecionarArquivo3ActionPerformed
+
+    private void btSelecionarArquivo4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSelecionarArquivo4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btSelecionarArquivo4ActionPerformed
+
+    private void btSelecionarArquivo5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSelecionarArquivo5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btSelecionarArquivo5ActionPerformed
+
+    private void btSelecionarArquivo6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSelecionarArquivo6ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btSelecionarArquivo6ActionPerformed
      
     /**
      * @param args the command line arguments
@@ -2547,6 +2652,13 @@ public class Cadastro extends javax.swing.JDialog {
     private javax.swing.JButton btNovoBairro;
     private javax.swing.JButton btNovoBairroAssessoria;
     private javax.swing.JButton btSalvar;
+    private javax.swing.JButton btSelecionarArquivo;
+    private javax.swing.JButton btSelecionarArquivo1;
+    private javax.swing.JButton btSelecionarArquivo2;
+    private javax.swing.JButton btSelecionarArquivo3;
+    private javax.swing.JButton btSelecionarArquivo4;
+    private javax.swing.JButton btSelecionarArquivo5;
+    private javax.swing.JButton btSelecionarArquivo6;
     private javax.swing.JCheckBox cWhats;
     private javax.swing.JComboBox cbEstadoVeiculo;
     private javax.swing.JComboBox comboBairro;
@@ -2557,8 +2669,6 @@ public class Cadastro extends javax.swing.JDialog {
     private javax.swing.JComboBox comboSituacaofinanceiro;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -2644,6 +2754,12 @@ public class Cadastro extends javax.swing.JDialog {
     private javax.swing.JTextField tfNacionalidade;
     private javax.swing.JTextField tfNome;
     private javax.swing.JTextField tfNomeArquivo;
+    private javax.swing.JTextField tfNomeArquivo1;
+    private javax.swing.JTextField tfNomeArquivo2;
+    private javax.swing.JTextField tfNomeArquivo3;
+    private javax.swing.JTextField tfNomeArquivo4;
+    private javax.swing.JTextField tfNomeArquivo5;
+    private javax.swing.JTextField tfNomeArquivo6;
     private javax.swing.JTextField tfNomeAssessoria;
     private javax.swing.JTextField tfNumero;
     private javax.swing.JTextField tfPlaca;
