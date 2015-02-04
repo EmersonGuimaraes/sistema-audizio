@@ -897,10 +897,7 @@ public class Cadastro extends javax.swing.JDialog {
         btSelecionarArquivo3 = new javax.swing.JButton();
         btSelecionarArquivo4 = new javax.swing.JButton();
         tfNomeArquivo4 = new javax.swing.JTextField();
-        btSelecionarArquivo5 = new javax.swing.JButton();
-        tfNomeArquivo5 = new javax.swing.JTextField();
-        tfNomeArquivo6 = new javax.swing.JTextField();
-        btSelecionarArquivo6 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
         painelOrdenar = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tbListarProcesso = new javax.swing.JTable();
@@ -2013,19 +2010,8 @@ public class Cadastro extends javax.swing.JDialog {
             }
         });
 
-        btSelecionarArquivo5.setText("SELECIONAR");
-        btSelecionarArquivo5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btSelecionarArquivo5ActionPerformed(evt);
-            }
-        });
-
-        btSelecionarArquivo6.setText("SELECIONAR");
-        btSelecionarArquivo6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btSelecionarArquivo6ActionPerformed(evt);
-            }
-        });
+        jButton3.setText("VER ANEXOS");
+        jButton3.setEnabled(false);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -2054,15 +2040,9 @@ public class Cadastro extends javax.swing.JDialog {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(tfNomeArquivo4, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btSelecionarArquivo4, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(tfNomeArquivo5, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btSelecionarArquivo5, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(tfNomeArquivo6, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btSelecionarArquivo6, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btSelecionarArquivo4, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(97, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -2090,15 +2070,9 @@ public class Cadastro extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tfNomeArquivo4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btSelecionarArquivo4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tfNomeArquivo5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btSelecionarArquivo5))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tfNomeArquivo6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btSelecionarArquivo6))
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         PainelAbas.addTab("ANEXOS", jPanel1);
@@ -2614,14 +2588,6 @@ public class Cadastro extends javax.swing.JDialog {
     private void btSelecionarArquivo4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSelecionarArquivo4ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btSelecionarArquivo4ActionPerformed
-
-    private void btSelecionarArquivo5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSelecionarArquivo5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btSelecionarArquivo5ActionPerformed
-
-    private void btSelecionarArquivo6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSelecionarArquivo6ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btSelecionarArquivo6ActionPerformed
      
     /**
      * @param args the command line arguments
@@ -2679,8 +2645,6 @@ public class Cadastro extends javax.swing.JDialog {
     private javax.swing.JButton btSelecionarArquivo2;
     private javax.swing.JButton btSelecionarArquivo3;
     private javax.swing.JButton btSelecionarArquivo4;
-    private javax.swing.JButton btSelecionarArquivo5;
-    private javax.swing.JButton btSelecionarArquivo6;
     private javax.swing.JCheckBox cWhats;
     private javax.swing.JComboBox cbEstadoVeiculo;
     private javax.swing.JComboBox comboBairro;
@@ -2691,6 +2655,7 @@ public class Cadastro extends javax.swing.JDialog {
     private javax.swing.JComboBox comboSituacaofinanceiro;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -2780,8 +2745,6 @@ public class Cadastro extends javax.swing.JDialog {
     private javax.swing.JTextField tfNomeArquivo2;
     private javax.swing.JTextField tfNomeArquivo3;
     private javax.swing.JTextField tfNomeArquivo4;
-    private javax.swing.JTextField tfNomeArquivo5;
-    private javax.swing.JTextField tfNomeArquivo6;
     private javax.swing.JTextField tfNomeAssessoria;
     private javax.swing.JTextField tfNumero;
     private javax.swing.JTextField tfPlaca;
