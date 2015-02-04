@@ -87,7 +87,6 @@ public class ListarProcessos extends javax.swing.JDialog {
         rbArquivados = new javax.swing.JRadioButton();
         btEditar = new javax.swing.JButton();
         btArquivar = new javax.swing.JButton();
-        btPdf = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -186,13 +185,6 @@ public class ListarProcessos extends javax.swing.JDialog {
             }
         });
 
-        btPdf.setText("GERAR PDF");
-        btPdf.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btPdfActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -209,9 +201,7 @@ public class ListarProcessos extends javax.swing.JDialog {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btEditar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btArquivar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btPdf, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(btArquivar))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 546, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 12, Short.MAX_VALUE)))
                 .addContainerGap())
@@ -228,8 +218,7 @@ public class ListarProcessos extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btEditar)
-                    .addComponent(btArquivar)
-                    .addComponent(btPdf))
+                    .addComponent(btArquivar))
                 .addGap(5, 5, 5))
         );
 
@@ -294,55 +283,6 @@ public class ListarProcessos extends javax.swing.JDialog {
       
     }//GEN-LAST:event_btArquivarActionPerformed
 
-    private void btPdfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPdfActionPerformed
-       
-            String idProcesso;
-            
-           /* Processo pro = new Processo();
-            Cliente cli = new Cliente();
-            Veiculo veic = new Veiculo();
-            */
-            Relatorio relatorio = new Relatorio();
-            
-            idProcesso = tbListarProcessos.getValueAt(tbListarProcessos.getSelectedRow(),0).toString();
-            ///DaoProcesso processo = new DaoProcesso();
-            //DaoCliente cliente = new DaoCliente();
-            //DaoVeiculo veiculo = new DaoVeiculo();
-            
-            processo = new DaoProcesso().Consultar(idProcesso);
-            System.out.println(processo.size());
-            String idcliente = String.valueOf(processo.get(0).getIdCliente());
-            cliente = new DaoCliente().Consultar(idcliente);
-            String idCidade, idBairro;
-            
-            idCidade = cliente.get(0).getCidade();
-            idBairro = cliente.get(0).getBairro();
-            
-            System.out.println("Id Cidade: "+idCidade+"\n Id Bairro: "+idBairro);
-            cidade = new DaoCidade().consultar(idCidade);
-            bairro = new DaoBairro().consultar2(idCidade);
-            veiculo = new DaoVeiculo().Consultar(idProcesso);
-            
-        
-        try {
-            /* veiculo.Consultar(pro.getIdProcesso());
-            System.out.println("Consulatar veiculo");
-            veic.setMarca(veiculo.rs.getString("marca"));
-            veic.setPlaca(veiculo.rs.getString("placa"));
-            veic.setModelo(veiculo.rs.getString("modelo"));
-            veic.setEstado(veiculo.rs.getString("estado"));
-            */
-            
-         
-           // relatorio.gerar(cliente, processo, veiculo, cidade, bairro);
-            System.out.println("Passou");
-        } catch (Exception ex) {
-            Logger.getLogger(ListarProcessos.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-            
-    }//GEN-LAST:event_btPdfActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -352,7 +292,6 @@ public class ListarProcessos extends javax.swing.JDialog {
     private javax.swing.JButton btArquivar;
     private javax.swing.JButton btEditar;
     private javax.swing.JButton btNovo;
-    private javax.swing.JButton btPdf;
     private javax.swing.ButtonGroup grupoRadio;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;

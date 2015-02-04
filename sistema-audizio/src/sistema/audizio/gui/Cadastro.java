@@ -292,6 +292,8 @@ public class Cadastro extends javax.swing.JDialog {
 
    
     public void btnovo(){
+        //limpaTela();
+        
         estadoBotao = false;
         AtivarCliente(true);
         ativarCampoProcesso(true);
@@ -318,7 +320,7 @@ public class Cadastro extends javax.swing.JDialog {
         ativaCampoVeiculo(false);
         btSalvar.setEnabled(false);
         btCancelar.setEnabled(false);
-        
+        btAlterar.setEnabled(false);
         btNovo.setEnabled(true);
         //btAlterar.setEnabled(true);
         //btExcluir.setEnabled(true);
@@ -509,23 +511,45 @@ public class Cadastro extends javax.swing.JDialog {
     }
     
     public void limpaTela(){
-            Object[] listaObjetos = {
-                tfNome,tfCpf,tfCep,tfEndereco,tfNumero,tfEstado,tfCelular,
-                tfNomeAssessoria,tfEnderecoAssessoria,
-                tfValor,tfValorDespesa,tfDataVencimento,tfDesconto,
-                tfProcesso,tfDataInicio,tfDataFim,tfAcao,tfsituacaoatual,tfVara,tfComarca,
-                tfMarca,tfModelo,tfCor,tfPlaca,tfAnoModelo,tfAnoFabricacao,tfRenavam,tfChassi
-            };
-          
-            for (int i = 0; i <= listaObjetos.length; i++) {
-                JTextField nTF = (JTextField)listaObjetos[i];
-                JFormattedTextField nfTF = (JFormattedTextField)listaObjetos[i];
-                nTF.setText(null);
-                nTF.setEditable(false);
-                
-                nfTF.setText(null);
-                nfTF.setEditable(false);
-            }
+            tfAcao.setText(null);
+            tfAdvogadoAssessoria.setText(null);
+            tfAnoFabricacao.setText(null);
+            tfAnoModelo.setText(null);
+            tfCelular.setText(null);
+            tfCep.setText(null);
+            tfChassi.setText(null);
+            tfComarca.setText(null);
+            tfCor.setText(null);
+            tfCpf.setText(null);
+            tfDataFim.setText(null);
+            tfDataInicio.setText(null);
+            tfDataNasci.setText(null);
+            tfDataVencimento.setText(null);
+            tfDescDespesa.setText(null);
+            tfDesconto.setText(null);
+            tfEmail.setText(null);
+            tfEndereco.setText(null);
+            tfEnderecoAssessoria.setText(null);
+            tfEstado.setText(null);
+            tfEstadoCivil.setText(null);
+            tfMarca.setText(null);
+            tfModelo.setText(null);
+            tfNacionalidade.setText(null);
+            tfNome.setText(null);
+            tfNomeAssessoria.setText(null);
+            tfNumero.setText(null);
+            tfPlaca.setText(null);
+            tfProcesso.setText(null);
+            tfProfissao.setText(null);
+            tfRenavam.setText(null);
+            tfTelefone.setText(null);
+            tfTelefoneAssessoria.setText(null);
+            tfTotal.setText(null);
+            tfValor.setText(null);
+            tfValorDespesa.setText(null);
+            tfVara.setText(null);
+            tfWhats.setText(null);
+            tfsituacaoatual.setText(null);
           
     }
     public void btAlterar(){
@@ -537,7 +561,7 @@ public class Cadastro extends javax.swing.JDialog {
         ativaCampoVeiculo(true);
         btSalvar.setEnabled(true);
         btCancelar.setEnabled(true);
-        
+        btAlterar.setEnabled(false);
         btNovo.setEnabled(false);
         btExcluir.setEnabled(false);
         
@@ -808,15 +832,9 @@ public class Cadastro extends javax.swing.JDialog {
         jLabel39 = new javax.swing.JLabel();
         cbEstadoVeiculo = new javax.swing.JComboBox();
         painelOrdenar = new javax.swing.JPanel();
-        jPanel8 = new javax.swing.JPanel();
-        jLabel28 = new javax.swing.JLabel();
-        comboFiltro = new javax.swing.JComboBox();
-        btImprimir = new javax.swing.JButton();
-        jLabel29 = new javax.swing.JLabel();
-        tfPesquisa = new javax.swing.JTextField();
-        btPequisar = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tbListarProcesso = new javax.swing.JTable();
+        btImprimir = new javax.swing.JButton();
 
         jToggleButton1.setText("jToggleButton1");
 
@@ -857,7 +875,7 @@ public class Cadastro extends javax.swing.JDialog {
         });
 
         btExcluir.setFont(new java.awt.Font("Ubuntu", 1, 14)); // NOI18N
-        btExcluir.setForeground(new java.awt.Color(255, 106, 0));
+        btExcluir.setForeground(new java.awt.Color(5, 2, 1));
         btExcluir.setText("Excluir (F4)");
         btExcluir.setEnabled(false);
         btExcluir.addActionListener(new java.awt.event.ActionListener() {
@@ -867,7 +885,7 @@ public class Cadastro extends javax.swing.JDialog {
         });
 
         btCancelar.setFont(new java.awt.Font("Ubuntu", 1, 14)); // NOI18N
-        btCancelar.setForeground(new java.awt.Color(254, 13, 13));
+        btCancelar.setForeground(new java.awt.Color(5, 0, 0));
         btCancelar.setText("Cancelar (F5)");
         btCancelar.setEnabled(false);
         btCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -877,7 +895,7 @@ public class Cadastro extends javax.swing.JDialog {
         });
 
         btSalvar.setFont(new java.awt.Font("Ubuntu", 1, 14)); // NOI18N
-        btSalvar.setForeground(new java.awt.Color(12, 122, 13));
+        btSalvar.setForeground(new java.awt.Color(3, 5, 3));
         btSalvar.setText("Salvar (F3)");
         btSalvar.setEnabled(false);
         btSalvar.addActionListener(new java.awt.event.ActionListener() {
@@ -1888,76 +1906,6 @@ public class Cadastro extends javax.swing.JDialog {
 
         PainelAbas.addTab("VEÍCULO", painelConsultar);
 
-        jPanel8.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        jLabel28.setText("FILTRAR POR:");
-
-        comboFiltro.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "ID", "CLIENTE", "PROCESSO" }));
-        comboFiltro.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboFiltroActionPerformed(evt);
-            }
-        });
-
-        btImprimir.setText("RELATÓRIO");
-        btImprimir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btImprimirActionPerformed(evt);
-            }
-        });
-
-        jLabel29.setText("PESQUISAR");
-
-        tfPesquisa.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                tfPesquisaKeyReleased(evt);
-            }
-        });
-
-        btPequisar.setText("Pesquisar");
-        btPequisar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btPequisarActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
-        jPanel8.setLayout(jPanel8Layout);
-        jPanel8Layout.setHorizontalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel8Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel28)
-                    .addComponent(jLabel29))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel8Layout.createSequentialGroup()
-                        .addComponent(comboFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 150, Short.MAX_VALUE))
-                    .addComponent(tfPesquisa))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btImprimir, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)
-                    .addComponent(btPequisar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(22, 22, 22))
-        );
-        jPanel8Layout.setVerticalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel8Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel28)
-                    .addComponent(comboFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btImprimir))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel29)
-                    .addComponent(tfPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btPequisar))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
         tbListarProcesso.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -2001,23 +1949,33 @@ public class Cadastro extends javax.swing.JDialog {
             tbListarProcesso.getColumnModel().getColumn(5).setMaxWidth(-20);
         }
 
+        btImprimir.setText("GERAR RELATÓRIO");
+        btImprimir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btImprimirActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout painelOrdenarLayout = new javax.swing.GroupLayout(painelOrdenar);
         painelOrdenar.setLayout(painelOrdenarLayout);
         painelOrdenarLayout.setHorizontalGroup(
             painelOrdenarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(painelOrdenarLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 572, Short.MAX_VALUE)
+                .addGroup(painelOrdenarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 572, Short.MAX_VALUE)
+                    .addGroup(painelOrdenarLayout.createSequentialGroup()
+                        .addComponent(btImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         painelOrdenarLayout.setVerticalGroup(
             painelOrdenarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelOrdenarLayout.createSequentialGroup()
-                .addGap(6, 6, 6)
-                .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap()
+                .addComponent(btImprimir)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 266, Short.MAX_VALUE))
         );
 
         PainelAbas.addTab("ORDENAR", painelOrdenar);
@@ -2049,10 +2007,12 @@ public class Cadastro extends javax.swing.JDialog {
     private void btNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoActionPerformed
         
         btnovo();
+        
     }//GEN-LAST:event_btNovoActionPerformed
 
     private void btCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelarActionPerformed
-           btcancelar();
+        limpaTela();
+        btcancelar();
     }//GEN-LAST:event_btCancelarActionPerformed
 
     private void formKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyReleased
@@ -2125,10 +2085,15 @@ public class Cadastro extends javax.swing.JDialog {
 
     private void tbListarProcessoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbListarProcessoMouseClicked
         if (evt.getClickCount() > 1) {
-            //btcancelar();
-
+            AtivarCliente(false);
+            ativaCampoVeiculo(false);
+            ativarCampoAssessoria(false);
+            ativarCampoFinanceiro(false);
+            ativarCampoProcesso(false);
+            
             btExcluir.setEnabled(true);
             btAlterar.setEnabled(true);
+            btSalvar.setEnabled(false);
 
             try {
 
@@ -2158,55 +2123,44 @@ public class Cadastro extends javax.swing.JDialog {
 
     }//GEN-LAST:event_tbListarProcessoMouseReleased
 
-    private void btPequisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPequisarActionPerformed
-
-    }//GEN-LAST:event_btPequisarActionPerformed
-
-    private void tfPesquisaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfPesquisaKeyReleased
-
-    }//GEN-LAST:event_tfPesquisaKeyReleased
-
     private void btImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btImprimirActionPerformed
-
-        System.out.println("Clicou no imprimir");
-        
-        DaoCliente daoc = new DaoCliente();
-        DaoCidade daocid = new DaoCidade();
-        Relatorio relatorio = new Relatorio();
-        System.out.println("Listar valor 1 -> "+tbListarProcesso.getValueAt(0,0));
-        String id = String.valueOf(tbListarProcesso.getValueAt(0,0));
-        System.out.println("Listar valor 2 -> "+tbListarProcesso.getValueAt(0,3));
-        String codCliente = String.valueOf(tbListarProcesso.getValueAt(0,3));
-        System.out.println("Listar valor 3 -> "+tbListarProcesso.getValueAt(0,4));
-        String codAdvogado = String.valueOf(tbListarProcesso.getValueAt(0,4));
-        System.out.println("Listar valor 4 -> "+tbListarProcesso.getValueAt(0,5));
-        String codAssesoria = String.valueOf(tbListarProcesso.getValueAt(0,5));
-        
-        ArrayList<Cliente> cli = daoc.Consultar(codCliente);
-        
-        ArrayList<Processo> procesos = new DaoProcesso().Consultar(id);
-        System.out.println("ID processo -> "+ procesos.get(0).getProcesso());
-        ArrayList<Veiculo> veiculo = new DaoVeiculo().Consultar(id);
-        ArrayList<Cidade> cidades = daocid.consultar(cli.get(0).getCidade());
-         DaoBairro daoBairro = new DaoBairro();
-        ArrayList<Bairro> bairros = daoBairro.consultar(cli.get(0).getBairro());
-        System.out.println("Cidade -->"+ cli.get(0).getCidade() +" Bairro -> "+cli.get(0).getCidade());
-        
         try {
-            
-            relatorio.gerar(cli.get(0), procesos.get(0), veiculo.get(0), cidades.get(0),bairros.get(0));
-            
-        } catch (DocumentException | FileNotFoundException ex) {
-            
-            Logger.getLogger(Cadastro.class.getName()).log(Level.SEVERE, null, ex);
-            
+                System.out.println("Clicou no imprimir");
+        
+                DaoCliente daoc = new DaoCliente();
+                DaoCidade daocid = new DaoCidade();
+                Relatorio relatorio = new Relatorio();
+                System.out.println("Listar valor 1 -> "+tbListarProcesso.getValueAt(0,0));
+                String id = String.valueOf(tbListarProcesso.getValueAt(0,0));
+                System.out.println("Listar valor 2 -> "+tbListarProcesso.getValueAt(0,3));
+                String codCliente = String.valueOf(tbListarProcesso.getValueAt(0,3));
+                System.out.println("Listar valor 3 -> "+tbListarProcesso.getValueAt(0,4));
+                String codAdvogado = String.valueOf(tbListarProcesso.getValueAt(0,4));
+                System.out.println("Listar valor 4 -> "+tbListarProcesso.getValueAt(0,5));
+                String codAssesoria = String.valueOf(tbListarProcesso.getValueAt(0,5));
+        
+                ArrayList<Cliente> cli = daoc.Consultar(codCliente);
+
+                ArrayList<Processo> procesos = new DaoProcesso().Consultar(id);
+                System.out.println("ID processo -> "+ procesos.get(0).getProcesso());
+                ArrayList<Veiculo> veiculo = new DaoVeiculo().Consultar(id);
+                ArrayList<Cidade> cidades = daocid.consultar(cli.get(0).getCidade());
+                 DaoBairro daoBairro = new DaoBairro();
+                ArrayList<Bairro> bairros = daoBairro.consultar(cli.get(0).getBairro());
+                System.out.println("Cidade -->"+ cli.get(0).getCidade() +" Bairro -> "+cli.get(0).getCidade());
+        
+                try {
+                       relatorio.gerar(cli.get(0), procesos.get(0), veiculo.get(0), cidades.get(0),bairros.get(0));
+                } catch (DocumentException | FileNotFoundException ex) {
+                    Logger.getLogger(Cadastro.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "SELECIONE UM PROCESSO/CLIENTE PARA GERAR O RELATÓRIO!");
         }
+        
 
     }//GEN-LAST:event_btImprimirActionPerformed
-
-    private void comboFiltroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboFiltroActionPerformed
-
-    }//GEN-LAST:event_comboFiltroActionPerformed
 
     private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
         // TODO add your handling code here:
@@ -2494,7 +2448,6 @@ public class Cadastro extends javax.swing.JDialog {
     private javax.swing.JButton btNovo;
     private javax.swing.JButton btNovoBairro;
     private javax.swing.JButton btNovoBairroAssessoria;
-    private javax.swing.JButton btPequisar;
     private javax.swing.JButton btSalvar;
     private javax.swing.JCheckBox cWhats;
     private javax.swing.JComboBox cbEstadoVeiculo;
@@ -2502,7 +2455,6 @@ public class Cadastro extends javax.swing.JDialog {
     private javax.swing.JComboBox comboBairroAssessoria;
     private javax.swing.JComboBox comboCidade;
     private javax.swing.JComboBox comboCidadeAssessoria;
-    private javax.swing.JComboBox comboFiltro;
     private javax.swing.JComboBox comboSituacaoProcesso;
     private javax.swing.JComboBox comboSituacaofinanceiro;
     private javax.swing.JButton jButton1;
@@ -2526,8 +2478,6 @@ public class Cadastro extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
-    private javax.swing.JLabel jLabel28;
-    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
@@ -2547,7 +2497,6 @@ public class Cadastro extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JToggleButton jToggleButton1;
@@ -2594,7 +2543,6 @@ public class Cadastro extends javax.swing.JDialog {
     private javax.swing.JTextField tfNome;
     private javax.swing.JTextField tfNomeAssessoria;
     private javax.swing.JTextField tfNumero;
-    private javax.swing.JTextField tfPesquisa;
     private javax.swing.JTextField tfPlaca;
     private javax.swing.JTextField tfProcesso;
     private javax.swing.JTextField tfProfissao;

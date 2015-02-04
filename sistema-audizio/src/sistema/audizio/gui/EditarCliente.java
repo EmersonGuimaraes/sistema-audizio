@@ -84,7 +84,7 @@ public class EditarCliente extends javax.swing.JDialog {
         tfEstado.setEditable(tipo);
         tfEstadoCivil.setEditable(tipo);
         tfNacionalidade.setEditable(tipo);
-        tfNome.setEditable(tipo);
+        tfNome.setEditable(false);
         tfNumero.setEditable(tipo);
         tfProfissao.setEditable(tipo);
         tfTelefone.setEditable(tipo);
