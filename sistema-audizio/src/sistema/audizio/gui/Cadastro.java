@@ -9,8 +9,11 @@ import com.itextpdf.text.DocumentException;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.channels.FileChannel;
 import java.nio.file.Path;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -109,7 +112,26 @@ public class Cadastro extends javax.swing.JDialog {
                 }
           
     }
-    
+        public static void copiaArquivo(File source, File destination) throws IOException {
+                if (destination.exists())
+                    destination.delete();
+
+                FileChannel sourceChannel = null;
+                FileChannel destinationChannel = null;
+
+                try {
+                    sourceChannel = new FileInputStream(source).getChannel();
+                    destinationChannel = new FileOutputStream(destination).getChannel();
+                    sourceChannel.transferTo(0, sourceChannel.size(),
+                            destinationChannel);
+                } finally {
+                    if (sourceChannel != null && sourceChannel.isOpen())
+                        sourceChannel.close();
+                    if (destinationChannel != null && destinationChannel.isOpen())
+                        destinationChannel.close();
+               }
+   }
+
     
     private void carregaCidadesCliente(){
         ArrayList<Cidade> cidades = new ArrayList<>();
