@@ -1198,7 +1198,7 @@ public class Cadastro extends javax.swing.JDialog {
                         .addGroup(painelClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel7)
                             .addComponent(tfProfissao, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(painelClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(tfEstadoCivil, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel8)))
@@ -1571,10 +1571,11 @@ public class Cadastro extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tfNomeAssessoria, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(painelAssessoriaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbBairro1, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel22)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(painelAssessoriaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(painelAssessoriaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lbBairro1, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel22)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painelAssessoriaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(comboBairroAssessoria, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -2167,29 +2168,38 @@ public class Cadastro extends javax.swing.JDialog {
 
     private void btImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btImprimirActionPerformed
 
-        DaoCliente dao = new DaoCliente();
+        System.out.println("Clicou no imprimir");
+        
+        DaoCliente daoc = new DaoCliente();
         DaoCidade daocid = new DaoCidade();
         Relatorio relatorio = new Relatorio();
+        System.out.println("Listar valor 1 -> "+tbListarProcesso.getValueAt(0,0));
         String id = String.valueOf(tbListarProcesso.getValueAt(0,0));
+        System.out.println("Listar valor 2 -> "+tbListarProcesso.getValueAt(0,3));
         String codCliente = String.valueOf(tbListarProcesso.getValueAt(0,3));
+        System.out.println("Listar valor 3 -> "+tbListarProcesso.getValueAt(0,4));
         String codAdvogado = String.valueOf(tbListarProcesso.getValueAt(0,4));
+        System.out.println("Listar valor 4 -> "+tbListarProcesso.getValueAt(0,5));
         String codAssesoria = String.valueOf(tbListarProcesso.getValueAt(0,5));
-
-        ArrayList<Cliente> cli = dao.Consultar(codCliente);
+        
+        ArrayList<Cliente> cli = daoc.Consultar(codCliente);
+        
         ArrayList<Processo> procesos = new DaoProcesso().Consultar(id);
+        System.out.println("ID processo -> "+ procesos.get(0).getProcesso());
         ArrayList<Veiculo> veiculo = new DaoVeiculo().Consultar(id);
-        ArrayList<Cidade> cidades = daocid.consultar(codCliente);
-        DaoBairro daoBairro = new DaoBairro();
+        ArrayList<Cidade> cidades = daocid.consultar(cli.get(0).getCidade());
+         DaoBairro daoBairro = new DaoBairro();
         ArrayList<Bairro> bairros = daoBairro.consultar(cli.get(0).getBairro());
-
+        System.out.println("Cidade -->"+ cli.get(0).getCidade() +" Bairro -> "+cli.get(0).getCidade());
+        
         try {
-
-            relatorio.gerar(cli.get(0), processos.get(0), veiculo.get(0), cidades.get(0),bairros.get(0));
-
+            
+            relatorio.gerar(cli.get(0), procesos.get(0), veiculo.get(0), cidades.get(0),bairros.get(0));
+            
         } catch (DocumentException | FileNotFoundException ex) {
-
+            
             Logger.getLogger(Cadastro.class.getName()).log(Level.SEVERE, null, ex);
-
+            
         }
 
     }//GEN-LAST:event_btImprimirActionPerformed
