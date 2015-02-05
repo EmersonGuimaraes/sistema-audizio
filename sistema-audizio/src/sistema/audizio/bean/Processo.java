@@ -28,6 +28,7 @@ public class Processo {
     String situacao_atual;
     String comarca;
     String vara;
+    String local_arquivo;
     int id_assessoria;
    
     
@@ -169,6 +170,14 @@ public class Processo {
 
     public void setIdAssessoria(int assessoria) {
         this.id_assessoria = assessoria;
+    }
+
+    public String getLocal_arquivo() {
+        return local_arquivo;
+    }
+
+    public void setLocal_arquivo(String local_arquivo) {
+        this.local_arquivo = local_arquivo;
     }
     
     

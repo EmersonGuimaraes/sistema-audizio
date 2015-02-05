@@ -53,11 +53,13 @@ import sistema.audizio.relatorio.Relatorio;
  *
  * @author zipnet
  */
+
 public class Cadastro extends javax.swing.JDialog {
     private DefaultTableModel modeloTabela;
     RemoveMascara rm = new RemoveMascara();
     String idCliente = null, idProcesso = null, idAdvogado = null, idAssessoria=null;
     String codigoCliente, codigoAdvogado, codigoAssessoria;
+    
     boolean boxCliente = false, boxAdvogado = false, boxAssessoria = false;
     /**
      * Creates new form Cadastro
@@ -88,26 +90,28 @@ public class Cadastro extends javax.swing.JDialog {
             btnovo();
         }
     }
-    
+     String local = null;
+     JFileChooser fc = new JFileChooser();
+     
+     String nomePasta = "processo_001";
+     String pasta = "/home/zipnet/Documentos/"+nomePasta+"/";
+     File novoDiretorio = new File(pasta);
+     File arquivoOrigem, arquivoDestino;
+     
     public void SelecionarArquivo(){
          
-          
-                
                 //SELECIONA IMAGEM
-                String local = null;
-                JFileChooser fc = new JFileChooser();
                 int option = fc.showOpenDialog(jPanel1);
                 if (option == JFileChooser.APPROVE_OPTION) {
-                    try {
-                        File arquivo = fc.getSelectedFile();
-                        local = arquivo.getCanonicalPath();
-                        System.out.println("Arquivo selecionado: " + local);
-                        tfNomeArquivo.setText(local);
-                    } catch (IOException ex) {
-                        Logger.getLogger(Cadastro.class.getName()).log(Level.SEVERE, null, ex);
-                    }  
                     
-                } else {
+                    arquivoOrigem = new File(fc.getSelectedFile().toString());
+                    arquivoDestino = new File(pasta+arquivoOrigem.getName());
+                    System.out.println("arquivo: "+arquivoOrigem);
+                    //Define o local do arquivo.
+                    local = pasta;
+                    System.out.println("Arquivo selecionado: " + local);
+                    tfNomeArquivo.setText(local);  
+                 } else {
                     System.out.println("Nenhum arquivo selecionado!");
                 }
           
@@ -442,6 +446,8 @@ public class Cadastro extends javax.swing.JDialog {
                                                 }catch(NumberFormatException e){
                                                     System.err.println(e.getMessage());
                                                 }
+                                
+                                                
                                                 
                                                     Assessoria assessoria = new Assessoria();
                                                     DaoAssessoria daoass = new DaoAssessoria();
@@ -521,6 +527,12 @@ public class Cadastro extends javax.swing.JDialog {
 
                                                          if(boxCliente == false){daocli.Cadastrar(cli);}
                                                          daoprocesso.Cadastrar(processo);
+                                                         //COPIA O ARQUIVO 
+                                                         try {
+                                                            copiaArquivo(arquivoOrigem, arquivoDestino);
+                                                        } catch (IOException ex) {
+                                                            Logger.getLogger(Cadastro.class.getName()).log(Level.SEVERE, null, ex);
+                                                        }
                                                          if(boxAssessoria == false){daoassessoria.cadastrar(assessoria);}
                                                          daofinanceiro.cadastrar(financeiro);
                                                          daoVeiculo.Cadastrar(v);

@@ -26,7 +26,7 @@ public class DaoProcesso extends Conexao{
         System.out.println("Processo: "+processo.getProcesso());
         sql="INSERT INTO tb_processo VALUES(null,'"+processo.getProcesso()+"','"+processo.getData_inicio()+"','"+processo.getData_termino()+"',"
                 + "'"+processo.getIdCliente()+"','"+processo.getIdAdvogado()+"','"+processo.getAcao()+"','"+processo.getSituacao()+"',"
-                + "'"+processo.getSituacao_atual()+"','"+processo.getVara()+"','"+processo.getComarca()+"','"+processo.getIdAssessoria()+"','"+processo.getCliente()+"')";
+                + "'"+processo.getSituacao_atual()+"','"+processo.getVara()+"','"+processo.getComarca()+"','"+processo.getIdAssessoria()+"','"+processo.getCliente()+"','"+processo.getLocal_arquivo()+"')";
         ConsultarSQL(sql, false);
     }
     public void Editar(Processo processo){
