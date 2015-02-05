@@ -96,21 +96,29 @@ public class Cadastro extends javax.swing.JDialog {
      String nomePasta = "processo_001";
      String pasta = "/home/zipnet/Documentos/"+nomePasta+"/";
      File novoDiretorio = new File(pasta);
-     File arquivoOrigem, arquivoDestino;
      
-    public void SelecionarArquivo(){
+     File [] arquivoOrigem = new File[5];
+     File [] arquivoDestino = new File[5];
+     
+    public void SelecionarArquivo(int posicao){
          
                 //SELECIONA IMAGEM
                 int option = fc.showOpenDialog(jPanel1);
                 if (option == JFileChooser.APPROVE_OPTION) {
                     
-                    arquivoOrigem = new File(fc.getSelectedFile().toString());
-                    arquivoDestino = new File(pasta+arquivoOrigem.getName());
-                    System.out.println("arquivo: "+arquivoOrigem);
-                    //Define o local do arquivo.
-                    local = pasta;
-                    System.out.println("Arquivo selecionado: " + local);
-                    tfNomeArquivo.setText(local);  
+                    try {
+                        arquivoOrigem[posicao] = new File(fc.getSelectedFile().toString());
+                        arquivoDestino[posicao] = new File(pasta+arquivoOrigem[posicao].getName());
+                        
+                        System.out.println("arquivo: "+arquivoOrigem[0]);
+                        //Define o local do arquivo.
+                        local = arquivoOrigem[posicao].getCanonicalPath();
+                        System.out.println("Arquivo selecionado: " + local);
+                    } catch (IOException ex) {
+                        Logger.getLogger(Cadastro.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    
+                    
                  } else {
                     System.out.println("Nenhum arquivo selecionado!");
                 }
@@ -529,7 +537,13 @@ public class Cadastro extends javax.swing.JDialog {
                                                          daoprocesso.Cadastrar(processo);
                                                          //COPIA O ARQUIVO 
                                                          try {
-                                                            copiaArquivo(arquivoOrigem, arquivoDestino);
+                                                             
+                                                            copiaArquivo(arquivoOrigem[0], arquivoDestino[0]);
+                                                            copiaArquivo(arquivoOrigem[1], arquivoDestino[1]);
+                                                            copiaArquivo(arquivoOrigem[2], arquivoDestino[2]);
+                                                            copiaArquivo(arquivoOrigem[3], arquivoDestino[3]);
+                                                            copiaArquivo(arquivoOrigem[4], arquivoDestino[4]);
+                                                            
                                                         } catch (IOException ex) {
                                                             Logger.getLogger(Cadastro.class.getName()).log(Level.SEVERE, null, ex);
                                                         }
@@ -2582,23 +2596,28 @@ public class Cadastro extends javax.swing.JDialog {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void btSelecionarArquivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSelecionarArquivoActionPerformed
-        SelecionarArquivo();
+        SelecionarArquivo(0);
+        tfNomeArquivo.setText(local);
     }//GEN-LAST:event_btSelecionarArquivoActionPerformed
 
     private void btSelecionarArquivo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSelecionarArquivo1ActionPerformed
-        // TODO add your handling code here:
+        SelecionarArquivo(1);
+        tfNomeArquivo1.setText(local);
     }//GEN-LAST:event_btSelecionarArquivo1ActionPerformed
 
     private void btSelecionarArquivo2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSelecionarArquivo2ActionPerformed
-        // TODO add your handling code here:
+        SelecionarArquivo(2);
+        tfNomeArquivo2.setText(local);
     }//GEN-LAST:event_btSelecionarArquivo2ActionPerformed
 
     private void btSelecionarArquivo3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSelecionarArquivo3ActionPerformed
-        // TODO add your handling code here:
+        SelecionarArquivo(3);
+        tfNomeArquivo3.setText(local);
     }//GEN-LAST:event_btSelecionarArquivo3ActionPerformed
 
     private void btSelecionarArquivo4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSelecionarArquivo4ActionPerformed
-        // TODO add your handling code here:
+        SelecionarArquivo(4);
+        tfNomeArquivo4.setText(local);
     }//GEN-LAST:event_btSelecionarArquivo4ActionPerformed
      
     /**
