@@ -93,9 +93,9 @@ public class Cadastro extends javax.swing.JDialog {
      String local = null;
      JFileChooser fc = new JFileChooser();
      
-     String nomePasta = "processo_001";
-     String pasta = "/home/zipnet/Documentos/"+nomePasta+"/";
-     File novoDiretorio = new File(pasta);
+     String nomePasta = null;
+     String pasta = null;
+     File novoDiretorio;
      
      File [] arquivoOrigem = new File[5];
      File [] arquivoDestino = new File[5];
@@ -105,7 +105,13 @@ public class Cadastro extends javax.swing.JDialog {
                 //SELECIONA IMAGEM
                 int option = fc.showOpenDialog(jPanel1);
                 if (option == JFileChooser.APPROVE_OPTION) {
-                    
+                        nomePasta = "anexo_processo_"+tfProcesso.getText();
+                        pasta = "/home/zipnet/Documentos/"+nomePasta+"/";
+                        novoDiretorio = new File(pasta);
+                        
+                        if(!novoDiretorio.isDirectory()){
+                            novoDiretorio.mkdir();
+                        }
                     try {
                         arquivoOrigem[posicao] = new File(fc.getSelectedFile().toString());
                         arquivoDestino[posicao] = new File(pasta+arquivoOrigem[posicao].getName());
@@ -534,10 +540,11 @@ public class Cadastro extends javax.swing.JDialog {
                                                     try {
 
                                                          if(boxCliente == false){daocli.Cadastrar(cli);}
+                                                         processo.setLocal_arquivo(pasta);
                                                          daoprocesso.Cadastrar(processo);
                                                          //COPIA O ARQUIVO 
                                                          try {
-                                                             
+                                                            
                                                             copiaArquivo(arquivoOrigem[0], arquivoDestino[0]);
                                                             copiaArquivo(arquivoOrigem[1], arquivoDestino[1]);
                                                             copiaArquivo(arquivoOrigem[2], arquivoDestino[2]);
