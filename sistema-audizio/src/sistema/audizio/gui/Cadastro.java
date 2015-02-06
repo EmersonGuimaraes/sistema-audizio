@@ -59,7 +59,7 @@ public class Cadastro extends javax.swing.JDialog {
     RemoveMascara rm = new RemoveMascara();
     String idCliente = null, idProcesso = null, idAdvogado = null, idAssessoria=null;
     String codigoCliente, codigoAdvogado, codigoAssessoria;
-    String localAnexos;
+    
     boolean boxCliente = false, boxAdvogado = false, boxAssessoria = false;
     /**
      * Creates new form Cadastro
@@ -89,12 +89,19 @@ public class Cadastro extends javax.swing.JDialog {
         if(novo == true){
             btnovo();
         }
+        
+        tfNomeArquivo.setEditable(false);
+        tfNomeArquivo1.setEditable(false);
+        tfNomeArquivo2.setEditable(false);
+        tfNomeArquivo3.setEditable(false);
+        tfNomeArquivo4.setEditable(false);
     }
      String local = null;
      JFileChooser fc = new JFileChooser();
      
      String nomePasta = null;
      String pasta = null;
+     String arquivo = null;
      File novoDiretorio;
      
      File [] arquivoOrigem = new File[5];
@@ -106,15 +113,17 @@ public class Cadastro extends javax.swing.JDialog {
                 int option = fc.showOpenDialog(jPanel1);
                 if (option == JFileChooser.APPROVE_OPTION) {
                         nomePasta = "anexo_processo_"+tfProcesso.getText();
-                        pasta = "c:/sistema/audisio/anexos/"+nomePasta+"/";
-                        novoDiretorio = new File(pasta);
+                        pasta = System.getProperty("user.home");
+                        arquivo = "\\sistema\\audisio\\anexos\\"+nomePasta+"\\";
+                        
+                        novoDiretorio = new File(pasta+arquivo);
                         
                         if(!novoDiretorio.isDirectory()){
                             novoDiretorio.mkdir();
                         }
                     try {
                         arquivoOrigem[posicao] = new File(fc.getSelectedFile().toString());
-                        arquivoDestino[posicao] = new File(pasta+arquivoOrigem[posicao].getName());
+                        arquivoDestino[posicao] = new File(pasta+arquivo+arquivo+arquivoOrigem[posicao].getName());
                         
                         System.out.println("arquivo: "+arquivoOrigem[0]);
                         //Define o local do arquivo.
@@ -272,7 +281,8 @@ public class Cadastro extends javax.swing.JDialog {
        //tfTotal.setDocument(new NumeroDocument(7,2));
     }
     public void calcularTotal(String valor,String despesa,String desconto){
-        DecimalFormat formatador = new DecimalFormat("###,##0.00");
+        //DecimalFormat formatador = new DecimalFormat("###,##0.00");
+        DecimalFormat formatador = new DecimalFormat("#,##0.00");
         try {
            
             Locale locBrazil = new Locale("pt", "BR");  
@@ -292,7 +302,7 @@ public class Cadastro extends javax.swing.JDialog {
             
             
             String nTotal = String.valueOf(total);
-            tfTotal.setText(nTotal);
+            tfTotal.setText(formatador.format(total));
                         
 
         } catch (Exception e) {
@@ -336,7 +346,7 @@ public class Cadastro extends javax.swing.JDialog {
         tfAcao.setEditable(condicao);
         tfComarca.setEditable(condicao);
         comboSituacaoProcesso.setEnabled(condicao);
-        btVerAnexos.setEnabled(condicao);
+        
     }
     public void ativarCampoAssessoria(Boolean condicao){
         tfNomeAssessoria.setEditable(condicao);
@@ -548,7 +558,7 @@ public class Cadastro extends javax.swing.JDialog {
                                                     try {
 
                                                          if(boxCliente == false){daocli.Cadastrar(cli);}
-                                                         processo.setLocal_arquivo(pasta);
+                                                         processo.setLocal_arquivo(pasta+arquivo);
                                                          daoprocesso.Cadastrar(processo);
                                                          
                                                          if(boxAssessoria == false){daoassessoria.cadastrar(assessoria);}
@@ -556,12 +566,23 @@ public class Cadastro extends javax.swing.JDialog {
                                                          daoVeiculo.Cadastrar(v);
                                                           //COPIA O ARQUIVO 
                                                          try {
+                                                            if(tfNomeArquivo.getText() != null){
+                                                                copiaArquivo(arquivoOrigem[0], arquivoDestino[0]);
+                                                            }
+                                                            if(tfNomeArquivo1.getText() != null){
+                                                                copiaArquivo(arquivoOrigem[1], arquivoDestino[1]);
+                                                            }
+                                                            if(tfNomeArquivo2.getText() != null){
+                                                                copiaArquivo(arquivoOrigem[2], arquivoDestino[2]);
+                                                            }
+                                                            if(tfNomeArquivo3.getText() != null){
+                                                                copiaArquivo(arquivoOrigem[3], arquivoDestino[3]);
+                                                            }
+                                                            if(tfNomeArquivo4.getText() != null){
+                                                                copiaArquivo(arquivoOrigem[4], arquivoDestino[4]);
+                                                            }
                                                             
-                                                            copiaArquivo(arquivoOrigem[0], arquivoDestino[0]);
-                                                            copiaArquivo(arquivoOrigem[1], arquivoDestino[1]);
-                                                            copiaArquivo(arquivoOrigem[2], arquivoDestino[2]);
-                                                            copiaArquivo(arquivoOrigem[3], arquivoDestino[3]);
-                                                            copiaArquivo(arquivoOrigem[4], arquivoDestino[4]);
+                                                            
                                                             
                                                         } catch (IOException ex) {
                                                             Logger.getLogger(Cadastro.class.getName()).log(Level.SEVERE, null, ex);
@@ -647,7 +668,12 @@ public class Cadastro extends javax.swing.JDialog {
             tfWhats.setText(null);
             tfsituacaoatual.setText(null);
             btVerAnexos.setEnabled(false);
-          
+            
+            tfNomeArquivo.setText(null);
+            tfNomeArquivo1.setText(null);
+            tfNomeArquivo2.setText(null);
+            tfNomeArquivo3.setText(null);
+            tfNomeArquivo4.setText(null);
     }
     public void btAlterar(){
         estadoBotao = true;
@@ -736,6 +762,7 @@ public class Cadastro extends javax.swing.JDialog {
     }
     
     //Carrega dados do processo
+    String local_anexo_processo = "c:/sistema/audisio/anexos";
     public void preencheProcessos(String id){
         DaoProcesso daoProcesso = new DaoProcesso();
         ArrayList<Processo> processos = new DaoProcesso().Consultar(id);
@@ -750,7 +777,7 @@ public class Cadastro extends javax.swing.JDialog {
             tfDataInicio.setText(pro.getData_inicio());
             tfDataFim.setText(pro.getData_termino());
             tfsituacaoatual.setText(pro.getSituacao_atual());
-           localAnexos = pro.getLocal_arquivo();
+            local_anexo_processo = pro.getLocal_arquivo();
             comboSituacaoProcesso.setSelectedItem(pro.getSituacao());
             
         }  
@@ -2245,6 +2272,7 @@ public class Cadastro extends javax.swing.JDialog {
     private void btCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelarActionPerformed
         limpaTela();
         btcancelar();
+        
     }//GEN-LAST:event_btCancelarActionPerformed
 
     private void formKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyReleased
@@ -2344,7 +2372,7 @@ public class Cadastro extends javax.swing.JDialog {
                 preencheFinanceiro(idProcesso);
                 preencheProcessos(idProcesso);
                 preencheClientes(idCliente);
-
+                btVerAnexos.setEnabled(true);
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "SELECIONE UM CLIENTE PARA VER OU EDITAR");
             }
@@ -2656,7 +2684,8 @@ public class Cadastro extends javax.swing.JDialog {
     }//GEN-LAST:event_btSelecionarArquivo4ActionPerformed
 
     private void btVerAnexosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btVerAnexosActionPerformed
-            abrirLocalAnexos(localAnexos);
+        System.out.println("LOCAL DO ANEXO: "+local_anexo_processo);    
+        abrirLocalAnexos(local_anexo_processo);
     }//GEN-LAST:event_btVerAnexosActionPerformed
 
     private void painelClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_painelClienteMouseClicked
