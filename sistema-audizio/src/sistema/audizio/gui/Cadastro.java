@@ -405,6 +405,7 @@ public class Cadastro extends javax.swing.JDialog {
         //btExcluir.setEnabled(true);
     }
     Validacao v = new Validacao();
+    
     public void btsalvar( Object[] clie, Object[] proc, Object[] asses, Object[] fin, Object[] vei){
          if (v.ValidatField(clie)){
              if(v.ValidatField(proc)){
@@ -549,7 +550,11 @@ public class Cadastro extends javax.swing.JDialog {
                                                          if(boxCliente == false){daocli.Cadastrar(cli);}
                                                          processo.setLocal_arquivo(pasta);
                                                          daoprocesso.Cadastrar(processo);
-                                                         //COPIA O ARQUIVO 
+                                                         
+                                                         if(boxAssessoria == false){daoassessoria.cadastrar(assessoria);}
+                                                         daofinanceiro.cadastrar(financeiro);
+                                                         daoVeiculo.Cadastrar(v);
+                                                          //COPIA O ARQUIVO 
                                                          try {
                                                             
                                                             copiaArquivo(arquivoOrigem[0], arquivoDestino[0]);
@@ -561,9 +566,6 @@ public class Cadastro extends javax.swing.JDialog {
                                                         } catch (IOException ex) {
                                                             Logger.getLogger(Cadastro.class.getName()).log(Level.SEVERE, null, ex);
                                                         }
-                                                         if(boxAssessoria == false){daoassessoria.cadastrar(assessoria);}
-                                                         daofinanceiro.cadastrar(financeiro);
-                                                         daoVeiculo.Cadastrar(v);
                                                          JOptionPane.showMessageDialog(null, "Cadastro realizado com sucesso");
 
                                                          
@@ -1399,7 +1401,6 @@ public class Cadastro extends javax.swing.JDialog {
                             .addComponent(tfNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(tfCep, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(tfEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(painelClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(painelClienteLayout.createSequentialGroup()
                         .addGroup(painelClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -1434,7 +1435,7 @@ public class Cadastro extends javax.swing.JDialog {
                     .addComponent(cWhats, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(boxUsarCliente)
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addContainerGap(44, Short.MAX_VALUE))
         );
 
         PainelAbas.addTab("CLIENTE", painelCliente);
@@ -2154,11 +2155,11 @@ public class Cadastro extends javax.swing.JDialog {
             }
         });
         tbListarProcesso.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                tbListarProcessoMouseReleased(evt);
-            }
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tbListarProcessoMouseClicked(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                tbListarProcessoMouseReleased(evt);
             }
         });
         jScrollPane2.setViewportView(tbListarProcesso);
@@ -2194,9 +2195,9 @@ public class Cadastro extends javax.swing.JDialog {
             .addGroup(painelOrdenarLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(painelOrdenarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 572, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 591, Short.MAX_VALUE)
                     .addGroup(painelOrdenarLayout.createSequentialGroup()
-                        .addComponent(btImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -2206,7 +2207,7 @@ public class Cadastro extends javax.swing.JDialog {
                 .addContainerGap()
                 .addComponent(btImprimir)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 266, Short.MAX_VALUE))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 279, Short.MAX_VALUE))
         );
 
         PainelAbas.addTab("ORDENAR", painelOrdenar);
@@ -2316,6 +2317,7 @@ public class Cadastro extends javax.swing.JDialog {
 
     private void tbListarProcessoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbListarProcessoMouseClicked
         if (evt.getClickCount() > 1) {
+            System.out.println("entrou no preencher");
             AtivarCliente(false);
             ativaCampoVeiculo(false);
             ativarCampoAssessoria(false);
