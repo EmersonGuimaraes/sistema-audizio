@@ -177,6 +177,9 @@
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
       <SubComponents>
         <Container class="javax.swing.JPanel" name="painelCliente">
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="painelClienteMouseClicked"/>
+          </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
               <JTabbedPaneConstraints tabName="CLIENTE">
@@ -357,7 +360,7 @@
                               </Group>
                           </Group>
                       </Group>
-                      <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Group type="102" alignment="1" attributes="0">
                               <Component id="lbEndereco" min="-2" max="-2" attributes="0"/>
@@ -376,7 +379,7 @@
                               </Group>
                           </Group>
                       </Group>
-                      <EmptySpace type="separate" max="32767" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Group type="102" alignment="1" attributes="0">
                               <Group type="103" groupAlignment="3" attributes="0">
@@ -421,6 +424,7 @@
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="boxUsarCliente" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace pref="33" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -959,6 +963,9 @@
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="painelAssessoria">
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="painelAssessoriaMouseClicked"/>
+          </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
               <JTabbedPaneConstraints tabName="ASSESSORIA">
@@ -1718,7 +1725,7 @@
                               <Component id="tfNomeArquivo4" min="-2" pref="320" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jButton3" min="-2" pref="110" max="-2" attributes="0"/>
+                                  <Component id="btVerAnexos" min="-2" pref="110" max="-2" attributes="0"/>
                                   <Component id="btSelecionarArquivo4" min="-2" pref="110" max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -1758,7 +1765,7 @@
                           <Component id="btSelecionarArquivo4" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace pref="36" max="32767" attributes="0"/>
-                      <Component id="jButton3" min="-2" pref="47" max="-2" attributes="0"/>
+                      <Component id="btVerAnexos" min="-2" pref="47" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -1820,11 +1827,14 @@
             </Component>
             <Component class="javax.swing.JTextField" name="tfNomeArquivo4">
             </Component>
-            <Component class="javax.swing.JButton" name="jButton3">
+            <Component class="javax.swing.JButton" name="btVerAnexos">
               <Properties>
                 <Property name="text" type="java.lang.String" value="VER ANEXOS"/>
                 <Property name="enabled" type="boolean" value="false"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btVerAnexosActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -1923,8 +1933,8 @@
                     </Property>
                   </Properties>
                   <Events>
-                    <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tbListarProcessoMouseReleased"/>
                     <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tbListarProcessoMouseClicked"/>
+                    <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tbListarProcessoMouseReleased"/>
                   </Events>
                 </Component>
               </SubComponents>

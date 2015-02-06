@@ -30,17 +30,21 @@ public class TelaInicial extends javax.swing.JFrame {
     }
      
     public void imgFundo(){
-        ImageIcon icone = new ImageIcon("/home/zipnet/Imagens/bg_fundo.jpg");
-       // ImageIcon icone1 = new ImageIcon("C:/sistema/imagens/icones/pessoa.png");
-       // ImageIcon icone2 = new ImageIcon("C:/sistema/imagens/icones/processos.png");
-        //ImageIcon icone3 = new ImageIcon("C:/sistema/imagens/icones/assessoria.png");
+        ImageIcon icone = new ImageIcon("c:/sistema/audisio/imagens/fundo.png");
+        ImageIcon icone1 = new ImageIcon("c:/sistema/audisio/imagens/cliente.png");
+        ImageIcon icone2 = new ImageIcon("c:/sistema/audisio/imagens/processo.png");
+        ImageIcon icone3 = new ImageIcon("c:/sistema/audisio/imagens/assessoria.png");
+        ImageIcon icone5 = new ImageIcon("c:/sistema/audisio/imagens/listar.png");
+        ImageIcon icone6 = new ImageIcon("c:/sistema/audisio/imagens/financeiro.png");
+        ImageIcon icone7 = new ImageIcon("c:/sistema/audisio/imagens/carro.png");
         
         labelFoto.setIcon(icone);
-        //btClientes.setIcon(icone1);
-        //btProcessos.setIcon(icone2);
-        //btAssessoria.setIcon(icone3);
-       // btAdvogado.setIcon(icone1);
-        
+        btClientes.setIcon(icone1);
+        btProcessos.setIcon(icone2);
+        btAssessoria.setIcon(icone3);
+        btFinanceiro.setIcon(icone6);
+        btListar.setIcon(icone5);
+        btVeiculo.setIcon(icone7);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -63,7 +67,7 @@ public class TelaInicial extends javax.swing.JFrame {
         labelFoto = new javax.swing.JLabel();
         btFinanceiro = new javax.swing.JButton();
         btVeiculo = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btListar = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu5 = new javax.swing.JMenu();
@@ -164,10 +168,10 @@ public class TelaInicial extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("LISTAR ");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btListar.setText("LISTAR ");
+        btListar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btListarActionPerformed(evt);
             }
         });
 
@@ -335,7 +339,7 @@ public class TelaInicial extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btFinanceiro, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addComponent(btListar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 144, Short.MAX_VALUE)
                         .addComponent(btSair, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(20, 20, 20))
@@ -351,25 +355,23 @@ public class TelaInicial extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btProcessos, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
+                            .addComponent(btVeiculo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btListar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btFinanceiro, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btSair, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btSair, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btAssessoria, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(btProcessos, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addComponent(btFinanceiro, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(btClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btAssessoria, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addComponent(panelTela, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -465,9 +467,9 @@ public class TelaInicial extends javax.swing.JFrame {
         new Cadastro(4,true).setVisible(true);
     }//GEN-LAST:event_btVeiculoActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btListarActionPerformed
         new Cadastro(6,true).setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btListarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -478,10 +480,10 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JButton btAssessoria;
     private javax.swing.JButton btClientes;
     private javax.swing.JButton btFinanceiro;
+    private javax.swing.JButton btListar;
     private javax.swing.JButton btProcessos;
     private javax.swing.JButton btSair;
     private javax.swing.JButton btVeiculo;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu10;

@@ -18,7 +18,7 @@ public class Conexao {
     String url = "jdbc:mysql://127.0.0.1/audizio";
     String driver = "com.mysql.jdbc.Driver";
     String usuario = "root";
-    String senha = "5215052";
+    String senha = "";
     
     public void estabelecerConexao(){
         //IP();

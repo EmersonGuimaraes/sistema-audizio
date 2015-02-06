@@ -19,9 +19,9 @@ public class GerarBackup {
      
         String novonome = null;  
         int numerodobackup = 0;
-        String pasta = "C:/sistema/backup/";
+        String pasta = "C:/sistema/audisio/backups/";
         //String pasta = "/home/zipnet/SisAudizio/bkp";
-        String arq = "C:/sistema/backup/backup_"+getData()+".sql";
+        String arq = "C:/sistema/audisio/backups/backup_"+getData()+".sql";
         //String arq = "/home/zipnet/SisAudizio/bkp/bkp_sisAudizio.sql";
         
         private String getData() {

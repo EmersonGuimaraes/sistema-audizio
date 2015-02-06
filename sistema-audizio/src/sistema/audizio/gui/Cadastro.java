@@ -14,19 +14,19 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.channels.FileChannel;
-import java.nio.file.Path;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.imageio.ImageIO;
+import javafx.print.Collation;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFileChooser;
-import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import sistema.audizio.bean.Assessoria;
 import sistema.audizio.bean.Bairro;
@@ -59,7 +59,7 @@ public class Cadastro extends javax.swing.JDialog {
     RemoveMascara rm = new RemoveMascara();
     String idCliente = null, idProcesso = null, idAdvogado = null, idAssessoria=null;
     String codigoCliente, codigoAdvogado, codigoAssessoria;
-    
+    String localAnexos;
     boolean boxCliente = false, boxAdvogado = false, boxAssessoria = false;
     /**
      * Creates new form Cadastro
@@ -106,7 +106,7 @@ public class Cadastro extends javax.swing.JDialog {
                 int option = fc.showOpenDialog(jPanel1);
                 if (option == JFileChooser.APPROVE_OPTION) {
                         nomePasta = "anexo_processo_"+tfProcesso.getText();
-                        pasta = "/home/zipnet/Documentos/"+nomePasta+"/";
+                        pasta = "c:/sistema/audisio/anexos/"+nomePasta+"/";
                         novoDiretorio = new File(pasta);
                         
                         if(!novoDiretorio.isDirectory()){
@@ -149,7 +149,13 @@ public class Cadastro extends javax.swing.JDialog {
                         destinationChannel.close();
                }
    }
-
+    public void abrirLocalAnexos(String localAnexo){
+        try {
+            Runtime.getRuntime().exec(localAnexo);
+        } catch (IOException ex) {
+            Logger.getLogger(Relatorio.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     
     private void carregaCidadesCliente(){
         ArrayList<Cidade> cidades = new ArrayList<>();
@@ -330,6 +336,7 @@ public class Cadastro extends javax.swing.JDialog {
         tfAcao.setEditable(condicao);
         tfComarca.setEditable(condicao);
         comboSituacaoProcesso.setEnabled(condicao);
+        btVerAnexos.setEnabled(condicao);
     }
     public void ativarCampoAssessoria(Boolean condicao){
         tfNomeAssessoria.setEditable(condicao);
@@ -637,6 +644,7 @@ public class Cadastro extends javax.swing.JDialog {
             tfVara.setText(null);
             tfWhats.setText(null);
             tfsituacaoatual.setText(null);
+            btVerAnexos.setEnabled(false);
           
     }
     public void btAlterar(){
@@ -740,6 +748,7 @@ public class Cadastro extends javax.swing.JDialog {
             tfDataInicio.setText(pro.getData_inicio());
             tfDataFim.setText(pro.getData_termino());
             tfsituacaoatual.setText(pro.getSituacao_atual());
+           localAnexos = pro.getLocal_arquivo();
             comboSituacaoProcesso.setSelectedItem(pro.getSituacao());
             
         }  
@@ -930,7 +939,7 @@ public class Cadastro extends javax.swing.JDialog {
         btSelecionarArquivo3 = new javax.swing.JButton();
         btSelecionarArquivo4 = new javax.swing.JButton();
         tfNomeArquivo4 = new javax.swing.JTextField();
-        jButton3 = new javax.swing.JButton();
+        btVerAnexos = new javax.swing.JButton();
         painelOrdenar = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tbListarProcesso = new javax.swing.JTable();
@@ -1037,6 +1046,12 @@ public class Cadastro extends javax.swing.JDialog {
         PainelAbas.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 PainelAbasStateChanged(evt);
+            }
+        });
+
+        painelCliente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                painelClienteMouseClicked(evt);
             }
         });
 
@@ -1370,7 +1385,7 @@ public class Cadastro extends javax.swing.JDialog {
                                 .addGroup(painelClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(tfNacionalidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(tfProfissao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                .addGap(24, 24, 24)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(painelClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(painelClienteLayout.createSequentialGroup()
                         .addComponent(lbEndereco)
@@ -1384,7 +1399,7 @@ public class Cadastro extends javax.swing.JDialog {
                             .addComponent(tfNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(tfCep, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(tfEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(18, 18, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(painelClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(painelClienteLayout.createSequentialGroup()
                         .addGroup(painelClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -1418,7 +1433,8 @@ public class Cadastro extends javax.swing.JDialog {
                         .addComponent(tfWhats, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(cWhats, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(boxUsarCliente))
+                .addComponent(boxUsarCliente)
+                .addContainerGap(33, Short.MAX_VALUE))
         );
 
         PainelAbas.addTab("CLIENTE", painelCliente);
@@ -1556,6 +1572,12 @@ public class Cadastro extends javax.swing.JDialog {
         );
 
         PainelAbas.addTab("PROCESSO", painelProcesso);
+
+        painelAssessoria.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                painelAssessoriaMouseClicked(evt);
+            }
+        });
 
         jLabel17.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
         jLabel17.setText("ENDEREÇO");
@@ -2043,8 +2065,13 @@ public class Cadastro extends javax.swing.JDialog {
             }
         });
 
-        jButton3.setText("VER ANEXOS");
-        jButton3.setEnabled(false);
+        btVerAnexos.setText("VER ANEXOS");
+        btVerAnexos.setEnabled(false);
+        btVerAnexos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btVerAnexosActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -2074,7 +2101,7 @@ public class Cadastro extends javax.swing.JDialog {
                         .addComponent(tfNomeArquivo4, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btVerAnexos, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btSelecionarArquivo4, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(97, Short.MAX_VALUE))
         );
@@ -2104,7 +2131,7 @@ public class Cadastro extends javax.swing.JDialog {
                     .addComponent(tfNomeArquivo4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btSelecionarArquivo4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btVerAnexos, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -2423,7 +2450,6 @@ public class Cadastro extends javax.swing.JDialog {
     }//GEN-LAST:event_btNovaCidadeAssessoriaActionPerformed
 
     private void comboCidadeAssessoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboCidadeAssessoriaActionPerformed
-
         String item = String.valueOf(comboModelCidadeAssesoria.getSelectedItem());
 
         if(item.equals("Selecionar....") || item == "null"){
@@ -2626,6 +2652,18 @@ public class Cadastro extends javax.swing.JDialog {
         SelecionarArquivo(4);
         tfNomeArquivo4.setText(local);
     }//GEN-LAST:event_btSelecionarArquivo4ActionPerformed
+
+    private void btVerAnexosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btVerAnexosActionPerformed
+            abrirLocalAnexos(localAnexos);
+    }//GEN-LAST:event_btVerAnexosActionPerformed
+
+    private void painelClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_painelClienteMouseClicked
+       
+    }//GEN-LAST:event_painelClienteMouseClicked
+
+    private void painelAssessoriaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_painelAssessoriaMouseClicked
+       
+    }//GEN-LAST:event_painelAssessoriaMouseClicked
      
     /**
      * @param args the command line arguments
@@ -2683,6 +2721,7 @@ public class Cadastro extends javax.swing.JDialog {
     private javax.swing.JButton btSelecionarArquivo2;
     private javax.swing.JButton btSelecionarArquivo3;
     private javax.swing.JButton btSelecionarArquivo4;
+    private javax.swing.JButton btVerAnexos;
     private javax.swing.JCheckBox cWhats;
     private javax.swing.JComboBox cbEstadoVeiculo;
     private javax.swing.JComboBox comboBairro;
@@ -2693,7 +2732,6 @@ public class Cadastro extends javax.swing.JDialog {
     private javax.swing.JComboBox comboSituacaofinanceiro;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;

@@ -63,6 +63,7 @@ public class DaoProcesso extends Conexao{
                     processo.setIdCliente(rs.getInt("id_cliente"));
                     processo.setIdAdvogado(rs.getInt("id_advogado"));
                     processo.setIdAssessoria(rs.getInt("id_assessoria"));
+                        processo.setLocal_arquivo(rs.getString("local_anexo"));
                     processos.add(processo);
 
                 }
@@ -115,6 +116,7 @@ public class DaoProcesso extends Conexao{
                     processo.setComarca(rs.getString("comarca"));
                     processo.setIdAssessoria(rs.getInt("id_assessoria"));
                     processo.setCliente(rs.getString("nome_cliente"));
+                        processo.setLocal_arquivo(rs.getString("local_anexo"));
                     processos.add(processo);
                 }
                 return processos;
@@ -155,6 +157,7 @@ public class DaoProcesso extends Conexao{
                 processo.setComarca(rs.getString("comarca"));
                 processo.setIdAssessoria(rs.getInt("id_assessoria"));
                 processo.setCliente(rs.getString("nome_cliente"));
+                    processo.setLocal_arquivo(rs.getString("local_anexo"));
                 processos.add(processo);
             }
             
