@@ -27,6 +27,7 @@ import javafx.print.Collation;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import sistema.audizio.bean.Assessoria;
 import sistema.audizio.bean.Bairro;
@@ -580,28 +581,14 @@ public class Cadastro extends javax.swing.JDialog {
                                                          daofinanceiro.cadastrar(financeiro);
                                                          daoVeiculo.Cadastrar(v);
                                                           //COPIA O ARQUIVO 
-                                                         try {
-                                                            if(tfNomeArquivo.getText() != null){
-                                                                copiaArquivo(arquivoOrigem[0], arquivoDestino[0]);
-                                                            }
-                                                            if(tfNomeArquivo1.getText() != null){
-                                                                copiaArquivo(arquivoOrigem[1], arquivoDestino[1]);
-                                                            }
-                                                            if(tfNomeArquivo2.getText() != null){
-                                                                copiaArquivo(arquivoOrigem[2], arquivoDestino[2]);
-                                                            }
-                                                            if(tfNomeArquivo3.getText() != null){
-                                                                copiaArquivo(arquivoOrigem[3], arquivoDestino[3]);
-                                                            }
-                                                            if(tfNomeArquivo4.getText() != null){
-                                                                copiaArquivo(arquivoOrigem[4], arquivoDestino[4]);
-                                                            }
-                                                            
-                                                            
-                                                            
-                                                        } catch (IOException ex) {
-                                                            Logger.getLogger(Cadastro.class.getName()).log(Level.SEVERE, null, ex);
-                                                        }
+                                                            JTextField[] filds = new JTextField[] {tfNomeArquivo,tfNomeArquivo1,tfNomeArquivo2,tfNomeArquivo3,tfNomeArquivo4};
+                                                                for (int i = 0; i < filds.length; i++) {
+                                                                    if(filds[i].getText() == null || filds[i].getText().equals("")){
+                                                                    }else{
+                                                                        copiaArquivo(arquivoOrigem[i], arquivoDestino[i]);
+                                                                    }
+                                                                        
+                                                                }
                                                          JOptionPane.showMessageDialog(null, "Cadastro realizado com sucesso");
 
                                                          
