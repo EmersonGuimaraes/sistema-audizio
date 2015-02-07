@@ -12,6 +12,7 @@ import com.itextpdf.text.Font;
 import com.itextpdf.text.Font.FontFamily;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -23,6 +24,7 @@ import sistema.audizio.bean.Cidade;
 import sistema.audizio.bean.Cliente;
 import sistema.audizio.bean.Processo;
 import sistema.audizio.bean.Veiculo;
+import sistema.audizio.gui.Cadastro;
 /**
  * 
  * @author zipnet
@@ -36,7 +38,7 @@ public class Relatorio {
         System.out.println("ENTROU NO GERAR");
                
             
-                    String local = "c:/sistema/audisio/relatorios/"+cliente.getNome()+".pdf";
+                    String local = "c:\\sistema\\audisio\\relatorios\\"+cliente.getNome()+".pdf";
                 
             
                         Document document = new Document();
@@ -102,12 +104,13 @@ public class Relatorio {
                         document.add(new Paragraph("Vara..: "+processo.getVara(),f));
                         document.close();
                         JOptionPane.showMessageDialog(null, "RELATÓRIO CRIADO COM SUCESSO!\n"+local);
+                        
                         try {
-                            Runtime.getRuntime().exec("c:/sistema/audisio/relatorios/");
-                            Runtime.getRuntime().exec(local);
+                            java.awt.Desktop.getDesktop().open( new File( local ) );
                         } catch (IOException ex) {
-                            Logger.getLogger(Relatorio.class.getName()).log(Level.SEVERE, null, ex);
+                            Logger.getLogger(Cadastro.class.getName()).log(Level.SEVERE, null, ex);
                         }
+    
              
                
        
