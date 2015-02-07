@@ -95,35 +95,40 @@ public class Cadastro extends javax.swing.JDialog {
         tfNomeArquivo2.setEditable(false);
         tfNomeArquivo3.setEditable(false);
         tfNomeArquivo4.setEditable(false);
+        
+        tfNomeArquivo.setText(null);
+        tfNomeArquivo1.setText(null);
+        tfNomeArquivo2.setText(null);
+        tfNomeArquivo3.setText(null);
+        tfNomeArquivo4.setText(null);
     }
      String local = null;
      JFileChooser fc = new JFileChooser();
      
      String nomePasta = null;
      String pasta = null;
-     String arquivo = null;
      File novoDiretorio;
      
      File [] arquivoOrigem = new File[5];
      File [] arquivoDestino = new File[5];
-     
+     String separator;
     public void SelecionarArquivo(int posicao){
          
                 //SELECIONA IMAGEM
                 int option = fc.showOpenDialog(jPanel1);
                 if (option == JFileChooser.APPROVE_OPTION) {
+                        separator = System.getProperty("file.separator");
                         nomePasta = "anexo_processo_"+tfProcesso.getText();
-                        pasta = System.getProperty("user.home");
-                        arquivo = "\\sistema\\audisio\\anexos\\"+nomePasta+"\\";
-                        
-                        novoDiretorio = new File(pasta+arquivo);
+                        pasta = "C:/sistema/audisio/anexos/"+nomePasta+"/";
+                       
+                        novoDiretorio = new File(pasta);
                         
                         if(!novoDiretorio.isDirectory()){
                             novoDiretorio.mkdir();
                         }
                     try {
                         arquivoOrigem[posicao] = new File(fc.getSelectedFile().toString());
-                        arquivoDestino[posicao] = new File(pasta+arquivo+arquivo+arquivoOrigem[posicao].getName());
+                        arquivoDestino[posicao] = new File(pasta+arquivoOrigem[posicao].getName());
                         
                         System.out.println("arquivo: "+arquivoOrigem[0]);
                         //Define o local do arquivo.
@@ -160,9 +165,9 @@ public class Cadastro extends javax.swing.JDialog {
    }
     public void abrirLocalAnexos(String localAnexo){
         try {
-            Runtime.getRuntime().exec(localAnexo);
+            java.awt.Desktop.getDesktop().open( new File( localAnexo ) );
         } catch (IOException ex) {
-            Logger.getLogger(Relatorio.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Cadastro.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
@@ -553,12 +558,22 @@ public class Cadastro extends javax.swing.JDialog {
                                            DaoAssessoria daoassessoria = new DaoAssessoria();
                                            DaoFinanceiro daofinanceiro = new DaoFinanceiro();
                                            DaoVeiculo daoVeiculo = new DaoVeiculo();
+                                           try {
+                                                 
+                                                 String localArquivo = pasta;
+                                                 processo.setLocal_arquivo(localArquivo);
+                                                 
+                                           } catch (Exception e) {
+                                               System.err.println(e.getStackTrace());
+                                           }
+                                          
+                                                         
                                            if(estadoBotao==false){
                                                
                                                     try {
-
+                                                        
+                                                                System.out.println("Entrou no cad");
                                                          if(boxCliente == false){daocli.Cadastrar(cli);}
-                                                         processo.setLocal_arquivo(pasta+arquivo);
                                                          daoprocesso.Cadastrar(processo);
                                                          
                                                          if(boxAssessoria == false){daoassessoria.cadastrar(assessoria);}
@@ -762,7 +777,7 @@ public class Cadastro extends javax.swing.JDialog {
     }
     
     //Carrega dados do processo
-    String local_anexo_processo = "c:/sistema/audisio/anexos";
+    String local_anexo_processo;
     public void preencheProcessos(String id){
         DaoProcesso daoProcesso = new DaoProcesso();
         ArrayList<Processo> processos = new DaoProcesso().Consultar(id);
@@ -2684,6 +2699,7 @@ public class Cadastro extends javax.swing.JDialog {
     }//GEN-LAST:event_btSelecionarArquivo4ActionPerformed
 
     private void btVerAnexosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btVerAnexosActionPerformed
+        local_anexo_processo = local_anexo_processo.replace("/", "\\");
         System.out.println("LOCAL DO ANEXO: "+local_anexo_processo);    
         abrirLocalAnexos(local_anexo_processo);
     }//GEN-LAST:event_btVerAnexosActionPerformed
