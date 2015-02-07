@@ -59,11 +59,12 @@ public class GerarBackup {
                     
                     
                   
-                    JOptionPane.showMessageDialog(null, "Cópia de segurança realizada com sucesso", "Backup", JOptionPane.CLOSED_OPTION);  
+                    JOptionPane.showMessageDialog(null, "Cópia de segurança realizada com sucesso\nLOCAL: "+arq, "Backup", JOptionPane.CLOSED_OPTION);
+                    
                     
                 } else {  
                    System.out.println("Arquivo Existe!");
-                    JOptionPane.showMessageDialog(null, "Você já realizou o backup hoje!", "Backup", JOptionPane.CLOSED_OPTION);  
+                    JOptionPane.showMessageDialog(null, "Você já realizou o backup hoje!\nLOCAL: "+arq, "Backup", JOptionPane.CLOSED_OPTION);  
                     //dispose();  
                 }  
             } catch (IOException ex) {  
