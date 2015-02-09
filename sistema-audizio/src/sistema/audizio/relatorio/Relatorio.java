@@ -10,6 +10,7 @@ import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.Font.FontFamily;
+import com.itextpdf.text.ListItem;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
 import java.io.File;
@@ -24,6 +25,7 @@ import sistema.audizio.bean.Cidade;
 import sistema.audizio.bean.Cliente;
 import sistema.audizio.bean.Processo;
 import sistema.audizio.bean.Veiculo;
+import sistema.audizio.bean.Assessoria;
 import sistema.audizio.gui.Cadastro;
 /**
  * 
@@ -33,9 +35,7 @@ import sistema.audizio.gui.Cadastro;
 public class Relatorio {
 
     
-    public void gerar(Cliente cliente, Processo processo , Veiculo veiculo, Cidade cidade, Bairro bairro) throws DocumentException, FileNotFoundException{
-                
-        System.out.println("ENTROU NO GERAR");
+    public void gerar(Cliente cliente, Processo processo , Veiculo veiculo, Cidade cidade, Bairro bairro, Assessoria assesoria) throws DocumentException, FileNotFoundException{
                
             
                     String local = "c:\\sistema\\audisio\\relatorios\\"+cliente.getNome()+".pdf";
@@ -50,58 +50,44 @@ public class Relatorio {
                         Font fgrande = new Font(FontFamily.HELVETICA, 25, Font.ITALIC);
                         
                         Paragraph titulo = new Paragraph("Relatório de processo",fgrande);
-                        Paragraph Clienteente = new Paragraph("CLIENTE");
-                        Paragraph Processocesso = new Paragraph("PROCESSO");
-                        
+                        Paragraph Clienteente = new Paragraph("DADOS CLIENTE");
+                        Paragraph Processocesso = new Paragraph("DADOS PROCESSO");
+                        Paragraph veiculolo = new Paragraph("DADOS VEÍCULO");
                      
                         
                         titulo.setAlignment(Paragraph.ALIGN_RIGHT);
                         Clienteente.setAlignment(Paragraph.ALIGN_CENTER);
                         Processocesso.setAlignment(Paragraph.ALIGN_CENTER);
+                        veiculolo.setAlignment(Paragraph.ALIGN_CENTER);
                         
                         document.add(titulo);
-                        document.add(new Paragraph("Dados cliente"));
+                        document.add(Clienteente);
                         document.add(new Paragraph("______________________________________________________________________________"));
 
                         document.add(new Paragraph("Nome..: "+cliente.getNome(),f));
-                        document.add(new Paragraph(" "));
                         document.add(new Paragraph("Celular..: "+cliente.getCelular(),f));
-                        document.add(new Paragraph(" "));
                         document.add(new Paragraph("Cep..: "+cliente.getCep(),f));
-                        document.add(new Paragraph(" "));
                         document.add(new Paragraph("Cpf..: "+cliente.getCpf(),f));
-                        document.add(new Paragraph(" "));
                         document.add(new Paragraph("Uf: "+cliente.getEstado(),f));
-                        document.add(new Paragraph(" "));
                         document.add(new Paragraph("Endereço..: "+cliente.getEndereco()+", "+cliente.getNum()+", "+bairro.getNome()+", "+cidade.getNome(),f));
-                        document.add(new Paragraph(" "));
                         document.add(new Paragraph("E-mail..: "+cliente.getEmail(),f));
-                        document.add(new Paragraph("Dados veículo"));
+                        document.add(new Paragraph("DADOS VEÍCULO"));
                         document.add(new Paragraph("______________________________________________________________________________"));
-                        document.add(new Paragraph(" "));
                         document.add(new Paragraph("Marca..: "+veiculo.getMarca(),f));
-                        document.add(new Paragraph(" "));
                         document.add(new Paragraph("Modelo..: "+veiculo.getModelo(),f));
-                        document.add(new Paragraph(" "));
                         document.add(new Paragraph("Placa..: "+veiculo.getPlaca(),f));
-                        document.add(new Paragraph(" "));
                         document.add(new Paragraph("Estado..: "+veiculo.getEstado(),f));
-                        document.add(new Paragraph("Dados Processo"));
+                        document.add(Processocesso);
                         document.add(new Paragraph("______________________________________________________________________________"));
                         document.add(new Paragraph(" "));
                         document.add(new Paragraph("Processo..: "+processo.getProcesso(),f));
-                        document.add(new Paragraph(" "));
                         document.add(new Paragraph("Data inicio..: "+processo.getData_inicio(),f));
-                        document.add(new Paragraph(" "));
                         document.add(new Paragraph("Data término..: "+processo.getData_termino(),f));
-                        document.add(new Paragraph(" "));
-                        document.add(new Paragraph("Advogado..: "+processo.getAdvogado(),f));
-                        document.add(new Paragraph(" "));
+                        document.add(new Paragraph("Advogado..: "+assesoria.getNome_advogado(),f));
                         document.add(new Paragraph("Reboqueiro..: "+processo.getReboqueiro(),f));
-                        document.add(new Paragraph(" "));
                         document.add(new Paragraph("Comarca..: "+processo.getComarca(),f));
-                        document.add(new Paragraph(" "));
                         document.add(new Paragraph("Vara..: "+processo.getVara(),f));
+                        document.add(new Paragraph("Assesoria..: "+assesoria.getNome(),f));
                         document.close();
                         JOptionPane.showMessageDialog(null, "RELATÓRIO CRIADO COM SUCESSO!\n"+local);
                         

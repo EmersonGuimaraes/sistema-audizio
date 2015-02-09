@@ -494,7 +494,7 @@ public class Cadastro extends javax.swing.JDialog {
                                                     
                                                     codB2 = daoass.retornaCod();
                                                     codC2 = codA2+codB2;
-
+                                                            System.out.println("Entrou no cadastrar acessoria");
                                                         assessoria.setNome(tfNomeAssessoria.getText());
                                                         assessoria.setCidade(String.valueOf(String.valueOf(comboCidadeAssessoria.getSelectedIndex())));
                                                         assessoria.setBairro(String.valueOf(comboBairroAssessoria.getSelectedIndex()));
@@ -2393,33 +2393,41 @@ public class Cadastro extends javax.swing.JDialog {
                 DaoCliente daoc = new DaoCliente();
                 DaoCidade daocid = new DaoCidade();
                 Relatorio relatorio = new Relatorio();
+                
                 System.out.println("Listar valor 1 -> "+tbListarProcesso.getValueAt(0,0));
                 String id = String.valueOf(tbListarProcesso.getValueAt(0,0));
                 System.out.println("Listar valor 2 -> "+tbListarProcesso.getValueAt(0,3));
                 String codCliente = String.valueOf(tbListarProcesso.getValueAt(0,3));
                 System.out.println("Listar valor 3 -> "+tbListarProcesso.getValueAt(0,4));
-                String codAdvogado = String.valueOf(tbListarProcesso.getValueAt(0,4));
-                System.out.println("Listar valor 4 -> "+tbListarProcesso.getValueAt(0,5));
-                String codAssesoria = String.valueOf(tbListarProcesso.getValueAt(0,5));
-        
+                
+                System.out.println("cod cliente  "+codCliente);
                 ArrayList<Cliente> cli = daoc.Consultar(codCliente);
 
                 ArrayList<Processo> procesos = new DaoProcesso().Consultar(id);
-                System.out.println("ID processo -> "+ procesos.get(0).getProcesso());
+                System.out.println("ID processo -> "+ procesos.get(0).getIdProcesso());
                 ArrayList<Veiculo> veiculo = new DaoVeiculo().Consultar(id);
                 ArrayList<Cidade> cidades = daocid.consultar(cli.get(0).getCidade());
                  DaoBairro daoBairro = new DaoBairro();
                 ArrayList<Bairro> bairros = daoBairro.consultar(cli.get(0).getBairro());
+                DaoAssessoria daoasse = new DaoAssessoria();
+                ArrayList<Assessoria> assesoria = daoasse.consultar(String.valueOf(cli.get(0).getCod()));
+                System.out.println("Cod cliente2--> ");
                 System.out.println("Cidade -->"+ cli.get(0).getCidade() +" Bairro -> "+cli.get(0).getCidade());
-        
+                        System.out.println("Tamanho cliente = "+cli.size());
+                        System.out.println("Tamanho processo = "+procesos.size());
+                        System.out.println("Tamanho veiculo = "+veiculo.size());
+                        System.out.println("Tamanho city = "+cidades.size());
+                        System.out.println("Tamanho bairro = "+bairros.size());
+                        System.out.println("Tamanho asseoria = "+assesoria.size());
+                        
                 try {
-                       relatorio.gerar(cli.get(0), procesos.get(0), veiculo.get(0), cidades.get(0),bairros.get(0));
+                       relatorio.gerar(cli.get(0), procesos.get(0), veiculo.get(0), cidades.get(0),bairros.get(0),assesoria.get(0));
                 } catch (DocumentException | FileNotFoundException ex) {
                     Logger.getLogger(Cadastro.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "SELECIONE UM PROCESSO/CLIENTE PARA GERAR O RELATÓRIO!");
+            JOptionPane.showMessageDialog(null, e.toString());
         }
         
 
