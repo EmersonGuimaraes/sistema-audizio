@@ -84,4 +84,9 @@ public class DaoAssessoria extends Conexao{
          System.out.println("cod2 :"+codA);
         return codA;
     }
+     
+     public void deletar(Assessoria a){
+          sql="DELETE FROM tb_assessoria WHERE cod = '"+a.getId()+"'";
+        ConsultarSQL(sql, false);
+     }
 }

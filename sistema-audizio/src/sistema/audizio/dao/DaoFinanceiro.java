@@ -12,6 +12,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import sistema.audizio.bean.Financeiro;
+import sistema.audizio.bean.Veiculo;
 
 /**
  *
@@ -161,6 +162,12 @@ public class DaoFinanceiro extends Conexao{
          JOptionPane.showMessageDialog(null, "CONTA QUITADA COM SUCESSO!");
          
      }
+     
+     public void Deletar(String id){
+        sql = "DELETE FROM tb_financeiro WHERE id = '"+id+"'";
+        
+        ConsultarSQL(sql, false);
+    }
     
        
 }

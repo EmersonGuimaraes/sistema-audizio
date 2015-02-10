@@ -6,11 +6,14 @@
 
 package sistema.audizio.relatorio;
 
+import com.itextpdf.text.BadElementException;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.Font.FontFamily;
 import com.itextpdf.text.ListItem;
+import com.itextpdf.text.Image;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
 import java.io.File;
@@ -19,6 +22,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import sistema.audizio.bean.Bairro;
 import sistema.audizio.bean.Cidade;
@@ -35,11 +39,11 @@ import sistema.audizio.gui.Cadastro;
 public class Relatorio {
 
     
-    public void gerar(Cliente cliente, Processo processo , Veiculo veiculo, Cidade cidade, Bairro bairro, Assessoria assesoria) throws DocumentException, FileNotFoundException{
+    public void gerar(Cliente cliente, Processo processo , Veiculo veiculo, Cidade cidade, Bairro bairro, Assessoria assesoria) throws DocumentException, FileNotFoundException, BadElementException, IOException{
                
             
-                    String local = "c:\\sistema\\audisio\\relatorios\\"+cliente.getNome()+".pdf";
-                
+                    String local = "c:\\sistema\\audisio\\relatorios\\"+cliente.getNome()+"-N° P-"+processo.getProcesso()+".pdf";
+               
             
                         Document document = new Document();
                         //PdfWriter.getInstance(document, new FileOutputStream("C:\\Users\\ZipNet\\Desktop\\Pdf's\\teste.pdf"));
@@ -49,6 +53,10 @@ public class Relatorio {
                         Font f = new Font(FontFamily.COURIER, 15, Font.NORMAL);
                         Font fgrande = new Font(FontFamily.HELVETICA, 25, Font.ITALIC);
                         
+                          Image img = Image.getInstance("c:/sistema/audisio/imagens/relatorio.png");
+                          img.setAlignment(Element.ALIGN_LEFT);
+      
+                                
                         Paragraph titulo = new Paragraph("Relatório de processo",fgrande);
                         Paragraph Clienteente = new Paragraph("DADOS CLIENTE");
                         Paragraph Processocesso = new Paragraph("DADOS PROCESSO");
@@ -60,7 +68,9 @@ public class Relatorio {
                         Processocesso.setAlignment(Paragraph.ALIGN_CENTER);
                         veiculolo.setAlignment(Paragraph.ALIGN_CENTER);
                         
+                        document.add(img);
                         document.add(titulo);
+                        document.add(new Paragraph(" "));
                         document.add(Clienteente);
                         document.add(new Paragraph("______________________________________________________________________________"));
 
@@ -71,23 +81,25 @@ public class Relatorio {
                         document.add(new Paragraph("Uf: "+cliente.getEstado(),f));
                         document.add(new Paragraph("Endereço..: "+cliente.getEndereco()+", "+cliente.getNum()+", "+bairro.getNome()+", "+cidade.getNome(),f));
                         document.add(new Paragraph("E-mail..: "+cliente.getEmail(),f));
-                        document.add(new Paragraph("DADOS VEÍCULO"));
+                        document.add(new Paragraph(" "));
+                        document.add(veiculolo);
                         document.add(new Paragraph("______________________________________________________________________________"));
+                        document.add(new Paragraph(" "));
                         document.add(new Paragraph("Marca..: "+veiculo.getMarca(),f));
                         document.add(new Paragraph("Modelo..: "+veiculo.getModelo(),f));
                         document.add(new Paragraph("Placa..: "+veiculo.getPlaca(),f));
                         document.add(new Paragraph("Estado..: "+veiculo.getEstado(),f));
+                        document.add(new Paragraph(" "));
                         document.add(Processocesso);
                         document.add(new Paragraph("______________________________________________________________________________"));
                         document.add(new Paragraph(" "));
                         document.add(new Paragraph("Processo..: "+processo.getProcesso(),f));
                         document.add(new Paragraph("Data inicio..: "+processo.getData_inicio(),f));
                         document.add(new Paragraph("Data término..: "+processo.getData_termino(),f));
-                        document.add(new Paragraph("Advogado..: "+assesoria.getNome_advogado(),f));
-                        document.add(new Paragraph("Reboqueiro..: "+processo.getReboqueiro(),f));
                         document.add(new Paragraph("Comarca..: "+processo.getComarca(),f));
                         document.add(new Paragraph("Vara..: "+processo.getVara(),f));
                         document.add(new Paragraph("Assesoria..: "+assesoria.getNome(),f));
+                         document.add(new Paragraph("Advogado..: "+assesoria.getNome_advogado(),f));
                         document.close();
                         JOptionPane.showMessageDialog(null, "RELATÓRIO CRIADO COM SUCESSO!\n"+local);
                         

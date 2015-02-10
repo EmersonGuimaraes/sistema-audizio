@@ -6,8 +6,6 @@
 package sistema.audizio.gui;
 
 import com.itextpdf.text.DocumentException;
-import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -17,13 +15,9 @@ import java.nio.channels.FileChannel;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.print.Collation;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -351,6 +345,7 @@ public class Cadastro extends javax.swing.JDialog {
         tfVara.setEditable(condicao);
         tfAcao.setEditable(condicao);
         tfComarca.setEditable(condicao);
+        tfsituacaoatual.setEditable(condicao);
         comboSituacaoProcesso.setEnabled(condicao);
         
     }
@@ -361,6 +356,8 @@ public class Cadastro extends javax.swing.JDialog {
         comboCidadeAssessoria.setEnabled(condicao);
         btNovaCidadeAssessoria.setEnabled(condicao);
         btNovoBairroAssessoria.setEnabled(condicao);
+        tfAdvogadoAssessoria.setEditable(condicao);
+        tfTelefoneAssessoria.setEditable(condicao);
     }
    public void ativarCampoFinanceiro(Boolean condicao){
        tfValor.setEditable(condicao);
@@ -670,6 +667,12 @@ public class Cadastro extends javax.swing.JDialog {
             tfWhats.setText(null);
             tfsituacaoatual.setText(null);
             btVerAnexos.setEnabled(false);
+            
+            tfNomeArquivo.setText(null);
+            tfNomeArquivo1.setText(null);
+            tfNomeArquivo2.setText(null);
+            tfNomeArquivo3.setText(null);
+            tfNomeArquivo4.setText(null);
             
             tfNomeArquivo.setText(null);
             tfNomeArquivo1.setText(null);
@@ -992,7 +995,7 @@ public class Cadastro extends javax.swing.JDialog {
         painelMenu.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         btNovo.setFont(new java.awt.Font("Ubuntu", 1, 14)); // NOI18N
-        btNovo.setText("Novo (F1)");
+        btNovo.setText("Novo");
         btNovo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btNovoActionPerformed(evt);
@@ -1006,7 +1009,7 @@ public class Cadastro extends javax.swing.JDialog {
 
         btAlterar.setFont(new java.awt.Font("Ubuntu", 1, 14)); // NOI18N
         btAlterar.setForeground(new java.awt.Color(210, 196, 0));
-        btAlterar.setText("Alterar (F2)");
+        btAlterar.setText("Alterar");
         btAlterar.setEnabled(false);
         btAlterar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1016,7 +1019,7 @@ public class Cadastro extends javax.swing.JDialog {
 
         btExcluir.setFont(new java.awt.Font("Ubuntu", 1, 14)); // NOI18N
         btExcluir.setForeground(new java.awt.Color(5, 2, 1));
-        btExcluir.setText("Excluir (F4)");
+        btExcluir.setText("Excluir");
         btExcluir.setEnabled(false);
         btExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1026,7 +1029,7 @@ public class Cadastro extends javax.swing.JDialog {
 
         btCancelar.setFont(new java.awt.Font("Ubuntu", 1, 14)); // NOI18N
         btCancelar.setForeground(new java.awt.Color(5, 0, 0));
-        btCancelar.setText("Cancelar (F5)");
+        btCancelar.setText("Cancelar");
         btCancelar.setEnabled(false);
         btCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1036,7 +1039,7 @@ public class Cadastro extends javax.swing.JDialog {
 
         btSalvar.setFont(new java.awt.Font("Ubuntu", 1, 14)); // NOI18N
         btSalvar.setForeground(new java.awt.Color(3, 5, 3));
-        btSalvar.setText("Salvar (F3)");
+        btSalvar.setText("Salvar");
         btSalvar.setEnabled(false);
         btSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -2334,7 +2337,34 @@ public class Cadastro extends javax.swing.JDialog {
     }//GEN-LAST:event_btAlterarActionPerformed
 
     private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
+        String message = "Deseja realmente excluir PROCESSO?";
+        String title = "Confirmação";
         
+        
+       int reply = JOptionPane.showConfirmDialog(null, message, title, JOptionPane.YES_NO_OPTION);
+       if (reply == JOptionPane.YES_OPTION){
+                
+            try {
+            
+                    DaoProcesso daoP = new DaoProcesso();
+                    DaoVeiculo daoV = new DaoVeiculo();
+                    DaoFinanceiro daoF = new DaoFinanceiro();
+                    System.out.println("ID DO PROCESSO CARAI: "+idProcesso);
+                    daoP.Deletar(idProcesso);
+                    daoF.Deletar(idProcesso);
+                    daoV.Deletar(idProcesso);
+                    modeloTabela.removeRow(tbListarProcesso.getSelectedRow());
+
+                    JOptionPane.showMessageDialog(null, "PROCESSO EXLUÍDO COM SUCESSO!");
+            
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "FALHA AO EXCLUIR PROCESSO!");
+            }
+       
+        }
+        
+        
+            
     }//GEN-LAST:event_btExcluirActionPerformed
 
     private void btSalvarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btSalvarKeyPressed
@@ -2394,32 +2424,20 @@ public class Cadastro extends javax.swing.JDialog {
                 DaoCidade daocid = new DaoCidade();
                 Relatorio relatorio = new Relatorio();
                 
-                System.out.println("Listar valor 1 -> "+tbListarProcesso.getValueAt(0,0));
-                String id = String.valueOf(tbListarProcesso.getValueAt(0,0));
-                System.out.println("Listar valor 2 -> "+tbListarProcesso.getValueAt(0,3));
-                String codCliente = String.valueOf(tbListarProcesso.getValueAt(0,3));
-                System.out.println("Listar valor 3 -> "+tbListarProcesso.getValueAt(0,4));
+                String id = String.valueOf(tbListarProcesso.getValueAt(tbListarProcesso.getSelectedRow(),0));
+                System.out.println("Linha selecionada -> "+tbListarProcesso.getSelectedRow());
+                String codCliente = String.valueOf(tbListarProcesso.getValueAt(tbListarProcesso.getSelectedRow(),3));
                 
-                System.out.println("cod cliente  "+codCliente);
                 ArrayList<Cliente> cli = daoc.Consultar(codCliente);
 
                 ArrayList<Processo> procesos = new DaoProcesso().Consultar(id);
-                System.out.println("ID processo -> "+ procesos.get(0).getIdProcesso());
                 ArrayList<Veiculo> veiculo = new DaoVeiculo().Consultar(id);
                 ArrayList<Cidade> cidades = daocid.consultar(cli.get(0).getCidade());
                  DaoBairro daoBairro = new DaoBairro();
                 ArrayList<Bairro> bairros = daoBairro.consultar(cli.get(0).getBairro());
                 DaoAssessoria daoasse = new DaoAssessoria();
                 ArrayList<Assessoria> assesoria = daoasse.consultar(String.valueOf(cli.get(0).getCod()));
-                System.out.println("Cod cliente2--> ");
-                System.out.println("Cidade -->"+ cli.get(0).getCidade() +" Bairro -> "+cli.get(0).getCidade());
-                        System.out.println("Tamanho cliente = "+cli.size());
-                        System.out.println("Tamanho processo = "+procesos.size());
-                        System.out.println("Tamanho veiculo = "+veiculo.size());
-                        System.out.println("Tamanho city = "+cidades.size());
-                        System.out.println("Tamanho bairro = "+bairros.size());
-                        System.out.println("Tamanho asseoria = "+assesoria.size());
-                        
+                
                 try {
                        relatorio.gerar(cli.get(0), procesos.get(0), veiculo.get(0), cidades.get(0),bairros.get(0),assesoria.get(0));
                 } catch (DocumentException | FileNotFoundException ex) {
@@ -2427,7 +2445,7 @@ public class Cadastro extends javax.swing.JDialog {
                 }
                 
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e.toString());
+            System.out.println(e.toString());
         }
         
 

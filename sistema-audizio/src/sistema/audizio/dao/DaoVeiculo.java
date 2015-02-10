@@ -34,8 +34,8 @@ public class DaoVeiculo extends Conexao{
         ConsultarSQL(sql, false);
     }
     
-    public void Deletar(Veiculo veiculo){
-        sql = "DELETE FROM tb_veiculo WHERE placa = '"+veiculo.getPlaca()+"'";
+    public void Deletar(String id){
+        sql = "DELETE FROM tb_veiculo WHERE id = '"+id+"'";
         
         ConsultarSQL(sql, false);
     }

@@ -337,6 +337,7 @@ public class EditarContaReceber extends javax.swing.JDialog {
 
     private void btCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCalcularActionPerformed
         calcularTotal(tfValor.getText(), tfValorDespesa.getText(), tfDesconto.getText());
+        btCadastrar.setEnabled(true);
     }//GEN-LAST:event_btCalcularActionPerformed
 
     private void btCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCadastrarActionPerformed

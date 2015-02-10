@@ -11,6 +11,7 @@ import javax.swing.table.DefaultTableModel;
 import sistema.audizio.bean.Assessoria;
 import sistema.audizio.bean.Cliente;
 import sistema.audizio.dao.DaoAssessoria;
+import sistema.audizio.dao.DaoCliente;
 
 /**
  *
@@ -45,6 +46,7 @@ public class ListarAssessoria extends javax.swing.JDialog {
         tbListarAssessoria = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -81,6 +83,13 @@ public class ListarAssessoria extends javax.swing.JDialog {
             }
         });
 
+        jButton3.setText("EXCLUIR");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -89,7 +98,10 @@ public class ListarAssessoria extends javax.swing.JDialog {
                 .addContainerGap(20, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton1)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 498, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
@@ -101,7 +113,9 @@ public class ListarAssessoria extends javax.swing.JDialog {
                 .addGap(11, 11, 11)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButton3))
                 .addContainerGap(14, Short.MAX_VALUE))
         );
 
@@ -129,6 +143,26 @@ public class ListarAssessoria extends javax.swing.JDialog {
         
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+       DaoAssessoria dao = new DaoAssessoria();
+       Assessoria ass = new Assessoria();
+       String idAss;
+       
+       String message = "Deseja realmente excluir esta ASSESSORIA?";
+       String title = "Confirmação";
+
+       int reply = JOptionPane.showConfirmDialog(null, message, title, JOptionPane.YES_NO_OPTION);
+       if (reply == JOptionPane.YES_OPTION){
+            System.out.println("Confirmado!");
+            idAss = tbListarAssessoria.getValueAt(tbListarAssessoria.getSelectedRow(),0).toString();
+       
+            ass.setId(idAss);
+            dao.deletar(ass);
+            modeloTabela.removeRow(tbListarAssessoria.getSelectedRow());
+       
+    }
+    }//GEN-LAST:event_jButton3ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -137,6 +171,7 @@ public class ListarAssessoria extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tbListarAssessoria;
     // End of variables declaration//GEN-END:variables

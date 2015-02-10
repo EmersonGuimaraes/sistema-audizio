@@ -41,9 +41,10 @@ public class DaoProcesso extends Conexao{
         sql = "UPDATE tb_processo SET nome_cliente = '"+p.getCliente()+"' WHERE id = '"+p.getIdProcesso()+"'";
         ConsultarSQL(sql, false);
     }
-    public void Deletar(Processo processo){
+    public void Deletar(String id){
         
-        sql="DELETE FROM tb_processo WHERE processo = '"+processo.getProcesso()+"'";
+        sql="DELETE FROM tb_processo WHERE id = '"+id+"'";
+        ConsultarSQL(sql, false);
     }
     
     public ArrayList<Processo> Consultar(String situacao){
