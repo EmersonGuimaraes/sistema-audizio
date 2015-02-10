@@ -81,7 +81,6 @@ public class CadastroProcesso extends javax.swing.JDialog {
         for (int linha = 0; linha < assessorias.size(); linha++){
             Assessoria assessoria = assessorias.get(linha);
             comboModelAss.addElement(assessoria.getNome());
-            System.out.println("Assessoria: "+assessoria.getNome());
         }
     }
     

@@ -2417,35 +2417,45 @@ public class Cadastro extends javax.swing.JDialog {
     }//GEN-LAST:event_tbListarProcessoMouseReleased
 
     private void btImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btImprimirActionPerformed
+        
         try {
                 System.out.println("Clicou no imprimir");
         
                 DaoCliente daoc = new DaoCliente();
                 DaoCidade daocid = new DaoCidade();
                 Relatorio relatorio = new Relatorio();
+                DaoBairro daoBairro = new DaoBairro();
                 
                 String id = String.valueOf(tbListarProcesso.getValueAt(tbListarProcesso.getSelectedRow(),0));
-                System.out.println("Linha selecionada -> "+tbListarProcesso.getSelectedRow());
+               
+                System.out.println("Linha selecionada -> "+tbListarProcesso.getSelectedRow()+" Codigo -> "+tbListarProcesso.getValueAt(tbListarProcesso.getSelectedRow(),0));
+                
                 String codCliente = String.valueOf(tbListarProcesso.getValueAt(tbListarProcesso.getSelectedRow(),3));
                 
                 ArrayList<Cliente> cli = daoc.Consultar(codCliente);
-
+                
                 ArrayList<Processo> procesos = new DaoProcesso().Consultar(id);
+                
                 ArrayList<Veiculo> veiculo = new DaoVeiculo().Consultar(id);
+                
                 ArrayList<Cidade> cidades = daocid.consultar(cli.get(0).getCidade());
-                 DaoBairro daoBairro = new DaoBairro();
-                ArrayList<Bairro> bairros = daoBairro.consultar(cli.get(0).getBairro());
+                
+                ArrayList<Bairro> bairros = daoBairro.consultar(cli.get(0).getCidade());
+                
+                
                 DaoAssessoria daoasse = new DaoAssessoria();
+                
                 ArrayList<Assessoria> assesoria = daoasse.consultar(String.valueOf(cli.get(0).getCod()));
                 
                 try {
+                    System.out.println("Cli 0 ->"+cli.get(0)+" veiculo 0 ->"+veiculo.get(0)+" Cidades 0 ->"+cidades.get(0)+" Bairro 0 ->"+bairros.get(0)+" Ass 0 ->"+assesoria.get(0));
                        relatorio.gerar(cli.get(0), procesos.get(0), veiculo.get(0), cidades.get(0),bairros.get(0),assesoria.get(0));
                 } catch (DocumentException | FileNotFoundException ex) {
                     Logger.getLogger(Cadastro.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 
         } catch (Exception e) {
-            System.out.println(e.toString());
+            System.out.println(e.toString()+"Catch do cadastrar =/");
         }
         
 
