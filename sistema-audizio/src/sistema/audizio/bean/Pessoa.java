@@ -22,9 +22,6 @@ public class Pessoa {
         String email;
         String num;
         String cpf;
-        String nacionalidade;
-        String profisao;
-        String estado_civil;
         String cep;
         String estado;
         String whatsapp;
@@ -100,30 +97,6 @@ public class Pessoa {
 
     public void setCpf(String cpf) {
         this.cpf = cpf;
-    }
-
-    public String getNacionalidade() {
-        return nacionalidade;
-    }
-
-    public void setNacionalidade(String nacionalidade) {
-        this.nacionalidade = nacionalidade;
-    }
-
-    public String getProfisao() {
-        return profisao;
-    }
-
-    public void setProfisao(String profisao) {
-        this.profisao = profisao;
-    }
-
-    public String getEstado_civil() {
-        return estado_civil;
-    }
-
-    public void setEstado_civil(String estado_civil) {
-        this.estado_civil = estado_civil;
     }
 
     public String getCep() {

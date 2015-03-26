@@ -7,7 +7,6 @@
 package sistema.audizio.gui;
 
 import sistema.audizio.ultilitarios.RemoveMascara;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
@@ -565,8 +564,6 @@ public class CadastroProcesso extends javax.swing.JDialog {
                  veiculo.setAnoModelo(mask.removeMascara(tfAnoModelo.getText()));
                  veiculo.setCor(tfCor.getText());
                  veiculo.setPlaca(tfPlaca.getText());
-                 veiculo.setChassi(tfChassi.getText());
-                 veiculo.setRenavam(tfRenavam.getText());
                  veiculo.setEstado(String.valueOf(comoEstado.getSelectedItem()));
                  
 

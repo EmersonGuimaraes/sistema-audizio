@@ -13,11 +13,9 @@ import javax.swing.JOptionPane;
 import sistema.audizio.bean.Bairro;
 import sistema.audizio.bean.Cidade;
 import sistema.audizio.bean.Cliente;
-import sistema.audizio.bean.Processo;
 import sistema.audizio.dao.DaoBairro;
 import sistema.audizio.dao.DaoCidade;
 import sistema.audizio.dao.DaoCliente;
-import sistema.audizio.dao.DaoProcesso;
 
 /**
  *
@@ -52,9 +50,6 @@ public class EditarCliente extends javax.swing.JDialog {
             tfNome.setText(cli.getNome());
             tfDataNasci.setText(cli.getNascimento());
             tfCpf.setText(cli.getCpf());
-            tfNacionalidade.setText(cli.getNacionalidade());
-            tfProfissao.setText(cli.getProfisao());
-            tfEstadoCivil.setText(cli.getEstado_civil());
             tfCep.setText(cli.getCep());
             tfEndereco.setText(cli.getEndereco());
             tfTelefone.setText(cli.getFone());
@@ -567,9 +562,6 @@ public class EditarCliente extends javax.swing.JDialog {
             cliente.setNome(tfNome.getText());
             cliente.setNascimento(mask.removeMascara(tfDataNasci.getText()));
             cliente.setCpf(mask.removeMascara(tfCpf.getText()));
-            cliente.setNacionalidade(tfNacionalidade.getText());
-            cliente.setProfisao(tfProfissao.getText());
-            cliente.setEstado_civil(tfEstadoCivil.getText());
             cliente.setCep(mask.removeMascara(tfCep.getText()));
             cliente.setEndereco(tfEndereco.getText());
             cliente.setEstado(tfEstado.getText());

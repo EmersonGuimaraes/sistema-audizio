@@ -16,10 +16,8 @@ public class Veiculo {
     String ano_modelo;
     String cor;
     String modelo;
-    String chassi;
     String placa;
     String marca;
-    String renavam;
     String estado;
     String id;
     int id_processo;
@@ -32,13 +30,6 @@ public class Veiculo {
         return id_processo;
     }
     
-    public String getRenavam() {
-        return renavam;
-    }
-
-    public void setRenavam(String renavam) {
-        this.renavam = renavam;
-    }
     
     public String getAnoFabricacao() {
         return ano_fabricacao;
@@ -70,14 +61,7 @@ public class Veiculo {
         this.modelo = modelo;
     }
 
-    public String getChassi() {
-        return chassi;
-    }
-
-    public void setChassi(String chassi) {
-        this.chassi = chassi;
-    }
-
+ 
     public String getPlaca() {
         return placa;
     }

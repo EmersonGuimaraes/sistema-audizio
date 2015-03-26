@@ -185,7 +185,7 @@ public class Cadastro extends javax.swing.JDialog {
         ArrayList<Cidade> cidades = new ArrayList<>();
         DaoCidade daoCid = new DaoCidade();
         
-        comboModelCidadeAssesoria = (DefaultComboBoxModel) comboCidadeAssessoria.getModel();
+//        comboModelCidadeAssesoria = (DefaultComboBoxModel) tfCidade.getModel();
         cidades = daoCid.consultar("");
         
         comboModelCidadeAssesoria.removeAllElements();
@@ -235,14 +235,16 @@ public class Cadastro extends javax.swing.JDialog {
          }
      }
      
-     private void carregaBairrosAssesoria(String idCli){
-         if(comboCidadeAssessoria.getSelectedItem().toString().equals("Selecionar....")){
+     //Metodo usado para preencher o combo Bairro que foi substituido por textfield
+     
+     /*private void carregaBairrosAssesoria(String idCli){
+         if(tfCidade.getSelectedItem().toString().equals("Selecionar....")){
              System.out.println("Nenhuma cidade selecionada");
          }else{
             
-                String cod = String.valueOf(comboCidadeAssessoria.getSelectedIndex());
+                String cod = String.valueOf(tfCidade.getSelectedIndex());
                 
-               comboModelBairroAssesoria = (DefaultComboBoxModel) comboBairroAssessoria.getModel();
+               comboModelBairroAssesoria = (DefaultComboBoxModel) tfBairro.getModel();
               
                comboModelBairroAssesoria.removeAllElements();
               
@@ -271,7 +273,7 @@ public class Cadastro extends javax.swing.JDialog {
                         }
                 }
          }
-     }
+     }*/
        
     public void mascararValores(){
         
@@ -321,9 +323,6 @@ public class Cadastro extends javax.swing.JDialog {
         tfNome.setEditable(condicao);
         tfDataNasci.setEditable(condicao);
         tfCpf.setEditable(condicao);
-        tfNacionalidade.setEditable(condicao);
-        tfProfissao.setEditable(condicao);
-        tfEstadoCivil.setEditable(condicao);
         tfCep.setEditable(condicao);
         comboCidade.setEnabled(condicao);
         comboBairro.setEnabled(condicao);
@@ -352,10 +351,8 @@ public class Cadastro extends javax.swing.JDialog {
     public void ativarCampoAssessoria(Boolean condicao){
         tfNomeAssessoria.setEditable(condicao);
         tfEnderecoAssessoria.setEditable(condicao);
-        comboBairroAssessoria.setEnabled(condicao);
-        comboCidadeAssessoria.setEnabled(condicao);
-        btNovaCidadeAssessoria.setEnabled(condicao);
-        btNovoBairroAssessoria.setEnabled(condicao);
+        tfBairro.setEnabled(condicao);
+        tfCidade.setEnabled(condicao);
         tfAdvogadoAssessoria.setEditable(condicao);
         tfTelefoneAssessoria.setEditable(condicao);
     }
@@ -441,9 +438,6 @@ public class Cadastro extends javax.swing.JDialog {
                                                     cli.setNome(tfNome.getText());
                                                     cli.setNascimento(rm.removeMascara(tfDataNasci.getText()));
                                                     cli.setCpf(rm.removeMascara(tfCpf.getText()));
-                                                    cli.setNacionalidade(tfNacionalidade.getText());
-                                                    cli.setProfisao(tfProfissao.getText());
-                                                    cli.setEstado_civil(tfEstadoCivil.getText());
                                                     cli.setCep(rm.removeMascara(tfCep.getText()));
                                                     cli.setEndereco(tfEndereco.getText());
                                                     cli.setNum(tfNumero.getText());
@@ -493,8 +487,8 @@ public class Cadastro extends javax.swing.JDialog {
                                                     codC2 = codA2+codB2;
                                                             System.out.println("Entrou no cadastrar acessoria");
                                                         assessoria.setNome(tfNomeAssessoria.getText());
-                                                        assessoria.setCidade(String.valueOf(String.valueOf(comboCidadeAssessoria.getSelectedIndex())));
-                                                        assessoria.setBairro(String.valueOf(comboBairroAssessoria.getSelectedIndex()));
+                                                        assessoria.setCidade(tfCidade.getText());
+                                                        assessoria.setBairro(tfBairro.getText());
                                                         assessoria.setEndereco(tfEnderecoAssessoria.getText());
                                                         assessoria.setId(idAssessoria);
                                                         assessoria.setNome_advogado(tfAdvogadoAssessoria.getText());
@@ -545,8 +539,6 @@ public class Cadastro extends javax.swing.JDialog {
                                                 v.setAnoModelo(tfAnoModelo.getText());
                                                 v.setModelo(tfAnoModelo.getText());
                                                 v.setPlaca(tfPlaca.getText());
-                                                v.setChassi(tfChassi.getText());
-                                                v.setRenavam(tfRenavam.getText());
                                                 v.setEstado(cbEstadoVeiculo.getSelectedItem().toString());
                                                 v.setId(idCliente);
                                            
@@ -647,16 +639,13 @@ public class Cadastro extends javax.swing.JDialog {
             tfEndereco.setText(null);
             tfEnderecoAssessoria.setText(null);
             tfEstado.setText(null);
-            tfEstadoCivil.setText(null);
             tfMarca.setText(null);
             tfModelo.setText(null);
-            tfNacionalidade.setText(null);
             tfNome.setText(null);
             tfNomeAssessoria.setText(null);
             tfNumero.setText(null);
             tfPlaca.setText(null);
             tfProcesso.setText(null);
-            tfProfissao.setText(null);
             tfRenavam.setText(null);
             tfTelefone.setText(null);
             tfTelefoneAssessoria.setText(null);
@@ -744,9 +733,6 @@ public class Cadastro extends javax.swing.JDialog {
             tfNome.setText(cli.getNome());
             tfDataNasci.setText(cli.getNascimento());
             tfCpf.setText(cli.getCpf());
-            tfNacionalidade.setText(cli.getNacionalidade());
-            tfProfissao.setText(cli.getProfisao());
-            tfEstadoCivil.setText(cli.getEstado_civil());
             tfCep.setText(cli.getCep());
             tfEndereco.setText(cli.getEndereco());
             tfTelefone.setText(cli.getFone());
@@ -796,12 +782,9 @@ public class Cadastro extends javax.swing.JDialog {
             tfEnderecoAssessoria.setText(a.getEndereco());
             tfAdvogadoAssessoria.setText(a.getNome_advogado());
             tfTelefoneAssessoria.setText(a.getTelefone_assessoria());
-            idCid = Integer.parseInt(a.getCidade());
-            idBarr = Integer.parseInt(a.getBairro());
+            tfCidade.setText(a.getCidade());
+            tfBairro.setText(a.getBairro());
         }
-            comboCidadeAssessoria.setSelectedIndex(idCid);
-            carregaBairrosAssesoria(String.valueOf(String.valueOf(idCid)));
-            comboBairroAssessoria.setSelectedIndex(idBarr);
     }
      
     public void preencheFinanceiro(String id){
@@ -831,8 +814,6 @@ public class Cadastro extends javax.swing.JDialog {
             tfAnoFabricacao.setText(v.getAnoFabricacao());
             tfAnoModelo.setText(v.getAnoModelo());
             tfPlaca.setText(v.getPlaca());
-            tfChassi.setText(v.getChassi());
-            tfRenavam.setText(v.getRenavam());
             cbEstadoVeiculo.setSelectedItem(v.getEstado());
         }
     }
@@ -860,12 +841,6 @@ public class Cadastro extends javax.swing.JDialog {
         jLabel1 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         tfCpf = new javax.swing.JFormattedTextField();
-        tfNacionalidade = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
-        tfProfissao = new javax.swing.JTextField();
-        jLabel7 = new javax.swing.JLabel();
-        tfEstadoCivil = new javax.swing.JTextField();
-        jLabel8 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         comboCidade = new javax.swing.JComboBox();
         jLabel12 = new javax.swing.JLabel();
@@ -916,15 +891,12 @@ public class Cadastro extends javax.swing.JDialog {
         jLabel22 = new javax.swing.JLabel();
         lbBairro1 = new javax.swing.JLabel();
         boxUsarAssessoria = new javax.swing.JCheckBox();
-        comboCidadeAssessoria = new javax.swing.JComboBox();
-        btNovaCidadeAssessoria = new javax.swing.JButton();
-        comboBairroAssessoria = new javax.swing.JComboBox();
-        btNovoBairroAssessoria = new javax.swing.JButton();
         tfTelefoneAssessoria = new javax.swing.JFormattedTextField();
         jLabel40 = new javax.swing.JLabel();
         tfAdvogadoAssessoria = new javax.swing.JTextField();
         jLabel41 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        tfCidade = new javax.swing.JTextField();
+        tfBairro = new javax.swing.JTextField();
         painelFinanceiro = new javax.swing.JPanel();
         jLabel18 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
@@ -1121,15 +1093,6 @@ public class Cadastro extends javax.swing.JDialog {
             ex.printStackTrace();
         }
 
-        jLabel6.setFont(new java.awt.Font("Ubuntu", 1, 12)); // NOI18N
-        jLabel6.setText("NACIONALIDADE");
-
-        jLabel7.setFont(new java.awt.Font("Ubuntu", 1, 12)); // NOI18N
-        jLabel7.setText("PROFISSÃO");
-
-        jLabel8.setFont(new java.awt.Font("Ubuntu", 1, 12)); // NOI18N
-        jLabel8.setText("ESTA. CIVIL");
-
         jLabel10.setFont(new java.awt.Font("Ubuntu", 1, 12)); // NOI18N
         jLabel10.setText("UF");
 
@@ -1301,138 +1264,105 @@ public class Cadastro extends javax.swing.JDialog {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(painelClienteLayout.createSequentialGroup()
                         .addGroup(painelClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lbTelefone)
-                            .addComponent(tfTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(painelClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(painelClienteLayout.createSequentialGroup()
-                                .addComponent(tfCelular, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(painelClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lbTelefone)
+                                    .addComponent(tfTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cWhats))
-                            .addComponent(lbCelular))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(painelClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tfWhats, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lbCelular1))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(painelClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(painelClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(painelClienteLayout.createSequentialGroup()
+                                        .addComponent(tfCelular, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(cWhats))
+                                    .addComponent(lbCelular))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(painelClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(tfWhats, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lbCelular1))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(painelClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(painelClienteLayout.createSequentialGroup()
+                                        .addComponent(jLabel11)
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addComponent(tfEmail)))
                             .addGroup(painelClienteLayout.createSequentialGroup()
-                                .addComponent(jLabel11)
+                                .addGroup(painelClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(painelClienteLayout.createSequentialGroup()
+                                        .addComponent(jLabel12)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(comboCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btNovaCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(painelClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lbBairro)
+                                    .addComponent(comboBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btNovoBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(painelClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(tfEstado)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelClienteLayout.createSequentialGroup()
+                                        .addGap(0, 0, Short.MAX_VALUE)
+                                        .addComponent(jLabel10)
+                                        .addGap(19, 19, 19))))
+                            .addGroup(painelClienteLayout.createSequentialGroup()
+                                .addGroup(painelClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(tfEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, 359, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lbEndereco))
+                                .addGap(42, 42, 42)
+                                .addGroup(painelClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(tfNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lbNuemro))
                                 .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(tfEmail)))
-                    .addGroup(painelClienteLayout.createSequentialGroup()
-                        .addGroup(painelClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(painelClienteLayout.createSequentialGroup()
-                                .addComponent(jLabel12)
+                                .addGroup(painelClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(painelClienteLayout.createSequentialGroup()
+                                        .addGroup(painelClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(tfCpf, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGroup(painelClienteLayout.createSequentialGroup()
+                                                .addGap(5, 5, 5)
+                                                .addComponent(jLabel5)
+                                                .addGap(1, 1, 1)))
+                                        .addGap(42, 42, 42)
+                                        .addGroup(painelClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel9)
+                                            .addComponent(tfCep, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, 403, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lbNome))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(comboCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btNovaCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(painelClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lbBairro)
-                            .addComponent(comboBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btNovoBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(painelClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tfEstado)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelClienteLayout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(jLabel10)
-                                .addGap(19, 19, 19))))
-                    .addGroup(painelClienteLayout.createSequentialGroup()
-                        .addGroup(painelClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lbNome)
-                            .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, 403, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(painelClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(tfDataNasci)))
-                    .addGroup(painelClienteLayout.createSequentialGroup()
-                        .addGroup(painelClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tfCpf, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(painelClienteLayout.createSequentialGroup()
-                                .addGap(5, 5, 5)
-                                .addComponent(jLabel5)
-                                .addGap(1, 1, 1)))
-                        .addGap(18, 18, 18)
-                        .addGroup(painelClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tfNacionalidade, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel6))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(painelClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel7)
-                            .addComponent(tfProfissao, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(painelClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tfEstadoCivil, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel8)))
-                    .addGroup(painelClienteLayout.createSequentialGroup()
-                        .addGroup(painelClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(painelClienteLayout.createSequentialGroup()
-                                .addGap(4, 4, 4)
-                                .addComponent(lbEndereco)
-                                .addGap(307, 307, 307))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelClienteLayout.createSequentialGroup()
-                                .addComponent(tfEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, 359, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)))
-                        .addGroup(painelClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lbNuemro)
-                            .addComponent(tfNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(painelClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel9)
-                            .addComponent(tfCep, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(93, 93, 93))
+                                .addGroup(painelClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1)
+                                    .addComponent(tfDataNasci))))
+                        .addGap(93, 93, 93))))
         );
         painelClienteLayout.setVerticalGroup(
             painelClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelClienteLayout.createSequentialGroup()
-                .addGroup(painelClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(painelClienteLayout.createSequentialGroup()
-                        .addComponent(jLabel8)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tfEstadoCivil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(painelClienteLayout.createSequentialGroup()
-                        .addGroup(painelClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(painelClienteLayout.createSequentialGroup()
-                                .addComponent(lbNome)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(painelClienteLayout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tfDataNasci, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(painelClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(painelClienteLayout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tfCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(painelClienteLayout.createSequentialGroup()
-                                .addGroup(painelClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel6)
-                                    .addComponent(jLabel7))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(painelClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(tfNacionalidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(tfProfissao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(painelClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(painelClienteLayout.createSequentialGroup()
-                        .addComponent(lbEndereco)
-                        .addGap(33, 33, 33))
-                    .addGroup(painelClienteLayout.createSequentialGroup()
-                        .addGroup(painelClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lbNuemro)
-                            .addComponent(jLabel9))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(painelClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(tfNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tfCep, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tfEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGroup(painelClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(lbNome))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(painelClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tfDataNasci, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(painelClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(painelClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tfCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfCep, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(painelClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbNuemro)
+                    .addComponent(lbEndereco))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(painelClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tfNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(painelClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(painelClienteLayout.createSequentialGroup()
                         .addGroup(painelClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -1465,9 +1395,9 @@ public class Cadastro extends javax.swing.JDialog {
                         .addComponent(tfEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(tfWhats, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(cWhats, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(boxUsarCliente)
-                .addContainerGap(44, Short.MAX_VALUE))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
 
         PainelAbas.addTab("CLIENTE", painelCliente);
@@ -1615,6 +1545,12 @@ public class Cadastro extends javax.swing.JDialog {
         jLabel17.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
         jLabel17.setText("ENDEREÇO");
 
+        tfNomeAssessoria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfNomeAssessoriaActionPerformed(evt);
+            }
+        });
+
         jLabel21.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
         jLabel21.setText("NOME");
 
@@ -1632,47 +1568,6 @@ public class Cadastro extends javax.swing.JDialog {
             }
         });
 
-        comboCidadeAssessoria.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecionar...." }));
-        comboCidadeAssessoria.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                comboCidadeAssessoriaMouseExited(evt);
-            }
-        });
-        comboCidadeAssessoria.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboCidadeAssessoriaActionPerformed(evt);
-            }
-        });
-
-        btNovaCidadeAssessoria.setText("+");
-        btNovaCidadeAssessoria.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btNovaCidadeAssessoriaActionPerformed(evt);
-            }
-        });
-
-        comboBairroAssessoria.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecionar...." }));
-        comboBairroAssessoria.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                comboBairroAssessoriaMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                comboBairroAssessoriaMouseEntered(evt);
-            }
-        });
-        comboBairroAssessoria.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboBairroAssessoriaActionPerformed(evt);
-            }
-        });
-
-        btNovoBairroAssessoria.setText("+");
-        btNovoBairroAssessoria.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btNovoBairroAssessoriaActionPerformed(evt);
-            }
-        });
-
         try {
             tfTelefoneAssessoria.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)####-####")));
         } catch (java.text.ParseException ex) {
@@ -1685,10 +1580,9 @@ public class Cadastro extends javax.swing.JDialog {
         jLabel41.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
         jLabel41.setText("ADVOGADO");
 
-        jButton1.setText("...");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        tfCidade.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                tfCidadeActionPerformed(evt);
             }
         });
 
@@ -1698,40 +1592,31 @@ public class Cadastro extends javax.swing.JDialog {
             painelAssessoriaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelAssessoriaLayout.createSequentialGroup()
                 .addGap(39, 39, 39)
-                .addGroup(painelAssessoriaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(painelAssessoriaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(painelAssessoriaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(painelAssessoriaLayout.createSequentialGroup()
+                            .addGroup(painelAssessoriaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel41)
+                                .addComponent(tfAdvogadoAssessoria, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(painelAssessoriaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(tfTelefoneAssessoria, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel40)))
+                        .addComponent(jLabel17)
+                        .addGroup(painelAssessoriaLayout.createSequentialGroup()
+                            .addComponent(jLabel21)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(boxUsarAssessoria))
+                        .addComponent(tfNomeAssessoria)
+                        .addComponent(tfEnderecoAssessoria, javax.swing.GroupLayout.PREFERRED_SIZE, 516, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(painelAssessoriaLayout.createSequentialGroup()
                         .addGroup(painelAssessoriaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel41)
-                            .addComponent(tfAdvogadoAssessoria, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel22)
+                            .addComponent(tfCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(80, 80, 80)
                         .addGroup(painelAssessoriaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tfTelefoneAssessoria, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel40)))
-                    .addComponent(jLabel17)
-                    .addGroup(painelAssessoriaLayout.createSequentialGroup()
-                        .addComponent(jLabel21)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(boxUsarAssessoria))
-                    .addComponent(tfNomeAssessoria)
-                    .addComponent(tfEnderecoAssessoria, javax.swing.GroupLayout.PREFERRED_SIZE, 516, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(painelAssessoriaLayout.createSequentialGroup()
-                        .addGroup(painelAssessoriaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, painelAssessoriaLayout.createSequentialGroup()
-                                .addComponent(jLabel22)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(comboCidadeAssessoria, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(painelAssessoriaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(painelAssessoriaLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btNovaCidadeAssessoria, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(comboBairroAssessoria, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btNovoBairroAssessoria, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelAssessoriaLayout.createSequentialGroup()
-                                .addGap(68, 68, 68)
-                                .addComponent(lbBairro1)))))
+                            .addComponent(lbBairro1)
+                            .addComponent(tfBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(56, Short.MAX_VALUE))
         );
         painelAssessoriaLayout.setVerticalGroup(
@@ -1744,18 +1629,14 @@ public class Cadastro extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tfNomeAssessoria, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(painelAssessoriaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(painelAssessoriaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(lbBairro1, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel22)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(painelAssessoriaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(comboBairroAssessoria, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btNovaCidadeAssessoria, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(comboCidadeAssessoria, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btNovoBairroAssessoria, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(painelAssessoriaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel22)
+                    .addComponent(lbBairro1, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(7, 7, 7)
+                .addGroup(painelAssessoriaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tfBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(17, 17, 17)
                 .addComponent(jLabel17)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tfEnderecoAssessoria, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1767,7 +1648,7 @@ public class Cadastro extends javax.swing.JDialog {
                 .addGroup(painelAssessoriaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tfAdvogadoAssessoria, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tfTelefoneAssessoria, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(40, 40, 40))
+                .addGap(60, 60, 60))
         );
 
         PainelAbas.addTab("ASSESSORIA", painelAssessoria);
@@ -2251,9 +2132,9 @@ public class Cadastro extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(painelMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(PainelAbas, javax.swing.GroupLayout.PREFERRED_SIZE, 616, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(14, 14, 14))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2292,8 +2173,8 @@ public class Cadastro extends javax.swing.JDialog {
         Object[] listaProcesso = {tfProcesso,tfDataInicio,tfDataFim,tfAcao,tfsituacaoatual,tfVara,tfComarca};
         Object[] listaVeiculo = {tfMarca,tfModelo,tfCor,tfPlaca,tfAnoModelo,tfAnoFabricacao,tfRenavam,tfChassi};
         
-        Object[] listaCb = {comboCidade,comboBairro,comboCidadeAssessoria,
-            comboBairroAssessoria,comboSituacaofinanceiro,comboSituacaoProcesso};
+        Object[] listaCb = {comboCidade,comboBairro,tfCidade,
+            tfBairro,comboSituacaofinanceiro,comboSituacaoProcesso};
         
         btsalvar(listaCliente,listaProcesso,listaAcess,listaFinanceiro,listaVeiculo);
         
@@ -2320,8 +2201,8 @@ public class Cadastro extends javax.swing.JDialog {
         Object[] listaProcesso = {tfProcesso,tfDataInicio,tfDataFim,tfAcao,tfsituacaoatual,tfVara,tfComarca};
         Object[] listaVeiculo = {tfMarca,tfModelo,tfCor,tfPlaca,tfAnoModelo,tfAnoFabricacao,tfRenavam,tfChassi};
         
-        Object[] listaCb = {comboCidade,comboBairro,comboCidadeAssessoria,
-            comboBairroAssessoria,comboSituacaofinanceiro,comboSituacaoProcesso};
+        Object[] listaCb = {comboCidade,comboBairro,tfCidade,
+            tfBairro,comboSituacaofinanceiro,comboSituacaoProcesso};
         
         btsalvar(listaCliente,listaProcesso,listaAcess,listaFinanceiro,listaVeiculo);
         
@@ -2485,79 +2366,6 @@ public class Cadastro extends javax.swing.JDialog {
 
     }//GEN-LAST:event_tfValorKeyReleased
 
-    private void btNovoBairroAssessoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoBairroAssessoriaActionPerformed
-        String item = String.valueOf(comboModelCidadeAssesoria.getSelectedItem());
-        if(item == "Selecionar...."){
-            JOptionPane.showMessageDialog(null, "SELECIONE UMA CIDADE!");
-        } else {
-            String b = "B";
-            int cod = comboCidadeAssessoria.getSelectedIndex();
-            new CadastroBairroCidade(b, "BAIRRO", item, cod).show();
-            carregaBairrosCliente("");
-            carregaBairrosAssesoria("");
-
-        }
-    }//GEN-LAST:event_btNovoBairroAssessoriaActionPerformed
-
-    private void comboBairroAssessoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBairroAssessoriaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_comboBairroAssessoriaActionPerformed
-
-    private void comboBairroAssessoriaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_comboBairroAssessoriaMouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_comboBairroAssessoriaMouseEntered
-
-    private void comboBairroAssessoriaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_comboBairroAssessoriaMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_comboBairroAssessoriaMouseClicked
-
-    private void btNovaCidadeAssessoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovaCidadeAssessoriaActionPerformed
-        String c = "C";
-        new CadastroBairroCidade(c, "CIDADE", null, 0).setVisible(true);
-        carregaCidadesAssessoria();
-    }//GEN-LAST:event_btNovaCidadeAssessoriaActionPerformed
-
-    private void comboCidadeAssessoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboCidadeAssessoriaActionPerformed
-        String item = String.valueOf(comboModelCidadeAssesoria.getSelectedItem());
-
-        if(item.equals("Selecionar....") || item == "null"){
-
-            if(listaCheia == true){
-                comboModelBairroAssesoria.removeAllElements();
-                comboModelBairroAssesoria.addElement("Selecionar....");
-            }
-            comboBairroAssessoria.setSelectedIndex(0);
-        }else{
-
-            carregaBairrosAssesoria("");
-            listaCheia = true;
-        }
-    }//GEN-LAST:event_comboCidadeAssessoriaActionPerformed
-
-    private void comboCidadeAssessoriaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_comboCidadeAssessoriaMouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_comboCidadeAssessoriaMouseExited
-
-    private void boxUsarAssessoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boxUsarAssessoriaActionPerformed
-        if(boxUsarAssessoria.isSelected()){
-            boxAssessoria = true;
-            //new ListaClientes().setVisible(true);
-            ListaAssessoria lista = new ListaAssessoria();
-
-            lista.setVisible(true);
-            if(lista.isConcluido()){
-                codigoAssessoria = lista.ConsultaCodigo();
-                preencheAssessoria(codigoAssessoria);
-                ativarCampoAssessoria(false);
-
-            }else{
-                boxUsarAssessoria.setSelected(false);
-            }
-        }else{
-            boxAssessoria = false;
-        }
-    }//GEN-LAST:event_boxUsarAssessoriaActionPerformed
-
     private void tfDataInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfDataInicioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tfDataInicioActionPerformed
@@ -2634,7 +2442,7 @@ public class Cadastro extends javax.swing.JDialog {
             int cod = comboCidade.getSelectedIndex();
             new CadastroBairroCidade(b, "BAIRRO", item, cod).show();
             carregaBairrosCliente("");
-            carregaBairrosAssesoria("");
+          //  carregaBairrosAssesoria("");
 
         }
     }//GEN-LAST:event_btNovoBairroActionPerformed
@@ -2688,10 +2496,6 @@ public class Cadastro extends javax.swing.JDialog {
 
     }//GEN-LAST:event_tfNomeKeyReleased
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        carregaCidadesAssessoria();
-    }//GEN-LAST:event_jButton1ActionPerformed
-
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
        carregaCidadesCliente();
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -2732,8 +2536,36 @@ public class Cadastro extends javax.swing.JDialog {
     }//GEN-LAST:event_painelClienteMouseClicked
 
     private void painelAssessoriaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_painelAssessoriaMouseClicked
-       
+
     }//GEN-LAST:event_painelAssessoriaMouseClicked
+
+    private void tfCidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfCidadeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfCidadeActionPerformed
+
+    private void boxUsarAssessoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boxUsarAssessoriaActionPerformed
+        if(boxUsarAssessoria.isSelected()){
+            boxAssessoria = true;
+            //new ListaClientes().setVisible(true);
+            ListaAssessoria lista = new ListaAssessoria();
+
+            lista.setVisible(true);
+            if(lista.isConcluido()){
+                codigoAssessoria = lista.ConsultaCodigo();
+                preencheAssessoria(codigoAssessoria);
+                ativarCampoAssessoria(false);
+
+            }else{
+                boxUsarAssessoria.setSelected(false);
+            }
+        }else{
+            boxAssessoria = false;
+        }
+    }//GEN-LAST:event_boxUsarAssessoriaActionPerformed
+
+    private void tfNomeAssessoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfNomeAssessoriaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfNomeAssessoriaActionPerformed
      
     /**
      * @param args the command line arguments
@@ -2781,10 +2613,8 @@ public class Cadastro extends javax.swing.JDialog {
     private javax.swing.JButton btExcluir;
     private javax.swing.JButton btImprimir;
     private javax.swing.JButton btNovaCidade;
-    private javax.swing.JButton btNovaCidadeAssessoria;
     private javax.swing.JButton btNovo;
     private javax.swing.JButton btNovoBairro;
-    private javax.swing.JButton btNovoBairroAssessoria;
     private javax.swing.JButton btSalvar;
     private javax.swing.JButton btSelecionarArquivo;
     private javax.swing.JButton btSelecionarArquivo1;
@@ -2795,12 +2625,9 @@ public class Cadastro extends javax.swing.JDialog {
     private javax.swing.JCheckBox cWhats;
     private javax.swing.JComboBox cbEstadoVeiculo;
     private javax.swing.JComboBox comboBairro;
-    private javax.swing.JComboBox comboBairroAssessoria;
     private javax.swing.JComboBox comboCidade;
-    private javax.swing.JComboBox comboCidadeAssessoria;
     private javax.swing.JComboBox comboSituacaoProcesso;
     private javax.swing.JComboBox comboSituacaofinanceiro;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
@@ -2837,9 +2664,6 @@ public class Cadastro extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel40;
     private javax.swing.JLabel jLabel41;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
@@ -2865,9 +2689,11 @@ public class Cadastro extends javax.swing.JDialog {
     private javax.swing.JTextField tfAdvogadoAssessoria;
     private javax.swing.JFormattedTextField tfAnoFabricacao;
     private javax.swing.JFormattedTextField tfAnoModelo;
+    private javax.swing.JTextField tfBairro;
     private javax.swing.JFormattedTextField tfCelular;
     private javax.swing.JFormattedTextField tfCep;
     private javax.swing.JTextField tfChassi;
+    private javax.swing.JTextField tfCidade;
     private javax.swing.JTextField tfComarca;
     private javax.swing.JTextField tfCor;
     private javax.swing.JFormattedTextField tfCpf;
@@ -2881,10 +2707,8 @@ public class Cadastro extends javax.swing.JDialog {
     private javax.swing.JTextField tfEndereco;
     private javax.swing.JTextField tfEnderecoAssessoria;
     private javax.swing.JFormattedTextField tfEstado;
-    private javax.swing.JTextField tfEstadoCivil;
     private javax.swing.JTextField tfMarca;
     private javax.swing.JTextField tfModelo;
-    private javax.swing.JTextField tfNacionalidade;
     private javax.swing.JTextField tfNome;
     private javax.swing.JTextField tfNomeArquivo;
     private javax.swing.JTextField tfNomeArquivo1;
@@ -2895,7 +2719,6 @@ public class Cadastro extends javax.swing.JDialog {
     private javax.swing.JTextField tfNumero;
     private javax.swing.JTextField tfPlaca;
     private javax.swing.JTextField tfProcesso;
-    private javax.swing.JTextField tfProfissao;
     private javax.swing.JTextField tfRenavam;
     private javax.swing.JFormattedTextField tfTelefone;
     private javax.swing.JFormattedTextField tfTelefoneAssessoria;

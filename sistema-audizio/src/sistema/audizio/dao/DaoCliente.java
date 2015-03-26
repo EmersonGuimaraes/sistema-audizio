@@ -16,9 +16,8 @@ public class DaoCliente extends Conexao{
     String sql;
     
     public void Cadastrar(Cliente cliente){
-        sql = "INSERT INTO tb_cliente VALUES(null,'"+cliente.getNome()+"','"+cliente.getNascimento()+"',"
-                + "'"+cliente.getCpf()+"','"+cliente.getNacionalidade()+"','"+cliente.getProfisao()+"',"
-                + "'"+cliente.getEstado_civil()+"','"+cliente.getCep()+"','"+cliente.getEndereco()+"',"
+        sql = "INSERT INTO tb_cliente VALUES(null,'"+cliente.getNome()+"',"
+                + "'"+cliente.getCpf()+"','"+cliente.getCep()+"','"+cliente.getEndereco()+"',"
                 + "'"+cliente.getNum()+"','"+cliente.getEstado()+"','"+cliente.getCidade()+"','"+cliente.getBairro()+"',"
                 + "'"+cliente.getFone()+"','"+cliente.getCelular()+"','"+cliente.getEmail()+"','"+cliente.getWhatsapp()+"','"+cliente.getCod()+"')";
 
@@ -28,10 +27,8 @@ public class DaoCliente extends Conexao{
     
     public void Editar(Cliente cliente){
         System.out.println("ID CLIENTE UPDATE = "+cliente.getIdCliente());
-      sql = "UPDATE tb_cliente SET nome='"+cliente.getNome()+"',nascimento='"+cliente.getNascimento()+"',"
-              + "cpf='"+cliente.getCpf()+"',"
-              + "nacionalidade='"+cliente.getNacionalidade()+"',profissao='"+cliente.getProfisao()+"',"
-              + "estado_civil='"+cliente.getEstado_civil()+"',cep='"+cliente.getCep()+"',"
+      sql = "UPDATE tb_cliente SET nome='"+cliente.getNome()+"',"
+              + "cpf='"+cliente.getCpf()+"',cep='"+cliente.getCep()+"',"
               + "endereco='"+cliente.getEndereco()+"',numero='"+cliente.getNum()+"',estado='"+cliente.getEstado()+"',"
               + "cidade='"+cliente.getCidade()+"',bairro='"+cliente.getBairro()+"',telefone='"+cliente.getFone()+"',"
               + "celular='"+cliente.getCelular()+"',email='"+cliente.getEmail()+"',whatsapp='"+cliente.getWhatsapp()+"' WHERE cod = '"+cliente.getIdCliente()+"'";
@@ -68,11 +65,7 @@ public class DaoCliente extends Conexao{
                     Cliente cliente = new Cliente();
                     cliente.setIdCliente(rs.getString("id"));
                     cliente.setNome(rs.getString("nome"));
-                    cliente.setNascimento(rs.getString("nascimento"));
                     cliente.setCpf(rs.getString("cpf"));
-                    cliente.setNacionalidade(rs.getString("nacionalidade"));
-                    cliente.setProfisao(rs.getString("profissao"));
-                    cliente.setEstado_civil(rs.getString("estado_civil"));
                     cliente.setCep(rs.getString("cep"));
                     cliente.setEndereco(rs.getString("endereco"));
                     cliente.setCidade(rs.getString("cidade"));
@@ -125,11 +118,7 @@ public class DaoCliente extends Conexao{
                 Cliente cliente = new Cliente();
                 cliente.setIdCliente(rs.getString("id"));
                 cliente.setNome(rs.getString("nome"));
-                cliente.setNascimento(rs.getString("nascimento"));
                 cliente.setCpf(rs.getString("cpf"));
-                cliente.setNacionalidade(rs.getString("nacionalidade"));
-                cliente.setProfisao(rs.getString("profissao"));
-                cliente.setEstado_civil(rs.getString("estado_civil"));
                 cliente.setCep(rs.getString("cep"));
                 cliente.setEndereco(rs.getString("endereco"));
                 cliente.setCidade(rs.getString("cidade"));
