@@ -2331,7 +2331,7 @@ public class Cadastro extends javax.swing.JDialog {
                 try {
                     System.out.println("Cli 0 ->"+cli.get(0)+" veiculo 0 ->"+veiculo.get(0)+" Cidades 0 ->"+cidades.get(0)+" Bairro 0 ->"+bairros.get(0)+" Ass 0 ->"+assesoria.get(0));
                        relatorio.gerar(cli.get(0), procesos.get(0), veiculo.get(0), cidades.get(0),bairros.get(0),assesoria.get(0));
-                } catch (DocumentException | FileNotFoundException ex) {
+                } catch (DocumentException ex) {
                     Logger.getLogger(Cadastro.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 
